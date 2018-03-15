@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="饿了么," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="盒子模型 关于CSS重要的一个概念就是CSS盒子模型。它控制着页面这些元素的高度和宽度。盒子模型多少会让人产生一些困惑，尤其当涉及到高度和宽度计算的时候。真正盒子的宽度(在页面呈现出来的宽度)和高度，需要加上一些其它的属性，例如：  - padding + border + width= 盒子的宽度   - padding+ border + height = 盒子的高度  这看起来并不是那么直观">
+<meta name="keywords" content="饿了么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学会使用box-sizing布局">
+<meta property="og:url" content="http://super-wei.xyz/2017/09/09/学会使用box-sizing布局/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="盒子模型 关于CSS重要的一个概念就是CSS盒子模型。它控制着页面这些元素的高度和宽度。盒子模型多少会让人产生一些困惑，尤其当涉及到高度和宽度计算的时候。真正盒子的宽度(在页面呈现出来的宽度)和高度，需要加上一些其它的属性，例如：  - padding + border + width= 盒子的宽度   - padding+ border + height = 盒子的高度  这看起来并不是那么直观">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/1480597-fa20b7741a01637b.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/1480597-fa20b7741a01637b.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/1480597-707e492f1498ffd6.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/1480597-0d0c50a7d16e7164.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/1480597-fc7077a82856048c.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/1480597-446074af9d0ce792.png">
+<meta property="og:updated_time" content="2017-09-09T10:06:15.557Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学会使用box-sizing布局">
+<meta name="twitter:description" content="盒子模型 关于CSS重要的一个概念就是CSS盒子模型。它控制着页面这些元素的高度和宽度。盒子模型多少会让人产生一些困惑，尤其当涉及到高度和宽度计算的时候。真正盒子的宽度(在页面呈现出来的宽度)和高度，需要加上一些其它的属性，例如：  - padding + border + width= 盒子的宽度   - padding+ border + height = 盒子的高度  这看起来并不是那么直观">
+<meta name="twitter:image" content="http://oncweb6po.bkt.clouddn.com/1480597-fa20b7741a01637b.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/09/09/学会使用box-sizing布局/"/>
+
+
+
+
+
+  <title>学会使用box-sizing布局 | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/学会使用box-sizing布局/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">学会使用box-sizing布局</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:56:26+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h2><ul>
+<li>关于CSS重要的一个概念就是CSS盒子模型。它控制着页面这些元素的高度和宽度。盒子模型多少会让人产生一些困惑，尤其当涉及到高度和宽度计算的时候。真正盒子的宽度(在页面呈现出来的宽度)和高度，需要加上一些其它的属性，例如：</li>
+</ul>
+<pre><code>- padding + border + width= 盒子的宽度
+
+
+- padding+ border + height = 盒子的高度
+</code></pre><ul>
+<li>这看起来并不是那么直观，那么我们看一个图：</li>
+</ul>
+<p><img src="http://oncweb6po.bkt.clouddn.com/1480597-fa20b7741a01637b.png" alt=""></p>
+<ul>
+<li>这意味着，如果我们设置一个宽度为200px，而实际呈现的盒子的宽度可能会大于200px(除非没有左右边框和左右补白)。这可能看起来比较怪，CSS设置的宽度仅仅是内容区的宽度，而非盒子的宽度。同样，高度类似</li>
+</ul>
+<ul>
+<li>这导致的直接结果是当我们希望页面呈现的盒子的宽度是200px的时候，我们需要减去它的左右边框和左右补白，然后设置为对应的CSS宽度。例如上图，我们设置希望盒子宽度为200px，则需要先减去左右补白各20px，左右边框各1px，然后设置对应的CSS宽度158px。</li>
+</ul>
+<ul>
+<li>幸运的是，我们有更好的方法达到我们想要的目的</li>
+</ul>
+<h2 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h2><ul>
+<li><p>语法：box-sizing:  content-box | border-box | inherit;</p>
+</li>
+<li><p>与上面不同的是，当你设置box-sizing:border-box以后，这就能达到你想要的目的。例如，上面我们想要一个宽度为200px的盒子，那么我们直接设置宽度为200px。是不是看起来清晰多了。当再设置它的左右边框和左右补白后，它的内容区会自动调整。这可能更直接和一目了然。CSS代码如下：</p>
+<pre><code>div {
+    box-sizing: border-box;
+    width: 200px;
+    padding: 20px;
+    border: 1px solid #DDD;
+}
+</code></pre></li>
+</ul>
+<p><img src="http://oncweb6po.bkt.clouddn.com/1480597-fa20b7741a01637b.png" alt=""></p>
+<ul>
+<li>实际上，这更被设计者和开发者推崇</li>
+</ul>
+<ul>
+<li>一些开发人员觉得box-sizing使用起来十分方便,所以他们主张通过通用选择器将这个属性应用于每个元素</li>
+</ul>
+<ul>
+<li><p>但这样的观点未免有些偏激,而且还会导致不必要的困难,所以更好的方法是只在实际需要时才使用这个属性</p>
+<pre><code>*{
+     margin:0;
+      padding:0;
+     box-sizing:border-box;
+}
+</code></pre></li>
+</ul>
+<ul>
+<li></li>
+<li>写上 box-sizing: border-box; ，设置padding值 也不用担心没有减小宽度值而变形</li>
+</ul>
+<h2 id="box-sizing其它的值"><a href="#box-sizing其它的值" class="headerlink" title="box-sizing其它的值"></a>box-sizing其它的值</h2><ul>
+<li>content-box</li>
+</ul>
+<pre><code>- 描述：在宽度和高度之外绘制元素的内边距和边框。
+</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/1480597-707e492f1498ffd6.png" alt=""></p>
+<ul>
+<li>border-box</li>
+</ul>
+<pre><code>- 描述：为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制
+</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/1480597-0d0c50a7d16e7164.png" alt=""></p>
+<ul>
+<li>inherit</li>
+</ul>
+<pre><code>- 描述：继承 父元素 box-sizing属性的值
+</code></pre><h2 id="浏览器兼容性"><a href="#浏览器兼容性" class="headerlink" title="浏览器兼容性"></a>浏览器兼容性</h2><ul>
+<li><p>IE8及以上版本支持该属性，Firefox 需要加上浏览器厂商前缀-moz-，对于低版本的IOS和Android浏览器也需要加上-webkit-。实际上，很多reset.css或者normal.css里都包含如下CSS语句，也是比较赞成的用法：</p>
+<pre><code>*, *:before, *:after {
+　　-moz-box-sizing: border-box;
+　　-webkit-box-sizing: border-box;
+　　box-sizing: border-box;
+　　}
+</code></pre></li>
+</ul>
+<h2 id="box-sizing-布局三栏目案例"><a href="#box-sizing-布局三栏目案例" class="headerlink" title="box-sizing 布局三栏目案例"></a>box-sizing 布局三栏目案例</h2><pre><code>div{
+        height:700px;
+        float:left;
+}
+div.left{
+        width:25%;
+        background:red;
+}
+div.cent{
+        width:50%;
+        box-sizing:border-box;/*可以改变元素以使其宽度包含填充*/
+                /* 现在整个元素,包括填充在内,占页面总宽度的50%,所以元素的组合宽度为100%,这全程它们很好地适应于它们的容器.*/
+        background:yellow;
+        padding:0 20px;/*加了这个会使盒子内容溢出 但是box-sizing很好的自适应了*/
+}
+div.right{
+       width:25%;
+        background:blue;
+}
+&lt;div class=&quot;left&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;cent&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;right&quot;&gt;&lt;/div&gt;
+</code></pre><ul>
+<li>效果</li>
+</ul>
+<p><img src="http://oncweb6po.bkt.clouddn.com/1480597-fc7077a82856048c.png" alt=""></p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/1480597-446074af9d0ce792.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/饿了么/" rel="tag"># 饿了么</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/09/ratingselect组件/" rel="next" title="ratingselect组件">
+                <i class="fa fa-chevron-left"></i> ratingselect组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/09/评价列表ratings组件/" rel="prev" title="评价列表ratings组件">
+                评价列表ratings组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#盒子模型"><span class="nav-number">1.</span> <span class="nav-text">盒子模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#box-sizing"><span class="nav-number">2.</span> <span class="nav-text">box-sizing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#box-sizing其它的值"><span class="nav-number">3.</span> <span class="nav-text">box-sizing其它的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器兼容性"><span class="nav-number">4.</span> <span class="nav-text">浏览器兼容性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#box-sizing-布局三栏目案例"><span class="nav-number">5.</span> <span class="nav-text">box-sizing 布局三栏目案例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

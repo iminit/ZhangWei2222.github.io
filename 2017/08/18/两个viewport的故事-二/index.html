@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="移动端," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="1.两个viewport(1).visual viewportvisual viewport是页面当前显示在屏幕上的部分。用户可以通过滚动来改变他所看到的页面的部分，或者通过缩放来改变visual viewport的大小。  (2).layout viewport (3).度量visual viewport (4).滚动距离Scrolling offset 你还需知道的是visual viewpo">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="两个viewport的故事(二)">
+<meta property="og:url" content="http://super-wei.xyz/2017/08/18/两个viewport的故事-二/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="1.两个viewport(1).visual viewportvisual viewport是页面当前显示在屏幕上的部分。用户可以通过滚动来改变他所看到的页面的部分，或者通过缩放来改变visual viewport的大小。  (2).layout viewport (3).度量visual viewport (4).滚动距离Scrolling offset 你还需知道的是visual viewpo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20170722214021.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214137.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214430.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214525.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214558.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214709.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214758.png">
+<meta property="og:updated_time" content="2017-08-24T09:46:15.076Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="两个viewport的故事(二)">
+<meta name="twitter:description" content="1.两个viewport(1).visual viewportvisual viewport是页面当前显示在屏幕上的部分。用户可以通过滚动来改变他所看到的页面的部分，或者通过缩放来改变visual viewport的大小。  (2).layout viewport (3).度量visual viewport (4).滚动距离Scrolling offset 你还需知道的是visual viewpo">
+<meta name="twitter:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20170722214021.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/08/18/两个viewport的故事-二/"/>
+
+
+
+
+
+  <title>两个viewport的故事(二) | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/两个viewport的故事-二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">两个viewport的故事(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:20:44+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-两个viewport"><a href="#1-两个viewport" class="headerlink" title="1.两个viewport"></a>1.两个viewport</h1><h3 id="1-visual-viewport"><a href="#1-visual-viewport" class="headerlink" title="(1).visual viewport"></a>(1).visual viewport</h3><p>visual viewport是页面当前显示在屏幕上的部分。用户可以通过滚动来改变他所看到的页面的部分，或者通过缩放来改变visual viewport的大小。</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20170722214021.png" alt=""></p>
+<h3 id="2-layout-viewport"><a href="#2-layout-viewport" class="headerlink" title="(2).layout viewport"></a>(2).layout viewport</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214137.png" alt=""></p>
+<h3 id="3-度量visual-viewport"><a href="#3-度量visual-viewport" class="headerlink" title="(3).度量visual viewport"></a>(3).度量visual viewport</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214430.png" alt=""></p>
+<h3 id="4-滚动距离Scrolling-offset"><a href="#4-滚动距离Scrolling-offset" class="headerlink" title="(4).滚动距离Scrolling offset"></a>(4).滚动距离Scrolling offset</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214525.png" alt=""></p>
+<p>你还需知道的是visual viewport当前相对于layout viewport的位置。这是滚动距离，并且就像在桌面一样，它被存储在window.pageX/YOffset之中。</p>
+<h3 id="5-元素"><a href="#5-元素" class="headerlink" title="(5). 元素"></a>(5).<html> 元素</html></h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214558.png" alt=""></p>
+<p>就像在桌面上一样，document.documentElement.offsetWidth/Height提供了以CSS像素为单位的<html>元素的整个尺寸。</html></p>
+<h3 id="6-媒体查询Media-queries"><a href="#6-媒体查询Media-queries" class="headerlink" title="(6).媒体查询Media queries"></a>(6).媒体查询Media queries</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214709.png" alt=""></p>
+<p>媒体查询和其在桌面环境上的工作方式一样。width/height使用layout　viewport做为参照物，并且以CSS像素进行度量，device-width/height使用设备屏幕，并且以设备像素进行度量。</p>
+<p>换句话说，width/height是document.documentElement.clientWidth/Height值的镜像，同时device-width/height是screen.width/height值的镜像。（它们在所有浏览器中实际上就是这么做的，即使这个镜像的值不正确。）</p>
+<h3 id="7-事件坐标"><a href="#7-事件坐标" class="headerlink" title="(7).事件坐标"></a>(7).事件坐标</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214758.png" alt=""></p>
+<p>pageX/Y仍然是相对于页面，以CSS像素为单位，并且它是目前为止三个属性对中最有用的，就像它在桌面环境上的那样。</p>
+<p>clientX/Y是相对于visual viewport来计算，以CSS像素为单位的。这有道理的，即使我还不能完全指出这么做的好处。</p>
+<p>screenX/Y是相对于屏幕来计算，以设备像素为单位。当然，这和clientX/Y用的参照系是一样的，并且设备像素在这没有用处。所以我们不需要担心screenX/Y；跟在桌面环境上一样没有用处。</p>
+<h3 id="8-viewport-meta标签"><a href="#8-viewport-meta标签" class="headerlink" title="(8).viewport meta标签"></a>(8).viewport meta标签</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/移动端/" rel="tag"># 移动端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/18/两个viewport的故事-一/" rel="next" title="两个viewport的故事(一))">
+                <i class="fa fa-chevron-left"></i> 两个viewport的故事(一))
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/18/px-pd-pid-等移动端知识/" rel="prev" title="px pd pid 等移动端知识">
+                px pd pid 等移动端知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-两个viewport"><span class="nav-number">1.</span> <span class="nav-text">1.两个viewport</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-visual-viewport"><span class="nav-number">1.0.1.</span> <span class="nav-text">(1).visual viewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-layout-viewport"><span class="nav-number">1.0.2.</span> <span class="nav-text">(2).layout viewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-度量visual-viewport"><span class="nav-number">1.0.3.</span> <span class="nav-text">(3).度量visual viewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-滚动距离Scrolling-offset"><span class="nav-number">1.0.4.</span> <span class="nav-text">(4).滚动距离Scrolling offset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-元素"><span class="nav-number">1.0.5.</span> <span class="nav-text">(5). 元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-媒体查询Media-queries"><span class="nav-number">1.0.6.</span> <span class="nav-text">(6).媒体查询Media queries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-事件坐标"><span class="nav-number">1.0.7.</span> <span class="nav-text">(7).事件坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-viewport-meta标签"><span class="nav-number">1.0.8.</span> <span class="nav-text">(8).viewport meta标签</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

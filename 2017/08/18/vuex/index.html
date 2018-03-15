@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vue,vuex," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="vuex是一个专门为vue.js设计的集中式状态管理架构。状态？我把它理解为在data中的属性需要共享给其他vue组件使用的部分，就叫做状态。简单的说就是data中需要共用的属性。比如：我们有几个页面要显示用户名称和用户等级，或者显示用户的地理位置。如果我们不把这些属性设置为状态，那每个页面遇到后，都会到服务器进行查找计算，返回后再显示。在中大型项目中会有很多共用的数据，所以尤大神给我们提供了vu">
+<meta name="keywords" content="vue,vuex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vuex">
+<meta property="og:url" content="http://super-wei.xyz/2017/08/18/vuex/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="vuex是一个专门为vue.js设计的集中式状态管理架构。状态？我把它理解为在data中的属性需要共享给其他vue组件使用的部分，就叫做状态。简单的说就是data中需要共用的属性。比如：我们有几个页面要显示用户名称和用户等级，或者显示用户的地理位置。如果我们不把这些属性设置为状态，那每个页面遇到后，都会到服务器进行查找计算，返回后再显示。在中大型项目中会有很多共用的数据，所以尤大神给我们提供了vu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-24T09:44:56.169Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vuex">
+<meta name="twitter:description" content="vuex是一个专门为vue.js设计的集中式状态管理架构。状态？我把它理解为在data中的属性需要共享给其他vue组件使用的部分，就叫做状态。简单的说就是data中需要共用的属性。比如：我们有几个页面要显示用户名称和用户等级，或者显示用户的地理位置。如果我们不把这些属性设置为状态，那每个页面遇到后，都会到服务器进行查找计算，返回后再显示。在中大型项目中会有很多共用的数据，所以尤大神给我们提供了vu">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/08/18/vuex/"/>
+
+
+
+
+
+  <title>vuex | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/vuex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vuex</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:18:08+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>vuex是一个专门为vue.js设计的集中式状态管理架构。状态？我把它理解为在data中的属性需要共享给其他vue组件使用的部分，就叫做状态。简单的说就是data中需要共用的属性。比如：我们有几个页面要显示用户名称和用户等级，或者显示用户的地理位置。如果我们不把这些属性设置为状态，那每个页面遇到后，都会到服务器进行查找计算，返回后再显示。在中大型项目中会有很多共用的数据，所以尤大神给我们提供了vuex。</p>
+<h1 id="第1节：初出茅庐-来个小Demo"><a href="#第1节：初出茅庐-来个小Demo" class="headerlink" title="第1节：初出茅庐 来个小Demo"></a>第1节：初出茅庐 来个小Demo</h1><h2 id="引入vuex"><a href="#引入vuex" class="headerlink" title="引入vuex"></a>引入vuex</h2><p>1.利用npm包管理工具，进行安装 vuex。在控制命令行中输入下边的命令就可以了。</p>
+<pre><code>npm install vuex --save
+</code></pre><p>需要注意的是这里一定要加上 –save，因为你这个包我们在生产环境中是要使用的。</p>
+<p>2.新建一个vuex文件夹（这个不是必须的），并在文件夹下新建store.js文件，文件中引入我们的vue和vuex。</p>
+<pre><code>import Vue from &apos;vue&apos;;
+import Vuex from &apos;vuex&apos;;
+</code></pre><p>3.使用我们vuex，引入之后用Vue.use进行引用。</p>
+<pre><code>Vue.use(Vuex);
+</code></pre><h2 id="一个demo：加减按钮"><a href="#一个demo：加减按钮" class="headerlink" title="一个demo：加减按钮"></a>一个demo：加减按钮</h2><p>这次要用的是vuex来进行制作，并实现数据的共享。</p>
+<p>1.现在我们store.js文件里增加一个常量对象。store.js文件就是我们在引入vuex时的那个文件。</p>
+<pre><code>const state={
+    count:1
+}
+</code></pre><p>2.用export default 封装代码，让外部可以引用。</p>
+<pre><code>export default new Vuex.Store({
+    state
+
+})
+</code></pre><p>3.新建一个vue的模板，位置在components文件夹下，名字叫count.vue。在模板中我们引入我们刚建的store.js文件，并在模板中用输出count 的值。</p>
+<pre><code>&lt;template&gt;
+    &lt;div&gt;
+        &lt;h2&gt;{{msg}}&lt;/h2&gt;
+        &lt;hr/&gt;
+        &lt;h3&gt;{{$store.state.count}}&lt;/h3&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+    import store from &apos;@/vuex/store&apos;
+    export default{
+        data(){
+            return{
+                msg:&apos;Hello Vuex&apos;,
+
+            }
+        },
+        store
+
+    }
+&lt;/script&gt;
+</code></pre><p>4.在store.js文件中加入两个改变state的方法。</p>
+<pre><code>const mutations={
+    add(state){
+        state.count++;
+    },
+    reduce(state){
+        state.count--;
+    }
+}
+</code></pre><p>这里的mutations是固定的写法，意思是改变的，我们到时候会用一节课专门讲这个mutations，所以你先不用着急，只知道我们要改变state的数值的方法，必须写在mutations里就可以了。</p>
+<p>5.在count.vue模板中加入两个按钮，并调用mutations中的方法。</p>
+<pre><code>&lt;div&gt;
+    &lt;button @click=&quot;$store.commit(&apos;add&apos;)&quot;&gt;+&lt;/button&gt;
+    &lt;button @click=&quot;$store.commit(&apos;reduce&apos;)&quot;&gt;-&lt;/button&gt;
+&lt;/div&gt;
+</code></pre><h1 id="第2节：state访问状态对象"><a href="#第2节：state访问状态对象" class="headerlink" title="第2节：state访问状态对象"></a>第2节：state访问状态对象</h1><p>在第1节我们已经写了一个 const state ，这个就是我们说的访问状态对象，它就是我们SPA（单页应用程序）中的共享值。今天我们主要学习状态对象赋值给内部对象，也就是把stroe.js中的值，赋值给我们模板里data中的值。我们有三种赋值方式，我们一个一个来学习一下。</p>
+<h2 id="一、通过computed的计算属性直接赋值"><a href="#一、通过computed的计算属性直接赋值" class="headerlink" title="一、通过computed的计算属性直接赋值"></a>一、通过computed的计算属性直接赋值</h2><p>computed属性可以在输出前，对data中的值进行改变，我们就利用这种特性把store.js中的state值赋值给我们模板中的data值。</p>
+<pre><code>computed:{
+    count(){
+        return this.$store.state.count;
+    }
+}
+</code></pre><p>这里需要注意的是return this.$store.state.count这一句，一定要写this，要不你会找不到$store的。这种写法很好理解，但是写起来是比较麻烦的，那我们来看看第二种写法。</p>
+<h2 id="二、通过mapState的对象来赋值"><a href="#二、通过mapState的对象来赋值" class="headerlink" title="二、通过mapState的对象来赋值"></a>二、通过mapState的对象来赋值</h2><p>我们首先要用import引入mapState。</p>
+<pre><code>import {mapState} from &apos;vuex&apos;;
+</code></pre><p>然后还在computed计算属性里写如下代码：</p>
+<pre><code>computed:mapState({
+        count:state=&gt;state.count
+ })
+</code></pre><p>这里我们使用ES6的箭头函数来给count赋值。</p>
+<h2 id="三、通过mapState的数组来赋值"><a href="#三、通过mapState的数组来赋值" class="headerlink" title="三、通过mapState的数组来赋值"></a>三、通过mapState的数组来赋值</h2><pre><code>computed:mapState([&quot;count&quot;])
+</code></pre><p>这个算是最简单的写法了，在实际项目开发当中也经常这样使用。</p>
+<p>这就是三种赋值方式，是不是很简单，虽然简单，但是在实际项目中经常使用，一定要自己动手练习两遍啊。</p>
+<h1 id="第4节：getters计算过滤操作"><a href="#第4节：getters计算过滤操作" class="headerlink" title="第4节：getters计算过滤操作"></a>第4节：getters计算过滤操作</h1><p>getters从表面是获得的意思，可以把他看作在获取数据之前进行的一种再编辑,相当于对数据的一个过滤和加工。你可以把它看作store.js的计算属性。</p>
+<h2 id="getters基本用法："><a href="#getters基本用法：" class="headerlink" title="getters基本用法："></a>getters基本用法：</h2><p>比如我们现在要对store.js文件中的count进行一个计算属性的操作，就是在它输出前，给它加上100.</p>
+<p>我们首先要在store.js里用const声明我们的getters属性。</p>
+<pre><code>const getters = {
+    count:function(state){
+        return state.count +=100;
+    }
+}
+</code></pre><p>写好了gettters之后，我们还需要在Vuex.Store()里引入，由于之前我们已经引入了state盒mutations，所以引入里有三个引入属性。代码如下，</p>
+<pre><code>export default new Vuex.Store({
+    state,mutations,getters
+})
+</code></pre><p>在store.js里的配置算是完成了，我们需要到模板页对computed进行配置。在vue 的构造器里边只能有一个computed属性，如果你写多个，只有最后一个computed属性可用，所以要对上节课写的computed属性进行一个改造。改造时我们使用ES6中的展开运算符”…”。</p>
+<pre><code>computed:{
+    ...mapState([&quot;count&quot;]),
+    count(){
+        return this.$store.getters.count;
+    }
+},
+</code></pre><p>需要注意的是，你写了这个配置后，在每次count 的值发生变化的时候，都会进行加100的操作。</p>
+<h2 id="用mapGetters简化模板写法："><a href="#用mapGetters简化模板写法：" class="headerlink" title="用mapGetters简化模板写法："></a>用mapGetters简化模板写法：</h2><p>我们都知道state和mutations都有map的引用方法把我们模板中的编码进行简化，我们的getters也是有的，我们来看一下代码。</p>
+<p>首先用import引入我们的mapGetters</p>
+<pre><code>import { mapState,mapMutations,mapGetters } from &apos;vuex&apos;;
+</code></pre><p>在computed属性中加入mapGetters</p>
+<pre><code>...mapGetters([&quot;count&quot;])
+</code></pre><h1 id="第5节：actions异步修改状态"><a href="#第5节：actions异步修改状态" class="headerlink" title="第5节：actions异步修改状态"></a>第5节：actions异步修改状态</h1><p>actions和之前讲的Mutations功能基本一样，不同点是，actions是异步的改变state状态，而Mutations是同步改变状态。至于什么是异步什么是同步这里我就不做太多解释了，如果你不懂自己去百度查一下吧。（视频中有讲解）</p>
+<h2 id="在store-js中声明actions"><a href="#在store-js中声明actions" class="headerlink" title="在store.js中声明actions"></a>在store.js中声明actions</h2><p>actions是可以调用Mutations里的方法的，我们还是继续在上节课的代码基础上进行学习，在actions里调用add和reduce两个方法。</p>
+<pre><code>const actions ={
+    addAction(context){
+        context.commit(&apos;add&apos;,10)
+    },
+    reduceAction({commit}){
+        commit(&apos;reduce&apos;)
+    }
+}
+</code></pre><p>在actions里写了两个方法addAction和reduceAction，在方法体里，我们都用commit调用了Mutations里边的方法。细心的小伙伴会发现这两个方法传递的参数也不一样。</p>
+<ul>
+<li>context：上下文对象，这里你可以理解称store本身。</li>
+</ul>
+<ul>
+<li>{commit}：直接把commit对象传递过来，可以让方法体逻辑和代码更清晰明了。</li>
+</ul>
+<h2 id="模板中的使用"><a href="#模板中的使用" class="headerlink" title="模板中的使用"></a>模板中的使用</h2><p>我们需要在count.vue模板中编写代码，让actions生效。我们先复制两个以前有的按钮，并改成我们的actions里的方法名，分别是：addAction和reduceAction。</p>
+<pre><code>&lt;p&gt;
+  &lt;button @click=&quot;addAction&quot;&gt;+&lt;/button&gt;
+  &lt;button @click=&quot;reduceAction&quot;&gt;-&lt;/button&gt;
+&lt;/p&gt;
+</code></pre><p>改造一下我们的methods方法，首先还是用扩展运算符把mapMutations和mapActions加入。</p>
+<pre><code>methods:{
+    ...mapMutations([  
+        &apos;add&apos;,&apos;reduce&apos;
+    ]),
+    ...mapActions([&apos;addAction&apos;,&apos;reduceAction&apos;])
+},
+</code></pre><p>你还要记得用import把我们的mapActions引入才可以使用。</p>
+<h2 id="增加异步检验"><a href="#增加异步检验" class="headerlink" title="增加异步检验"></a>增加异步检验</h2><p>我们现在看的效果和我们用Mutations作的一模一样，肯定有的小伙伴会好奇，那actions有什么用，我们为了演示actions的异步功能，我们增加一个计时器（setTimeOut）延迟执行。在addAction里使用setTimeOut进行延迟执行。</p>
+<pre><code>setTimeOut(()=&gt;{context.commit(reduce)},3000);
+console.log(&apos;我比reduce提前执行&apos;);
+</code></pre><p>我们可以看到在控制台先打印出了‘我比reduce提前执行’这句话。</p>
+<h1 id="第6节：module模块组"><a href="#第6节：module模块组" class="headerlink" title="第6节：module模块组"></a>第6节：module模块组</h1><p>随着项目的复杂性增加，我们共享的状态越来越多，这时候我们就需要把我们状态的各种操作进行一个分组，分组后再进行按组编写。那今天我们就学习一下module：状态管理器的模块组操作。</p>
+<h2 id="声明模块组："><a href="#声明模块组：" class="headerlink" title="声明模块组："></a>声明模块组：</h2><p>在vuex/store.js中声明模块组，我们还是用我们的const常量的方法声明模块组。代码如下：</p>
+<pre><code>const moduleA={
+    state,mutations,getters,actions
+}
+</code></pre><p>声明好后，我们需要修改原来 Vuex.Stroe里的值：</p>
+<pre><code>export default new Vuex.Store({
+    modules:{a:moduleA}
+})
+</code></pre><h2 id="在模板中使用"><a href="#在模板中使用" class="headerlink" title="在模板中使用"></a>在模板中使用</h2><p>现在我们要在模板中使用count状态，要用插值的形式写入。</p>
+<pre><code>&lt;h3&gt;{{$store.state.a.count}}&lt;/h3&gt;
+</code></pre><p>如果想用简单的方法引入，还是要在我们的计算属性中rutrun我们的状态。写法如下：</p>
+<pre><code>computed:{
+    count(){
+        return this.$store.state.a.count;
+    }
+},
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/vuex/" rel="tag"># vuex</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/18/vue-router/" rel="next" title="vue-router">
+                <i class="fa fa-chevron-left"></i> vue-router
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/18/浏览器页面加载解析渲染机制/" rel="prev" title="浏览器页面加载解析渲染机制">
+                浏览器页面加载解析渲染机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1节：初出茅庐-来个小Demo"><span class="nav-number">1.</span> <span class="nav-text">第1节：初出茅庐 来个小Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引入vuex"><span class="nav-number">1.1.</span> <span class="nav-text">引入vuex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个demo：加减按钮"><span class="nav-number">1.2.</span> <span class="nav-text">一个demo：加减按钮</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2节：state访问状态对象"><span class="nav-number">2.</span> <span class="nav-text">第2节：state访问状态对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、通过computed的计算属性直接赋值"><span class="nav-number">2.1.</span> <span class="nav-text">一、通过computed的计算属性直接赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、通过mapState的对象来赋值"><span class="nav-number">2.2.</span> <span class="nav-text">二、通过mapState的对象来赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、通过mapState的数组来赋值"><span class="nav-number">2.3.</span> <span class="nav-text">三、通过mapState的数组来赋值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4节：getters计算过滤操作"><span class="nav-number">3.</span> <span class="nav-text">第4节：getters计算过滤操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#getters基本用法："><span class="nav-number">3.1.</span> <span class="nav-text">getters基本用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用mapGetters简化模板写法："><span class="nav-number">3.2.</span> <span class="nav-text">用mapGetters简化模板写法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5节：actions异步修改状态"><span class="nav-number">4.</span> <span class="nav-text">第5节：actions异步修改状态</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在store-js中声明actions"><span class="nav-number">4.1.</span> <span class="nav-text">在store.js中声明actions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板中的使用"><span class="nav-number">4.2.</span> <span class="nav-text">模板中的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加异步检验"><span class="nav-number">4.3.</span> <span class="nav-text">增加异步检验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第6节：module模块组"><span class="nav-number">5.</span> <span class="nav-text">第6节：module模块组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明模块组："><span class="nav-number">5.1.</span> <span class="nav-text">声明模块组：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在模板中使用"><span class="nav-number">5.2.</span> <span class="nav-text">在模板中使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

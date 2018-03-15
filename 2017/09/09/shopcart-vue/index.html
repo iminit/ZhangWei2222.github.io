@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="饿了么," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="html代码&amp;lt;template&amp;gt; &amp;lt;!--vue的render渲染需要有一个root的根dom层,所以创建一个单独的div来包裹--&amp;gt;   &amp;lt;div&amp;gt;   &amp;lt;!--这是shopcart的主代码--&amp;gt;     &amp;lt;div class=&amp;quot;shopcart&amp;quot;&amp;gt;     &amp;lt;!--用toggleList点击显示隐藏购物车列表">
+<meta name="keywords" content="饿了么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shopcart.vue">
+<meta property="og:url" content="http://super-wei.xyz/2017/09/09/shopcart-vue/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="html代码&amp;lt;template&amp;gt; &amp;lt;!--vue的render渲染需要有一个root的根dom层,所以创建一个单独的div来包裹--&amp;gt;   &amp;lt;div&amp;gt;   &amp;lt;!--这是shopcart的主代码--&amp;gt;     &amp;lt;div class=&amp;quot;shopcart&amp;quot;&amp;gt;     &amp;lt;!--用toggleList点击显示隐藏购物车列表">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/3093843777-590c3740aebd9_articlex.png">
+<meta property="og:updated_time" content="2017-09-09T10:06:51.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shopcart.vue">
+<meta name="twitter:description" content="html代码&amp;lt;template&amp;gt; &amp;lt;!--vue的render渲染需要有一个root的根dom层,所以创建一个单独的div来包裹--&amp;gt;   &amp;lt;div&amp;gt;   &amp;lt;!--这是shopcart的主代码--&amp;gt;     &amp;lt;div class=&amp;quot;shopcart&amp;quot;&amp;gt;     &amp;lt;!--用toggleList点击显示隐藏购物车列表">
+<meta name="twitter:image" content="http://oncweb6po.bkt.clouddn.com/3093843777-590c3740aebd9_articlex.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/09/09/shopcart-vue/"/>
+
+
+
+
+
+  <title>shopcart.vue | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/shopcart-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">shopcart.vue</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:57:03+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h2><pre><code>&lt;template&gt;
+&lt;!--vue的render渲染需要有一个root的根dom层,所以创建一个单独的div来包裹--&gt;
+  &lt;div&gt;
+  &lt;!--这是shopcart的主代码--&gt;
+    &lt;div class=&quot;shopcart&quot;&gt;
+    &lt;!--用toggleList点击显示隐藏购物车列表--&gt;
+      &lt;div class=&quot;content&quot; @click=&quot;toggleList&quot;&gt;
+        &lt;div class=&quot;content-left&quot;&gt;
+          &lt;div class=&quot;logo-wrapper&quot;&gt;
+            &lt;div class=&quot;logo&quot; :class=&quot;{&apos;highlight&apos;:totalCount&gt;0}&quot;&gt;
+              &lt;i class=&quot;icon-shopping_cart&quot; :class=&quot;{&apos;highlight&apos;:totalCount&gt;0}&quot;&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;num&quot; v-show=&quot;totalCount&gt;0&quot;&gt;{{totalCount}}&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;price&quot; :class=&quot;{&apos;highlight&apos;:totalPrice&gt;0}&quot;&gt;￥{{totalPrice}}&lt;/div&gt;
+          &lt;div class=&quot;desc&quot;&gt;另需配送费￥{{deliveryPrice}}元&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!--支付--&gt;
+        &lt;div class=&quot;content-right&quot; @click.stop.prevent=&quot;pay&quot;&gt;
+        &lt;!--这里class绑定的是一个payClass计算属性--&gt;
+          &lt;div class=&quot;pay&quot; :class=&quot;payClass&quot;&gt;
+            {{payDesc}}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!--省略了ball-container是动画小球的部分--&gt;
+      &lt;!--shopcart的列表详情部分--&gt;
+      &lt;transition name=&quot;fold&quot;&gt;
+        &lt;div class=&quot;shopcart-list&quot; v-show=&quot;listShow&quot;&gt;
+          &lt;div class=&quot;list-header&quot;&gt;
+            &lt;h1 class=&quot;title&quot;&gt;购物车&lt;/h1&gt;
+            &lt;span class=&quot;empty&quot; @click=&quot;empty&quot;&gt;清空&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;list-content&quot; ref=&quot;listContent&quot;&gt;
+            &lt;ul&gt;
+              &lt;li class=&quot;food&quot; v-for=&quot;food in selectFoods&quot;&gt;
+                &lt;span class=&quot;name&quot;&gt;{{food.name}}&lt;/span&gt;
+                &lt;div class=&quot;price&quot;&gt;
+                  &lt;span&gt;￥{{food.price * food.count}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;!--列表里面可以进行操作,所以会复用一个cartcontrol的组件--&gt;
+                &lt;div class=&quot;cartcontrol-wrapper&quot;&gt;
+                  &lt;cartcontrol @add=&quot;addFood&quot; :food=&quot;food&quot;&gt;&lt;/cartcontrol&gt;
+                &lt;/div&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/transition&gt;
+    &lt;/div&gt;
+    &lt;!--打开shopcart列表的时候背景需要虚化并且动画--&gt;
+    &lt;transition name=&quot;fade&quot;&gt;
+      &lt;div class=&quot;list-mask&quot; @click=&quot;hideList&quot; v-show=&quot;listShow&quot;&gt;&lt;/div&gt;
+    &lt;/transition&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre><h2 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h2><pre><code>import BScroll from &apos;better-scroll&apos;;
+import cartcontrol from &apos;../../components/cartcontrol/cartcontrol&apos;;
+
+export default{
+  props: {
+    selectFoods: {
+      type: Array,
+      default(){ //data必须是一个函数,这是默认值data的写法
+        return [ 
+          {}
+        ];
+      }
+    },
+    deliveryPrice: { 
+      type: Number,
+      default: 0
+    },
+    minPrice: {
+      type: Number,
+      default: 0
+    }
+  },
+  data(){
+    return {
+      fold: true //通过这个变量来控制隐藏和显示购物车列表,true代表隐藏,折叠起来
+    }
+  },
+  computed: {
+    totalPrice(){ //计算总价
+      let total = 0;
+      this.selectFoods.forEach((food) =&gt; {
+        total += food.price * food.count; //这个count就是在goods组件里面添加的
+      })
+      return total;
+    },
+    totalCount(){ //计算总数量
+      let count = 0;
+      this.selectFoods.forEach((food) =&gt; {
+        count += food.count;
+      })
+      return count;
+    },
+    payDesc(){ //只是简单的做一些支付显示的计算
+      if (this.totalPrice === 0) {
+        return `¥${this.minPrice}元起送`;
+      } else if (this.totalPrice &lt; this.minPrice) {
+        let diff = this.minPrice - this.totalPrice;
+        return `还差¥${diff}元配送`;
+      } else {
+        return `去结算`;
+      }
+    },
+    payClass(){
+      if (this.totalPrice &lt; this.minPrice) {
+        return &apos;not-enough&apos;;
+      } else {
+        return &apos;enough&apos;;
+      }
+    },
+    listShow(){ //自动计算购物车列表是否显示和隐藏
+      if (!this.totalCount) { //自动判断商品数量为空
+        this.fold = true; //直接隐藏
+        return false;
+      }
+      let show = !this.fold; //当flod为false的时候显示购物车列表
+      if (show) { 
+        this.$nextTick(() =&gt; { //异步执行滚动列表初始化
+          if (!this.scroll) {
+            this.scroll = new BScroll(this.$refs.listContent, {
+              click: true
+            });
+          } else {
+            this.scroll.refresh();
+          }
+        });
+      }
+      return show;
+    }
+  },
+  methods: {
+    toggleList(){
+      if (!this.totalCount) {
+        return;
+      }
+      this.fold = !this.fold;
+    },
+    empty() { //通过清空数据属性来控制购物车清空
+      this.selectFoods.forEach((food) =&gt; {
+        food.count = 0;
+      });
+    },
+    hideList() {
+      this.fold = true;
+    },
+    pay() {
+      if (this.totalPrice &lt; this.minPrice) {
+        return;
+      }
+      window.alert(`支付${this.totalPrice}元`);
+    }
+  },
+  components: {
+    cartcontrol
+  }
+}
+</code></pre><ul>
+<li>购物车列表的显示和隐藏(折叠)是通过数据fold来决定的,他是通过计算属性listshow来实现的,这样达到了不用操作dom就可以改变dom行为的效果,vue的数据驱动设计.</li>
+</ul>
+<ul>
+<li>清空按钮也是这样实现的,通过批量设置count属性来实现</li>
+</ul>
+<ul>
+<li>抛物线小球部分参考:关于购物车添加按钮的动画</li>
+</ul>
+<ul>
+<li>因为打开shopcart详情页会出现两个内容:</li>
+</ul>
+<pre><code>- shopcart-list部分参考:八.shopcart-list购物车详情页
+
+
+- cartcontrol部分参考:cartcontrol.vue购物车操作按钮
+
+
+- 又因为这个cartcontrol是有几个地方都需要用到的,所以将其组件化处理
+</code></pre><h2 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h2><pre><code>  @import &quot;../../common/stylus/mixin.styl&quot;
+
+  .shopcart
+    position: fixed //这是固定在页面底部的购物车栏目
+    left: 0
+    bottom: 0
+    z-index: 50 
+    width: 100%
+    height: 48px
+    .content
+      display: flex //flex布局
+      background: #141d27
+      font-size: 0
+      .content-left
+        flex: 1
+        .logo-wrapper
+          display: inline-block
+          position: relative
+          top: -10px //因为要凸出购物车栏目一点点,设计需要
+          margin: 0 12px
+          padding: 6px
+          width: 56px //因为使用了border-box的关系,可以直接写设计的尺寸
+          height: 56px
+          box-sizing: border-box //border-box可以省去计算border和内边距
+          vertical-align: top
+          border-radius: 50%
+          background: #141d27
+          .logo
+            width: 100%
+            height: 100%
+            border-radius: 50%
+            text-align: center
+            background: #2b343c
+            &amp;.highlight
+              background: rgb(0, 160, 220)
+            .icon-shopping_cart
+              line-height: 44px
+              font-size: 24px
+              color: #80858a
+              &amp;.highlight
+                color: #ffffff
+          .num
+            position: absolute
+            top: 0
+            right: 0
+            width: 24px
+            height: 16px
+            line-height: 16px
+            text-align: center
+            border-radius: 16px
+            font-size: 9px
+            color: #ffffff
+            background: rgb(240, 20, 20)
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4)
+        .price
+          display: inline-block
+          vertical-align: top
+          margin-top: 12px
+          line-height: 24px
+          padding-right: 12px
+          box-sizing: border-box
+          border-right: 1px solid rgba(255, 255, 255, 0.1)
+          font-size: 16px
+          font-weight: 700
+          color: rgba(255, 255, 255, 0.4)
+          &amp;.highlight
+            color: #ffffff
+        .desc
+          display: inline-block
+          vertical-align: top
+          margin: 12px 0 0 12px
+          line-height: 24px
+          color: rgba(255, 255, 255, 0.4)
+          font-size: 10px
+      .content-right
+        flex: 0 0 105px //flex布局固定右边空间
+        width: 105px
+        .pay
+          height: 48px
+          line-height: 48px
+          text-align: center
+          font-size: 12px
+          color: rgba(255, 255, 255, 0.4)
+          font-weight: 700
+          &amp;.not-enough
+            background: #2b333b
+          &amp;.enough
+            background: #00b43c
+            color: #ffffff
+//省略了小球动画的css
+</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/3093843777-590c3740aebd9_articlex.png" alt=""></p>
+<ul>
+<li>这里主要注意border-box的使用,举例logo-wrapper</li>
+</ul>
+<pre><code>- 宽高都是56px,并且需要实现内边距是6px
+
+
+- 不用border-box的话,就要计算图片的区域是多大,然后加上6px内边距等于56px
+
+
+- 用了border-box的话,就不需要计算图片区域了,直接写56px,即使加上6px内边距也不撑大56px的区域,只会自动缩小内部图片区域的区域,实际情况就是外框区域56px,内边距6px,图片自动缩小到44px(6+44+6等于56)
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/饿了么/" rel="tag"># 饿了么</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/09/评价列表ratings组件/" rel="next" title="评价列表ratings组件">
+                <i class="fa fa-chevron-left"></i> 评价列表ratings组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/09/商品详情页food-vue/" rel="prev" title="商品详情页food.vue">
+                商品详情页food.vue <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#html代码"><span class="nav-number">1.</span> <span class="nav-text">html代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js代码"><span class="nav-number">2.</span> <span class="nav-text">js代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css代码"><span class="nav-number">3.</span> <span class="nav-text">css代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

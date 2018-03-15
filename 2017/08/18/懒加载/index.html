@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="懒加载," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="1.后台分页（异步）jq Ajax $(document).ready(function () {   $.ajax({     url: url, //必需。规定把请求发送到哪个 URL     type: &amp;apos;GET&amp;apos;,  //提交类型：GET POST     dataType: &amp;apos;dataType&amp;apos;,  //可选。规定预期的服务器响应的数据类型。默认执">
+<meta name="keywords" content="懒加载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="懒加载">
+<meta property="og:url" content="http://super-wei.xyz/2017/08/18/懒加载/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="1.后台分页（异步）jq Ajax $(document).ready(function () {   $.ajax({     url: url, //必需。规定把请求发送到哪个 URL     type: &amp;apos;GET&amp;apos;,  //提交类型：GET POST     dataType: &amp;apos;dataType&amp;apos;,  //可选。规定预期的服务器响应的数据类型。默认执">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-24T09:46:24.367Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="懒加载">
+<meta name="twitter:description" content="1.后台分页（异步）jq Ajax $(document).ready(function () {   $.ajax({     url: url, //必需。规定把请求发送到哪个 URL     type: &amp;apos;GET&amp;apos;,  //提交类型：GET POST     dataType: &amp;apos;dataType&amp;apos;,  //可选。规定预期的服务器响应的数据类型。默认执">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/08/18/懒加载/"/>
+
+
+
+
+
+  <title>懒加载 | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/懒加载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">懒加载</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:30:27+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-后台分页（异步）"><a href="#1-后台分页（异步）" class="headerlink" title="1.后台分页（异步）"></a>1.后台分页（异步）</h1><p>jq Ajax</p>
+<pre><code>$(document).ready(function () {
+  $.ajax({
+    url: url, //必需。规定把请求发送到哪个 URL
+    type: &apos;GET&apos;,  //提交类型：GET POST
+    dataType: &apos;dataType&apos;,  //可选。规定预期的服务器响应的数据类型。默认执行智能判断（xml、json、script 或 html）。
+    data:data,  //可选。规定连同请求发送到服务器的数据。
+    success: function (data) {
+
+
+    },
+
+    error: function (error) {
+          alert(error);
+    }
+
+  });
+})
+</code></pre><blockquote>
+<p>他那边的数据是一个个写好了的（比如page=1），比如一个页面20个图片，然后第一页就是20个图片地址，我们传入地址url（url+page=1）获取里面的图片地址，再把原来div中的图片地址用js替换（像推书那样）。</p>
+</blockquote>
+<h1 id="2-js实现加载"><a href="#2-js实现加载" class="headerlink" title="2.js实现加载"></a>2.js实现加载</h1><blockquote>
+<p>首先，在页面中准备一个id为div1的div,在这个div中放一个ul,ul中准备了一些li,然而这些li都有一个data-src的属性，准备着图片的地址，具体结构如下：</p>
+</blockquote>
+<pre><code>&lt;div id=&quot;div1&quot;&gt;
+    &lt;ul&gt;
+        &lt;li data-src=&quot;img/w.png&quot;&gt;&lt;/li&gt;
+        &lt;li data-src=&quot;img/w.png&quot;&gt;&lt;/li&gt;
+        &lt;li data-src=&quot;img/w.png&quot;&gt;&lt;/li&gt;
+        &lt;li data-src=&quot;img/w.png&quot;&gt;&lt;/li&gt;
+        &lt;li data-src=&quot;img/w.png&quot;&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><blockquote>
+<p>图片的动态加载就是通过读取li元素，然后获得li元素的data-src属性的值赋予动态创建的图片的src，从而实现了图片的创建。</p>
+</blockquote>
+<pre><code>function setImg(index){
+                var oDiv=document.getElementById(&quot;div1&quot;)
+                var oUl=oDiv.children[0];
+                var aLi=oUl.children;
+                if (aLi[index].dataset) {
+                    var src=aLi[index].dataset.src;
+                } else{
+                    var src=aLi[index].getAttribute(&apos;data-src&apos;);
+                }
+                var oImg=document.createElement(&apos;img&apos;);
+                oImg.src=src;
+                if (aLi[index].children.length==0) {
+                    aLi[index].appendChild(oImg); 
+                }
+            }
+</code></pre><blockquote>
+<p>那么怎么识别是否在可视区域呢？这里需要一个函数，能够实现获得当前元素距离网页顶部的距离！</p>
+</blockquote>
+<pre><code>//获得对象距离页面顶端的距离  
+function getH(obj) {  
+    var h = 0;  
+    while (obj != window.document.body&amp;&amp;obj != null) {  
+        h += obj.offsetTop;  
+        obj = obj.offsetParent;  
+    }  
+    return h;  
+}  //就是沿着dom树一层层往上找，把相对于offsetParent的偏移累加，直到body，这样就可以得到当前元素相对于顶端的偏移量。
+</code></pre><blockquote>
+<p>当网页的滚动条滚动时要时时判断当前li的位置！</p>
+</blockquote>
+<pre><code>window.onscroll = function () {
+    var oDiv = document.getElementById(&apos;div1&apos;);
+    var oUl = oDiv.children[0];
+    var aLi = oUl.children;
+
+    for (var i = 0, l = aLi.length; i &lt; l; i++) {
+        var oLi = aLi[i];
+        //检查oLi是否在可视区域
+        var t = document.documentElement.clientHeight + (document.documentElement.scrollTop || document.body.scrollTop);
+        var h = getH(oLi);
+        if (h &lt; t) {
+            setTimeout(&quot;setImg(&quot; + i + &quot;)&quot;, 500);
+        }
+    }
+}; // document.documentElement.clientHeight ==&gt; 可见区域高度
+</code></pre><blockquote>
+<p>当页面加载完成以后要主动运行一下window.onscroll，从而获得当前可视范围内的图片</p>
+<p>另外，像这样的页面，障眼法和美化都是必须的，比如给每个li一个loading的图片作为背景，从而实现了当前图片正在加载的效果，美化工作就是做好合理的布局。</p>
+</blockquote>
+<pre><code>* {
+    margin: 0;
+    padding: 0;
+}
+
+#div1 {
+    width: 520px;
+    margin: 30px auto;
+    border: 1px solid red;
+    overflow: hidden;
+}
+
+li {
+    width: 160px;
+    height: 160px;
+    float: left;
+    list-style: none;
+    margin: 5px;
+    background: url(loading.gif) center center no-repeat;
+    border: 1px dashed green;
+}
+img{
+width:100%
+}
+</code></pre><blockquote>
+<p>data- ,可以设置我们需要的自定义属性。如果想获取某个属性的值：</p>
+</blockquote>
+<pre><code>如 data-src:dataset.src
+注意：带连字符连接的名称在使用的时候需要命名驼峰化： data-meal-time ：dataset.mealTime
+</code></pre><h1 id="3-jq插件-lazyload"><a href="#3-jq插件-lazyload" class="headerlink" title="3.jq插件 lazyload"></a>3.jq插件 lazyload</h1><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ol>
+<li><p>引用jquery和jquery.lazyload.js到你的页面</p>
+ <script src="jquery-1.11.0.min.js"></script>
+ <script src="jquery.lazyload.js?v=1.9.1"></script>
+</li>
+<li><p>为图片加入样式lazy  图片路径引用方法用data-original</p>
+<p> <img class="lazy" data-original="img/bmw_m1_hood.jpg"><br> <img class="lazy" data-original="img/bmw_m1_side.jpg"><br> <img class="lazy" data-original="img/viper_1.jpg"><br> <img class="lazy" data-original="img/viper_corner.jpg"><br> <img class="lazy" data-original="img/bmw_m3_gt.jpg"><br> <img class="lazy" data-original="img/corvette_pitstop.jpg"></p>
+</li>
+<li><p>js出始化lazyload并设置图片显示方式</p>
+ <script type="text/javascript" charset="utf-8">
+   $(function() {
+       $("img.lazy").lazyload({effect: "fadeIn"});
+   });
+ </script>
+
+</li>
+</ol>
+<p>在图片中也可以不使用 class=”lazy”，初始化时使用：</p>
+<pre><code>$(&quot;img&quot;).lazyload({effect: &quot;fadeIn&quot;});
+</code></pre><p>这样就可以对全局的图片都有效！</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><pre><code>$(&quot;img.lazy&quot;).lazyload({
+  placeholder : &quot;img/grey.gif&quot;, //用图片提前占位
+    // placeholder,值为某一图片路径.此图片用来占据将要加载的图片的位置,待图片加载时,占位图则会隐藏
+  effect: &quot;fadeIn&quot;, // 载入使用何种效果
+    // effect(特效),值有show(直接显示),fadeIn(淡入),slideDown(下拉)等,常用fadeIn
+  threshold: 200, // 提前开始加载
+    // threshold,值为数字,代表页面高度.如设置为200,表示滚动条在离目标位置还有200的高度时就开始加载图片,可以做到不让用户察觉
+  event: &apos;click&apos;,  // 事件触发时才加载
+    // event,值有click(点击),mouseover(鼠标划过),sporty(运动的),foobar(…).可以实现鼠标莫过或点击图片才开始加载,后两个值未测试…
+  container: $(&quot;#container&quot;),  // 对某容器中的图片实现效果
+    // container,值为某容器.lazyload默认在拉动浏览器滚动条时生效,这个参数可以让你在拉动某DIV的滚动条时依次加载其中的图片
+  failurelimit : 10 // 图片排序混乱时
+     // failurelimit,值为数字.lazyload默认在找到第一张不在可见区域里的图片时则不再继续加载,但当HTML容器混乱的时候可能出现可见区域内图片并没加载出来的情况,failurelimit意在加载N张可见区域外的图片,以避免出现这个问题.
+});
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/懒加载/" rel="tag"># 懒加载</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/18/三种居中/" rel="next" title="三种居中">
+                <i class="fa fa-chevron-left"></i> 三种居中
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/21/hexo搭建个人博客/" rel="prev" title="hexo搭建个人博客">
+                hexo搭建个人博客 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-后台分页（异步）"><span class="nav-number">1.</span> <span class="nav-text">1.后台分页（异步）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-js实现加载"><span class="nav-number">2.</span> <span class="nav-text">2.js实现加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-jq插件-lazyload"><span class="nav-number">3.</span> <span class="nav-text">3.jq插件 lazyload</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">3.0.1.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">3.0.2.</span> <span class="nav-text">参数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="饿了么," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="弹层制作 vue动画效果配置和弹层css sticky footer原理  - 使用css sticky footer技术   - vue的v-for遍历   - vue的v-show和事件监听   - vue动画处理  header和公告栏制作  - text-overflow:ellipsis的使用   - font-size:0和vertical-align的使用   - mixin的运用">
+<meta name="keywords" content="饿了么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="头部组件header.vuee">
+<meta property="og:url" content="http://super-wei.xyz/2017/09/09/头部组件header-vuee/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="弹层制作 vue动画效果配置和弹层css sticky footer原理  - 使用css sticky footer技术   - vue的v-for遍历   - vue的v-show和事件监听   - vue动画处理  header和公告栏制作  - text-overflow:ellipsis的使用   - font-size:0和vertical-align的使用   - mixin的运用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/1878328557-5909e71ab2063_articlex.png">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/551996820-5909e7e2c07dd_articlex.png">
+<meta property="og:updated_time" content="2017-09-09T10:03:21.123Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="头部组件header.vuee">
+<meta name="twitter:description" content="弹层制作 vue动画效果配置和弹层css sticky footer原理  - 使用css sticky footer技术   - vue的v-for遍历   - vue的v-show和事件监听   - vue动画处理  header和公告栏制作  - text-overflow:ellipsis的使用   - font-size:0和vertical-align的使用   - mixin的运用">
+<meta name="twitter:image" content="http://oncweb6po.bkt.clouddn.com/1878328557-5909e71ab2063_articlex.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/09/09/头部组件header-vuee/"/>
+
+
+
+
+
+  <title>头部组件header.vuee | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/头部组件header-vuee/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">头部组件header.vuee</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:53:02+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>弹层制作 vue动画效果配置和弹层css sticky footer原理</li>
+</ul>
+<pre><code>- 使用css sticky footer技术
+
+
+- vue的v-for遍历
+
+
+- vue的v-show和事件监听
+
+
+- vue动画处理
+</code></pre><ul>
+<li>header和公告栏制作</li>
+</ul>
+<pre><code>- text-overflow:ellipsis的使用
+
+
+- font-size:0和vertical-align的使用
+
+
+- mixin的运用 stylus相关和1像素边框问题
+
+
+- 背景图片的虚化
+
+
+- flex布局的使用
+</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/1878328557-5909e71ab2063_articlex.png" alt=""></p>
+<h3 id="html部分"><a href="#html部分" class="headerlink" title="html部分"></a>html部分</h3><pre><code>&lt;template&gt;
+  &lt;div class=&quot;header&quot;&gt;
+    &lt;div class=&quot;content-wrapper&quot;&gt;
+      &lt;div class=&quot;avatar&quot;&gt;
+        &lt;img width=&quot;64&quot; height=&quot;64&quot; :src=&quot;seller.avatar&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;content&quot;&gt;
+        &lt;div class=&quot;title&quot;&gt;
+          &lt;span class=&quot;brand&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;name&quot;&gt;{{seller.name}}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;description&quot;&gt;
+          {{seller.description}} / {{seller.deliveryTime}}分钟送达
+        &lt;/div&gt;
+        &lt;div v-if=&quot;seller.supports&quot; class=&quot;supports&quot;&gt;
+        &lt;!--只列出第一个support的内容--&gt;
+          &lt;span class=&quot;icon&quot; :class=&quot;classMap[seller.supports[0].type]&quot;&gt;&lt;/span&gt;
+          &lt;span class=&quot;text&quot;&gt;{{seller.supports[0].description}}&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div v-if=&quot;seller.supports&quot; class=&quot;support-count&quot; @click=&quot;showDetail&quot;&gt;
+        &lt;span class=&quot;count&quot;&gt;{{seller.supports.length}}个&lt;/span&gt;
+        &lt;i class=&quot;icon-keyboard_arrow_right&quot;&gt;&lt;/i&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!--绑定showDetail事件--&gt;
+    &lt;div class=&quot;bulletin-wrapper&quot; @click=&quot;showDetail&quot;&gt;
+      &lt;span class=&quot;bulletin-title&quot;&gt;&lt;/span&gt;&lt;span class=&quot;bulletin-text&quot;&gt;{{seller.bulletin}}&lt;/span&gt;
+      &lt;i class=&quot;icon-keyboard_arrow_right&quot;&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;background&quot;&gt;
+      &lt;img width=&quot;100%&quot; height=&quot;100%&quot; :src=&quot;seller.avatar&quot;&gt;
+    &lt;/div&gt;
+    &lt;!--这里使用了vue的动画配置transition--&gt;
+    &lt;transition name=&quot;fade&quot;&gt;
+      &lt;div v-show=&quot;detailShow&quot; class=&quot;detail&quot;&gt;
+      &lt;!--使用clearfix这个class来做css sticky footer--&gt;
+        &lt;div class=&quot;detail-wrapper clearfix&quot;&gt;
+          &lt;div class=&quot;detail-main&quot;&gt;
+            &lt;h1 class=&quot;name&quot;&gt;{{seller.name}}&lt;/h1&gt;
+            &lt;div class=&quot;star-wrapper&quot;&gt;
+            &lt;!--这里传值给star组件--&gt;
+              &lt;star :size=&quot;48&quot; :score=&quot;seller.score&quot;&gt;&lt;/star&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;title&quot;&gt;
+              &lt;div class=&quot;line&quot;&gt;&lt;/div&gt;
+              &lt;div class=&quot;text&quot;&gt;优惠信息&lt;/div&gt;
+              &lt;div class=&quot;line&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;!--列出全部的support的内容--&gt;
+            &lt;ul v-if=&quot;seller.supports&quot; class=&quot;supports&quot;&gt;
+              &lt;li class=&quot;support-item&quot; v-for=&quot;(item,index) in seller.supports&quot;&gt;
+                &lt;span class=&quot;icon&quot; :class=&quot;classMap[seller.supports[index].type]&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;text&quot;&gt;{{seller.supports[index].description}}&lt;/span&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;div class=&quot;title&quot;&gt;
+              &lt;div class=&quot;line&quot;&gt;&lt;/div&gt;
+              &lt;div class=&quot;text&quot;&gt;商家公告&lt;/div&gt;
+              &lt;div class=&quot;line&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;bulletin&quot;&gt;
+              &lt;p class=&quot;content&quot;&gt;{{seller.bulletin}}&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!--绑定hideDetail事件--&gt;
+        &lt;div class=&quot;detail-close&quot; @click=&quot;hideDetail&quot;&gt;
+          &lt;i class=&quot;icon-close&quot;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/transition&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre><h2 id="js部分"><a href="#js部分" class="headerlink" title="js部分"></a>js部分</h2><ul>
+<li><p>星星组件参看:star.vue</p>
+<pre><code>&lt;script&gt;
+  import star from &apos;../star/star.vue&apos;; //导入星星组件
+
+  export default{
+    props: {
+      seller: { //将seller对象传给组件
+        type: Object //这是vue的prop验证属性的写法
+      }
+    },
+    data(){
+      return { //设置一个变量来控制显示隐藏,vue直接会关联到dom
+        detailShow: false 
+      }
+    },
+    methods: {
+      showDetail(){
+        this.detailShow = true;  //变量控制显示公告详情页
+      }
+    },
+    created(){ //主要看这个classMap
+      this.classMap = [&apos;decrease&apos;, &apos;discount&apos;, &apos;special&apos;, &apos;invoice&apos;, &apos;guarantee&apos;];
+    },
+    components: {
+      &apos;star&apos;: star
+    }
+  }
+&lt;/script&gt;
+</code></pre></li>
+</ul>
+<p>这里需要注意的是:</p>
+<blockquote>
+<p>使用一个classMap的映射方法来实现数字和类型之间的转换</p>
+</blockquote>
+<p>元数据supports是一个数组:</p>
+<pre><code>&quot;supports&quot;: [
+      {
+        &quot;type&quot;: 0,
+        &quot;description&quot;: &quot;在线支付满28减5&quot;
+      },
+      {
+        &quot;type&quot;: 1,
+        &quot;description&quot;: &quot;VC无限橙果汁全场8折&quot;
+      },
+      {
+        &quot;type&quot;: 2,
+        &quot;description&quot;: &quot;单人精彩套餐&quot;
+      },
+      {
+        &quot;type&quot;: 3,
+        &quot;description&quot;: &quot;该商家支持发票,请下单写好发票抬头&quot;
+      },
+      {
+        &quot;type&quot;: 4,
+        &quot;description&quot;: &quot;已加入“外卖保”计划,食品安全保障&quot;
+      }
+    ],
+</code></pre><p>然后页面需要根据不同的type来显示不同的description,并且还要显示不同的图片</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/551996820-5909e7e2c07dd_articlex.png" alt=""></p>
+<p>这就需要做一个关联,将数组的值跟图片关联起来,而图片的关联是根据class来识别的,从而可以实现数组的方式来调用对应的图片.</p>
+<pre><code>&lt;!--这是css里面的--&gt;
+            &amp;.decrease
+              bg-image(&apos;decrease_1&apos;)
+            &amp;.discount
+              bg-image(&apos;discount_1&apos;)
+            &amp;.guarantee
+              bg-image(&apos;guarantee_1&apos;)
+            &amp;.invoice
+              bg-image(&apos;invoice_1&apos;)
+            &amp;.special
+              bg-image(&apos;special_1&apos;)
+</code></pre><p>通过做一个对应关系</p>
+<pre><code>this.classMap = [&apos;decrease&apos;, &apos;discount&apos;, &apos;special&apos;, &apos;invoice&apos;, &apos;guarantee&apos;];
+//classMap数组的顺序就对应supports数组的顺序
+//例如supports数组的第一个元素就对应decrease,而decrease又对应到.decrease的class
+classMap[seller.supports[0].type] //seller.supports[0].type就是0,然后classMap的第0个就是decrease,就能够指向到.decrease
+</code></pre><p>这里只需要用数组第一个元素即可</p>
+<pre><code>&lt;div v-if=&quot;seller.supports&quot; class=&quot;supports&quot;&gt;
+    &lt;span class=&quot;icon&quot; :class=&quot;classMap[seller.supports[0].type]&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;text&quot;&gt;{{seller.supports[0].description}}&lt;/span&gt;
+&lt;/div&gt;
+</code></pre><p>这里是用到全部的元素</p>
+<pre><code>&lt;ul v-if=&quot;seller.supports&quot; class=&quot;supports&quot;&gt;
+    &lt;li class=&quot;support-item&quot; v-for=&quot;(item,index) in seller.supports&quot;&gt;
+        &lt;span class=&quot;icon&quot; :class=&quot;classMap[seller.supports[index].type]&quot;&gt;&lt;/span&gt;
+        &lt;span class=&quot;text&quot;&gt;{{seller.supports[index].description}}&lt;/span&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><h3 id="css部分"><a href="#css部分" class="headerlink" title="css部分"></a>css部分</h3><ul>
+<li>考虑到行内元素的不一致的对齐,需要大量使用line-height和vertical-align</li>
+</ul>
+<ul>
+<li>font-size为0,为了去掉行内元素的间隙,这个可以继承,所以需要在子孙元素里面再单独设置font-size</li>
+</ul>
+<ul>
+<li>对于text-overflow:ellipsis的长度取决于块的长度</li>
+</ul>
+<ul>
+<li><span class="bulletin-title" \=""><span class="bulletin-text" \=""> 用合并代替换行来取消多余字符,这种情况也是可以避免设置font-size为0</span></span></li>
+</ul>
+<ul>
+<li>使用vertical-align :top之后还需要margin-top :7px,在没办法完全对齐的情况下使用</li>
+</ul>
+<ul>
+<li>clearfix的css sticky footer部分需要参看:vue动画效果配置和弹层css sticky footer原理</li>
+</ul>
+<pre><code>&lt;style lang=&quot;stylus&quot; rel=&quot;stylesheet/stylus&quot;&gt;
+  @import &quot;../../common/stylus/mixin.styl&quot; //导入minxin
+
+  .header
+    position relative //这里的相对定位是为了让下面的绝对定位做参考
+    overflow: hidden
+    color: #ffffff
+    background: rgba(7, 17, 27, 0.5)
+    .content-wrapper
+      padding: 24px 12px 18px 24px
+      font-size: 0 //这里为0是为了去掉行内元素的间隙,这个可以继承,所以需要在子孙元素里面再单独设置font-size
+      position: relative //这里的相对定位是为了让下面的绝对定位做参考
+      .avatar
+        display: inline-block
+        vertical-align: top
+        img
+          border-radius: 2px
+      .content
+        display: inline-block
+        margin-left: 16px
+        .title
+          margin: 2px 0 8px 0
+          .brand
+            display: inline-block
+            vertical-align: top
+            width: 30px
+            height: 18px
+            bg-image(&apos;brand&apos;) //这里使用了一个图片的mixin
+            background-size: 30px 18px
+            background-repeat: no-repeat
+          .name
+            margin-left: 6px
+            font-size: 16px
+            line-height: 18px
+            font-weight: bold
+        .description
+          margin-bottom: 10px
+          line-height: 12px
+          font-size: 12px
+        .supports
+          .icon
+            display: inline-block
+            vertical-align: top
+            width: 12px
+            height: 12px
+            margin-right: 4px
+            background-size: 12px 12px
+            background-repeat: no-repeat
+            &amp;.decrease //这里就是配合classMap进行图片切换的
+              bg-image(&apos;decrease_1&apos;) //这是图片的mixin,在mixin.styl里面可以看到
+            &amp;.discount
+              bg-image(&apos;discount_1&apos;)
+            &amp;.guarantee
+              bg-image(&apos;guarantee_1&apos;)
+            &amp;.invoice
+              bg-image(&apos;invoice_1&apos;)
+            &amp;.special
+              bg-image(&apos;special_1&apos;)
+          .text
+            line-height: 12px
+            font-size: 10px
+      .support-count
+        position: absolute
+        right: 12px
+        bottom: 14px
+        padding: 0 8px
+        height: 24px
+        line-height: 24px
+        border-radius: 14px
+        background: rgba(0, 0, 0, 0.2)
+        text-align: center
+        .count
+          vertical-align: top //考虑到行内元素的不一致的对齐,需要大量使用line-height和vertical-align
+          font-size: 10px
+        .icon-keyboard_arrow_right
+          margin-left: 2px
+          line-height: 24px
+          font-size: 10px
+    .bulletin-wrapper
+      position: relative //做相对定位,给icon-keyboard_arrow_right绝对定位做参照
+      height: 28px
+      line-height: 28px
+      padding: 0 22px 0 12px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis //这里是字数太长的省略处理
+      background: rgba(7, 17, 27, 0.2)
+      .bulletin-title
+        display: inline-block
+        vertical-align: top
+        margin-top: 8px
+        width: 22px
+        height: 12px
+        bg-image(&apos;bulletin&apos;)
+        background-size: 22px
+      .bulletin-text
+        vertical-align: top
+        margin: 0 4px
+        font-size: 10px
+        font-weight: 200
+      .icon-keyboard_arrow_right
+        position: absolute
+        font-size: 10px
+        right: 12px
+        top: 8px
+    .background //这里使用的是图片做背景,所以需要做下面这些处理
+      position absolute //背景图片需要绝对定位
+      top: 0 //设置位置
+      left: 0
+      width: 100% //设置大小
+      height: 100%
+      z-index: -1 //将背景图片设置里层,避免突出位置看到外露部分
+      filter: blur(10px) //背景图片虚化
+    .detail
+      position: fixed //弹出层,所以用fixed
+      z-index: 100 //需要设置z-index保持一定的高度
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      overflow: auto //加overflow hidden来把多余的背景阴影去掉
+      opacity: 1 //这是动画设置
+      background: rgba(7, 17, 27, 0.8)
+      &amp;.fade-enter-active, &amp;.fade-leave-active //vue的动画需要参考vue动画配置理解
+        transition: all 0.5s
+      &amp;.fade-enter, &amp;.fade-leave-active
+        opacity: 0
+        background: rgba(7, 17, 27, 0)
+      .detail-wrapper
+        width: 100%
+        min-height: 100% //因为不知道有多少内容,所以用min-height
+        .detail-main
+          margin-top: 64px
+          padding-bottom: 64px //预留下面close按钮的位置,所以下内边距顶起
+          .name
+            line-height: 16px
+            text-align: center
+            font-size: 16px
+            font-weight: 700
+          .star-wrapper
+            margin-top: 18px
+            padding: 2px 0
+            text-align center
+          .title
+            display: flex //使用flex布局等分详情页优惠界面
+            width: 80%
+            margin: 28px auto 24px auto
+            .line
+              flex: 1 //使用1的比例的flex块
+              position: relative //这里使用相对布局加top对齐,可以也可以margin-bottom
+              top: -6px
+              border-bottom: 1px solid rgba(255, 255, 255, 0.2) //使用border生成线,因为使用的是div
+            .text
+              padding: 0 12px
+              font-size: 14px
+              font-weight 700
+          .supports
+            width: 80%
+            margin: 0 auto
+            .support-item
+              padding: 0 12px
+              margin-bottom: 12px
+              font-size: 0
+              &amp;:last-child
+                margin-bottom: 0
+              .icon
+                display: inline-block
+                width: 16px
+                height: 16px
+                vertical-align: top
+                margin-right: 6px
+                background-size: 16px 16px
+                background-repeat: no-repeat
+                //通过对应不同的class来对应不同的图片
+                &amp;.decrease
+                  bg-image(&apos;decrease_2&apos;)
+                &amp;.discount
+                  bg-image(&apos;discount_2&apos;)
+                &amp;.guarantee
+                  bg-image(&apos;guarantee_2&apos;)
+                &amp;.invoice
+                  bg-image(&apos;invoice_2&apos;)
+                &amp;.special
+                  bg-image(&apos;special_2&apos;)
+              .text
+                line-height: 16px
+                font-size: 12px
+          .bulletin
+            width: 80%
+            margin: 0 auto
+            .content
+              padding: 0 12px
+              line-height: 24px
+              font-size: 12px
+      .detail-close
+        position: relative
+        width: 32px
+        height: 32px
+        margin: -64px auto 0 auto //使用之前预留了的位置
+        clear: both
+        font-size: 32px
+&lt;/style&gt;
+</code></pre><p>备注:</p>
+<ol>
+<li>text-overflow :ellipsis显示在底部.不是中间,是浏览器的显示处理不同关于文字内容溢出用点点点-省略号表示</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/饿了么/" rel="tag"># 饿了么</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/09/星星组件star-vue/" rel="next" title="星星组件star.vue">
+                <i class="fa fa-chevron-left"></i> 星星组件star.vue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/09/关于购物车添加按钮的动画/" rel="prev" title="关于购物车添加按钮的动画">
+                关于购物车添加按钮的动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#html部分"><span class="nav-number">1.</span> <span class="nav-text">html部分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js部分"><span class="nav-number"></span> <span class="nav-text">js部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#css部分"><span class="nav-number">1.</span> <span class="nav-text">css部分</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

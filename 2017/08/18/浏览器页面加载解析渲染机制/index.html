@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="浏览器," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="一：为什么要了解浏览器渲染页面和加载页面机制，主要还是性能的优化。 了解浏览器如何进行加载，我们可以在引用外部样式文件，外部js时，将他们放到合适的位置，使浏览器以最快的速度将文件加载完毕。  了解浏览器如何进行解析，我们可以在构建DOM结构，组织css选择器时，选择最优的写法，提高浏览器的解析速率。  了解浏览器如何进行渲染，明白渲染的过程，我们在设置元素属性，编写js文件时，可以减少”重绘“”">
+<meta name="keywords" content="浏览器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器页面加载解析渲染机制">
+<meta property="og:url" content="http://super-wei.xyz/2017/08/18/浏览器页面加载解析渲染机制/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="一：为什么要了解浏览器渲染页面和加载页面机制，主要还是性能的优化。 了解浏览器如何进行加载，我们可以在引用外部样式文件，外部js时，将他们放到合适的位置，使浏览器以最快的速度将文件加载完毕。  了解浏览器如何进行解析，我们可以在构建DOM结构，组织css选择器时，选择最优的写法，提高浏览器的解析速率。  了解浏览器如何进行渲染，明白渲染的过程，我们在设置元素属性，编写js文件时，可以减少”重绘“”">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20170714155844.png">
+<meta property="og:updated_time" content="2017-08-24T09:47:09.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器页面加载解析渲染机制">
+<meta name="twitter:description" content="一：为什么要了解浏览器渲染页面和加载页面机制，主要还是性能的优化。 了解浏览器如何进行加载，我们可以在引用外部样式文件，外部js时，将他们放到合适的位置，使浏览器以最快的速度将文件加载完毕。  了解浏览器如何进行解析，我们可以在构建DOM结构，组织css选择器时，选择最优的写法，提高浏览器的解析速率。  了解浏览器如何进行渲染，明白渲染的过程，我们在设置元素属性，编写js文件时，可以减少”重绘“”">
+<meta name="twitter:image" content="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20170714155844.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/08/18/浏览器页面加载解析渲染机制/"/>
+
+
+
+
+
+  <title>浏览器页面加载解析渲染机制 | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/浏览器页面加载解析渲染机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浏览器页面加载解析渲染机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:19:57+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一：为什么要了解浏览器渲染页面和加载页面机制，主要还是性能的优化。"><a href="#一：为什么要了解浏览器渲染页面和加载页面机制，主要还是性能的优化。" class="headerlink" title="一：为什么要了解浏览器渲染页面和加载页面机制，主要还是性能的优化。"></a>一：为什么要了解浏览器渲染页面和加载页面机制，主要还是性能的优化。</h1><ul>
+<li><p>了解浏览器如何进行<strong>加载</strong>，我们可以在引用外部样式文件，外部js时，将他们放到合适的位置，使浏览器以最快的速度将文件加载完毕。</p>
+</li>
+<li><p>了解浏览器如何进行<strong>解析</strong>，我们可以在构建DOM结构，组织css选择器时，选择最优的写法，提高浏览器的解析速率。</p>
+</li>
+<li><p>了解浏览器如何进行<strong>渲染</strong>，明白渲染的过程，我们在设置元素属性，编写js文件时，可以减少”重绘“”重新布局“的消耗。</p>
+</li>
+</ul>
+<h1 id="二：用户访问网页都发生了什么。"><a href="#二：用户访问网页都发生了什么。" class="headerlink" title="二：用户访问网页都发生了什么。"></a>二：用户访问网页都发生了什么。</h1><ol>
+<li><p>用户访问网页，DNS服务器（域名解析系统）会根据用户提供的域名查找对应的IP地址，找到后，系统会向对应IP地址的网络服务器发送一个http请求。</p>
+</li>
+<li><p>网络服务器解析请求，并发送请求给数据库服务器。</p>
+</li>
+<li><p>数据库服务器将请求的资源返回给网络服务器，网络服务器解析数据，并生成html文件，放入http response中，返回给浏览器。</p>
+</li>
+<li><p>浏览器解析 http response。</p>
+</li>
+<li><p>浏览器解析 http response后，需要下载html文件，以及html文件内包含的外部引用文件，及文件内涉及的图片或者多媒体文件。（这里进入主题了也就是下面的第三大点）</p>
+</li>
+</ol>
+<blockquote>
+<p>1~4步骤HTTP协议的一些内容，访问服务器端可能遭遇的问题：如果网络服务器无法获取数据库服务器返回的资源文件（http response 404），或者由于并发原因暂时无法处理用户的http请求（http response 500）。</p>
+</blockquote>
+<h1 id="三：浏览器加载页面机制"><a href="#三：浏览器加载页面机制" class="headerlink" title="三：浏览器加载页面机制"></a>三：浏览器加载页面机制</h1><p>加载，即为获取资源文件的过程，不同浏览器，以及他们的不同版本在实现这一过程时，会有不同的实现效果(资源间互相阻塞，可以用timeline来做测试)。这里先说下浏览器的<strong>5个常驻线程</strong>：</p>
+<ol>
+<li><p>浏览器GUI渲染线程</p>
+</li>
+<li><p>javascript引擎线程</p>
+</li>
+<li><p>浏览器定时器触发线程（setTimeout）</p>
+</li>
+<li><p>浏览器事件触发线程</p>
+</li>
+<li><p>浏览器http异步请求线程（.jpg <link>这类请求）</p>
+</li>
+</ol>
+<blockquote>
+<p>备注：现代浏览器存在 prefetch 优化，浏览器会另外开启线程，提前下载js、css文件，需要注意的是，预加载js并不会改变dom结构，他将这个工作留给主加载。</p>
+<p>注意：这里也涉及到 阻塞 的现象，当js引擎线程（第二个）进行时，会挂起其他一切线程，这个时候3、4、5这三类线程也会产生不同的异步事件，由于 javascript引擎线程为单线程，所以代码都是先压到队列，采用先进先出的方式运行，事件处理函数，timer函数也会压在队列中，不断的从队头取出事件，这就叫：javascript-event-loop。简单点说应该是当在进行第二线程的时候，1，3，4，5都会挂起，比如这时候触发click事件，即使先前JS已经加载完成，click事件会压在队列里，这里也要先完成第二线程才会执行click事件。</p>
+</blockquote>
+<p><strong>加载顺序：</strong></p>
+<ol>
+<li><p>浏览器解析http response 下载html文件会”自上而下“加载，并在加载过程中进行解析渲染。“自上而下”加载时遇到图片、视频之类资源时便会进入第5个线程，这是异步请求，并不会影响html文档进行加载。</p>
+</li>
+<li><p>加载过程中遇到外部css文件，浏览器另外发出一个请求，来获取css文件。这里也是第5个线程，这里css解析会生成一个rule tree（规则树），这个以后会更新。</p>
+</li>
+<li><p>当文档加载过程中遇到js文件，html文档会挂起渲染（加载解析渲染同步）的线程，不仅要等待文档中js文件加载完毕，还要等待解析执行完毕，才可以恢复html文档的渲染线程。</p>
+</li>
+</ol>
+<blockquote>
+<p>原因：JS有可能会修改DOM，最为经典的document.write，这意味着，在JS执行完成前，后续所有资源的下载可能是没有必要的，这是js阻塞后续资源下载的根本原因。</p>
+<p>办法：可以将外部引用的js文件放在前。</p>
+</blockquote>
+<p> 4、  css可能影响js的执行造成阻塞。</p>
+<p>原因：如js里面var width = $(‘#id’).width();这里js执行前，浏览器必须保证之前的css文件已下载和解析完成(后面的不会影响)，这也是css阻塞后续js的根本原因。当js文件不需要依赖css文件时，可以将js文件放在头部css的前面。</p>
+<p>5、 预加载网页，利用空余时间来提前加载该网页的后续网页。</p>
+<pre><code>&lt;link rel=&quot;prefetch&quot; href=&quot;http://&quot;&gt;
+</code></pre><p>6、为js脚本添加defer属性，其不会阻塞后续DOM的的渲染。但是因为这个defer只是IE专用，所以一般用得比较少。</p>
+<p>而我们标准的的HTML5也加入了一个异步载入javascript的属性：async，无论你对它赋什么样的值，只要它出现，它就开始异步加载js文件。</p>
+<p>但是， async的异步加载会有一个比较严重的问题，那就是它忠实地践行着“载入后马上执行”这条军规，所以，虽然它并不阻塞页面的渲染，但是你也无法控制他执行的次序和时机。</p>
+<h1 id="四、浏览器解析渲染机制"><a href="#四、浏览器解析渲染机制" class="headerlink" title="四、浏览器解析渲染机制"></a>四、浏览器解析渲染机制</h1><h3 id="1-浏览器是如何对网页进行渲染的"><a href="#1-浏览器是如何对网页进行渲染的" class="headerlink" title="1.浏览器是如何对网页进行渲染的"></a>1.浏览器是如何对网页进行渲染的</h3><p>（1）.浏览器将从服务器获取的HTML文档构建成文档对象模型DOM(Document Object Model)</p>
+<p>（2）.样式将被载入和解析，构成层叠样式表模型CSSOM(CSS Object Model)</p>
+<p>（3）.在DOM和CSSOM之上，渲染树(rendering tree)将会被创建，代表一系列将被渲染的对象（这在Webkit内核中被称为renderer或者渲染对象render object，在Gecko内核中被称为框架frame）。<strong>渲染树映射除了不可见元素（例如<head>或者含有display:none;的标签）外的所有DOM结构。</head></strong>每一段文本字符串都将划分在不同的渲染对象中，每一个渲染对象都包含了它相应的DOM对象以及计算后的样式。换句话讲，渲染树是DOM的直观表示。</p>
+<p>（4）.渲染树的每个元素包含的内容都是计算过的，它被称之为布局layout.浏览器使用一种流式处理的方法，只需要一次pass绘制操作就可以布局所有的元素（tables需要多次pass绘制，pass表示像素处理和顶点处理）。</p>
+<p>（5）.最后布局完成，渲染树将转化为屏幕上的实际内容，这一步被称为绘制painting。</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20170714155844.png" alt=""></p>
+<h3 id="DOM-CSSOM-rendering-tree-layout-painting"><a href="#DOM-CSSOM-rendering-tree-layout-painting" class="headerlink" title="DOM-CSSOM-rendering tree-layout-painting"></a>DOM-CSSOM-rendering tree-layout-painting</h3><h3 id="2-重绘Repaint"><a href="#2-重绘Repaint" class="headerlink" title="2.重绘Repaint"></a>2.重绘Repaint</h3><p>当页面元素样式的改变不影响元素在文档流中的位置时（例如background-color, border-color,visibility）,浏览器只会将新样式赋予元素并进行重绘操作。</p>
+<h3 id="3-回流Reflow"><a href="#3-回流Reflow" class="headerlink" title="3.回流Reflow"></a>3.回流Reflow</h3><p>当改变影响文档内容或者结构，或者元素位置时，回流操作就会被触发，一般有以下几种情况：</p>
+<ol>
+<li><p>DOM操作（对元素的增删改，顺序变化等）</p>
+</li>
+<li><p>内容变化，包括表单区域内的文本改变</p>
+</li>
+<li><p>CSS属性的更改或重新计算</p>
+</li>
+<li><p>增删样式表内容</p>
+</li>
+<li><p>修改class属性</p>
+</li>
+<li><p>浏览器窗口变化（滚动或缩放）</p>
+</li>
+<li><p>伪类样式激活（:hover等）</p>
+</li>
+</ol>
+<h3 id="4-浏览器如何优化渲染"><a href="#4-浏览器如何优化渲染" class="headerlink" title="4.浏览器如何优化渲染"></a>4.浏览器如何优化渲染</h3><p>浏览器本身会尽可能地减少其重绘或回流的次数，只更改必要的元素。例如一个position设置为absolute/fixed的元素的更改只会影响其本身和其子元素，而static的元素变化则会影响其之后的所有页面元素。</p>
+<p>另外一项优化的技术则是在JavaScript代码运行时，浏览器会缓存所有的变化，然后只通过一次pass绘制操作来应用这些更改。例如下面这段代码只会触发一次重绘和回流：</p>
+<pre><code>var $body = $(&apos;body&apos;);
+$body.css(&apos;padding&apos;, &apos;1px&apos;); // 触发重绘与回流
+$body.css(&apos;color&apos;, &apos;red&apos;); // 触发重绘
+$body.css(&apos;margin&apos;, &apos;2px&apos;); // 触发重绘与回流
+// 最终只有一次重绘和回流被触发
+</code></pre><p>然而，根据我们之前提到过的，获取某个元素的属性将会触发强制回流。比如我们在刚才的代码中加上一句读取元素属性的操作：</p>
+<pre><code>var $body = $(&apos;body&apos;);
+$body.css(&apos;padding&apos;, &apos;1px&apos;);
+$body.css(&apos;padding&apos;); // 此处触发强制回流
+$body.css(&apos;color&apos;, &apos;red&apos;);
+$body.css(&apos;margin&apos;, &apos;2px&apos;);
+</code></pre><p>结果就会有两次回流发生。因此，我们应该尽量合并读取元素属性的操作来优化性能。</p>
+<p>当然也有我们不得不触发强制回流的情况。比如说对同一个元素的margin-left属性进行两次操作——开始的时候赋值100px的距离，之后为了实现动画效果，再加上transition属性将距离改变到50px.</p>
+<p>我们先定义一个CSS类：</p>
+<pre><code>.has-transition {
+   -webkit-transition: margin-left 1s ease-out;
+      -moz-transition: margin-left 1s ease-out;
+        -o-transition: margin-left 1s ease-out;
+           transition: margin-left 1s ease-out;
+}
+</code></pre><p>之后再对页面元素进行操作：</p>
+<pre><code>// 我们的元素开始默认含有 &quot;has-transition&quot; 的class属性
+var $targetElem = $(&apos;#targetElemId&apos;);
+
+// 移除默认的 &quot;has-transition&quot;
+$targetElem.removeClass(&apos;has-transition&apos;);
+
+// 此处的属性改变没有动画效果
+$targetElem.css(&apos;margin-left&apos;, 100);
+
+// 再加上原来的属性名
+$targetElem.addClass(&apos;has-transition&apos;);
+
+// 这次改变有动画效果
+$targetElem.css(&apos;margin-left&apos;, 50);
+</code></pre><p>但事实上这段代码并不会像注释描述的那样运作，每条语句的操作将被缓存，只有结果会在页面上显示，所以我们就需要手动进行一次强制回流：</p>
+<pre><code>// 移除默认的 &quot;has-transition&quot;
+$(this).removeClass(&apos;has-transition&apos;);
+
+// 此处的属性改变没有动画效果
+$(this).css(&apos;margin-left&apos;, 100);
+
+// 触发强制回流，上述两条语句的效果会马上在页面中显示
+$(this)[0].offsetHeight; // 只是举个例子，别的触发方法也可以
+
+// 再加上原来的属性名
+$(this).addClass(&apos;has-transition&apos;);
+
+// 这次改变有动画效果
+$(this).css(&apos;margin-left&apos;, 50);
+</code></pre><h3 id="5-优化渲染效率的几条最佳实践"><a href="#5-优化渲染效率的几条最佳实践" class="headerlink" title="5.优化渲染效率的几条最佳实践"></a>5.优化渲染效率的几条最佳实践</h3><ol>
+<li><p>合法地书写HTML和CSS，不要忘了文档编码类型。样式文件应当在 <head> 标签中，脚本文件在 </head><body> 结束前。</body></p>
+</li>
+<li><p>简化并优化你的CSS选择器（有些人可能CSS预处理器用习惯了从来不关注这一点）。将嵌套层减少到最小。CSS选择器根据其优先级具有不同的运行效率（从快到慢）：</p>
+</li>
+</ol>
+<ul>
+<li>ID选择器： #id</li>
+</ul>
+<ul>
+<li>类选择器： .class</li>
+</ul>
+<ul>
+<li>标签选择器： div</li>
+</ul>
+<ul>
+<li>相邻选择器： a + i</li>
+</ul>
+<ul>
+<li>子元素选择器： ul &gt; li</li>
+</ul>
+<ul>
+<li>通用选择器： *</li>
+</ul>
+<ul>
+<li>属性选择器： input[type=”text”]</li>
+</ul>
+<ul>
+<li>伪类选择器： a:hover</li>
+</ul>
+<p>浏览器中CSS选择器是从右到左进行匹配的（为什么浏览器要从右到左匹配样式选择器），这也是为什么越短的选择器运行越快的原因（别提通用选择器，它会遍历所有元素）：</p>
+<pre><code>div * {...} // ×
+.list li {...} // ×
+.list-item {...} // √
+#list .list-item {...} // √
+</code></pre><p>3.在你的脚本代码中，尽量减少DOM操作。缓存所有的内容，包括属性和对象（如果他们需要被复用的话）。尽量将元素缓存到本地之后再进行操作，最后再添加到DOM当中。</p>
+<p>4.如果你使用jQuery进行DOM操作的话，最好遵循jQuery最佳实践。</p>
+<p>5.修改元素样式时，更改其class属性是性能最高的方法。你的选择器越有针对性越好（这同样也有助于分离页面样式和逻辑）。</p>
+<p>6.尽量只对 position 为 absolute/fixed 的元素设置动画。</p>
+<p>7.在页面滚动时禁用 :hover 样式效果：</p>
+<pre><code>.disable-hover {
+  pointer-events: none;
+}
+var body = document.body,
+    timer;
+
+window.addEventListener(&apos;scroll&apos;, function() {
+  clearTimeout(timer);
+  if(!body.classList.contains(&apos;disable-hover&apos;)) {
+    body.classList.add(&apos;disable-hover&apos;)
+  }
+
+  timer = setTimeout(function(){
+    body.classList.remove(&apos;disable-hover&apos;)
+  },500);
+}, false);
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/浏览器/" rel="tag"># 浏览器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/18/vuex/" rel="next" title="vuex">
+                <i class="fa fa-chevron-left"></i> vuex
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/18/两个viewport的故事-一/" rel="prev" title="两个viewport的故事(一))">
+                两个viewport的故事(一)) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一：为什么要了解浏览器渲染页面和加载页面机制，主要还是性能的优化。"><span class="nav-number">1.</span> <span class="nav-text">一：为什么要了解浏览器渲染页面和加载页面机制，主要还是性能的优化。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二：用户访问网页都发生了什么。"><span class="nav-number">2.</span> <span class="nav-text">二：用户访问网页都发生了什么。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三：浏览器加载页面机制"><span class="nav-number">3.</span> <span class="nav-text">三：浏览器加载页面机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、浏览器解析渲染机制"><span class="nav-number">4.</span> <span class="nav-text">四、浏览器解析渲染机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-浏览器是如何对网页进行渲染的"><span class="nav-number">4.0.1.</span> <span class="nav-text">1.浏览器是如何对网页进行渲染的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-CSSOM-rendering-tree-layout-painting"><span class="nav-number">4.0.2.</span> <span class="nav-text">DOM-CSSOM-rendering tree-layout-painting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-重绘Repaint"><span class="nav-number">4.0.3.</span> <span class="nav-text">2.重绘Repaint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-回流Reflow"><span class="nav-number">4.0.4.</span> <span class="nav-text">3.回流Reflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-浏览器如何优化渲染"><span class="nav-number">4.0.5.</span> <span class="nav-text">4.浏览器如何优化渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-优化渲染效率的几条最佳实践"><span class="nav-number">4.0.6.</span> <span class="nav-text">5.优化渲染效率的几条最佳实践</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

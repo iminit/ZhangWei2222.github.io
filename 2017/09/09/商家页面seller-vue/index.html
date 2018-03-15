@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="饿了么," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="主体结构html代码&amp;lt;div class=&amp;quot;seller&amp;quot; ref=&amp;quot;seller&amp;quot;&amp;gt;     &amp;lt;div class=&amp;quot;seller-content&amp;quot;&amp;gt;       &amp;lt;!--overview部分--&amp;gt;       &amp;lt;div class=&amp;quot;overview&amp;quot;&amp;gt;">
+<meta name="keywords" content="饿了么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="商家页面seller.vue">
+<meta property="og:url" content="http://super-wei.xyz/2017/09/09/商家页面seller-vue/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="主体结构html代码&amp;lt;div class=&amp;quot;seller&amp;quot; ref=&amp;quot;seller&amp;quot;&amp;gt;     &amp;lt;div class=&amp;quot;seller-content&amp;quot;&amp;gt;       &amp;lt;!--overview部分--&amp;gt;       &amp;lt;div class=&amp;quot;overview&amp;quot;&amp;gt;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-09T10:07:41.386Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="商家页面seller.vue">
+<meta name="twitter:description" content="主体结构html代码&amp;lt;div class=&amp;quot;seller&amp;quot; ref=&amp;quot;seller&amp;quot;&amp;gt;     &amp;lt;div class=&amp;quot;seller-content&amp;quot;&amp;gt;       &amp;lt;!--overview部分--&amp;gt;       &amp;lt;div class=&amp;quot;overview&amp;quot;&amp;gt;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/09/09/商家页面seller-vue/"/>
+
+
+
+
+
+  <title>商家页面seller.vue | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/商家页面seller-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">商家页面seller.vue</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:57:35+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h2><h3 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;seller&quot; ref=&quot;seller&quot;&gt;
+    &lt;div class=&quot;seller-content&quot;&gt;
+      &lt;!--overview部分--&gt;
+      &lt;div class=&quot;overview&quot;&gt;
+
+      &lt;/div&gt;
+      &lt;split&gt;&lt;/split&gt;
+      &lt;!--bulltin部分--&gt;
+      &lt;div class=&quot;bulletin&quot;&gt;
+
+      &lt;/div&gt;
+      &lt;split&gt;&lt;/split&gt;
+      &lt;!--pics部分--&gt;
+      &lt;div class=&quot;pics&quot;&gt;
+
+      &lt;/div&gt;
+      &lt;split&gt;&lt;/split&gt;
+      &lt;!--info部分--&gt;
+      &lt;div class=&quot;info&quot;&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</code></pre><ul>
+<li><p>seller-contentdiv是能够扩大高度的,能够被内容增加而撑高,而seller div是固定的高度的,从而形成滚动</p>
+<h3 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
+import split from &apos;../split/split&apos;;
+
+export default {
+  props: {
+    seller: { //app.vue里面router-view会传入一个seller
+      type: Object
+    }
+  },
+  watch: { //当seller变动的时候会触发
+    &apos;seller&apos;() {
+      this.$nextTick(() =&gt; {
+        this._initScroll();
+        this._initPics();
+      });
+    }
+  },
+  mounted() { //在dom被渲染之后触发
+    this.$nextTick(() =&gt; {
+      this._initScroll();
+      this._initPics();
+    });
+  },
+  methods: {
+    _initScroll() {
+      if (!this.scroll) {
+        this.scroll = new BScroll(this.$refs.seller, {
+          click: true
+        });
+      } else {
+        this.scroll.refresh();
+      }
+    },
+    _initPics() {
+      //详细代码在下面,这里暂时先忽略
+    }
+  },
+  components: {
+    split
+  }
+};
+</code></pre></li>
+</ul>
+<ul>
+<li>使用watch方法是为了监听数据seller的变化,因为当打开页面的时候,seller是异步获取的,并不一定是能够马上获取,没有seller的数据,相关dom就无法被渲染,并且bscroll是基于dom执行的,所以需要监听seller的变化然后来重新执行相关的初始化函数</li>
+</ul>
+<ul>
+<li>使用mounted方法是为了保证相关dom渲染完成,因为bscroll是基于dom执行的,但是当切换页面的时候,dom会重新渲染,但未必能够马上完成,所以需要在mounted方法里面重新执行相关的初始化函数</li>
+</ul>
+<ul>
+<li><p>关于watch和mounted的使用要基于vue的生命周期来理解vue生命周期</p>
+<h3 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h3><pre><code>.seller
+  position: absolute
+  top: 174px //给header留空间
+  bottom: 0
+  left: 0
+  width: 100%
+  overflow: hidden //隐藏多余部分,因为需要滚动
+</code></pre><h2 id="overview部分"><a href="#overview部分" class="headerlink" title="overview部分"></a>overview部分</h2><h3 id="html部分"><a href="#html部分" class="headerlink" title="html部分"></a>html部分</h3><pre><code>&lt;div class=&quot;overview&quot;&gt;
+  &lt;h1 class=&quot;title&quot;&gt;{{seller.name}}&lt;/h1&gt;
+  &lt;div class=&quot;desc border-1px&quot;&gt;
+    &lt;star :size=&quot;36&quot; :score=&quot;seller.score&quot;&gt;&lt;/star&gt;
+    &lt;span class=&quot;text&quot;&gt;({{seller.ratingCount}})&lt;/span&gt;
+    &lt;span class=&quot;text&quot;&gt;月售{{seller.sellCount}}单&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;!--列表处理remark内容--&gt;
+  &lt;ul class=&quot;remark&quot;&gt;
+  &lt;!--使用一个block块包裹内容--&gt;
+    &lt;li class=&quot;block&quot;&gt;
+    &lt;!--标题用h2标签--&gt;
+      &lt;h2&gt;起送价&lt;/h2&gt;
+      &lt;!--用content块包裹内容--&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;!--用span代表特殊字体--&gt;
+        &lt;span class=&quot;stress&quot;&gt;{{seller.minPrice}}&lt;/span&gt;元
+      &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;block&quot;&gt;
+      &lt;h2&gt;商家配送&lt;/h2&gt;
+      &lt;div class=&quot;content&quot;&gt;
+        &lt;span class=&quot;stress&quot;&gt;{{seller.deliveryPrice}}&lt;/span&gt;元
+      &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;block&quot;&gt;
+      &lt;h2&gt;平均配送时间&lt;/h2&gt;
+      &lt;div class=&quot;content&quot;&gt;
+        &lt;span class=&quot;stress&quot;&gt;{{seller.deliveryTime}}&lt;/span&gt;分钟
+      &lt;/div&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;!--收藏按钮--&gt;
+  &lt;div class=&quot;favorite&quot; @click=&quot;toggleFavorite&quot;&gt;
+    &lt;span class=&quot;icon-favorite&quot; :class=&quot;{&apos;active&apos;:favorite}&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;text&quot;&gt;{{favoriteText}}&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h3 id="js部分"><a href="#js部分" class="headerlink" title="js部分"></a>js部分</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
+//引入一个利用html5的localstorage的存储模块
+import { saveToLocal, loadFromLocal } from &apos;common/js/store&apos;;
+
+export default {
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  data() {
+    return {
+      favorite: (() =&gt; { 
+      //利用localstorage读取这个属性
+        return loadFromLocal(this.seller.id, &apos;favorite&apos;, false);
+      })()//vue需要返回的data必须是函数,所以加上()
+    };
+  },
+  computed: {
+    favoriteText() { //通过favorite的值来计算favoriteText的值
+      return this.favorite ? &apos;已收藏&apos; : &apos;收藏&apos;;
+    }
+  },
+  methods: {
+    toggleFavorite(event) {
+      if (!event._constructed) {
+        return;
+      }
+      //通过取反来设置切换
+      this.favorite = !this.favorite;
+      //利用localstorage存储这个属性
+      saveToLocal(this.seller.id, &apos;favorite&apos;, this.favorite);
+    }
+  }
+};
+</code></pre></li>
+</ul>
+<ul>
+<li>store.js参考:split,formatDate,store,util组件<h3 id="css部分"><a href="#css部分" class="headerlink" title="css部分"></a>css部分</h3>  .overview<pre><code>position: relative //设置相对布局参考位置
+padding: 18px
+.title
+  margin-bottom: 8px
+  line-height: 14px
+  color: rgb(7, 17, 27)
+  font-size: 14px
+.desc
+  padding-bottom: 18px
+  border-1px(rgba(7, 17, 27, 0.1))
+  font-size: 0
+  .star
+    display: inline-block
+    margin-right: 8px
+    vertical-align: top //行内对齐
+  .text
+    display: inline-block
+    margin-right: 12px
+    line-height: 18px
+    vertical-align: top //行内对齐
+    font-size: 10px
+    color: rgb(77, 85, 93)
+.remark
+  display: flex //flex布局
+  padding-top: 18px
+  .block
+    flex: 1 //flex布局等分区域
+    text-align: center
+    border-right: 1px solid rgba(7, 17, 27, 0.1)
+    &amp;:last-child
+      border: none
+    h2
+      margin-bottom: 4px
+      line-height: 10px
+      font-size: 10px
+      color: rgb(147, 153, 159)
+    .content //设置该块的公共属性
+      line-height: 24px
+      font-size: 10px
+      color: rgb(7, 17, 27)
+      .stress //特殊大小再插入class覆盖
+        font-size: 24px
+.favorite
+  position: absolute
+  width: 50px //设置一个固定宽度,被text-align使用
+  right: 11px
+  top: 18px
+  text-align: center
+  .icon-favorite
+    display: block
+    margin-bottom: 4px
+    line-height: 24px
+    font-size: 24px
+    color: #d4d6d9
+    &amp;.active
+      color: rgb(240, 20, 20)
+  .text
+    line-height: 10px
+    font-size: 10px
+    color: rgb(77, 85, 93)
+</code></pre><h2 id="bulletin部分"><a href="#bulletin部分" class="headerlink" title="bulletin部分"></a>bulletin部分</h2><h3 id="html代码-1"><a href="#html代码-1" class="headerlink" title="html代码"></a>html代码</h3>  <div class="bulletin"><br>          <h1 class="title">公告与活动</h1><br>          <div class="content-wrapper border-1px"><br>            <p class="content"></p><br>          </div><br>          <ul v-if="seller.supports" class="supports"><br>            <li class="support-item border-1px" v-for="(item,index) in seller.supports"><br>            <!--使用classMap做对应--><br>              <span class="icon" :class="classMap[seller.supports[index].type]"></span><br>              <span class="text"></span><br>            </li><br>          </ul><br>        </div>
+
+
+</li>
+</ul>
+<blockquote>
+<p>classMap的原理(classMap使用在之前的header组件使用过Header.vue)</p>
+</blockquote>
+<ul>
+<li>seller.supports的结构是这样的<br>  “supports”: [<pre><code>  {
+    &quot;type&quot;: 0,
+    &quot;description&quot;: &quot;在线支付满28减5&quot;
+  },
+  {
+    &quot;type&quot;: 1,
+    &quot;description&quot;: &quot;VC无限橙果汁全场8折&quot;
+  },
+  {
+    &quot;type&quot;: 2,
+    &quot;description&quot;: &quot;单人精彩套餐&quot;
+  },
+  {
+    &quot;type&quot;: 3,
+    &quot;description&quot;: &quot;该商家支持发票,请下单写好发票抬头&quot;
+  },
+  {
+    &quot;type&quot;: 4,
+    &quot;description&quot;: &quot;已加入“外卖保”计划,食品安全保障&quot;
+  }
+],
+</code></pre></li>
+</ul>
+<ul>
+<li>classMap是[‘decrease’, ‘discount’, ‘special’, ‘invoice’, ‘guarantee’]这样的,这个顺序是按照设计需要和数据结构排的,例如type为0对应在线支付满28减5</li>
+</ul>
+<ul>
+<li>如果要获取对应的class,就可以classMap[seller.supports[index].type],例如seller.supports[0].type就是0,那么就是classMap[0]就是decrease这个class</li>
+</ul>
+<ul>
+<li><p>如果要获取对应的description就可以seller.supports[index].description,例如seller.supports[0].description就直接知道了supports数组的第一个元素的description属性的值了</p>
+<h3 id="js代码-1"><a href="#js代码-1" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import split from &apos;../split/split&apos;;
+
+export default {
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  created() { //使用自建的一个classMap数组来对应不同的类别
+    this.classMap = [&apos;decrease&apos;, &apos;discount&apos;, &apos;special&apos;, &apos;invoice&apos;, &apos;guarantee&apos;];
+  },
+  components: {
+    split
+  }
+};
+</code></pre></li>
+</ul>
+<ul>
+<li>使用created方法是为了在加载的时候第一时间完成,因为vue的渲染需要this.classMap属性(created是vue的生命周期的第一个)<h3 id="css代码-1"><a href="#css代码-1" class="headerlink" title="css代码"></a>css代码</h3>  @import “../../common/stylus/mixin.styl”<pre><code>.bulletin
+  padding: 18px 18px 0 18px
+  .title
+    margin-bottom: 8px
+    line-height: 14px
+    color: rgb(7, 17, 27)
+    font-size: 14px
+  .content-wrapper
+    padding: 0 12px 16px 12px
+    border-1px(rgba(7, 17, 27, 0.1))
+    .content
+      line-height: 24px
+      font-size: 12px
+      color: rgb(240, 20, 20)
+  .supports
+    .support-item
+      padding: 16px 12px
+      border-1px(rgba(7, 17, 27, 0.1))
+      font-size: 0
+      &amp;:last-child
+        border-none() //需要引入一个mixin,处理没边框的问题
+    .icon
+      display: inline-block
+      width: 16px
+      height: 16px
+      vertical-align: top
+      margin-right: 6px
+      background-size: 16px 16px
+      background-repeat: no-repeat
+      &amp;.decrease //使用设计要求的大小的图标
+        bg-image(&apos;decrease_4&apos;) //使用mixin处理这些图标
+      &amp;.discount
+        bg-image(&apos;discount_4&apos;)
+      &amp;.guarantee
+        bg-image(&apos;guarantee_4&apos;)
+      &amp;.invoice
+        bg-image(&apos;invoice_4&apos;)
+      &amp;.special
+        bg-image(&apos;special_4&apos;)
+    .text
+      line-height: 16px
+      font-size: 12px
+      color: rgb(7, 17, 27)
+</code></pre><h2 id="pics部分"><a href="#pics部分" class="headerlink" title="pics部分"></a>pics部分</h2><h3 id="html代码-2"><a href="#html代码-2" class="headerlink" title="html代码"></a>html代码</h3>  <div class="pics"><br>          <h1 class="title">商家实景</h1><br>          <!--两个ref绑定picWrapper,picList--><br>          <div class="pic-wrapper" ref="picWrapper"><br>          <!--列表循环输出图片--><br>            <ul class="pic-list" ref="picList"><br>              <li class="pic-item" v-for="pic in seller.pics"><br>              <!--固定图片尺寸--><br>                <img :src="pic" width="120" height="90"><br>              </li><br>            </ul><br>          </div><br>  </div>
+
+
+</li>
+</ul>
+<ul>
+<li>ref获取picWrapper是为了滚动图片需要,父DOM是picWrapper,子DOM是picList</li>
+</ul>
+<ul>
+<li>ref获取picList是为了计算图片列表的总长度,用来设置图片列表的横向滚动,因为滚动的触发条件是子DOM比父DOM要”大”的时候才会触发,由于图片的数量是未知的,所以需要去计算,然后写入到picList<h3 id="js代码-2"><a href="#js代码-2" class="headerlink" title="js代码"></a>js代码</h3>  _initPics() { //编程习惯的前置下划线,代表内部使用的方法<pre><code>if (this.seller.pics) {
+  let picWidth = 120; //
+  let margin = 6;
+  //这是图片列表的总长度
+  let width = (picWidth + margin) * this.seller.pics.length - margin;
+  //设置图片列表的宽度等于列表的总长度
+  this.$refs.picList.style.width = width + &apos;px&apos;;
+  //异步绑定滚动
+  this.$nextTick(() =&gt; {
+    if (!this.picScroll) {
+      this.picScroll = new BScroll(this.$refs.picWrapper, {
+        scrollX: true, //bscroll的横向滚动属性
+        eventPassthrough: &apos;vertical&apos; //bscroll的过滤垂直滚动
+      });
+    } else {
+      this.picScroll.refresh();
+    }
+  });
+}
+</code></pre></li>
+</ul>
+<ul>
+<li>一般来说,当某页面本身是垂直滚动的时候,中间的某个DOM需要做横向滚动的话,需要处理滚动坐标的变化,例如手势滚动的时候有x,y坐标,是向上,下,左还是右会区分</li>
+</ul>
+<ul>
+<li>图片列表的总长度是单个图片的宽度+单个图片的外边距的和乘以图片的数量,再减去最后一个图片的外边距</li>
+</ul>
+<ul>
+<li>BScroll插件需要增加一个属性scrollX: true来传入横向的滚动坐标,也需要增加一个属性eventPassthrough: ‘vertical’过滤垂直的滚动,前者已经解释过,后者是因为需要横向滚动的页面是内嵌在垂直滚动的页面的里面的,所以会造成外面的垂直滚动事件也会传入到横向滚动的页面,为了避免影响横向滚动,所以需要屏蔽垂直滚动的事件</li>
+</ul>
+<ul>
+<li>我们平时在做这种滚动内嵌滚动的时候也可以参考这个处理方法.</li>
+</ul>
+<ul>
+<li>另外异步绑定滚动的常规做法,先判断是否已经有BScroll实例了,然后再确定是否需要刷新<h3 id="css代码-2"><a href="#css代码-2" class="headerlink" title="css代码"></a>css代码</h3>  .pics<pre><code>padding: 18px
+.title
+  margin-bottom: 12px
+  line-height: 14px
+  color: rgb(7, 17, 27)
+  font-size: 14px
+.pic-wrapper
+  width: 100% //图片列表区域是屏幕宽度
+  overflow: hidden //隐藏多余部分
+  white-space: nowrap  //连续的空白符会被合并
+  .pic-list
+    font-size: 0 //行内元素取消间隙
+    .pic-item
+      display: inline-block
+      margin-right: 6px
+      width: 120px
+      height: 90px
+      &amp;:last-child //最后一个图片没有外边距
+        margin: 0
+</code></pre><h2 id="info部分"><a href="#info部分" class="headerlink" title="info部分"></a>info部分</h2><h3 id="html代码-3"><a href="#html代码-3" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;info&quot;&gt;
+  &lt;h1 class=&quot;title border-1px&quot;&gt;商家信息&lt;/h1&gt;
+  &lt;ul&gt;
+    &lt;li class=&quot;info-item&quot; v-for=&quot;info in seller.infos&quot;&gt;{{info}}&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><h3 id="css代码-3"><a href="#css代码-3" class="headerlink" title="css代码"></a>css代码</h3>  .info<pre><code>padding: 18px 18px 0 18px
+color: rgb(7, 17, 27)
+.title
+  padding-bottom: 12px
+  line-height: 14px
+  border-1px(rgba(7, 17, 27, 0.1))
+  font-size: 14px
+.info-item
+  padding: 16px 12px
+  line-height: 16px
+  border-1px(rgba(7, 17, 27, 0.1)) //1像素的border 的mixin
+  font-size: 12px
+  &amp;:last-child
+    border-none() //没有border的mixin
+</code></pre></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/饿了么/" rel="tag"># 饿了么</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/09/商品详情页food-vue/" rel="next" title="商品详情页food.vue">
+                <i class="fa fa-chevron-left"></i> 商品详情页food.vue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/09/split-formatDate-store-util组件/" rel="prev" title="split,formatDate,store,util组件">
+                split,formatDate,store,util组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主体结构"><span class="nav-number">1.</span> <span class="nav-text">主体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html代码"><span class="nav-number">1.1.</span> <span class="nav-text">html代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码"><span class="nav-number">1.2.</span> <span class="nav-text">js代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css代码"><span class="nav-number">1.3.</span> <span class="nav-text">css代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#overview部分"><span class="nav-number">2.</span> <span class="nav-text">overview部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html部分"><span class="nav-number">2.1.</span> <span class="nav-text">html部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js部分"><span class="nav-number">2.2.</span> <span class="nav-text">js部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css部分"><span class="nav-number">2.3.</span> <span class="nav-text">css部分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bulletin部分"><span class="nav-number">3.</span> <span class="nav-text">bulletin部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html代码-1"><span class="nav-number">3.1.</span> <span class="nav-text">html代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">公告与活动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码-1"><span class="nav-number">0.1.</span> <span class="nav-text">js代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css代码-1"><span class="nav-number">0.2.</span> <span class="nav-text">css代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pics部分"><span class="nav-number">1.</span> <span class="nav-text">pics部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html代码-2"><span class="nav-number">1.1.</span> <span class="nav-text">html代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">商家实景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码-2"><span class="nav-number">0.1.</span> <span class="nav-text">js代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css代码-2"><span class="nav-number">0.2.</span> <span class="nav-text">css代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#info部分"><span class="nav-number">1.</span> <span class="nav-text">info部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html代码-3"><span class="nav-number">1.1.</span> <span class="nav-text">html代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css代码-3"><span class="nav-number">1.2.</span> <span class="nav-text">css代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

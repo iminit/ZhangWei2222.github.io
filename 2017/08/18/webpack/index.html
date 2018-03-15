@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="webpack," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="一、Hello Webpack1.webpack介绍webpack是一个现代的JavaScript应用模块打包器（module bundler），它能把各种资源，例如JS（含JSX）、coffee、样式（less/sass）、图片等都作为模块来处理和使用。它有着难以置信的配置和神奇的效果，大大提高了我们程序员的工作效率。举个例子：我们可以直接使用require（xxx）的形式来引入各模块，即使他们">
+<meta name="keywords" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack">
+<meta property="og:url" content="http://super-wei.xyz/2017/08/18/webpack/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="一、Hello Webpack1.webpack介绍webpack是一个现代的JavaScript应用模块打包器（module bundler），它能把各种资源，例如JS（含JSX）、coffee、样式（less/sass）、图片等都作为模块来处理和使用。它有着难以置信的配置和神奇的效果，大大提高了我们程序员的工作效率。举个例子：我们可以直接使用require（xxx）的形式来引入各模块，即使他们">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-24T09:44:30.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack">
+<meta name="twitter:description" content="一、Hello Webpack1.webpack介绍webpack是一个现代的JavaScript应用模块打包器（module bundler），它能把各种资源，例如JS（含JSX）、coffee、样式（less/sass）、图片等都作为模块来处理和使用。它有着难以置信的配置和神奇的效果，大大提高了我们程序员的工作效率。举个例子：我们可以直接使用require（xxx）的形式来引入各模块，即使他们">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/08/18/webpack/"/>
+
+
+
+
+
+  <title>webpack | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/webpack/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:27:27+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、Hello-Webpack"><a href="#一、Hello-Webpack" class="headerlink" title="一、Hello Webpack"></a>一、Hello Webpack</h1><h3 id="1-webpack介绍"><a href="#1-webpack介绍" class="headerlink" title="1.webpack介绍"></a>1.webpack介绍</h3><p>webpack是一个现代的JavaScript应用模块打包器（module bundler），它能把各种资源，例如JS（含JSX）、coffee、样式（less/sass）、图片等都作为模块来处理和使用。它有着难以置信的配置和神奇的效果，大大提高了我们程序员的工作效率。举个例子：我们可以直接使用require（xxx）的形式来引入各模块，即使他们可能需要经过编译（比如JSX和sass），但我们无须再上面花费太多心思，webpack有着各种健全的加载器（loader）在默默处理这些事情。它可以部分代替Grunt和gulp的功能。</p>
+<h3 id="2-webpack的安装"><a href="#2-webpack的安装" class="headerlink" title="2.webpack的安装"></a>2.webpack的安装</h3><ol>
+<li><p>全局安装</p>
+<pre><code>$npm install webpack -g
+</code></pre></li>
+<li><p>直接安装到项目的依赖里，也就是写入package.json</p>
+<p> npm init<br> npm install webpack –save-dev</p>
+</li>
+</ol>
+<h3 id="3-配置文件webpack-config-js"><a href="#3-配置文件webpack-config-js" class="headerlink" title="3.配置文件webpack.config.js"></a>3.配置文件webpack.config.js</h3><p>重点:什么是入口文件？模块打包的起点称之为入口起点（entry point）。入口起点告诉webpack从哪里开始，并遵循着依赖关系进行打包。可以将您的应用入口起点认为是根上下文（contextual root）或app第一个启动文件。</p>
+<h3 id="4-我们来作一个实例（Hello-World！）"><a href="#4-我们来作一个实例（Hello-World！）" class="headerlink" title="4.我们来作一个实例（Hello World！）"></a>4.我们来作一个实例（Hello World！）</h3><p>1.建立index.html文件</p>
+<p>2.建立main.js文件</p>
+<p>3.建立webpack.config.js文件</p>
+<p>4.命令行输入webpack</p>
+<p>5.安装live-server 并预览程序</p>
+<p>index.html</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre><p>main.js</p>
+<pre><code>document.write(&quot;&lt;h1&gt;Hello World&lt;/h1&gt;&quot;);
+</code></pre><p>webpack.config.js</p>
+<pre><code>module.exports = {
+    entry: &quot;./main.js&quot;,
+    output: {
+        filename: &apos;bundle.js&apos;
+    }
+};
+</code></pre><p>安装live-server,只要用npm install就可以安装了。</p>
+<pre><code>npm install live-server -g
+</code></pre><h1 id="二、多入口文件（Multiple-entry-files）"><a href="#二、多入口文件（Multiple-entry-files）" class="headerlink" title="二、多入口文件（Multiple entry files）"></a>二、多入口文件（Multiple entry files）</h1><h3 id="1-webpack配置多路口文件"><a href="#1-webpack配置多路口文件" class="headerlink" title="1.webpack配置多路口文件"></a>1.webpack配置多路口文件</h3><p>当我们需要时webpack 是允许我们有多个输出文件的。也就是说，我们可以在html文件中引入2个js文件或者其他的文件。</p>
+<p>我们来做个多入口文件的例子：</p>
+<p>1、首先我们建立两个JavaScript文件，分别是main1.js 和main2.js。然后在里边输出 Hello world  和 Hello webpack 。</p>
+<p>main1.js</p>
+<pre><code>document.write(&quot;&lt;h1&gt;Hello World!&lt;/h1&gt;&quot;);
+</code></pre><p>main2.js</p>
+<pre><code>document.write(&quot;&lt;h2&gt;Hello Webpack!&lt;/h2&gt;&quot;);
+</code></pre><p>2、建立indx.html文件，引入bundle1.js和bundle2.js，这两个文件就是我们要打包的两个js文件。</p>
+<p>index.html</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+    &lt;title&gt;webpack example02&lt;/title&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./bundle1.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./bundle2.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre><p>3、建立webpack.config.js配置文件。</p>
+<pre><code>module.exports = {
+    entry: {
+        bundle1: &apos;./main1.js&apos;,
+        bundle2: &apos;./main2.js&apos;
+    },
+    output: {
+        filename: &apos;[name].js&apos;
+    }
+};
+</code></pre><h1 id="三、使用Webpack-CSS-loader加载器"><a href="#三、使用Webpack-CSS-loader加载器" class="headerlink" title="三、使用Webpack CSS  loader加载器"></a>三、使用Webpack CSS  loader加载器</h1><h3 id="1-什么是loader"><a href="#1-什么是loader" class="headerlink" title="1.什么是loader"></a>1.什么是loader</h3><p>loader用于转换应用程序的资源文件，他们是运行在nodejs下的函数，使用参数来获取一个资源的来源并且返回一个新的来源（资源的位置），例如：你可以使用loader来告诉webpack去加载一个coffeeScript或者Babel文件。</p>
+<h3 id="2-loader的解析"><a href="#2-loader的解析" class="headerlink" title="2.loader的解析"></a>2.loader的解析</h3><p>loader的解析类似模块，一个loader模块会导出一个方法并且可被nodejs写为可兼容的JavaScript,通常情况下通过npm来管理loader,但你也可以把loader放在自己的应用里。</p>
+<h3 id="3-安装loader"><a href="#3-安装loader" class="headerlink" title="3.安装loader"></a>3.安装loader</h3><p>你可以通过npm来安装loader</p>
+<pre><code>$ npm install xxx-loader --save-dev
+</code></pre><p>或者</p>
+<pre><code>$ npm install xxx-loader --save
+</code></pre><h3 id="4-CSS-loader-实例"><a href="#4-CSS-loader-实例" class="headerlink" title="4.CSS-loader 实例"></a>4.CSS-loader 实例</h3><p>1、先建立一个html文件，并引入bundle.js文件。</p>
+<p>index.html</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre><p>2、建立main.js文件，并用require引入app.css文件。然后写一句话。</p>
+<p>main.js</p>
+<pre><code>require(&apos;./app.css&apos;);
+document.write(&apos;&lt;h1&gt;Hello Webpack!&lt;/h1&gt;&apos;);
+</code></pre><p>3、建立app.css文件，把body 的背景设置为红色。</p>
+<p>app.css</p>
+<pre><code>body {
+    background-color: red;
+}
+</code></pre><p>4、建立webpack.config.js配置文件，在里边加入加载器。</p>
+<pre><code>module.exports = {
+    entry: &apos;./main.js&apos;,
+    output: {
+        filename: &apos;bundle.js&apos;
+    },
+    module: {
+        loaders: [
+            { test: /\.css$/, loader: &apos;style-loader!css-loader!stylus-loader&apos; },
+        ]
+    }
+};
+</code></pre><p>5、用npm 安装  css-loader  和style-loader</p>
+<pre><code>$ npm install style-loader --save-dev
+
+$ npm install css-loader --save-dev
+
+npm install stylus-loader stylus --save-dev
+</code></pre><p>6、在控制台输入 webpack 进行打包</p>
+<pre><code>$ webpack
+</code></pre><p>这样就用webpack的加载器成功打包了css样式文件。以后我们的html里就可以不用看到css的引入语句了。</p>
+<h1 id="四、使用webpack-Image-loader-加载图片"><a href="#四、使用webpack-Image-loader-加载图片" class="headerlink" title="四、使用webpack Image loader 加载图片"></a>四、使用webpack Image loader 加载图片</h1><p>直接用一个例子说明<br>1、新建main.js文件， 创建img标签后，把src的值用require引进来。然后插入标签。</p>
+<pre><code>var img1 = document.createElement(&quot;img&quot;);
+img1.src = require(&quot;./small.png&quot;);
+document.body.appendChild(img1);
+
+var img2 = document.createElement(&quot;img&quot;);
+img2.src = require(&quot;./big.png&quot;);
+document.body.appendChild(img2);
+</code></pre><p>2、建立index.html文件，引入bundle.js</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre><p>3、建立webpack.config.js配置文件</p>
+<pre><code>module.exports = {
+    entry: &apos;./main.js&apos;,
+    output: {
+        filename: &apos;bundle.js&apos;
+    },
+    module: {
+        loaders: [
+            { test: /\.(png|jpg)$/, loader: &apos;url-loader?limit=8192&apos; },
+        ]
+    }
+};
+</code></pre><p>这里需要说明的是limit ，它的左右是如果图片的大小，小于8192bytes就以Data URL的形式引入图片，大于就用图片地址引用。</p>
+<p>4、打开命令行，用cnpm 安装url-loader包。</p>
+<pre><code>$ cnpm install url-loader --save-dev
+</code></pre><p>5、用webpack命令进行打包</p>
+<pre><code>$ webpack
+</code></pre><h1 id="五、使用uglify-js-压缩打包JS代码"><a href="#五、使用uglify-js-压缩打包JS代码" class="headerlink" title="五、使用uglify-js 压缩打包JS代码"></a>五、使用uglify-js 压缩打包JS代码</h1><h3 id="1-webpack-插件机制介绍："><a href="#1-webpack-插件机制介绍：" class="headerlink" title="1.webpack 插件机制介绍："></a>1.webpack 插件机制介绍：</h3><p>插件可以完成更多loader不能完成的功能。插件的使用一般是在webpack的配置信息 plugins选定中指定。Webpack本身内置了一些常用的插件，还可以通过npm安装第三方插件。</p>
+<h3 id="2-uglify-js介绍："><a href="#2-uglify-js介绍：" class="headerlink" title="2.uglify-js介绍："></a>2.uglify-js介绍：</h3><p>ugligy-js是一个用npm安装的JavaScript代码压工具，我们在grunt和gulp中经常使用。</p>
+<p>用npm命令进行安装：</p>
+<pre><code>npm install uglify-js g
+</code></pre><p>最常用的方法：</p>
+<pre><code>uglifyjs [input files] [options]
+
+uglifyjs demo.js -o demo-min.js -c
+</code></pre><h3 id="3-用Webpack中的uglify-js压缩Demo"><a href="#3-用Webpack中的uglify-js压缩Demo" class="headerlink" title="3.用Webpack中的uglify-js压缩Demo"></a>3.用Webpack中的uglify-js压缩Demo</h3><p>这里我就不贴出index.html和main.js的代码了，我只贴出webpack.config.js的代码。如果你想完整的做出例子，可以按照视频步骤一步一步的操作。</p>
+<pre><code>var webpack = require(&apos;webpack&apos;);
+module.exports = {
+    entry: &apos;./main.js&apos;,
+    output: {
+        path: __dirname,
+        filename: &apos;bundle.js&apos;
+    },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
+    ]
+};
+</code></pre><h1 id="六、使用webpack构建本地服务器"><a href="#六、使用webpack构建本地服务器" class="headerlink" title="六、使用webpack构建本地服务器"></a>六、使用webpack构建本地服务器</h1><p>我们之前一直都在用live-server充当本地服务器，其实它和webpack是不搭的，我们可以利用webpack自带的webpack-dev-server来构建一个本地服务器。它让你的浏览器检测你的代码修改，并自动刷新修改后的结果，它是基于node.js构建。webpack-dev-server是一个单独的组件，在webpack中进行配置之前需要单独安装它作为项目依赖。</p>
+<p>1、安装webpack-dev-server</p>
+<p>本地依赖</p>
+<pre><code>npm install --save-dev webpack-dev-server
+</code></pre><p>全局安装</p>
+<pre><code>npm install -g webpack-dev-server
+</code></pre><p>2、在webpack.config.js中配置devserver选项：</p>
+<ul>
+<li>contentBase : 默认webpack-dev-server会为根文件夹提供本地服务器，如果想为另外一个目录下的文件提供本地服务器，应该在这里设置其所在目录。</li>
+</ul>
+<ul>
+<li>port ：设置默认监听端口，如果省略，默认为”8080″</li>
+</ul>
+<ul>
+<li>inline : 设置为true，当源文件改变时会自动刷新页面</li>
+</ul>
+<ul>
+<li>colors ： 设置为true，使终端输出的文件为彩色的</li>
+</ul>
+<ul>
+<li>historyApiFallback ：在开发单页时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html</li>
+</ul>
+<ul>
+<li>host ： 主机地址，如果是开发本机搭建，需要使用本机IP地址，否则会报错。</li>
+</ul>
+<p>配置文件如下：</p>
+<pre><code>module.exports = {
+    entry: __dirname + &apos;/main.js&apos;,
+    output: {
+        path: __dirname + &apos;/&apos;,
+        filename: &apos;bundle.js&apos;
+    },
+    devServer: {
+        contentBase: &apos;./&apos;, //本地服务器所加载的页面所在的目录
+        host: &apos;192.168.1.158&apos;, //本地IP地址
+        colors: true, //终端输出结果为彩色
+        historyApiFallback: true, //不跳转
+        inline: true, //实时刷新
+        port: &apos;3333&apos; //端口号
+
+    }
+}
+</code></pre><p>3、在终端中输入命令，开启运行本地服务器。它不仅提供了服务器，还会监视我们的文件变化自动更新效果，但是它不是真正的打包，它类似于在内存中进行了打包。所以本地文件并没有变化。</p>
+<pre><code>webpack-dev-server
+</code></pre><p>其实webpack构建服务器才是正道，如果你使用了webpack，那么尽量使用webpack-dev-server吧，这能大大提高您的工作效率。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/18/stylus/" rel="next" title="stylus">
+                <i class="fa fa-chevron-left"></i> stylus
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/18/常用网页进度条/" rel="prev" title="常用网页进度条">
+                常用网页进度条 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、Hello-Webpack"><span class="nav-number">1.</span> <span class="nav-text">一、Hello Webpack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-webpack介绍"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.webpack介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-webpack的安装"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.webpack的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置文件webpack-config-js"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.配置文件webpack.config.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-我们来作一个实例（Hello-World！）"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.我们来作一个实例（Hello World！）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、多入口文件（Multiple-entry-files）"><span class="nav-number">2.</span> <span class="nav-text">二、多入口文件（Multiple entry files）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-webpack配置多路口文件"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.webpack配置多路口文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、使用Webpack-CSS-loader加载器"><span class="nav-number">3.</span> <span class="nav-text">三、使用Webpack CSS  loader加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是loader"><span class="nav-number">3.0.1.</span> <span class="nav-text">1.什么是loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-loader的解析"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.loader的解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装loader"><span class="nav-number">3.0.3.</span> <span class="nav-text">3.安装loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-CSS-loader-实例"><span class="nav-number">3.0.4.</span> <span class="nav-text">4.CSS-loader 实例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、使用webpack-Image-loader-加载图片"><span class="nav-number">4.</span> <span class="nav-text">四、使用webpack Image loader 加载图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、使用uglify-js-压缩打包JS代码"><span class="nav-number">5.</span> <span class="nav-text">五、使用uglify-js 压缩打包JS代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-webpack-插件机制介绍："><span class="nav-number">5.0.1.</span> <span class="nav-text">1.webpack 插件机制介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-uglify-js介绍："><span class="nav-number">5.0.2.</span> <span class="nav-text">2.uglify-js介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-用Webpack中的uglify-js压缩Demo"><span class="nav-number">5.0.3.</span> <span class="nav-text">3.用Webpack中的uglify-js压缩Demo</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、使用webpack构建本地服务器"><span class="nav-number">6.</span> <span class="nav-text">六、使用webpack构建本地服务器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

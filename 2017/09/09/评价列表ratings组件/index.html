@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="饿了么," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="需要注意的是main.js里面需要取消vue-router的默认路由,src/main.js的router.replace(‘/goods’);需要去掉原因是在添加了其他页面(原来路由只有一个页面goods,现在多了页面ratings)之后,在浏览器加载页面的时候:  首先会先加载所有页面 在各个页面都在加载的过程中,会跳到默认路由 然后这些页面被中断了加载,导致了页面内部的一些靠dom渲染的代">
+<meta name="keywords" content="饿了么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="评价列表ratings组件">
+<meta property="og:url" content="http://super-wei.xyz/2017/09/09/评价列表ratings组件/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="需要注意的是main.js里面需要取消vue-router的默认路由,src/main.js的router.replace(‘/goods’);需要去掉原因是在添加了其他页面(原来路由只有一个页面goods,现在多了页面ratings)之后,在浏览器加载页面的时候:  首先会先加载所有页面 在各个页面都在加载的过程中,会跳到默认路由 然后这些页面被中断了加载,导致了页面内部的一些靠dom渲染的代">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-09T10:06:37.179Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="评价列表ratings组件">
+<meta name="twitter:description" content="需要注意的是main.js里面需要取消vue-router的默认路由,src/main.js的router.replace(‘/goods’);需要去掉原因是在添加了其他页面(原来路由只有一个页面goods,现在多了页面ratings)之后,在浏览器加载页面的时候:  首先会先加载所有页面 在各个页面都在加载的过程中,会跳到默认路由 然后这些页面被中断了加载,导致了页面内部的一些靠dom渲染的代">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/09/09/评价列表ratings组件/"/>
+
+
+
+
+
+  <title>评价列表ratings组件 | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/评价列表ratings组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">评价列表ratings组件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:56:41+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>需要注意的是main.js里面需要取消vue-router的默认路由,src/main.js的router.replace(‘/goods’);需要去掉<br>原因是在添加了其他页面(原来路由只有一个页面goods,现在多了页面ratings)之后,在浏览器加载页面的时候:</p>
+<ol>
+<li>首先会先加载所有页面</li>
+<li>在各个页面都在加载的过程中,会跳到默认路由</li>
+<li>然后这些页面被中断了加载,导致了页面内部的一些靠dom渲染的代码无法执行,例如bs-scroll</li>
+<li>所以会出现一些报错,TypeError: Cannot read property ‘children’ of undefined<br>所以要做默认路由的时候,直接用url做,不用vue-router自己去跳转,直接写第一个url的地址</li>
+</ol>
+</blockquote>
+<h2 id="主体框架"><a href="#主体框架" class="headerlink" title="主体框架"></a>主体框架</h2><pre><code>&lt;div class=&quot;ratings&quot; ref=&quot;ratings&quot;&gt;
+ &lt;div class=&quot;overview&quot;&gt;
+
+ &lt;/div&gt;
+&lt;!--里面是所有的内容--&gt;
+&lt;/div&gt;
+</code></pre><ul>
+<li>需要加一个ref,为了让bscroll可以初始化dom</li>
+</ul>
+<h2 id="ratings内容"><a href="#ratings内容" class="headerlink" title="ratings内容"></a>ratings内容</h2><h3 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;ratings-content&quot;&gt;
+      &lt;div class=&quot;overview&quot;&gt;
+        &lt;div class=&quot;overview-left&quot;&gt;
+          &lt;h1 class=&quot;score&quot;&gt;{{seller.score}}&lt;/h1&gt;
+          &lt;div class=&quot;title&quot;&gt;综合评分&lt;/div&gt;
+          &lt;div class=&quot;rank&quot;&gt;高于周边商家{{seller.rankRate}}%&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;overview-right&quot;&gt;
+        &lt;!--三个一样的模块,服务态度,商品评分,送达时间--&gt;
+          &lt;div class=&quot;score-wrapper&quot;&gt;
+            &lt;span class=&quot;title&quot;&gt;服务态度&lt;/span&gt;
+            &lt;!--引入了star组件--&gt;
+            &lt;star :size=&quot;36&quot; :score=&quot;seller.serviceScore&quot;&gt;&lt;/star&gt;
+            &lt;span class=&quot;score&quot;&gt;{{seller.serviceScore}}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;score-wrapper&quot;&gt;
+            &lt;span class=&quot;title&quot;&gt;商品评分&lt;/span&gt;
+            &lt;star :size=&quot;36&quot; :score=&quot;seller.foodScore&quot;&gt;&lt;/star&gt;
+            &lt;span class=&quot;score&quot;&gt;{{seller.foodScore}}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;delivery-wrapper&quot;&gt;
+            &lt;span class=&quot;title&quot;&gt;送达时间&lt;/span&gt;
+            &lt;span class=&quot;delivery&quot;&gt;{{seller.deliveryTime}}分钟&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><ul>
+<li>三个一样的模块共用一套样式代码,分别代入不同的数据</li>
+</ul>
+<ul>
+<li>这里的数据都是获取seller的数据,是父组件传入的props</li>
+</ul>
+<h3 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import star from &apos;../star/star&apos;;
+
+export default {
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  components: {
+    star
+  }
+};
+</code></pre><h3 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h3><pre><code>.ratings
+  position: absolute
+  top: 174px //留空一部分,给header使用
+  bottom: 0
+  left: 0
+  width: 100%
+  overflow: hidden
+  .overview
+    display: flex
+    padding: 18px 0
+    .overview-left
+      flex: 0 0 137px //flex布局,固定左边,右边自动适配
+      padding: 6px 0
+      width: 137px
+      border-right: 1px solid rgba(7, 17, 27, 0.1)
+      text-align: center
+      @media only screen and (max-width: 320px) //适配i5屏幕
+        flex: 0 0 120px //适配的flex数值可以从根据设计稿计算
+        width: 120px
+      .score
+        margin-bottom: 6px
+        line-height: 28px
+        font-size: 24px
+        color: rgb(255, 153, 0)
+      .title
+        margin-bottom: 8px
+        line-height: 12px
+        font-size: 12px
+        color: rgb(7, 17, 27)
+      .rank
+        line-height: 10px
+        font-size: 10px
+        color: rgb(147, 153, 159)
+    .overview-right
+      flex: 1 //flex布局,固定左边,右边自动适配
+      padding: 6px 0 6px 24px
+      @media only screen and (max-width: 320px) //适配i5屏幕
+        padding-left: 6px
+      .score-wrapper //三个一样的模块的共用样式
+        margin-bottom: 8px
+        font-size: 0
+        .title
+          display: inline-block
+          line-height: 18px //针对模块内部的元素的对齐行,所以需要写到内部元素里面去
+          vertical-align: top 
+          font-size: 12px
+          color: rgb(7, 17, 27)
+        .star
+          display: inline-block
+          margin: 0 12px
+          vertical-align: top
+        .score
+          display: inline-block
+          line-height: 18px
+          vertical-align: top
+          font-size: 12px
+          color: rgb(255, 153, 0)
+      .delivery-wrapper
+        font-size: 0
+        .title
+          line-height: 18px
+          font-size: 12px
+          color: rgb(7, 17, 27)
+        .delivery
+          margin-left: 12px
+          font-size: 12px
+          color: rgb(147, 153, 159)
+</code></pre><ul>
+<li>关于适配iphone5,因为设计稿是以iphone6为模板设计的,如果不适配一些小的屏幕的话,对于一些比较宽的div(例如overview-left,overview-right)就会出现换行,被挤压的显示清空,所以需要使用media query来做一些基本的适配,这里只是以iphone5为适配参考,具体做法就是针对不同的屏幕宽度做处理</li>
+</ul>
+<h2 id="ratingselect组件"><a href="#ratingselect组件" class="headerlink" title="ratingselect组件"></a>ratingselect组件</h2><p>这个引入类似ratingselect组件</p>
+<h3 id="html代码-1"><a href="#html代码-1" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;!--引入split组件--&gt;
+&lt;split&gt;&lt;/split&gt;
+&lt;!-- 引入ratingselect组件 --&gt;
+      &lt;ratingselect @select=&quot;selectRating&quot; @toggle=&quot;toggleContent&quot; :selectType=&quot;selectType&quot; :onlyContent=&quot;onlyContent&quot;
+                    :ratings=&quot;ratings&quot;&gt;&lt;/ratingselect&gt;
+</code></pre><h2 id="ratings列表"><a href="#ratings列表" class="headerlink" title="ratings列表"></a>ratings列表</h2><h3 id="html代码-2"><a href="#html代码-2" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;rating-wrapper&quot;&gt;
+        &lt;ul&gt;
+        &lt;!--使用needShow方法控制显示--&gt;
+          &lt;li v-for=&quot;rating in ratings&quot; v-show=&quot;needShow(rating.rateType, rating.text)&quot; class=&quot;rating-item&quot;&gt;
+            &lt;div class=&quot;avatar&quot;&gt;
+              &lt;img width=&quot;28&quot; height=&quot;28&quot; :src=&quot;rating.avatar&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;content&quot;&gt;
+              &lt;h1 class=&quot;name&quot;&gt;{{rating.username}}&lt;/h1&gt;
+              &lt;div class=&quot;star-wrapper&quot;&gt;
+              &lt;!--引入star组件--&gt;
+                &lt;star :size=&quot;24&quot; :score=&quot;rating.score&quot;&gt;&lt;/star&gt;
+                &lt;span class=&quot;delivery&quot; v-show=&quot;rating.deliveryTime&quot;&gt;{{rating.deliveryTime}}&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;p class=&quot;text&quot;&gt;{{rating.text}}&lt;/p&gt;
+              &lt;!--recommend的处理,尤其注意class跟布局的使用--&gt;
+              &lt;div class=&quot;recommend&quot; v-show=&quot;rating.recommend &amp;&amp; rating.recommend.length&quot;&gt;
+                &lt;span class=&quot;icon-thumb_up&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;item&quot; v-for=&quot;item in rating.recommend&quot;&gt;{{item}}&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;!--过滤时间格式--&gt;
+              &lt;div class=&quot;time&quot;&gt;
+                {{rating.rateTime | formatDate}}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><ul>
+<li>需要注意recommend的布局处理</li>
+</ul>
+<ul>
+<li>needShow和过滤时间类似food.vue组件里面使用九.商品详情页food.vue</li>
+</ul>
+<h3 id="js代码-1"><a href="#js代码-1" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
+import { formatDate } from &apos;../../common/js/date&apos;; //相对路径导入
+import star from &apos;../star/star&apos;;
+
+const ALL = 2; //设置常量,比较好的代码风格,代替直接写数字到代码里面去
+const ERR_OK = 0;
+
+export default {
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  data() {
+    return {
+      ratings: []
+    };
+  },
+  created() { //初始化数据,从api那里获取
+    this.$http.get(&apos;/api/ratings&apos;).then((response) =&gt; {
+      response = response.body;
+      if (response.errno === ERR_OK) {
+        this.ratings = response.data;
+        this.$nextTick(() =&gt; { //异步初始化滚动
+          this.scroll = new BScroll(this.$refs.ratings, {
+            click: true
+          });
+        });
+      }
+    });
+  },
+  methods: {
+    needShow(type, text) { //控制显示是否有内容的rate
+      if (this.onlyContent &amp;&amp; !text) {
+        return false;
+      }
+      if (this.selectType === ALL) {
+        return true;
+      } else {
+        return type === this.selectType;
+      }
+    }
+  },
+  filters: { //过滤时间
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, &apos;yyyy-MM-dd hh:mm&apos;);
+    }
+  },
+  components: {
+    star
+  }
+};
+</code></pre><h3 id="css代码-1"><a href="#css代码-1" class="headerlink" title="css代码"></a>css代码</h3><pre><code>@import &quot;../../common/stylus/mixin.styl&quot;
+
+    .rating-wrapper
+      padding: 0 18px
+      .rating-item
+        display: flex //使用flex布局
+        padding: 18px 0
+        border-1px(rgba(7, 17, 27, 0.1))
+        .avatar
+          flex: 0 0 28px //使用flex布局
+          width: 28px
+          margin-right: 12px
+          img
+            border-radius: 50%
+        .content
+          position: relative //重新定义相对布局的参考父div,被内部元素做绝对布局使用
+          flex: 1 //使用flex布局
+          .name
+            margin-bottom: 4px
+            line-height: 12px
+            font-size: 10px
+            color: rgb(7, 17, 27)
+          .star-wrapper
+            margin-bottom: 6px
+            font-size: 0
+            .star
+              display: inline-block
+              margin-right: 6px
+              vertical-align: top
+            .delivery
+              display: inline-block
+              vertical-align: top
+              line-height: 12px
+              font-size: 10px
+              color: rgb(147, 153, 159)
+          .text
+            margin-bottom: 8px
+            line-height: 18px
+            color: rgb(7, 17, 27)
+            font-size: 12px
+          .recommend
+            line-height: 16px
+            font-size: 0
+            .icon-thumb_up, .item //共有属性
+              display: inline-block
+              margin: 0 8px 4px 0 //分配右外边距和下外边距
+              font-size: 9px
+            .icon-thumb_up //个别属性,因为icon没有颜色,需要配置
+              color: rgb(0, 160, 220)
+            .item //个别属性
+              padding: 0 6px //设置左右内边距,撑开布局,形成类似button的效果
+              border: 1px solid rgba(7, 17, 27, 0.1)
+              border-radius: 1px
+              color: rgb(147, 153, 159)
+              background: #fff
+          .time
+            position: absolute
+            top: 0
+            right: 0
+            line-height: 12px
+            font-size: 10px
+            color: rgb(147, 153, 159)
+</code></pre><ul>
+<li>这里的flex布局是左边固定28px,然后右边占满剩下的空间</li>
+</ul>
+<pre><code>- flex: 0 0 28px 是flex-grow为0(项目不放大比例),flex-shrink为0(项目不缩小比例),flex-basis为28px(固定占用28px)
+
+
+- flex: 1是flex 1 1 auto的缩写,就是会放大项目比例,并且剩余的项目空间也占有
+参考:Flex 布局教程：语法篇
+</code></pre><ul>
+<li>针对recommend的布局:</li>
+</ul>
+<pre><code>- 每一个内容都是一个span,span是行内元素,可以并列一行
+
+
+- 设置外边距是为了span之间能够形成独立的间隙
+
+
+- 设置内边距是为了让span和文字形成button的效果
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/饿了么/" rel="tag"># 饿了么</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/09/学会使用box-sizing布局/" rel="next" title="学会使用box-sizing布局">
+                <i class="fa fa-chevron-left"></i> 学会使用box-sizing布局
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/09/shopcart-vue/" rel="prev" title="shopcart.vue">
+                shopcart.vue <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主体框架"><span class="nav-number">1.</span> <span class="nav-text">主体框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ratings内容"><span class="nav-number">2.</span> <span class="nav-text">ratings内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html代码"><span class="nav-number">2.1.</span> <span class="nav-text">html代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码"><span class="nav-number">2.2.</span> <span class="nav-text">js代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css代码"><span class="nav-number">2.3.</span> <span class="nav-text">css代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ratingselect组件"><span class="nav-number">3.</span> <span class="nav-text">ratingselect组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html代码-1"><span class="nav-number">3.1.</span> <span class="nav-text">html代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ratings列表"><span class="nav-number">4.</span> <span class="nav-text">ratings列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html代码-2"><span class="nav-number">4.1.</span> <span class="nav-text">html代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码-1"><span class="nav-number">4.2.</span> <span class="nav-text">js代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css代码-1"><span class="nav-number">4.3.</span> <span class="nav-text">css代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

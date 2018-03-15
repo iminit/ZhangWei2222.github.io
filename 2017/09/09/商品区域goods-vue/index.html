@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="饿了么," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="技术点: 定义了2个wrapper,分别是menu-wrapper和foods-wrapper,对应当前页面的架构,左右两边的区域   v-if和v-show的选择使用   v-for传递索引  vue传递原生事件$event  使用stylus的mixin处理一些border和img的问题  建立menu区域和foods区域的Y坐标对应关系,实现滚动foods区域会显示相应的menu区域,点击某">
+<meta name="keywords" content="饿了么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="商品区域goods.vue">
+<meta property="og:url" content="http://super-wei.xyz/2017/09/09/商品区域goods-vue/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="技术点: 定义了2个wrapper,分别是menu-wrapper和foods-wrapper,对应当前页面的架构,左右两边的区域   v-if和v-show的选择使用   v-for传递索引  vue传递原生事件$event  使用stylus的mixin处理一些border和img的问题  建立menu区域和foods区域的Y坐标对应关系,实现滚动foods区域会显示相应的menu区域,点击某">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oncweb6po.bkt.clouddn.com/2116342489-590b01d4d9952_articlex.png">
+<meta property="og:updated_time" content="2017-09-09T10:04:19.108Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="商品区域goods.vue">
+<meta name="twitter:description" content="技术点: 定义了2个wrapper,分别是menu-wrapper和foods-wrapper,对应当前页面的架构,左右两边的区域   v-if和v-show的选择使用   v-for传递索引  vue传递原生事件$event  使用stylus的mixin处理一些border和img的问题  建立menu区域和foods区域的Y坐标对应关系,实现滚动foods区域会显示相应的menu区域,点击某">
+<meta name="twitter:image" content="http://oncweb6po.bkt.clouddn.com/2116342489-590b01d4d9952_articlex.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/09/09/商品区域goods-vue/"/>
+
+
+
+
+
+  <title>商品区域goods.vue | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/商品区域goods-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">商品区域goods.vue</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:53:45+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点:"></a>技术点:</h2><ul>
+<li>定义了2个wrapper,分别是menu-wrapper和foods-wrapper,对应当前页面的架构,左右两边的区域</li>
+</ul>
+<ul>
+<li>v-if和v-show的选择使用</li>
+</ul>
+<ul>
+<li><p>v-for传递索引</p>
+</li>
+<li><p>vue传递原生事件$event</p>
+</li>
+<li><p>使用stylus的mixin处理一些border和img的问题</p>
+</li>
+<li><p>建立menu区域和foods区域的Y坐标对应关系,实现滚动foods区域会显示相应的menu区域,点击某个menu区域就显示某个固定的foods区域</p>
+</li>
+<li><p>flex布局的使用,实现foods区域的布局</p>
+</li>
+<li><p>技巧类:对一些需要js操作的class(但是又没有实际用途的)可以建立一个类似food-list-hook钩子类</p>
+</li>
+<li><p>font-size为0的技术点,处理行内元素的间隙问题</p>
+</li>
+<li><p>vue的$nextTick使用</p>
+</li>
+<li><p>vue的$refs的使用</p>
+</li>
+<li><p>vue的computed属性使用</p>
+</li>
+<li><p>vue的class绑定使用</p>
+</li>
+<li><p>在一些地方里面,使用table的垂直居中会很简单实现垂直居中</p>
+</li>
+<li><p>better-scroll的使用</p>
+</li>
+</ul>
+<p><img src="http://oncweb6po.bkt.clouddn.com/2116342489-590b01d4d9952_articlex.png" alt=""></p>
+<h2 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h2><pre><code>&lt;template&gt;
+  &lt;div class=&quot;goods&quot;&gt;
+  //第一个区域,menu区域
+    &lt;div class=&quot;menu-wrapper&quot; ref=&quot;menuWrapper&quot;&gt;
+      &lt;ul&gt;
+      //v-for的使用,class绑定,传递原生事件
+        &lt;li v-for=&quot;(item,index) in goods&quot; class=&quot;menu-item&quot; :class=&quot;{&apos;current&apos;:currentIndex === index}&quot;
+            @click=&quot;selectMenu(index,$event)&quot;&gt;
+          &lt;span class=&quot;text border-1px&quot;&gt;
+          &lt;!--v-show使用--&gt;
+            &lt;span v-show=&quot;item.type&gt;0&quot; class=&quot;icon&quot; :class=&quot;classMap[item.type]&quot;&gt;&lt;/span&gt;{{item.name}}
+          &lt;/span&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+    //第二个区域 food区域
+    //$refs的使用
+    &lt;div class=&quot;foods-wrapper&quot; ref=&quot;foodsWrapper&quot;&gt;
+      &lt;ul&gt;
+      //hook钩子类的使用(food-list-hook)
+        &lt;li v-for=&quot;item in goods&quot; class=&quot;food-list food-list-hook&quot;&gt;
+          &lt;h1 class=&quot;title&quot;&gt;{{item.name}}&lt;/h1&gt;
+          &lt;ul&gt;
+            &lt;li v-for=&quot;food in item.foods&quot; class=&quot;food-item&quot;&gt;
+              &lt;div class=&quot;icon&quot;&gt;
+                &lt;img width=&quot;57&quot; height=&quot;57&quot; :src=&quot;food.icon&quot;&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;content&quot;&gt;
+                &lt;h2 class=&quot;name&quot;&gt;{{food.name}}&lt;/h2&gt;
+                &lt;p class=&quot;desc&quot;&gt;{{food.description}}&lt;/p&gt;
+                &lt;div class=&quot;extra&quot;&gt;
+                  &lt;span class=&quot;count&quot;&gt;月售{{food.sellCount}}份&lt;/span&gt;&lt;span&gt;好评率{{food.rating}}%&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;price&quot;&gt;
+                  &lt;span class=&quot;now&quot;&gt;¥{{food.price}}&lt;/span&gt;&lt;span class=&quot;old&quot;
+                                                                v-show=&quot;food.oldPrice&quot;&gt;¥{{food.price}}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+    //第三个区域,shopcart区域
+    &lt;shopcart ref=&quot;shopcart&quot; :selectFoods=&quot;selectFoods&quot; :deliveryPrice=&quot;seller.deliveryPrice&quot;
+              :minPrice=&quot;seller.minPrice&quot;&gt;&lt;/shopcart&gt;
+    //第四个区域,隐藏的食物详情区域
+    &lt;food @add=&quot;addFood&quot; :food=&quot;selectedFood&quot; ref=&quot;food&quot;&gt;&lt;/food&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre><p>备注:</p>
+<ul>
+<li>v-for使用已经很常见了,不过这里需要了解,vue1和2有区别,现在是用vue2,所以index变量传递会变成现在这种模式(item,index) in goods</li>
+</ul>
+<ul>
+<li>vue传递原生事件使用$event</li>
+</ul>
+<ul>
+<li>:class=”{‘current’:currentIndex === index}”是vue的绑定class的使用方法,通过绑定一个class变量来直接操作,并且这里的逻辑会跟js代码里面对应<br>通过currentIndex和index做对比,来确认是否添加current类,他们之间的对比关系也就是menu区域和foods区域的显示区域的对比关系<br>通过添加current类来实现当前页面的区域的样式变化<br>currentIndex是一个计算属性,可以随时变化并且直接反应到dom上(看js里面逻辑)</li>
+</ul>
+<ul>
+<li>v-show和v-if的区别官网已经说过<ol>
+<li>v-if 是“真正的”条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。</li>
+<li>v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块。</li>
+</ol>
+</li>
+</ul>
+<p>一般来说， v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件不太可能改变，则使用 v-if 较好。</p>
+<ul>
+<li>$refs的使用是vue操作dom的一种方式:</li>
+</ul>
+<pre><code>- ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。
+
+
+- 如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素; 如果用在子组件上，引用就指向组件实例:
+</code></pre><ul>
+<li>hook钩子类的使用,需要结合js里面的语法来看,这个类只是用来操作,不会产生dom的渲染,方便js控制清晰.</li>
+</ul>
+<h2 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h2><pre><code>&lt;script&gt;
+  import BScroll from &apos;better-scroll&apos;; //导入better-scroll
+  import shopcart from &apos;../../components/shopcart/shopcart&apos;;//导入shopcart购物车组件
+  import cartcontrol from &apos;../../components/cartcontrol/cartcontrol&apos;; //导入购物组件
+  import food from &apos;../../components/food/food&apos;; //导入食物详情组件
+
+  const ERR_OK = 0; //常量,方便解耦
+
+  export default {
+    props: {
+      seller: {
+        type: Object
+      }
+    },
+    data(){
+      return {
+        goods: [],
+        listHeight: [], //用来储存foods区域的各个区块的高度(clientHeight)
+        scrollY: 0 //用来存储foods区域的滚动的Y坐标
+        selectedFood: {} //用来存储当前已被选择的food数据,对象保存形式
+      }
+    },
+    computed: {
+      currentIndex(){ //计算到达哪个区域的区间的时候的对应的索引值
+        for (let i = 0; i &lt; this.listHeight.length; i++) {
+          let height1 = this.listHeight[i]; //当前menu子块的高度
+          let height2 = this.listHeight[i + 1]; //下一个menu子块的高度
+          //滚动到底部的时候,height2为undefined,需要考虑这种情况
+          //需要确定是在两个menu子块的高度区间
+          if (!height2 || (this.scrollY &gt;= height1 &amp;&amp; this.scrollY &lt; height2)) {
+            return i; //返回这个menu子块的索引
+          }
+        }
+        return 0;
+      },
+      selectFoods() { //自动将所有的goods.food添加一个count属性,方便做数量运算
+        let foods = [];
+        this.goods.forEach((good) =&gt; {
+          good.foods.forEach((food) =&gt; {
+            if (food.count) {
+              foods.push(food);
+            }
+          });
+        });
+        return foods;
+      }
+    },
+    created(){
+      this.classMap = [&apos;decrease&apos;, &apos;discount&apos;, &apos;special&apos;, &apos;invoice&apos;, &apos;guarantee&apos;];
+
+      this.$http.get(&apos;/api/goods&apos;).then((response) =&gt; {
+        response = response.body;
+        if (response.errno === ERR_OK) {
+          this.goods = response.data;
+          this.$nextTick(() =&gt; { //使用$nextTick来等待异步完成之后更新dom
+            this._initScroll(); //绑定滚动dom
+            this._calculateHeight(); //计算foods区域的各个区域的高度
+          });
+        }
+      });
+    },
+    methods: {
+      selectFood(food, event){
+            if (!event._constructed) {//忽略掉BScroll的事件
+              return;
+            }
+            this.selectedFood = food; //写入当前选择的food
+            this.$refs.food.show(); //显示当前选择的food的详情页
+      },
+      selectMenu(index, event){
+        if (!event._constructed) { //忽略掉BScroll的事件
+          return;
+        }
+        let foodsList = this.$refs.foodsWrapper.getElementsByClassName(&apos;food-list-hook&apos;);
+        let el = foodsList[index];
+        //类似jump to的功能,通过这个方法,跳转到指定的dom
+        this.foodsScroll.scrollToElement(el, 300);
+      },
+      addFood(target) {
+        this._drop(target);
+      },
+      _drop(target) {
+        // 体验优化,异步执行下落动画
+        this.$nextTick(() =&gt; {
+          this.$refs.shopcart.drop(target); //调用shopcart的下落动画
+        });
+      },
+      _initScroll(){
+      //初始化scroll区域
+        this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+          click: true //结合BScroll的接口使用,是否将click事件传递,默认被拦截了
+        });
+        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          probeType: 3 //结合BScroll的接口使用,3实时派发scroll事件
+        });
+        //结合BScroll的接口使用,监听scroll事件(实时派发的),并获取鼠标坐标
+        this.foodsScroll.on(&apos;scroll&apos;, (pos) =&gt; { 
+          this.scrollY = Math.abs(Math.round(pos.y));//滚动坐标会出现负的,并且是小数,所以需要处理一下
+        })
+      },
+      //计算foods内部块的高度
+      _calculateHeight(){
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName(&apos;food-list-hook&apos;); //获取每一个food的dom对象
+        let height = 0;
+        this.listHeight.push(height); //初始化第一个高度为0
+        for (let i = 0; i &lt; foodList.length; i++) {
+          let item = foodList[i]; //每一个item都是刚才获取的food的每一个dom
+          height += item.clientHeight; //主要是为了获取每一个foods内部块的高度
+          this.listHeight.push(height);
+        }
+      }
+    },
+    components: {
+      shopcart,
+      cartcontrol,
+      food
+    }
+  }
+&lt;/script&gt;
+</code></pre><p>备注:</p>
+<ul>
+<li><food @add="addFood" :food="selectedFood" ref="food" \="">是通过selectFood方法写入到vue实例里面,然后传给子组件food</food></li>
+</ul>
+<ul>
+<li>&lt;shopcart ref=”shopcart” :selectFoods=”selectFoods” 这里selectFoods被自动添加了count属性,是为了让购物车更加简单的计算已选择的food</li>
+</ul>
+<ul>
+<li>这里最关键的是menu和food两个区域的对应处理:</li>
+</ul>
+<pre><code>- 在vue实例生命周期的开始created分别加载_initScroll和_calculateHeight
+
+
+- 通过_calculateHeight计算foods内部每一个块的高度,组成一个数组listHeight
+
+
+- 在_initScroll里面,设置了bscroll插件的一个监听事件scroll,将food区域当前的滚动到的位置的y坐标设置到一个vue实例属性scrollY this.scrollY = Math.abs(Math.round(pos.y));
+
+
+- 通过计算属性currentIndex,获取到food滚动区域对应的menu区域的子块的索引,然后通过设置一个class来做样式切换变化:class=&quot;{&apos;current&apos;:currentIndex === index},实现联动
+
+
+- 另外当点击menu 区域的时候,会触发selectMenu事件,也会根据点击到的menu子块的索引然后去触发food区域滚动到对应的高度区块区间this.foodsScroll.scrollToElement(el, 300);
+
+
+- 这样完成整个对应.
+</code></pre><ul>
+<li>抛物线小球动画横跨多个vue组件(也可以说是横跨了多个DOM),整个动画会在关于购物车添加按钮的动画里面说</li>
+</ul>
+<ul>
+<li>better-scroll需要安装,npm安装,具体参看better-scroll官网</li>
+</ul>
+<ul>
+<li>关于在selectMenu中点击,在pc界面会出现两次事件,在移动端就只出现一次事件的问题:</li>
+</ul>
+<pre><code>- 原因:
+
+
+- bsScrooler会监听事件(例如touchmove,click之类),并且阻止默认事件(prevent stop),并且他只会监听移动端的,pc端的没有监听
+
+
+- 在pc页面上 bsScroller也派发了一次click事件,原生也派发了一次click事件
+
+        //bsScroll的事件,有_constructed: true
+        MouseEvent {isTrusted: false, _constructed: true, screenX: 0, screenY: 0, clientX: 0…}
+        //pc的事件
+        MouseEvent {isTrusted: true, screenX: -1867, screenY: 520, clientX: 53, clientY: 400…}    
+</code></pre><ul>
+<li>解决:</li>
+</ul>
+<pre><code>- 针对bsScroole的事件,有_constructed: true,所以做处理,return掉非bsScroll的事件
+</code></pre><h2 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h2><pre><code>&lt;style lang=&quot;stylus&quot; rel=&quot;stylesheet/stylus&quot;&gt;
+  @import &quot;../../common/stylus/mixin.styl&quot;
+
+  .goods
+    display: flex
+    position: absolute //根据设计图实现,
+    top: 174px //去掉header和tab的位置
+    bottom: 46px //预留购物车位置
+    width: 100%
+    overflow: hidden
+    .menu-wrapper
+      flex: 0 0 80px //flex布局预留空间
+      width: 80px //兼容android浏览器,不加的话会没办法预留空间
+      background: #f3f5f7
+      .menu-item
+        display: table
+        height: 54px
+        width: 56px
+        padding: 0 12px
+        line-height: 14px
+        &amp;.current
+          position: relative
+          z-index: 10
+          margin-top: -1px
+          background: #ffffff
+          font-weight: 700
+          .text
+            border-none()
+        .icon
+          display: inline-block
+          vertical-align: top
+          width: 12px
+          height: 12px
+          margin-right: 2px
+          background-size: 12px 12px
+          background-repeat: no-repeat
+          &amp;.decrease
+            bg-image(&apos;decrease_3&apos;)
+          &amp;.discount
+            bg-image(&apos;discount_3&apos;)
+          &amp;.guarantee
+            bg-image(&apos;guarantee_3&apos;)
+          &amp;.invoice
+            bg-image(&apos;invoice_3&apos;)
+          &amp;.special
+            bg-image(&apos;special_3&apos;)
+        .text
+          display: table-cell
+          width: 56px
+          vertical-align: middle //table默认支持垂直居中
+          border-1px(rgba(7, 17, 27, 0.1))
+          font-size: 12px
+    .foods-wrapper
+      flex: 1
+      .title
+        padding-left: 14px
+        height: 26px
+        line-height: 26px
+        border-left: 2px solid #d9dde1
+        font-size: 12px
+        color: rgb(147, 153, 159)
+        background: #f3f5f7
+      .food-item
+        display: flex
+        margin: 18px
+        padding-bottom: 18px
+        border-1px: (rgba(7, 17, 27, 0.1))
+        &amp;:last-child
+          border-none() 
+          margin-bottom: 0
+        .icon
+          flex: 0 0 57px
+          margin-right: 10px
+        .content
+          flex: 1 //flex布局等分剩下空间
+          .name
+            margin: 2px 0 8px 0
+            height: 14px
+            line-height: 14px
+            font-size: 14px
+            color: rgb(7, 17, 27)
+          .desc, .extra
+            line-height: 10px
+            font-size: 10px
+            color: rgb(147, 153, 159)
+          .desc
+            margin-bottom: 8px
+            line-height: 12px
+          .extra
+            .count
+              margin-right: 12px
+          .price
+            font-weight: 700
+            line-height: 24px
+            .now
+              margin-right: 8px
+              font-size: 14px
+              color: rgb(240, 20, 20)
+            .old
+              text-decoration: line-through
+              font-size: 10px
+              color: rgb(240, 20, 20)
+        .cartcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom: 12px   
+&lt;/style&gt;
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/饿了么/" rel="tag"># 饿了么</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/09/关于购物车添加按钮的动画/" rel="next" title="关于购物车添加按钮的动画">
+                <i class="fa fa-chevron-left"></i> 关于购物车添加按钮的动画
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/09/cartcontrol-vue购物车操作按钮/" rel="prev" title="cartcontrol.vue购物车操作按钮">
+                cartcontrol.vue购物车操作按钮 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术点"><span class="nav-number">1.</span> <span class="nav-text">技术点:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#html代码"><span class="nav-number">2.</span> <span class="nav-text">html代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js代码"><span class="nav-number">3.</span> <span class="nav-text">js代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css代码"><span class="nav-number">4.</span> <span class="nav-text">css代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

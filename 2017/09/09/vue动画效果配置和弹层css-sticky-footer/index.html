@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="饿了么," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="vue动画效果配置有两种方式:  一种是css方式  需要注意 4 个(CSS)类名在 enter/leave 的过渡中切换:  v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。 v-enter-active: 定义进入过渡的结束状态。在元素被插入时生效，在 transition/animation 完成之后移除。 v-leave: 定义离开过渡的开始状态。在离开过渡">
+<meta name="keywords" content="饿了么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue动画效果配置和弹层css sticky footer">
+<meta property="og:url" content="http://super-wei.xyz/2017/09/09/vue动画效果配置和弹层css-sticky-footer/index.html">
+<meta property="og:site_name" content="ZhangWei2222">
+<meta property="og:description" content="vue动画效果配置有两种方式:  一种是css方式  需要注意 4 个(CSS)类名在 enter/leave 的过渡中切换:  v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。 v-enter-active: 定义进入过渡的结束状态。在元素被插入时生效，在 transition/animation 完成之后移除。 v-leave: 定义离开过渡的开始状态。在离开过渡">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-09T10:01:57.128Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue动画效果配置和弹层css sticky footer">
+<meta name="twitter:description" content="vue动画效果配置有两种方式:  一种是css方式  需要注意 4 个(CSS)类名在 enter/leave 的过渡中切换:  v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。 v-enter-active: 定义进入过渡的结束状态。在元素被插入时生效，在 transition/animation 完成之后移除。 v-leave: 定义离开过渡的开始状态。在离开过渡">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://super-wei.xyz/2017/09/09/vue动画效果配置和弹层css-sticky-footer/"/>
+
+
+
+
+
+  <title>vue动画效果配置和弹层css sticky footer | ZhangWei2222</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZhangWei2222</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/vue动画效果配置和弹层css-sticky-footer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue动画效果配置和弹层css sticky footer</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:51:56+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="vue动画效果配置"><a href="#vue动画效果配置" class="headerlink" title="vue动画效果配置"></a>vue动画效果配置</h2><p>有两种方式:</p>
+<ul>
+<li>一种是css方式</li>
+</ul>
+<p>需要注意 4 个(CSS)类名在 enter/leave 的过渡中切换:</p>
+<ol>
+<li>v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。</li>
+<li>v-enter-active: 定义进入过渡的结束状态。在元素被插入时生效，在 transition/animation 完成之后移除。</li>
+<li>v-leave: 定义离开过渡的开始状态。在离开过渡被触发时生效，在下一个帧移除。</li>
+<li>v-leave-active: 定义离开过渡的结束状态。在离开过渡被触发时生效，在 transition/animation 完成之后移除。</li>
+</ol>
+<p>一般的使用方式是:<br>在html里面用transition包裹起来,然后建立一个name,这个name对应css的class名字的前缀,例如这里name是fade,class就是fade前缀命名</p>
+<p>html代码</p>
+<pre><code>&lt;transition name=&quot;fade&quot;&gt;
+&lt;/transition&gt;
+</code></pre><p>css代码</p>
+<pre><code>&amp;.fade-enter-active, &amp;.fade-leave-active
+&amp;.fade-enter, &amp;.fade-leave-active
+</code></pre><blockquote>
+<p>总的来说:在enter里面会代表状态从没有到有的变化,在leave里面会代表状态从有到没有的变化,在使用的时候可以按照需要使用,需要考虑好动画的变化再开始写代码</p>
+</blockquote>
+<ul>
+<li><p>一种是js钩子的方式</p>
+<pre><code>methods: {
+  // --------
+  // 进入中
+  // --------
+  beforeEnter: function (el) {
+    // ...
+  },
+  // 此回调函数是可选项的设置
+  // 与 CSS 结合时使用
+  enter: function (el, done) {
+    // ...
+    done()
+  },
+  afterEnter: function (el) {
+    // ...
+  },
+  enterCancelled: function (el) {
+    // ...
+  },
+  // --------
+  // 离开时
+  // --------
+  beforeLeave: function (el) {
+    // ...
+  },
+  // 此回调函数是可选项的设置
+  // 与 CSS 结合时使用
+  leave: function (el, done) {
+    // ...
+    done()
+  },
+  afterLeave: function (el) {
+    // ...
+  },
+  // leaveCancelled 只用于 v-show 中
+  leaveCancelled: function (el) {
+    // ...
+  }
+}
+</code></pre></li>
+</ul>
+<p>一般的使用方式是</p>
+<pre><code>&lt;transition @before-enter=&quot;beforeDrop&quot; @enter=&quot;dropping&quot; @after-enter=&quot;afterDrop&quot;&gt;
+&lt;/transition&gt;
+</code></pre><p>通过绑定js方法来实现</p>
+<blockquote>
+<p>总的来说:js钩子会更加细腻,会在变化的过程中也加入一个钩子管理变化,其他跟css方式动画差不多</p>
+</blockquote>
+<h2 id="弹层和css-sticky-footer原理"><a href="#弹层和css-sticky-footer原理" class="headerlink" title="弹层和css sticky footer原理"></a>弹层和css sticky footer原理</h2><p>css sticky footer解释:如果页面内容不够长的时候，页脚块粘贴在视窗底部；如果内容足够长时，页脚块会被内容向下推送。</p>
+<blockquote>
+<p>这里主要使用clearfix这个类的伪类来完成.</p>
+</blockquote>
+<p>原理简述如下:</p>
+<ul>
+<li>在IE6, 7下zoom: 1会触发hasLayout，从而使元素闭合内部的浮动。</li>
+</ul>
+<ul>
+<li>在标准浏览器下，.clearfix:after这个伪类会在应用到.clearfix的元素后面插入一个clear: both的块级元素，从而达到清除浮动的作用。</li>
+</ul>
+<ul>
+<li>在需要清除浮动的时候，只要写一个.clearfix就行了，然后在需要清浮动的元素中 添加clearfix类名就好了</li>
+</ul>
+<ul>
+<li>防止Collapsing margins(外边距折叠)</li>
+</ul>
+<ul>
+<li>保证跨浏览器的兼容性</li>
+</ul>
+<p>相关代码如下:</p>
+<pre><code>.clearfix:before, clearfix:after {
+    content: &quot;.&quot;;   
+    display: block;   
+    clear: both;     
+    visibility: hidden;
+    line-height: 0;    //行高为0
+    height: 0;     //高度为0
+    font-size:0;    //字体大小为0
+}
+
+.clearfix { *zoom:1;}   //这是针对于IE6的，因为IE6不支持:after伪类，这个神奇的zoom:1让IE6的元素可以清除浮动来包裹内部元素。
+</code></pre><p>备注:</p>
+<ul>
+<li>zoom: 1 为了兼容 IE6/7,在IE6, 7下zoom: 1会触发hasLayout，从而使元素闭合内部的浮动。</li>
+</ul>
+<ul>
+<li>:before 用来防止 top-margin collapse 和保证当 IE6/7 应用 zoom:1 时的是视觉一致性</li>
+</ul>
+<ul>
+<li>:after 用来清除浮动</li>
+</ul>
+<pre><code>- visibility: hidden 可见度设为隐藏。注意它和display:none;是有区别的。visibility:hidden;仍然占据空间，只是看不到而已
+
+
+- clear: both 清除左右两边浮动
+
+
+- display: block需要将元素转为块级元素才可以实现效果,inline-block也可以
+
+
+- content: &quot;.&quot; 内容为“.”就是一个英文的句号而已。也可以不写。
+
+
+- line-height: 0行高为0,设置这些主要是为了避免一些占用位置或者间隔的问题
+
+
+- height: 0高度为0,同上
+
+
+- font-size:0 字体大小为0,同上
+</code></pre><blockquote>
+<p>另外需要注意的是避免Collapsing margins(外边距压扁)<br>有两种情况会引起 Collapsing margin:</p>
+<ul>
+<li>父子元素(不一定是直接父子)之间会发生 margin-top 和 margin-bottom 的折叠 (如果之间没有 border、padding、inlne-content、height、min-height、max-height 分割的话)</li>
+</ul>
+<ul>
+<li>邻近元素同时设置margin,前面的margin-bottom 和后面的margin-top融合取最大的</li>
+</ul>
+<p>所以这里能够实现避免Collapsing margins是因为</p>
+<ul>
+<li>父子的话,给父元素添加.clearfix</li>
+</ul>
+<ul>
+<li>紧邻的话,给前一个元素添加.clearfix<br>这样主要利用 :before psudo-element 给元素内部前面添加一个空的元素 display:block 保证它是一个BFC(BFC可以隔断外边距折叠)</li>
+</ul>
+</blockquote>
+<h3 id="课程里面使用"><a href="#课程里面使用" class="headerlink" title="课程里面使用"></a>课程里面使用</h3><p>因为clearfix是一个比较常用的class,所以在base.styl里面添加,方便其他组件调用</p>
+<pre><code>.clearfix
+  display: inline-block
+  &amp;:before, &amp;:after
+    contain: &apos;&apos;
+    height: 0
+    line-height: 0
+    clear: both
+    visibility: hidden
+</code></pre><blockquote>
+<p>这里没有去兼容ie6,7,因为移动端基本不包含这些浏览器<br>使用inline-block是因为做的是行内块处理</p>
+</blockquote>
+<p>在Header.vue里面使用</p>
+<pre><code>&lt;div class=&quot;detail&quot;&gt;
+  &lt;div class=&quot;detail-wrapper clearfix&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;detail-close&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><ul>
+<li>先用一个div包裹其需要做css sticky的内容,如detail的div</li>
+</ul>
+<ul>
+<li>然后footer是detail-close按钮,而需要显示并且要持续撑开的内容块是detail-wrapper,那么在detail-wrapper上添加一个clearfix 的class,就会在这个元素后面使用after的伪类生成内容,从而不断推开footer</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/饿了么/" rel="tag"># 饿了么</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/09/饿了么教程/" rel="next" title="饿了么教程">
+                <i class="fa fa-chevron-left"></i> 饿了么教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/09/stylus相关和1像素边框问题/" rel="prev" title="stylus相关和1像素边框问题">
+                stylus相关和1像素边框问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/person.jpg"
+               alt="ZhangWei2222" />
+          <p class="site-author-name" itemprop="name">ZhangWei2222</p>
+           
+              <p class="site-description motion-element" itemprop="description">Dream high</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#vue动画效果配置"><span class="nav-number">1.</span> <span class="nav-text">vue动画效果配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弹层和css-sticky-footer原理"><span class="nav-number">2.</span> <span class="nav-text">弹层和css sticky footer原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#课程里面使用"><span class="nav-number">2.1.</span> <span class="nav-text">课程里面使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangWei2222</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
