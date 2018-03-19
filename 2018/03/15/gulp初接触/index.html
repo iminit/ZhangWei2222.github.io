@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="ZhangWei2222">
 <meta property="og:description" content="gulp安装全局：npm install gulp -g 开发环境：npm install gulp –save-dev 项目结构-dist //打包目录     -css         -built.css         -built.min.css     -js         -built.js         -built.min.js     -images -src //开发目录">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-15T08:14:14.136Z">
+<meta property="og:updated_time" content="2018-03-15T08:59:06.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gulp初接触">
 <meta name="twitter:description" content="gulp安装全局：npm install gulp -g 开发环境：npm install gulp –save-dev 项目结构-dist //打包目录     -css         -built.css         -built.min.css     -js         -built.js         -built.min.js     -images -src //开发目录">
@@ -340,6 +340,11 @@
 -gulpfile.js //配置文件
 -package-lock.json
 -package.json //配置信息
+</code></pre><p>首先在package.json文件中添加项目信息</p>
+<pre><code>{
+    &quot;name&quot;: &quot;gulp_test&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;
+}
 </code></pre><h1 id="引入模块和插件"><a href="#引入模块和插件" class="headerlink" title="引入模块和插件"></a>引入模块和插件</h1><h2 id="1-引入模块"><a href="#1-引入模块" class="headerlink" title="1.引入模块"></a>1.引入模块</h2><pre><code>// gulpfile.js
 var gulp = require(&apos;gulp&apos;);
 </code></pre><h2 id="2-插件"><a href="#2-插件" class="headerlink" title="2.插件"></a>2.插件</h2><h3 id="gulp中的几个比较常用的插件"><a href="#gulp中的几个比较常用的插件" class="headerlink" title="gulp中的几个比较常用的插件"></a>gulp中的几个比较常用的插件</h3><blockquote>
@@ -640,6 +645,10 @@ gulp.task(&apos;product&apos;, [&apos;cssTask&apos;, &apos;copyHtml&apos;, &apos
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/03/19/gulp-px2rem/" rel="prev" title="gulp px2rem">
+                gulp px2rem <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -715,7 +724,7 @@ gulp.task(&apos;product&apos;, [&apos;cssTask&apos;, &apos;copyHtml&apos;, &apos
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -728,7 +737,7 @@ gulp.task(&apos;product&apos;, [&apos;cssTask&apos;, &apos;copyHtml&apos;, &apos
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
