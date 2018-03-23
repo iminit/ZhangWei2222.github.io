@@ -248,6 +248,295 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/px-pd-pid-等移动端知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/18/px-pd-pid-等移动端知识/" itemprop="url">px pd pid 等移动端知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:21:03+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-PX（css-pixels）——虚拟像素"><a href="#1-PX（css-pixels）——虚拟像素" class="headerlink" title="1.PX（css pixels）——虚拟像素"></a>1.PX（css pixels）——虚拟像素</h1><p>px是一个相对单位，相对的是设备像素</p>
+<p>显示器上的物理像素等于显示器的点距，而打印机的物理像素等于打印机的墨点。而衡量点距大小和打印机墨点大小的单位分别称为ppi和dpi：</p>
+<p>ppi：每英寸多少像素数，放到显示器上说的是每英寸多少物理像素及显示器设备的点距。</p>
+<p>dpi：每英寸多少点。</p>
+<h1 id="2-DP-device-pixels-——设备像素（物理像素）"><a href="#2-DP-device-pixels-——设备像素（物理像素）" class="headerlink" title="2.DP(device pixels)——设备像素（物理像素）"></a>2.DP(device pixels)——设备像素（物理像素）</h1><p>pt在css单位中属于真正的绝对单位，1pt = 1/72(inch),inch及英寸，而1英寸等于2.54厘米。</p>
+<blockquote>
+<p>屏幕普遍采用RGB色域(红、绿、蓝三个子像素构成),而印刷行业普遍使用CMYK色域(青、品红、黄和黑)</p>
+</blockquote>
+<h1 id="3-设备像素-DP-与CSS像素之间的关系"><a href="#3-设备像素-DP-与CSS像素之间的关系" class="headerlink" title="3.设备像素(DP)与CSS像素之间的关系"></a>3.设备像素(DP)与CSS像素之间的关系</h1><pre><code>DPR = 设备像素/CSS像素
+</code></pre><p>当这个比率为1:1时，使用1个设备像素显示1个CSS像素。当这个比率为2:1时，使用4个设备像素显示1个CSS像素，当这个比率为3:1时，使用9（3*3）个设备像素显示1个CSS像素。</p>
+<p>window对象有一个devicePixelRatio属性，它的官方的定义为：设备物理像素和设备独立像素的比例，也就是 devicePixelRatio = 物理像素 / 独立像素。</p>
+<h1 id="4-DIP-Device-independent-Pixel"><a href="#4-DIP-Device-independent-Pixel" class="headerlink" title="4.DIP(Device independent Pixel)"></a>4.DIP(Device independent Pixel)</h1><p>设备独立像素，也称为逻辑像素，简称dip。</p>
+<blockquote>
+<p>CSS像素 =设备独立像素 = 逻辑像素</p>
+</blockquote>
+<h1 id="5-PPI-pixels-per-inch"><a href="#5-PPI-pixels-per-inch" class="headerlink" title="5.PPI(pixels per inch)"></a>5.PPI(pixels per inch)</h1><blockquote>
+<p>每英寸像素取值，更确切的说法应该是像素密度，也就是衡量单位物理面积内拥有像素值的情况。</p>
+</blockquote>
+<h1 id="6-ppi和dpr到底什么关系？"><a href="#6-ppi和dpr到底什么关系？" class="headerlink" title="6.ppi和dpr到底什么关系？"></a>6.ppi和dpr到底什么关系？</h1><p>设备像素比与ppi相关，一般是ppi/160的整数倍：</p>
+<h1 id="7-分辨率、像素和屏幕尺寸"><a href="#7-分辨率、像素和屏幕尺寸" class="headerlink" title="7.分辨率、像素和屏幕尺寸"></a>7.分辨率、像素和屏幕尺寸</h1><p>PPI 说的是像素密度，而分辨率说的是块屏幕的像素尺寸，譬如说 1334*750 就是 iPhone（6~7）的分辨率，说 iPhone（6~7）的分辨率是 326 是错误的表述，326 是它的像素密度，单位是 PPI。</p>
+<h1 id="8-Viewport"><a href="#8-Viewport" class="headerlink" title="8.Viewport"></a>8.Viewport</h1><blockquote>
+<p>ppk认为，移动设备上有三个viewport。</p>
+<ol>
+<li>layout viewport  document.documentElement.clientWidth 来获取</li>
+<li>visual viewport的宽度可以通过window.innerWidth 来获取</li>
+<li>viewport——移动设备的理想viewport。根据不同的设备有不同的宽度</li>
+</ol>
+</blockquote>
+<h3 id="1-怎么让layout-viewport-visual-viewport？"><a href="#1-怎么让layout-viewport-visual-viewport？" class="headerlink" title="(1).怎么让layout viewport=visual viewport？"></a>(1).怎么让layout viewport=visual viewport？</h3><blockquote>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</blockquote>
+<p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170723080857.png" alt=""></p>
+<h3 id="2-关于缩放以及initial-scale的默认值"><a href="#2-关于缩放以及initial-scale的默认值" class="headerlink" title="(2).关于缩放以及initial-scale的默认值"></a>(2).关于缩放以及initial-scale的默认值</h3><pre><code>visual viewport宽度 = ideal viewport宽度 / 当前缩放值
+当前缩放值 = ideal viewport宽度 / visual viewport宽度
+</code></pre><p>在iphone和ipad上，无论你给viewport设的宽的是多少，如果没有指定默认的缩放值，则iphone和ipad会自动计算这个缩放值，以达到当前页面不会出现横向滚动条(或者说viewport的宽度就是屏幕的宽度)的目的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/两个viewport的故事-二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/18/两个viewport的故事-二/" itemprop="url">两个viewport的故事(二)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:20:44+08:00">
+                2017-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-两个viewport"><a href="#1-两个viewport" class="headerlink" title="1.两个viewport"></a>1.两个viewport</h1><h3 id="1-visual-viewport"><a href="#1-visual-viewport" class="headerlink" title="(1).visual viewport"></a>(1).visual viewport</h3><p>visual viewport是页面当前显示在屏幕上的部分。用户可以通过滚动来改变他所看到的页面的部分，或者通过缩放来改变visual viewport的大小。</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20170722214021.png" alt=""></p>
+<h3 id="2-layout-viewport"><a href="#2-layout-viewport" class="headerlink" title="(2).layout viewport"></a>(2).layout viewport</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214137.png" alt=""></p>
+<h3 id="3-度量visual-viewport"><a href="#3-度量visual-viewport" class="headerlink" title="(3).度量visual viewport"></a>(3).度量visual viewport</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214430.png" alt=""></p>
+<h3 id="4-滚动距离Scrolling-offset"><a href="#4-滚动距离Scrolling-offset" class="headerlink" title="(4).滚动距离Scrolling offset"></a>(4).滚动距离Scrolling offset</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214525.png" alt=""></p>
+<p>你还需知道的是visual viewport当前相对于layout viewport的位置。这是滚动距离，并且就像在桌面一样，它被存储在window.pageX/YOffset之中。</p>
+<h3 id="5-元素"><a href="#5-元素" class="headerlink" title="(5). 元素"></a>(5).<html> 元素</html></h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214558.png" alt=""></p>
+<p>就像在桌面上一样，document.documentElement.offsetWidth/Height提供了以CSS像素为单位的<html>元素的整个尺寸。</html></p>
+<h3 id="6-媒体查询Media-queries"><a href="#6-媒体查询Media-queries" class="headerlink" title="(6).媒体查询Media queries"></a>(6).媒体查询Media queries</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214709.png" alt=""></p>
+<p>媒体查询和其在桌面环境上的工作方式一样。width/height使用layout　viewport做为参照物，并且以CSS像素进行度量，device-width/height使用设备屏幕，并且以设备像素进行度量。</p>
+<p>换句话说，width/height是document.documentElement.clientWidth/Height值的镜像，同时device-width/height是screen.width/height值的镜像。（它们在所有浏览器中实际上就是这么做的，即使这个镜像的值不正确。）</p>
+<h3 id="7-事件坐标"><a href="#7-事件坐标" class="headerlink" title="(7).事件坐标"></a>(7).事件坐标</h3><p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170722214758.png" alt=""></p>
+<p>pageX/Y仍然是相对于页面，以CSS像素为单位，并且它是目前为止三个属性对中最有用的，就像它在桌面环境上的那样。</p>
+<p>clientX/Y是相对于visual viewport来计算，以CSS像素为单位的。这有道理的，即使我还不能完全指出这么做的好处。</p>
+<p>screenX/Y是相对于屏幕来计算，以设备像素为单位。当然，这和clientX/Y用的参照系是一样的，并且设备像素在这没有用处。所以我们不需要担心screenX/Y；跟在桌面环境上一样没有用处。</p>
+<h3 id="8-viewport-meta标签"><a href="#8-viewport-meta标签" class="headerlink" title="(8).viewport meta标签"></a>(8).viewport meta标签</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/两个viewport的故事-一/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2309,184 +2598,11 @@ a {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/vue-1-内部指令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/18/vue-1-内部指令/" itemprop="url">vue(1) 内部指令</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:13:07+08:00">
-                2017-08-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-走起我的vue2-0"><a href="#1-走起我的vue2-0" class="headerlink" title="1.走起我的vue2.0"></a>1.走起我的vue2.0</h1><h3 id="live-server使用"><a href="#live-server使用" class="headerlink" title="live-server使用"></a>live-server使用</h3><p>用npm进行全局安装</p>
-<pre><code>npm install live-server -g
-</code></pre><p>在项目目录中打开</p>
-<pre><code>live-server
-</code></pre><h1 id="2-v-if-v-else-v-show"><a href="#2-v-if-v-else-v-show" class="headerlink" title="2.v-if v-else v-show"></a>2.v-if v-else v-show</h1><h3 id="v-if-和v-show的区别："><a href="#v-if-和v-show的区别：" class="headerlink" title="v-if 和v-show的区别："></a>v-if 和v-show的区别：</h3><ul>
-<li>v-if： 判断是否加载，可以减轻服务器的压力，在需要时加载。</li>
-</ul>
-<ul>
-<li>v-show：调整css dispaly属性，可以使客户端操作更加流畅。</li>
-</ul>
-<h1 id="3-v-for"><a href="#3-v-for" class="headerlink" title="3.v-for"></a>3.v-for</h1><h3 id="数字排序"><a href="#数字排序" class="headerlink" title="数字排序"></a>数字排序</h3><pre><code>computed:{
-   sortItems:function(){
-   return this.items.sort(sortNumber);
-   }
-}
-
-
- function sortNumber(a,b){
-           return a-b
- }
-</code></pre><h3 id="对象循环输出"><a href="#对象循环输出" class="headerlink" title="对象循环输出"></a>对象循环输出</h3><pre><code>//数组对象方法排序:
-function sortByKey(array,key){
-    return array.sort(function(a,b){
-      var x=a[key];
-      var y=b[key];
-      return ((x&lt;y)?-1:((x&gt;y)?1:0));
-   });
-}
-
-sortStudent:function(){
-     return sortByKey(this.students,&apos;age&apos;);
-}
-</code></pre><h1 id="4-v-text-amp-v-html"><a href="#4-v-text-amp-v-html" class="headerlink" title="4.v-text &amp; v-html"></a>4.v-text &amp; v-html</h1><pre><code>&lt;span&gt;{{ message }}&lt;/span&gt;=&lt;span v-text=&quot;message&quot;&gt;&lt;/span&gt;
-
-&lt;span v-html=&quot;msgHtml&quot;&gt;&lt;/span&gt;
-</code></pre><p>需要注意的是：在生产环境中动态渲染HTML是非常危险的，因为容易导致XSS攻击。所以只能在可信的内容上使用v-html，永远不要在用户提交和可操作的网页上使用。</p>
-<h1 id="5-v-on：绑定事件监听器"><a href="#5-v-on：绑定事件监听器" class="headerlink" title="5.v-on：绑定事件监听器"></a>5.v-on：绑定事件监听器</h1><pre><code>v-on:  =  @
-</code></pre><p>ps:文本框的数字会默认转变成字符串，所以我们需要用parseInt()函数进行整数转换。</p>
-<h1 id="6-v-model指令"><a href="#6-v-model指令" class="headerlink" title="6.v-model指令"></a>6.v-model指令</h1><p>绑定数据源。就是把数据绑定在特定的表单元素上，可以很容易的实现双向数据绑定。</p>
-<h1 id="7-v-bind指令"><a href="#7-v-bind指令" class="headerlink" title="7.v-bind指令"></a>7.v-bind指令</h1><h3 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h3><pre><code>&lt;!-- 完整语法 --&gt;
-&lt;a v-bind:href=&quot;url&quot;&gt;&lt;/a&gt;
-&lt;!-- 缩写 --&gt;
-&lt;a :href=&quot;url&quot;&gt;&lt;/a&gt;
-</code></pre><h1 id="8-v-pre-amp-v-cloak-amp-v-once"><a href="#8-v-pre-amp-v-cloak-amp-v-once" class="headerlink" title="8.v-pre&amp;v-cloak&amp;v-once"></a>8.v-pre&amp;v-cloak&amp;v-once</h1><h3 id="v-pre"><a href="#v-pre" class="headerlink" title="v-pre"></a>v-pre</h3><pre><code>&lt;div v-pre&gt;{{message}}&lt;/div&gt;
-</code></pre><p>这时并不会输出我们的message值，而是直接在网页中显示</p>
-<h3 id="v-cloak"><a href="#v-cloak" class="headerlink" title="v-cloak"></a>v-cloak</h3><p>在vue渲染完指定的整个DOM后才进行显示。它必须和CSS样式一起使用，</p>
-<pre><code>[v-cloak] {
-  display: none;
-}
-
-&lt;div v-cloak&gt;
-  {{ message }}
-&lt;/div&gt;
-</code></pre><h3 id="v-once"><a href="#v-once" class="headerlink" title="v-once"></a>v-once</h3><p>在第一次DOM时进行渲染，渲染完成后视为静态内容，跳出以后的渲染过程。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2532,7 +2648,7 @@ sortStudent:function(){
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2545,7 +2661,7 @@ sortStudent:function(){
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

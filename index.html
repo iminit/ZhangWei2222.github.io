@@ -248,6 +248,590 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2018/03/23/跨域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/23/跨域/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T11:14:20+08:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>title: 跨域<br>date: 2018-03-23 11:14:20<br>tags:</p>
+<ul>
+<li>小题<br>-</li>
+</ul>
+<h1 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h1><p>由于浏览器同源策略，凡是发送请求url的协议、域名、端口三者之间任意一个与当前页面地址不同即为跨域。存在跨域的情况：</p>
+<blockquote>
+<p>何谓同源:</p>
+<p> URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。</p>
+<p>同源策略:</p>
+<p>浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。</p>
+<p>从一个域上加载的脚本不允许访问另外一个域的文档属性。</p>
+</blockquote>
+<ul>
+<li>网络协议不同，如http协议访问https协议。</li>
+</ul>
+<ul>
+<li>端口不同，如80端口访问8080端口。</li>
+</ul>
+<ul>
+<li>域名不同，如qianduanblog.com访问baidu.com。</li>
+</ul>
+<ul>
+<li>子域名不同，如abc.qianduanblog.com访问def.qianduanblog.com。</li>
+</ul>
+<ul>
+<li>域名和域名对应ip,如www.a.com访问20.205.28.90.</li>
+</ul>
+<h1 id="跨域请求资源的方法？"><a href="#跨域请求资源的方法？" class="headerlink" title="跨域请求资源的方法？"></a>跨域请求资源的方法？</h1><h3 id="1-JSONP"><a href="#1-JSONP" class="headerlink" title="1.JSONP"></a>1.JSONP</h3><p>这种方式主要是通过动态插入一个script标签。浏览器对script的资源引用没有同源限制，同时资源加载到页面后会立即执行（没有阻塞的情况下）。</p>
+<pre><code>js代码
+&lt;script&gt;  
+   var _script = document.createElement(&apos;script&apos;);  
+   _script.type = &quot;text/javascript&quot;;  
+   _script.src = &quot;http://localhost:8888/jsonp?callback=f&quot;;  
+   document.head.appendChild(_script);  
+ &lt;/script&gt;  
+</code></pre><p>实际项目中JSONP通常用来获取json格式数据，这时前后端通常约定一个参数callback，该参数的值，就是处理返回数据的函数名称。</p>
+<pre><code>html代码
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1,user-scalable=no&quot;&gt;
+    &lt;title&gt;jsonp_test&lt;/title&gt;
+
+    &lt;script&gt;
+      var f = function(data){
+        alert(data.name);
+      }
+      /*var xhr = new XMLHttpRequest();
+      xhr.onload = function(){
+        alert(xhr.responseText);
+      };
+      xhr.open(&apos;POST&apos;, &apos;http://localhost:8888/cors&apos;, true);
+      xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);
+      xhr.send(&quot;f=json&quot;);*/
+    &lt;/script&gt;
+
+    &lt;script&gt;
+      var _script = document.createElement(&apos;script&apos;);
+      _script.type = &quot;text/javascript&quot;;
+      _script.src = &quot;http://localhost:8888/jsonp?callback=f&quot;;
+      document.head.appendChild(_script);
+    &lt;/script&gt;
+  &lt;/head&gt;
+</code></pre><p>后端</p>
+<pre><code>java代码
+var query = _url.query;
+        console.log(query);
+        var params = qs.parse(query);
+        console.log(params);
+        var f = &quot;&quot;;
+
+        f = params.callback;
+
+        res.writeHead(200, {&quot;Content-Type&quot;: &quot;text/javascript&quot;});
+        res.write(f + &quot;({name:&apos;hello world&apos;})&quot;);
+        res.end();
+</code></pre><p>缺点：</p>
+<ol>
+<li>这种方式无法发送post请求（这里）</li>
+</ol>
+<ol>
+<li>另外要确定jsonp的请求是否失败并不容易，大多数框架的实现都是结合超时时间来判定。</li>
+</ol>
+<h3 id="2-proxy代理"><a href="#2-proxy代理" class="headerlink" title="2.proxy代理"></a>2.proxy代理</h3><p>这种方式首先将请求发送给后台服务器，通过服务器来发送请求，然后将请求的结果传递给前端。</p>
+<pre><code>html代码
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1,user-scalable=no&quot;&gt;
+    &lt;title&gt;proxy_test&lt;/title&gt;
+
+    &lt;script&gt;
+      var f = function(data){
+        alert(data.name);
+      }
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function(){
+        alert(xhr.responseText);
+      };
+      xhr.open(&apos;POST&apos;, &apos;http://localhost:8888/proxy?http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer&apos;, true);
+      xhr.send(&quot;f=json&quot;);
+    &lt;/script&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>后端</p>
+<pre><code>java代码
+var proxyUrl = &quot;&quot;;
+      if (req.url.indexOf(&apos;?&apos;) &gt; -1) {
+          proxyUrl = req.url.substr(req.url.indexOf(&apos;?&apos;) + 1);
+          console.log(proxyUrl);
+      }
+      if (req.method === &apos;GET&apos;) {
+          request.get(proxyUrl).pipe(res);
+      } else if (req.method === &apos;POST&apos;) {
+          var post = &apos;&apos;;     //定义了一个post变量，用于暂存请求体的信息
+
+        req.on(&apos;data&apos;, function(chunk){    //通过req的data事件监听函数，每当接受到请求体的数据，就累加到post变量中
+            post += chunk;
+        });
+
+        req.on(&apos;end&apos;, function(){    //在end事件触发后，通过querystring.parse将post解析为真正的POST请求格式，然后向客户端返回。
+            post = qs.parse(post);
+            request({
+                      method: &apos;POST&apos;,
+                      url: proxyUrl,
+                      form: post
+                  }).pipe(res);
+        });
+      }
+</code></pre><p>需要注意的是如果你代理的是https协议的请求，那么你的proxy首先需要信任该证书（尤其是自定义证书）或者忽略证书检查，否则你的请求无法成功。12306就提供了一个鲜活的例子。</p>
+<p>还需要注意一点，对于同一请求浏览器通常会从缓存中读取数据，我们有时候不想从缓存中读取，所以会加一个preventCache参数，这个时 候请求url变成：url?preventCache=12345567….;这本身没有什么问题，问题出在当使用某些前端框架（比如jquery） 发送proxy代理请求时，请求url为proxy?url，同时设置preventCache：true，框架不能正确处理这个参数，结果发出去的请求 变成proxy?url&amp;preventCache=123456（正长应为proxy?url?preventCache=12356）;后端 截取后发送的请求为url&amp;preventCache=123456，根本没有这个地址，所以你得不到正确结果</p>
+<h3 id="3-CORS"><a href="#3-CORS" class="headerlink" title="3.CORS"></a>3.CORS</h3><p>这是现代浏览器支持跨域资源请求的一种方式。</p>
+<p>当你使用XMLHttpRequest发送请求时，浏览器发现该请求不符合同源策略，会给该请求加一个请求头：Origin，后台进行一系列处 理，如果确定接受请求则在返回结果中加入一个响应头：Access-Control-Allow-Origin;浏览器判断该相应头中是否包含 Origin的值，如果有则浏览器会处理响应，我们就可以拿到响应数据，如果不包含浏览器直接驳回，这时我们无法拿到响应数据</p>
+<pre><code>html代码
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1,user-scalable=no&quot;&gt;
+    &lt;title&gt;jsonp_test&lt;/title&gt;
+
+    &lt;script&gt;
+      /*var f = function(data){
+        alert(data.name);
+      }*/
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function(){
+        alert(xhr.responseText);
+      };
+      xhr.open(&apos;POST&apos;, &apos;http://localhost:8888/cors&apos;, true);
+      xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);
+      xhr.send(&quot;f=json&quot;);
+    &lt;/script&gt;
+
+    &lt;script&gt;
+     /* var _script = document.createElement(&apos;script&apos;);
+      _script.type = &quot;text/javascript&quot;;
+      _script.src = &quot;http://localhost:8888/jsonp?callback=f&quot;;
+      document.head.appendChild(_script);*/
+    &lt;/script&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+后端
+if (req.headers.origin) {
+
+            res.writeHead(200, {
+                &quot;Content-Type&quot;: &quot;text/html; charset=UTF-8&quot;,
+                &quot;Access-Control-Allow-Origin&quot;:&apos;http://localhost&apos;/*,
+                &apos;Access-Control-Allow-Methods&apos;: &apos;GET, POST, OPTIONS&apos;,
+                &apos;Access-Control-Allow-Headers&apos;: &apos;X-Requested-With, Content-Type&apos;*/
+            });
+            res.write(&apos;cors&apos;);
+            res.end();
+        }
+</code></pre><p>以上是简单请求，还有一种非简单请求</p>
+<blockquote>
+<p>（1) 请求方法是以下三种方法之一：</p>
+<ul>
+<li><p>HEAD</p>
+</li>
+<li><p>GET</p>
+</li>
+<li>POST</li>
+</ul>
+<p>（2）HTTP的头信息不超出以下几种字段：</p>
+<ul>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Last-Event-ID</li>
+<li>Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
+</ul>
+</blockquote>
+<p>凡是不同时满足上面两个条件，就属于非简单请求。</p>
+<p>浏览器对这两种请求的处理，是不一样的。</p>
+<p>详情见<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="external">阮一峰的文章</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2018/03/23/四种方式实现JS异步编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/23/四种方式实现JS异步编程/" itemprop="url">四种方式实现JS异步编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T11:10:37+08:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h1><p>使用回调、Promise、generator和asnyc/await四种方式，请求api/data中的数据</p>
+<p>为方便理解，首先封装了一个库去实现ajax的get方法，调用方式如下</p>
+<pre><code>http.get(&apos;api/data&apos;, callback)
+</code></pre><p>但是如果以同步的方式来写，如</p>
+<pre><code>function getData (url) {
+  return http.get(url)
+}
+const data = getData(&apos;api/data&apos;);
+console.log(data) // undefined
+</code></pre><p>结果报错了，这是因为http.get(url)本身是个异步（非阻塞）的过程，这行代码运行的时候并没有马上得到结果，它的结果出现时间与服务器有关，是无法预知的。js会把它放到异步线程然后继续运行下去，下一行打印它自然是undefined。</p>
+<p>所以才有了接下来的讨论，采用异步的方式去获取它的结果。</p>
+<h1 id="回调（callback）"><a href="#回调（callback）" class="headerlink" title="回调（callback）"></a>回调（callback）</h1><pre><code>function getData (url, callback) {
+  http.getData(url, data =&gt; {
+    if (data.status == 200) {
+      // let err = null
+      // callback(err, data);
+
+      callback(null, data);
+
+    } else {
+      // let err = data
+      // callback(err, data);
+
+      callback(data);
+
+    }
+  });
+}
+
+getData(&apos;api/data&apos;, (err, data) =&gt; {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log(data)
+  }
+})
+</code></pre><h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><p>Promise对象代表一个未完成、但预计将来会完成的操作，有三种状态：</p>
+<p>pending：初始值，不是fulfilled，也不是rejected<br>resolved(也叫fulfilled）：代表操作成功<br>rejected：代表操作失败</p>
+<p>整个promise的状态只支持两种转换：从pending转变为resolved，或从pending转变为rejected，一旦转化发生就会保持这种状态，不可以再发生变化，状态发生变化后会触发then方法。</p>
+<pre><code>function getData (url) {
+  return new Promise((resolve, reject) =&gt; {
+    http.get(url, data =&gt; {
+      if (data.status == 200) {
+        resolve(data);
+      } else {
+        reject(data);
+      }
+    });
+  })
+}
+
+getData(&apos;api/data&apos;).then(data =&gt; {
+  console.log(data);
+}).catch(err =&gt; {
+  console.log(err);
+})
+</code></pre><p>拓展：<br>Promise还有一个Promise.all()方法，当我们需要请求多个接口的数据时，可以这么用</p>
+<pre><code>function getData (url, callback) {
+  http.get(url, data =&gt; {
+    if (data.status == 200) {
+      callback(null, data);
+    } else {
+      callback(data);
+    }
+  });
+}
+
+const ansycTask = {
+  getData(&apos;data/api1&apos;, (err, data) =&gt; {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      return data
+    }
+  },
+  getData(&apos;data/api2&apos;, (err, data) =&gt; {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      return data
+    }
+  },
+  getData(&apos;data/api3&apos;, (err, data) =&gt; {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      return data
+    }
+  }
+}
+
+Promise.all(asyncTask).then(data =&gt; {
+  console.log(data)
+})
+</code></pre><p>全部请求得到返回后，会返回一个由3个data组成的数组，并且是按请求顺序排列的。</p>
+<h1 id="generator"><a href="#generator" class="headerlink" title="generator"></a>generator</h1><p>相当于Promise的升级，可以手动控制Promise的进行</p>
+<pre><code>function getData (url) {
+  return new Promise((resolve, reject) =&gt; {
+    http.get(url, data =&gt; {
+      if (data.status == 200) {
+        resolve(data);
+      } else {
+        reject(data);
+      }
+    });
+  })
+}
+
+function *getDataGen (url) {
+  yield getData(url);
+  yield () =&gt; {
+    console.log(&apos;end&apos;)
+  }
+}
+
+const task = getDataGen(&apos;api/data&apos;);
+task.next(); // 打印data
+task next(); // 打印&apos;end&apos;
+</code></pre><p>generator里面可以使用yield关键字来表示暂停，它接收一个promise对象，返回promise的结果并且停在此处等待，不是一次性执行完。</p>
+<h1 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h1><p>async/await是ES7新特性，必须配合使用，在function前加上async，然后在需要等待结果的代码前面加上await，函数将在await的那个东西取得结果后再赋值，可以和Promise配合使用。</p>
+<pre><code>function getDataPromise (url) {
+  return new Promise((resolve, reject) =&gt; {
+    http.get(url, data =&gt; {
+      if (data.status == 200) {
+        resolve(data);
+      } else {
+        reject(data);
+      }
+    });
+  })
+}
+
+async function getData(url) {
+  await getDataPromise(url);
+}
+
+const data = await getData(&apos;data/api&apos;);
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2018/03/19/wow-js-animate-css/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -465,6 +1049,14 @@ Content to Reveal Here
 <p>如果仓库更新，则在之前把仓库更新的内容拉过来</p>
 <ul>
 <li>git pull</li>
+</ul>
+<p>如果本地文件需要改动，则直接在仓库的文件中改动</p>
+<ul>
+<li>git status  //可以查看状态 红色表示修改了</li>
+<li>git add . </li>
+<li>git commit -m ‘更新的内容写在这’</li>
+<li>git pull origin master //先从远端把代码先拉过来，在本地合并</li>
+<li>git push origin master</li>
 </ul>
 
           
@@ -1862,1041 +2454,11 @@ export function urlParse () {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/商家页面seller-vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/09/商家页面seller-vue/" itemprop="url">商家页面seller.vue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:57:35+08:00">
-                2017-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h2><h3 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;seller&quot; ref=&quot;seller&quot;&gt;
-    &lt;div class=&quot;seller-content&quot;&gt;
-      &lt;!--overview部分--&gt;
-      &lt;div class=&quot;overview&quot;&gt;
-
-      &lt;/div&gt;
-      &lt;split&gt;&lt;/split&gt;
-      &lt;!--bulltin部分--&gt;
-      &lt;div class=&quot;bulletin&quot;&gt;
-
-      &lt;/div&gt;
-      &lt;split&gt;&lt;/split&gt;
-      &lt;!--pics部分--&gt;
-      &lt;div class=&quot;pics&quot;&gt;
-
-      &lt;/div&gt;
-      &lt;split&gt;&lt;/split&gt;
-      &lt;!--info部分--&gt;
-      &lt;div class=&quot;info&quot;&gt;
-
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-</code></pre><ul>
-<li><p>seller-contentdiv是能够扩大高度的,能够被内容增加而撑高,而seller div是固定的高度的,从而形成滚动</p>
-<h3 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
-import split from &apos;../split/split&apos;;
-
-export default {
-  props: {
-    seller: { //app.vue里面router-view会传入一个seller
-      type: Object
-    }
-  },
-  watch: { //当seller变动的时候会触发
-    &apos;seller&apos;() {
-      this.$nextTick(() =&gt; {
-        this._initScroll();
-        this._initPics();
-      });
-    }
-  },
-  mounted() { //在dom被渲染之后触发
-    this.$nextTick(() =&gt; {
-      this._initScroll();
-      this._initPics();
-    });
-  },
-  methods: {
-    _initScroll() {
-      if (!this.scroll) {
-        this.scroll = new BScroll(this.$refs.seller, {
-          click: true
-        });
-      } else {
-        this.scroll.refresh();
-      }
-    },
-    _initPics() {
-      //详细代码在下面,这里暂时先忽略
-    }
-  },
-  components: {
-    split
-  }
-};
-</code></pre></li>
-</ul>
-<ul>
-<li>使用watch方法是为了监听数据seller的变化,因为当打开页面的时候,seller是异步获取的,并不一定是能够马上获取,没有seller的数据,相关dom就无法被渲染,并且bscroll是基于dom执行的,所以需要监听seller的变化然后来重新执行相关的初始化函数</li>
-</ul>
-<ul>
-<li>使用mounted方法是为了保证相关dom渲染完成,因为bscroll是基于dom执行的,但是当切换页面的时候,dom会重新渲染,但未必能够马上完成,所以需要在mounted方法里面重新执行相关的初始化函数</li>
-</ul>
-<ul>
-<li><p>关于watch和mounted的使用要基于vue的生命周期来理解vue生命周期</p>
-<h3 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h3><pre><code>.seller
-  position: absolute
-  top: 174px //给header留空间
-  bottom: 0
-  left: 0
-  width: 100%
-  overflow: hidden //隐藏多余部分,因为需要滚动
-</code></pre><h2 id="overview部分"><a href="#overview部分" class="headerlink" title="overview部分"></a>overview部分</h2><h3 id="html部分"><a href="#html部分" class="headerlink" title="html部分"></a>html部分</h3><pre><code>&lt;div class=&quot;overview&quot;&gt;
-  &lt;h1 class=&quot;title&quot;&gt;{{seller.name}}&lt;/h1&gt;
-  &lt;div class=&quot;desc border-1px&quot;&gt;
-    &lt;star :size=&quot;36&quot; :score=&quot;seller.score&quot;&gt;&lt;/star&gt;
-    &lt;span class=&quot;text&quot;&gt;({{seller.ratingCount}})&lt;/span&gt;
-    &lt;span class=&quot;text&quot;&gt;月售{{seller.sellCount}}单&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;!--列表处理remark内容--&gt;
-  &lt;ul class=&quot;remark&quot;&gt;
-  &lt;!--使用一个block块包裹内容--&gt;
-    &lt;li class=&quot;block&quot;&gt;
-    &lt;!--标题用h2标签--&gt;
-      &lt;h2&gt;起送价&lt;/h2&gt;
-      &lt;!--用content块包裹内容--&gt;
-      &lt;div class=&quot;content&quot;&gt;
-      &lt;!--用span代表特殊字体--&gt;
-        &lt;span class=&quot;stress&quot;&gt;{{seller.minPrice}}&lt;/span&gt;元
-      &lt;/div&gt;
-    &lt;/li&gt;
-    &lt;li class=&quot;block&quot;&gt;
-      &lt;h2&gt;商家配送&lt;/h2&gt;
-      &lt;div class=&quot;content&quot;&gt;
-        &lt;span class=&quot;stress&quot;&gt;{{seller.deliveryPrice}}&lt;/span&gt;元
-      &lt;/div&gt;
-    &lt;/li&gt;
-    &lt;li class=&quot;block&quot;&gt;
-      &lt;h2&gt;平均配送时间&lt;/h2&gt;
-      &lt;div class=&quot;content&quot;&gt;
-        &lt;span class=&quot;stress&quot;&gt;{{seller.deliveryTime}}&lt;/span&gt;分钟
-      &lt;/div&gt;
-    &lt;/li&gt;
-  &lt;/ul&gt;
-  &lt;!--收藏按钮--&gt;
-  &lt;div class=&quot;favorite&quot; @click=&quot;toggleFavorite&quot;&gt;
-    &lt;span class=&quot;icon-favorite&quot; :class=&quot;{&apos;active&apos;:favorite}&quot;&gt;&lt;/span&gt;
-    &lt;span class=&quot;text&quot;&gt;{{favoriteText}}&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</code></pre><h3 id="js部分"><a href="#js部分" class="headerlink" title="js部分"></a>js部分</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
-//引入一个利用html5的localstorage的存储模块
-import { saveToLocal, loadFromLocal } from &apos;common/js/store&apos;;
-
-export default {
-  props: {
-    seller: {
-      type: Object
-    }
-  },
-  data() {
-    return {
-      favorite: (() =&gt; { 
-      //利用localstorage读取这个属性
-        return loadFromLocal(this.seller.id, &apos;favorite&apos;, false);
-      })()//vue需要返回的data必须是函数,所以加上()
-    };
-  },
-  computed: {
-    favoriteText() { //通过favorite的值来计算favoriteText的值
-      return this.favorite ? &apos;已收藏&apos; : &apos;收藏&apos;;
-    }
-  },
-  methods: {
-    toggleFavorite(event) {
-      if (!event._constructed) {
-        return;
-      }
-      //通过取反来设置切换
-      this.favorite = !this.favorite;
-      //利用localstorage存储这个属性
-      saveToLocal(this.seller.id, &apos;favorite&apos;, this.favorite);
-    }
-  }
-};
-</code></pre></li>
-</ul>
-<ul>
-<li>store.js参考:split,formatDate,store,util组件<h3 id="css部分"><a href="#css部分" class="headerlink" title="css部分"></a>css部分</h3>  .overview<pre><code>position: relative //设置相对布局参考位置
-padding: 18px
-.title
-  margin-bottom: 8px
-  line-height: 14px
-  color: rgb(7, 17, 27)
-  font-size: 14px
-.desc
-  padding-bottom: 18px
-  border-1px(rgba(7, 17, 27, 0.1))
-  font-size: 0
-  .star
-    display: inline-block
-    margin-right: 8px
-    vertical-align: top //行内对齐
-  .text
-    display: inline-block
-    margin-right: 12px
-    line-height: 18px
-    vertical-align: top //行内对齐
-    font-size: 10px
-    color: rgb(77, 85, 93)
-.remark
-  display: flex //flex布局
-  padding-top: 18px
-  .block
-    flex: 1 //flex布局等分区域
-    text-align: center
-    border-right: 1px solid rgba(7, 17, 27, 0.1)
-    &amp;:last-child
-      border: none
-    h2
-      margin-bottom: 4px
-      line-height: 10px
-      font-size: 10px
-      color: rgb(147, 153, 159)
-    .content //设置该块的公共属性
-      line-height: 24px
-      font-size: 10px
-      color: rgb(7, 17, 27)
-      .stress //特殊大小再插入class覆盖
-        font-size: 24px
-.favorite
-  position: absolute
-  width: 50px //设置一个固定宽度,被text-align使用
-  right: 11px
-  top: 18px
-  text-align: center
-  .icon-favorite
-    display: block
-    margin-bottom: 4px
-    line-height: 24px
-    font-size: 24px
-    color: #d4d6d9
-    &amp;.active
-      color: rgb(240, 20, 20)
-  .text
-    line-height: 10px
-    font-size: 10px
-    color: rgb(77, 85, 93)
-</code></pre><h2 id="bulletin部分"><a href="#bulletin部分" class="headerlink" title="bulletin部分"></a>bulletin部分</h2><h3 id="html代码-1"><a href="#html代码-1" class="headerlink" title="html代码"></a>html代码</h3>  <div class="bulletin"><br>          <h1 class="title">公告与活动</h1><br>          <div class="content-wrapper border-1px"><br>            <p class="content"></p><br>          </div><br>          <ul v-if="seller.supports" class="supports"><br>            <li class="support-item border-1px" v-for="(item,index) in seller.supports"><br>            <!--使用classMap做对应--><br>              <span class="icon" :class="classMap[seller.supports[index].type]"></span><br>              <span class="text"></span><br>            </li><br>          </ul><br>        </div>
-
-
-</li>
-</ul>
-<blockquote>
-<p>classMap的原理(classMap使用在之前的header组件使用过Header.vue)</p>
-</blockquote>
-<ul>
-<li>seller.supports的结构是这样的<br>  “supports”: [<pre><code>  {
-    &quot;type&quot;: 0,
-    &quot;description&quot;: &quot;在线支付满28减5&quot;
-  },
-  {
-    &quot;type&quot;: 1,
-    &quot;description&quot;: &quot;VC无限橙果汁全场8折&quot;
-  },
-  {
-    &quot;type&quot;: 2,
-    &quot;description&quot;: &quot;单人精彩套餐&quot;
-  },
-  {
-    &quot;type&quot;: 3,
-    &quot;description&quot;: &quot;该商家支持发票,请下单写好发票抬头&quot;
-  },
-  {
-    &quot;type&quot;: 4,
-    &quot;description&quot;: &quot;已加入“外卖保”计划,食品安全保障&quot;
-  }
-],
-</code></pre></li>
-</ul>
-<ul>
-<li>classMap是[‘decrease’, ‘discount’, ‘special’, ‘invoice’, ‘guarantee’]这样的,这个顺序是按照设计需要和数据结构排的,例如type为0对应在线支付满28减5</li>
-</ul>
-<ul>
-<li>如果要获取对应的class,就可以classMap[seller.supports[index].type],例如seller.supports[0].type就是0,那么就是classMap[0]就是decrease这个class</li>
-</ul>
-<ul>
-<li><p>如果要获取对应的description就可以seller.supports[index].description,例如seller.supports[0].description就直接知道了supports数组的第一个元素的description属性的值了</p>
-<h3 id="js代码-1"><a href="#js代码-1" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import split from &apos;../split/split&apos;;
-
-export default {
-  props: {
-    seller: {
-      type: Object
-    }
-  },
-  created() { //使用自建的一个classMap数组来对应不同的类别
-    this.classMap = [&apos;decrease&apos;, &apos;discount&apos;, &apos;special&apos;, &apos;invoice&apos;, &apos;guarantee&apos;];
-  },
-  components: {
-    split
-  }
-};
-</code></pre></li>
-</ul>
-<ul>
-<li>使用created方法是为了在加载的时候第一时间完成,因为vue的渲染需要this.classMap属性(created是vue的生命周期的第一个)<h3 id="css代码-1"><a href="#css代码-1" class="headerlink" title="css代码"></a>css代码</h3>  @import “../../common/stylus/mixin.styl”<pre><code>.bulletin
-  padding: 18px 18px 0 18px
-  .title
-    margin-bottom: 8px
-    line-height: 14px
-    color: rgb(7, 17, 27)
-    font-size: 14px
-  .content-wrapper
-    padding: 0 12px 16px 12px
-    border-1px(rgba(7, 17, 27, 0.1))
-    .content
-      line-height: 24px
-      font-size: 12px
-      color: rgb(240, 20, 20)
-  .supports
-    .support-item
-      padding: 16px 12px
-      border-1px(rgba(7, 17, 27, 0.1))
-      font-size: 0
-      &amp;:last-child
-        border-none() //需要引入一个mixin,处理没边框的问题
-    .icon
-      display: inline-block
-      width: 16px
-      height: 16px
-      vertical-align: top
-      margin-right: 6px
-      background-size: 16px 16px
-      background-repeat: no-repeat
-      &amp;.decrease //使用设计要求的大小的图标
-        bg-image(&apos;decrease_4&apos;) //使用mixin处理这些图标
-      &amp;.discount
-        bg-image(&apos;discount_4&apos;)
-      &amp;.guarantee
-        bg-image(&apos;guarantee_4&apos;)
-      &amp;.invoice
-        bg-image(&apos;invoice_4&apos;)
-      &amp;.special
-        bg-image(&apos;special_4&apos;)
-    .text
-      line-height: 16px
-      font-size: 12px
-      color: rgb(7, 17, 27)
-</code></pre><h2 id="pics部分"><a href="#pics部分" class="headerlink" title="pics部分"></a>pics部分</h2><h3 id="html代码-2"><a href="#html代码-2" class="headerlink" title="html代码"></a>html代码</h3>  <div class="pics"><br>          <h1 class="title">商家实景</h1><br>          <!--两个ref绑定picWrapper,picList--><br>          <div class="pic-wrapper" ref="picWrapper"><br>          <!--列表循环输出图片--><br>            <ul class="pic-list" ref="picList"><br>              <li class="pic-item" v-for="pic in seller.pics"><br>              <!--固定图片尺寸--><br>                <img :src="pic" width="120" height="90"><br>              </li><br>            </ul><br>          </div><br>  </div>
-
-
-</li>
-</ul>
-<ul>
-<li>ref获取picWrapper是为了滚动图片需要,父DOM是picWrapper,子DOM是picList</li>
-</ul>
-<ul>
-<li>ref获取picList是为了计算图片列表的总长度,用来设置图片列表的横向滚动,因为滚动的触发条件是子DOM比父DOM要”大”的时候才会触发,由于图片的数量是未知的,所以需要去计算,然后写入到picList<h3 id="js代码-2"><a href="#js代码-2" class="headerlink" title="js代码"></a>js代码</h3>  _initPics() { //编程习惯的前置下划线,代表内部使用的方法<pre><code>if (this.seller.pics) {
-  let picWidth = 120; //
-  let margin = 6;
-  //这是图片列表的总长度
-  let width = (picWidth + margin) * this.seller.pics.length - margin;
-  //设置图片列表的宽度等于列表的总长度
-  this.$refs.picList.style.width = width + &apos;px&apos;;
-  //异步绑定滚动
-  this.$nextTick(() =&gt; {
-    if (!this.picScroll) {
-      this.picScroll = new BScroll(this.$refs.picWrapper, {
-        scrollX: true, //bscroll的横向滚动属性
-        eventPassthrough: &apos;vertical&apos; //bscroll的过滤垂直滚动
-      });
-    } else {
-      this.picScroll.refresh();
-    }
-  });
-}
-</code></pre></li>
-</ul>
-<ul>
-<li>一般来说,当某页面本身是垂直滚动的时候,中间的某个DOM需要做横向滚动的话,需要处理滚动坐标的变化,例如手势滚动的时候有x,y坐标,是向上,下,左还是右会区分</li>
-</ul>
-<ul>
-<li>图片列表的总长度是单个图片的宽度+单个图片的外边距的和乘以图片的数量,再减去最后一个图片的外边距</li>
-</ul>
-<ul>
-<li>BScroll插件需要增加一个属性scrollX: true来传入横向的滚动坐标,也需要增加一个属性eventPassthrough: ‘vertical’过滤垂直的滚动,前者已经解释过,后者是因为需要横向滚动的页面是内嵌在垂直滚动的页面的里面的,所以会造成外面的垂直滚动事件也会传入到横向滚动的页面,为了避免影响横向滚动,所以需要屏蔽垂直滚动的事件</li>
-</ul>
-<ul>
-<li>我们平时在做这种滚动内嵌滚动的时候也可以参考这个处理方法.</li>
-</ul>
-<ul>
-<li>另外异步绑定滚动的常规做法,先判断是否已经有BScroll实例了,然后再确定是否需要刷新<h3 id="css代码-2"><a href="#css代码-2" class="headerlink" title="css代码"></a>css代码</h3>  .pics<pre><code>padding: 18px
-.title
-  margin-bottom: 12px
-  line-height: 14px
-  color: rgb(7, 17, 27)
-  font-size: 14px
-.pic-wrapper
-  width: 100% //图片列表区域是屏幕宽度
-  overflow: hidden //隐藏多余部分
-  white-space: nowrap  //连续的空白符会被合并
-  .pic-list
-    font-size: 0 //行内元素取消间隙
-    .pic-item
-      display: inline-block
-      margin-right: 6px
-      width: 120px
-      height: 90px
-      &amp;:last-child //最后一个图片没有外边距
-        margin: 0
-</code></pre><h2 id="info部分"><a href="#info部分" class="headerlink" title="info部分"></a>info部分</h2><h3 id="html代码-3"><a href="#html代码-3" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;info&quot;&gt;
-  &lt;h1 class=&quot;title border-1px&quot;&gt;商家信息&lt;/h1&gt;
-  &lt;ul&gt;
-    &lt;li class=&quot;info-item&quot; v-for=&quot;info in seller.infos&quot;&gt;{{info}}&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/div&gt;
-</code></pre><h3 id="css代码-3"><a href="#css代码-3" class="headerlink" title="css代码"></a>css代码</h3>  .info<pre><code>padding: 18px 18px 0 18px
-color: rgb(7, 17, 27)
-.title
-  padding-bottom: 12px
-  line-height: 14px
-  border-1px(rgba(7, 17, 27, 0.1))
-  font-size: 14px
-.info-item
-  padding: 16px 12px
-  line-height: 16px
-  border-1px(rgba(7, 17, 27, 0.1)) //1像素的border 的mixin
-  font-size: 12px
-  &amp;:last-child
-    border-none() //没有border的mixin
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/商品详情页food-vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/09/商品详情页food-vue/" itemprop="url">商品详情页food.vue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:57:19+08:00">
-                2017-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h2><h3 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;template&gt;
-  &lt;transition name=&quot;move&quot;&gt;
-  &lt;!--要实现这个商品详情页的内容滚动,所以需要有一个显示标志和一个dom绑定--&gt;
-  &lt;div v-show=&quot;showFlag&quot; class=&quot;food&quot; ref=&quot;food&quot;&gt;
-  &lt;/div&gt;
-  &lt;/transition&gt;
-&lt;/template&gt;    
-</code></pre><ul>
-<li>用ref绑定food的DOM元素,为了被bscroll做滚动处理</li>
-</ul>
-<ul>
-<li>用transition包裹了整个food,为了实现这个页面的进入和退出动画<h3 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
-export default {
-  props: {
-    food: {
-      type: Object
-    }
-  },
-  data(){
-    return {
-      showFlag: false 
-    }
-  },
-  methods: {
-    show(){
-      this.showFlag = true; 
-      this.$nextTick(() =&gt; { //异步添加滚动绑定
-        if (!this.scroll) {
-          this.scroll = new BScroll(this.$refs.food, {
-            click: true
-          });
-        } else {
-          this.scroll.refresh();
-        }
-      })
-    },
-    hide(){
-      this.showFlag = false;
-    }
-}
-</code></pre></li>
-</ul>
-<ul>
-<li>通过跟hide方法切换showFlag的值来实现显示隐藏</li>
-</ul>
-<ul>
-<li>因为整个页面是比较长的,需要做滚动,所以异步加载bscroll<h3 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h3><pre><code>.food
-  position: fixed //霸占屏幕,全屏显示,所以用fixed布局
-  left: 0
-  top: 0
-  bottom: 48px //保留底部购物车底部栏的位置
-  z-index: 30 //z-index的数值是有考究的,要控制好各个页面的z-index纵深
-  width: 100%
-  background: #fff
-  transform: translate3d(0, 0, 0)
-  &amp;.move-enter-active, &amp;.move-leave-active //用vue的动画配置实现动画
-    transition: all 0.2s linear
-  &amp;.move-enter, &amp;.move-leave-active
-    transform: translate3d(100%, 0, 0)
-</code></pre></li>
-</ul>
-<ul>
-<li>对于整个商品详情页的打开和关闭效果体验,需要对其做动画处理,transition</li>
-</ul>
-<ul>
-<li>动画是3d变形,从右往左(改变的是x坐标),直线移动(linear)<h2 id="商品封面"><a href="#商品封面" class="headerlink" title="商品封面"></a>商品封面</h2><h3 id="html代码-1"><a href="#html代码-1" class="headerlink" title="html代码"></a>html代码</h3>  <div class="image-header"><pre><code>&lt;img :src=&quot;food.image&quot;&gt;
-&lt;!--有一个返回按钮,绑定一个hide方法--&gt;
-&lt;div class=&quot;back&quot; @click=&quot;hide&quot;&gt;
-&lt;!--使用icon--&gt;
-  &lt;i class=&quot;icon-arrow_lift&quot;&gt;&lt;/i&gt; 
-&lt;/div&gt;
-</code></pre>  </div><h3 id="js代码-1"><a href="#js代码-1" class="headerlink" title="js代码"></a>js代码</h3><pre><code>export default {
-  props: {
-    food: { //用goods.vue组件传入的food数据
-      type: Object
-    }
-  }
-}
-</code></pre></li>
-</ul>
-<ul>
-<li>在goods.vue组件上传入的food数据<food @add="addFood" :food="selectedFood" ref="food" \=""><h3 id="css代码-1"><a href="#css代码-1" class="headerlink" title="css代码"></a>css代码</h3>  .image-header<pre><code>position: relative
-width: 100%
-height: 0
-padding-top: 100% //这是一个css-hack技巧
-img
-  position: absolute
-  top: 0
-  left: 0
-  width: 100% //图片撑满整个img的div
-  height: 100%
-.back
-  position: absolute
-  top: 10px
-  left: 0
-  .icon-arrow_lift //返回按钮,使用的是icon的那个css
-    display: block
-    padding: 10px
-    font-size: 20px
-    color: #fff
-</code></pre></food></li>
-</ul>
-<ul>
-<li>在w3c规定里面,padding设置100%的时候,这个值的计算是相对于这个盒子模型的宽度计算的,然后现在是宽是100%,所以padding也是100%,然后使用的是padding-top,那么就是内上边距的高度就是宽度的值,所以这样就能自然撑开一个正方形,这样的目的在于页面打开的时候更自然,不会出现闪烁<h2 id="商品标题"><a href="#商品标题" class="headerlink" title="商品标题"></a>商品标题</h2><h3 id="html代码-2"><a href="#html代码-2" class="headerlink" title="html代码"></a>html代码</h3>  <div class="content"><br>    <h1 class="title"></h1><br>    <div class="detail"><br>      <span class="sell-count">月售份</span><br>      <span class="rating">好评率%</span><br>    </div><br>    <div class="price"><br>      <span class="now">￥</span><span class="old" v-show="food.oldPrice">￥</span><br>    </div><br>    <!--引入cartcontrol组件,并且用一个div包裹他--><br>    <div class="cartcontrol-wrapper"><br>      <cartcontrol @add="addFood" :food="food"></cartcontrol><br>    </div><br>    <transition name="fade"><br>    <!--使用.stop.prevent阻止冒泡和默认事件,避免穿透--><br>      <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count===0"><br>        加入购物车<br>      </div><br>    </transition><br>  </div>
-
-
-</li>
-</ul>
-<ul>
-<li>加入购物车按钮有一个动画fade,并且因为他的位置跟cartcontrol有重叠,避免穿透,所以直接.click.stop.prevent<br>加入购物车按钮的显示是通过判断food.count实现的,这个属性默认是没有的,当点击购物车按钮的时候强制生成Vue.set(this.food, ‘count’, 1);,这样做的目的是比较直观的增加一个属性去实现功能</li>
-</ul>
-<ul>
-<li><p>cartcontrol的使用跟一般组件使用差不多.</p>
-<h3 id="js代码-2"><a href="#js代码-2" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
-import Vue from &apos;vue&apos;;
-import cartcontrol from &apos;../../components/cartcontrol/cartcontrol&apos;;
-
-export default {
-  props: {
-    food: {
-      type: Object
-    }
-  }
-  methods: {
-    addFirst(event){ //点击加入购物车按钮,传入事件
-      if (!event._constructed) { //因为购物车按钮在bscroll里面,所以需要处理掉bscroll的事件类型
-        return;
-      }
-      this.$emit(&apos;add&apos;, event.target); //触发当前实例food上的事件add(在goods组件上绑定在food组件的add方法)
-      Vue.set(this.food, &apos;count&apos;, 1);
-    },
-    addFood(target) { //跟add关联的addFood方法
-      this.$emit(&apos;add&apos;, target); //触发当前实例food上的事件add(在goods组件上绑定在food组件的add方法)
-    }
-  },
-  components: {
-    cartcontrol
-  }
-}
-</code></pre></li>
-</ul>
-<ul>
-<li>两次触发当前实例的事件add是因为两个操作都是同一个动作,这个动作是绑定在food组件上的add方法,而food组件会在goods组件中被导入<food @add="addFood" :food="selectedFood" ref="food"></food>,而在goods组件里面,addFood方法就会指向当前goods组件的方法_drop,继而使用shopcart的小球抛物线动画this.$refs.shopcart.drop(target);,这样就是实现了使用跨组件调用方法的效果.<h3 id="css代码-2"><a href="#css代码-2" class="headerlink" title="css代码"></a>css代码</h3>  .content<pre><code>position: relative
-padding: 18px
-.title
-  line-height: 14px
-  margin-bottom: 8px
-  font-size: 14px
-  font-weight: 700
-  color: rgb(7, 17, 27)
-.detail
-  margin-bottom: 18px
-  line-height: 10px
-  height: 10px
-  font-size: 0 //注意行内元素的空格
-  .sell-count, .rating
-    font-size: 10px
-    color: rgb(147, 153, 159)
-  .sell-count
-    margin-right: 12px
-.price //这里的css样式就是在goods.vue出现过的样式,所以直接贴过来使用,也可以做成组件
-  font-weight: 700
-  line-height: 24px
-  .now
-    margin-right: 8px
-    font-size: 14px
-    color: rgb(240, 20, 20)
-  .old
-    text-decoration: line-through
-    font-size: 10px
-    color: rgb(147, 153, 159)
-.cartcontrol-wrapper //固定cartcontrol组件的样式
-  position: absolute
-  right: 12px
-  bottom: 12px
-.buy //加入购物车按钮的样式
-  position: absolute
-  right: 18px
-  bottom: 18px
-  z-index: 10 //显示在cartcontrol的更外面
-  height: 24px
-  line-height: 24px
-  padding: 0 12px
-  box-sizing: border-box //不希望padding和border把整个div撑大
-  border-radius: 12px
-  font-size: 10px
-  color: #fff
-  background: rgb(0, 160, 220)
-  opacity: 1 //加入动画,一个是为了体验,另外一个是为了延迟触发隐藏,避免小球抛物线动画出现问题
-  &amp;.fade-enter-active, &amp;.fade-leave-active
-    transition: all 0.2s
-  &amp;.fade-enter, &amp;.fade-leave-active
-    opacity: 0
-    z-index: -1
-</code></pre></li>
-</ul>
-<ul>
-<li>这里的z-index是10,因为加入购物车按钮和cartcontrol的按钮重叠了,所以需要设置一个比较靠外的z坐标</li>
-</ul>
-<ul>
-<li>这里的box-sizing可以直观的设置盒子模型的实际大小,而不用计算边框和内边距的影响,<br>这是box-sizing:border-size之后的图,注意这个auto,这是因为盒子的大小被固定了,边框和内边距也是固定的,然后内容会根据被固定的大小进行auto适配,这种从外到内的空间设置比较直观和方便</li>
-</ul>
-<p><img src="http://oncweb6po.bkt.clouddn.com/1480597-fa20b7741a01637b.png" alt=""></p>
-<ul>
-<li>这里加入动画的原因是当点击加入购物车的按钮时候(addFirst),因为food.count被添加了数据Vue.set(this.food, ‘count’, 1);,所以加入购物车按钮会被隐藏(v-show的display:none),但同时会执行this.$emit(‘add’, event.target);,只不过这个是异步执行的,并且这个被异步执行的方法add是抛物线小球动画计算初始目标高度的地方,所以当传入的购物车按钮被设置为display:none的时候,动画的目标初始高度无法计算,就会去使用父层div的高度,从而影响了抛物线小球动画效果.</li>
-</ul>
-<pre><code>- 设置一个动画延迟隐藏购物车按钮,从而给足够的时间vue将数据传递到异步执行的方法,不影响抛物线小球的动画初始目标计算
-</code></pre><h2 id="商品信息"><a href="#商品信息" class="headerlink" title="商品信息"></a>商品信息</h2><pre><code>&lt;!--引入split组件负责隔离行--&gt;
-        &lt;split v-show=&quot;food.info&quot;&gt;&lt;/split&gt;
-        &lt;div class=&quot;info&quot; v-show=&quot;food.info&quot;&gt;
-          &lt;h1 class=&quot;title&quot;&gt;商品信息&lt;/h1&gt;
-          &lt;p class=&quot;text&quot;&gt;{{food.info}}&lt;/p&gt;
-        &lt;/div&gt;
-  import split from &apos;../../components/split/split&apos;;
-
-  export default {
-    props: {
-      food: {
-        type: Object
-      }
-    },
-    components: {
-      split
-    }
-  }
-    .info
-      padding: 18px
-      .title
-        line-height: 14px
-        margin-bottom: 6px
-        font-size: 14px
-        color: rgb(7, 17, 27)
-      .text
-        line-height: 24px
-        padding: 0 8px
-        font-size: 12px
-        color: rgb(77, 85, 93)
-</code></pre><h2 id="商品评价"><a href="#商品评价" class="headerlink" title="商品评价"></a>商品评价</h2><h3 id="html代码-3"><a href="#html代码-3" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;rating&quot;&gt;
-          &lt;h1 class=&quot;title&quot;&gt;商品评价&lt;/h1&gt;
-          &lt;!--ratingselect组件--&gt;
-          &lt;ratingselect @select=&quot;selectRating&quot; @toggle=&quot;toggleContent&quot; :selectType=&quot;selectType&quot;
-                        :onlyContent=&quot;onlyContent&quot; :desc=&quot;desc&quot;
-                        :ratings=&quot;food.ratings&quot;&gt;&lt;/ratingselect&gt;
-          &lt;div class=&quot;rating-wrapper&quot;&gt;
-          &lt;!--根据ratings长度显示ratings--&gt;
-            &lt;ul v-show=&quot;food.ratings &amp;&amp; food.ratings.length&quot;&gt;
-            &lt;!--根据不同类型的rateType来切换不同类型的rate--&gt;
-              &lt;li v-show=&quot;needShow(rating.rateType,rating.text)&quot; v-for=&quot;rating in food.ratings&quot; class=&quot;rating-item border-1px&quot;&gt;
-                &lt;div class=&quot;user&quot;&gt;
-                  &lt;span class=&quot;name&quot;&gt;{{rating.username}}&lt;/span&gt;
-                  &lt;img class=&quot;avatar&quot; width=&quot;12&quot; height=&quot;12&quot; :src=&quot;rating.avatar&quot;&gt;
-                &lt;/div&gt;
-                &lt;!--使用vue过滤器filter来处理时间--&gt;
-                &lt;div class=&quot;time&quot;&gt;{{rating.rateTime | formatDate}}&lt;/div&gt;
-                &lt;p class=&quot;text&quot;&gt;
-                &lt;!--根据不同类型的rateType来控制icon的显示--&gt;
-                  &lt;span
-                    :class=&quot;{&apos;icon-thumb_up&apos;:rating.rateType===0,&apos;icon-thumb_down&apos;:rating.rateType===1}&quot;&gt;&lt;/span&gt;
-                    {{rating.text}}
-                &lt;/p&gt;
-              &lt;/li&gt;
-            &lt;/ul&gt;
-            &lt;!--没有rate的时候显示--&gt;
-            &lt;div class=&quot;no-rating&quot; v-show=&quot;!food.ratings || !food.ratings.length&quot;&gt;&lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-</code></pre><ul>
-<li>绑定一个ratingselect组件,负责处理rate选择的</li>
-</ul>
-<ul>
-<li>然后划分一个rating-wrapper区域,负责显示相关rate的信息</li>
-</ul>
-<ul>
-<li>在子组件ratingselect选择的信息会影响到父组件的rating-wrapper区域内容的变化</li>
-</ul>
-<pre><code>- needShow控制当前rate的内容显示,包括不同的type和是否排除没内容的rate
-
-
-- 绑定icon-thumb_up和icon-thumb_down的class来控制赞和批评的icon显示
-
-
-- 根据json数据里面的ratings数组来控制是否显示rate
-</code></pre><h3 id="js代码-3"><a href="#js代码-3" class="headerlink" title="js代码"></a>js代码</h3><pre><code>const ALL = 2; //将控制type类转为常量控制
-
-import Vue from &apos;vue&apos;;
-import ratingselect from &apos;../../components/ratingselect/ratingselect&apos;; //引入ratingselect组件
-
-export default {
-  props: {
-    food: {
-      type: Object
-    }
-  },
-  data(){
-    return { //这些是传入ratingselect组件的数据,并且初始化值
-      selectType: ALL, //默认所有rate
-      onlyContent: true, //默认只显示有内容的rate
-      desc: {
-        all: &apos;全部&apos;,
-        positive: &apos;推荐&apos;,
-        negative: &apos;吐槽&apos;
-      }
-    }
-  },
-  methods: {
-    needShow(type, text){ 
-      if (this.onlyContent &amp;&amp; !text) { //只显示有内容的 并且 没有内容就返回false
-        return false;
-      }
-
-      if (this.selectType === ALL) { //显示全部类型的rate
-        return true;
-      } else { //只显示对应的类型的rate
-        return type === this.selectType;
-      }
-    },
-    selectRating(type) { //设置rate的类型
-      this.selectType = type;
-      this.$nextTick(() =&gt; {//切换的时候需要重新刷新bscroll
-        this.scroll.refresh();
-      });
-    },
-    toggleContent() { //切换显示是否有内容的rate
-      this.onlyContent = !this.onlyContent;
-      this.$nextTick(() =&gt; { //切换的时候需要重新刷新bscroll
-        this.scroll.refresh();
-      });
-    }
-  },
-  components: {
-    ratingselect
-  }
-}
-</code></pre><ul>
-<li>selectRating和toggleContent使用异步$nextTick是因为vue是异步更新dom的,当改变了vue属性时候,当前的dom不是立即更新的(会导致页面的高度变化了,但是bscroll来不及更新,影响滚动体验),而是会放进去异步更新队列里面等候更新,即使这个队列的等待时间不长,但是也来不及马上更新dom,所以使用$nextTick强制刷新这个队列</li>
-</ul>
-<ul>
-<li>在food.vue组件使用selectRating和toggleContent来更新food.vue组件的属性,而不能在子组件ratingselect里面更新,因为vue限制了子组件不能更改父组件的属性,所以通过使用类似this.$emit(‘select’, type);来调用父组件的方法来更改</li>
-</ul>
-<h3 id="css代码-3"><a href="#css代码-3" class="headerlink" title="css代码"></a>css代码</h3><pre><code>.rating
-  padding-top: 18px
-  .title
-    line-height: 14px
-    margin-bottom: 6px
-    font-size: 14px
-    color: rgb(7, 17, 27)
-  .rating-wrapper
-    padding: 0 18px
-    .rating-item
-      position: relative;
-      padding: 16px 0;
-      border-1px(rgba(7, 17, 27, 0.1))
-      .user
-        position: absolute
-        right: 0
-        top: 16px
-        line-height: 12px
-        font-size: 0 //注意行内元素的空隙
-        .name
-          display: inline-block
-          margin-right: 6px
-          vertical-align: top
-          font-size: 10px
-          color: rgb(147, 153, 159)
-        .avatar
-          border-radius: 50%
-      .time
-        margin-bottom: 6px
-        line-height: 12px
-        font-size: 10px
-        color: rgb(147, 153, 159)
-      .text
-        line-height: 16px
-        font-size: 12px
-        color: rgb(7, 17, 27)
-        .icon-thumb_up, .icon-thumb_down 
-          margin-right: 4px
-          line-height: 16px
-          font-size: 12px
-        .icon-thumb_up
-          color: rgb(0, 160, 220)
-        .icon-thumb_down
-          color: rgb(147, 153, 159)
-    .no-rating
-      padding: 16px 0
-      font-size: 12px
-      color: rgb(147, 153, 159)
-</code></pre><p>商品评价里的时间处理<br>split组件和formatDate组件</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2942,7 +2504,7 @@ export default {
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2955,7 +2517,7 @@ export default {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

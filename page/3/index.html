@@ -248,6 +248,788 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/cartcontrol-vue购物车操作按钮/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/09/cartcontrol-vue购物车操作按钮/" itemprop="url">cartcontrol.vue购物车操作按钮</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:54:07+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h2><p>知识点:</p>
+<ul>
+<li>使用了vue2的动画实现方式-transition,这里主要在css上设计来配合vue2</li>
+</ul>
+<ul>
+<li>cartcontrol这个模块主要通过三个小模块实现,删除按钮,显示数量块,增加按钮</li>
+</ul>
+<ul>
+<li><p>删除按钮和增加按钮都带有一个click方法,并且都有v-show来根据food的数量来控制显示,而显示数量块就只是单纯显示food的数量</p>
+  <template><br>    <div class="cartcontrol"><br>    <!--外层动画--><br>      <transition name="move"><br>        <div class="cart-decrease" v-show="food.count>0" @click="decreaseCart"><br>        <!--内层动画--><br>          <span class="inner icon-remove_circle_outline"></span><br>        </div><br>      </transition><br>      <div class="cart-count" v-show="food.count>0"></div><br>      <div class="cart-add icon-add_circle" @click="addCart"></div><br>    </div><br>  </template>
+
+</li>
+</ul>
+<h2 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h2><p>知识点:</p>
+<ul>
+<li>引入vue模块,因为需要使用Vue.set方法</li>
+</ul>
+<ul>
+<li>接收来自goods.vue的food数据,然后使用</li>
+</ul>
+<ul>
+<li>有2个方法,一个是addCart,一个是decreaseCart,分别对应html代码中的@click</li>
+</ul>
+<ul>
+<li>addCart方法,默认会传入event原生dom事件</li>
+</ul>
+<pre><code>- 鉴于bsscrol插件的原因,需要return掉非bscrol的事件
+
+
+- 需要注意的是这里的food并没有count属性,所需要手动设置,虽然之前goods会将有count属性的food做自动处理,但是最开始的时候,所有food都没有count属性,并且cartcontrol是最开始触发对food的count属性进行添加的(点击一次就会对count++,增加一个food)
+
+
+- food数据是从父组件goods.vue传入的,所以对这个数据的修改,也能够反应到父组件,而这里使用Vue.set直接对vue的data进行对象数据写入,对food数据添加了一个count的属性,用来控制每一个food的被选中的数量,也因为shopcart.vue的数据也是从父组件goods.vue传入的,使用同一个food数据,从而关联到[shopcart.vue购物车]()的food的购买数量统计
+</code></pre><ul>
+<li><p>decreaseCart方法,同上</p>
+<pre><code>&lt;script&gt;
+  import Vue from &apos;vue&apos;;
+
+  export default{
+    props: {
+      food: {
+        type: Object
+      }
+    },
+    methods: {
+      addCart(event){
+        if (!event._constructed) {
+          return false;
+        }
+        if (!this.food.count) {
+          Vue.set(this.food, &apos;count&apos;, 1); //遇到没有这个属性的,会强行添加一个
+        } else {
+          this.food.count++; 
+        }
+        this.$emit(&apos;add&apos;, event.target);
+      },
+      decreaseCart(event){
+        if (!event._constructed) {
+          return false;
+        }
+        if (this.food.count) {
+          this.food.count--;
+        }
+      }
+    }
+  };
+&lt;/script&gt;
+</code></pre></li>
+</ul>
+<h2 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h2><p>知识点:</p>
+<ul>
+<li>vue2的动画</li>
+</ul>
+<ul>
+<li>Vue 提供了 transition 的封装组件,就是之前的<transition></transition></li>
+</ul>
+<ul>
+<li>这个动画是一个滚动淡入和淡出的效果</li>
+</ul>
+<ul>
+<li>首先,定义了这个动画效果的名字为move(<transition name="move">),并且将需要这个效果的内容用一个dom的div包裹起来,这个效果分2层,外层和内层inner(外层和内层用class来区分,通过增加一个内层class inner来区分)</transition></li>
+</ul>
+<ul>
+<li>然后,设置原始的动画状态(外层和内层)</li>
+</ul>
+<pre><code>- 外层设置了透明度为1和transform变形的3d位置
+
+
+- 内层设置了滚动角度和淡入淡出效果
+</code></pre><ul>
+<li>然后,设置vue的动画过渡属性</li>
+</ul>
+<pre><code>- move-enter-active和move-leave-active
+
+
+    - 这里设置匀速过渡效果是为了在动画进入过渡的结束状态和动画离开过渡的结束状态都是匀速过渡的变化效果,至于变化成什么效果需要看move-enter和move-leave-active
+
+
+- move-enter和move-leave-active
+
+
+    - 这里设置外层的透明度为0(内层会继承)和变形的3d位置
+
+
+    - 这里设置了内层滚动角度
+
+
+    - 这么做实现了动画在进入过渡后和离开过渡后都会内外层,并且会出现内层一边滚动到指定位置然后消失的效果
+</code></pre><ul>
+<li>font-size的使用</li>
+</ul>
+<pre><code>- 因为使用行内元素,所以需要通过设置font-size为0来取消间隙
+</code></pre><ul>
+<li><p>对于一些设计上的图标过小(操作区域太小)影响用户操作体验的情况,需要增加一个padding来实现增大操作区域的目的</p>
+<pre><code>&lt;style lang=&quot;stylus&quot; rel=&quot;stylesheet/stylus&quot;&gt;
+  .cartcontrol
+    font-size: 0
+    .cart-decrease //外层动画原始状态
+      display: inline-block
+      padding: 6px
+      opacity: 1 
+      transform: translate3d(0, 0, 0) 
+      .inner //内层动画原始状态
+        display: inline-block
+        line-height: 24px
+        font-size: 24px
+        color: rgb(0, 160, 220)
+        transition: all 0.4s linear 
+        transform: rotate(0)
+      &amp;.move-enter-active, &amp;.move-leave-active //vue动画过渡属性     
+        transition: all 0.4s linear
+      &amp;.move-enter, &amp;.move-leave-active //vue动画过渡属性
+        opacity: 0
+        transform: translate3d(24px, 0, 0)
+        .inner
+          transform: rotate(180deg)
+    .cart-count
+      display: inline-block
+      vertical-align: top
+      width: 12px
+      padding-top: 6px
+      line-height: 24px
+      text-align: center
+      font-size: 10px
+      color: rgb(147, 153, 159)
+    .cart-add
+      display: inline-block
+      padding: 6px
+      line-height: 24px
+      font-size: 24px
+      color: rgb(0, 160, 220)
+&lt;/style&gt;    
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/商品区域goods-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/09/商品区域goods-vue/" itemprop="url">商品区域goods.vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:53:45+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点:"></a>技术点:</h2><ul>
+<li>定义了2个wrapper,分别是menu-wrapper和foods-wrapper,对应当前页面的架构,左右两边的区域</li>
+</ul>
+<ul>
+<li>v-if和v-show的选择使用</li>
+</ul>
+<ul>
+<li><p>v-for传递索引</p>
+</li>
+<li><p>vue传递原生事件$event</p>
+</li>
+<li><p>使用stylus的mixin处理一些border和img的问题</p>
+</li>
+<li><p>建立menu区域和foods区域的Y坐标对应关系,实现滚动foods区域会显示相应的menu区域,点击某个menu区域就显示某个固定的foods区域</p>
+</li>
+<li><p>flex布局的使用,实现foods区域的布局</p>
+</li>
+<li><p>技巧类:对一些需要js操作的class(但是又没有实际用途的)可以建立一个类似food-list-hook钩子类</p>
+</li>
+<li><p>font-size为0的技术点,处理行内元素的间隙问题</p>
+</li>
+<li><p>vue的$nextTick使用</p>
+</li>
+<li><p>vue的$refs的使用</p>
+</li>
+<li><p>vue的computed属性使用</p>
+</li>
+<li><p>vue的class绑定使用</p>
+</li>
+<li><p>在一些地方里面,使用table的垂直居中会很简单实现垂直居中</p>
+</li>
+<li><p>better-scroll的使用</p>
+</li>
+</ul>
+<p><img src="http://oncweb6po.bkt.clouddn.com/2116342489-590b01d4d9952_articlex.png" alt=""></p>
+<h2 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h2><pre><code>&lt;template&gt;
+  &lt;div class=&quot;goods&quot;&gt;
+  //第一个区域,menu区域
+    &lt;div class=&quot;menu-wrapper&quot; ref=&quot;menuWrapper&quot;&gt;
+      &lt;ul&gt;
+      //v-for的使用,class绑定,传递原生事件
+        &lt;li v-for=&quot;(item,index) in goods&quot; class=&quot;menu-item&quot; :class=&quot;{&apos;current&apos;:currentIndex === index}&quot;
+            @click=&quot;selectMenu(index,$event)&quot;&gt;
+          &lt;span class=&quot;text border-1px&quot;&gt;
+          &lt;!--v-show使用--&gt;
+            &lt;span v-show=&quot;item.type&gt;0&quot; class=&quot;icon&quot; :class=&quot;classMap[item.type]&quot;&gt;&lt;/span&gt;{{item.name}}
+          &lt;/span&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+    //第二个区域 food区域
+    //$refs的使用
+    &lt;div class=&quot;foods-wrapper&quot; ref=&quot;foodsWrapper&quot;&gt;
+      &lt;ul&gt;
+      //hook钩子类的使用(food-list-hook)
+        &lt;li v-for=&quot;item in goods&quot; class=&quot;food-list food-list-hook&quot;&gt;
+          &lt;h1 class=&quot;title&quot;&gt;{{item.name}}&lt;/h1&gt;
+          &lt;ul&gt;
+            &lt;li v-for=&quot;food in item.foods&quot; class=&quot;food-item&quot;&gt;
+              &lt;div class=&quot;icon&quot;&gt;
+                &lt;img width=&quot;57&quot; height=&quot;57&quot; :src=&quot;food.icon&quot;&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;content&quot;&gt;
+                &lt;h2 class=&quot;name&quot;&gt;{{food.name}}&lt;/h2&gt;
+                &lt;p class=&quot;desc&quot;&gt;{{food.description}}&lt;/p&gt;
+                &lt;div class=&quot;extra&quot;&gt;
+                  &lt;span class=&quot;count&quot;&gt;月售{{food.sellCount}}份&lt;/span&gt;&lt;span&gt;好评率{{food.rating}}%&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;price&quot;&gt;
+                  &lt;span class=&quot;now&quot;&gt;¥{{food.price}}&lt;/span&gt;&lt;span class=&quot;old&quot;
+                                                                v-show=&quot;food.oldPrice&quot;&gt;¥{{food.price}}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+    //第三个区域,shopcart区域
+    &lt;shopcart ref=&quot;shopcart&quot; :selectFoods=&quot;selectFoods&quot; :deliveryPrice=&quot;seller.deliveryPrice&quot;
+              :minPrice=&quot;seller.minPrice&quot;&gt;&lt;/shopcart&gt;
+    //第四个区域,隐藏的食物详情区域
+    &lt;food @add=&quot;addFood&quot; :food=&quot;selectedFood&quot; ref=&quot;food&quot;&gt;&lt;/food&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre><p>备注:</p>
+<ul>
+<li>v-for使用已经很常见了,不过这里需要了解,vue1和2有区别,现在是用vue2,所以index变量传递会变成现在这种模式(item,index) in goods</li>
+</ul>
+<ul>
+<li>vue传递原生事件使用$event</li>
+</ul>
+<ul>
+<li>:class=”{‘current’:currentIndex === index}”是vue的绑定class的使用方法,通过绑定一个class变量来直接操作,并且这里的逻辑会跟js代码里面对应<br>通过currentIndex和index做对比,来确认是否添加current类,他们之间的对比关系也就是menu区域和foods区域的显示区域的对比关系<br>通过添加current类来实现当前页面的区域的样式变化<br>currentIndex是一个计算属性,可以随时变化并且直接反应到dom上(看js里面逻辑)</li>
+</ul>
+<ul>
+<li>v-show和v-if的区别官网已经说过<ol>
+<li>v-if 是“真正的”条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。</li>
+<li>v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块。</li>
+</ol>
+</li>
+</ul>
+<p>一般来说， v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件不太可能改变，则使用 v-if 较好。</p>
+<ul>
+<li>$refs的使用是vue操作dom的一种方式:</li>
+</ul>
+<pre><code>- ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。
+
+
+- 如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素; 如果用在子组件上，引用就指向组件实例:
+</code></pre><ul>
+<li>hook钩子类的使用,需要结合js里面的语法来看,这个类只是用来操作,不会产生dom的渲染,方便js控制清晰.</li>
+</ul>
+<h2 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h2><pre><code>&lt;script&gt;
+  import BScroll from &apos;better-scroll&apos;; //导入better-scroll
+  import shopcart from &apos;../../components/shopcart/shopcart&apos;;//导入shopcart购物车组件
+  import cartcontrol from &apos;../../components/cartcontrol/cartcontrol&apos;; //导入购物组件
+  import food from &apos;../../components/food/food&apos;; //导入食物详情组件
+
+  const ERR_OK = 0; //常量,方便解耦
+
+  export default {
+    props: {
+      seller: {
+        type: Object
+      }
+    },
+    data(){
+      return {
+        goods: [],
+        listHeight: [], //用来储存foods区域的各个区块的高度(clientHeight)
+        scrollY: 0 //用来存储foods区域的滚动的Y坐标
+        selectedFood: {} //用来存储当前已被选择的food数据,对象保存形式
+      }
+    },
+    computed: {
+      currentIndex(){ //计算到达哪个区域的区间的时候的对应的索引值
+        for (let i = 0; i &lt; this.listHeight.length; i++) {
+          let height1 = this.listHeight[i]; //当前menu子块的高度
+          let height2 = this.listHeight[i + 1]; //下一个menu子块的高度
+          //滚动到底部的时候,height2为undefined,需要考虑这种情况
+          //需要确定是在两个menu子块的高度区间
+          if (!height2 || (this.scrollY &gt;= height1 &amp;&amp; this.scrollY &lt; height2)) {
+            return i; //返回这个menu子块的索引
+          }
+        }
+        return 0;
+      },
+      selectFoods() { //自动将所有的goods.food添加一个count属性,方便做数量运算
+        let foods = [];
+        this.goods.forEach((good) =&gt; {
+          good.foods.forEach((food) =&gt; {
+            if (food.count) {
+              foods.push(food);
+            }
+          });
+        });
+        return foods;
+      }
+    },
+    created(){
+      this.classMap = [&apos;decrease&apos;, &apos;discount&apos;, &apos;special&apos;, &apos;invoice&apos;, &apos;guarantee&apos;];
+
+      this.$http.get(&apos;/api/goods&apos;).then((response) =&gt; {
+        response = response.body;
+        if (response.errno === ERR_OK) {
+          this.goods = response.data;
+          this.$nextTick(() =&gt; { //使用$nextTick来等待异步完成之后更新dom
+            this._initScroll(); //绑定滚动dom
+            this._calculateHeight(); //计算foods区域的各个区域的高度
+          });
+        }
+      });
+    },
+    methods: {
+      selectFood(food, event){
+            if (!event._constructed) {//忽略掉BScroll的事件
+              return;
+            }
+            this.selectedFood = food; //写入当前选择的food
+            this.$refs.food.show(); //显示当前选择的food的详情页
+      },
+      selectMenu(index, event){
+        if (!event._constructed) { //忽略掉BScroll的事件
+          return;
+        }
+        let foodsList = this.$refs.foodsWrapper.getElementsByClassName(&apos;food-list-hook&apos;);
+        let el = foodsList[index];
+        //类似jump to的功能,通过这个方法,跳转到指定的dom
+        this.foodsScroll.scrollToElement(el, 300);
+      },
+      addFood(target) {
+        this._drop(target);
+      },
+      _drop(target) {
+        // 体验优化,异步执行下落动画
+        this.$nextTick(() =&gt; {
+          this.$refs.shopcart.drop(target); //调用shopcart的下落动画
+        });
+      },
+      _initScroll(){
+      //初始化scroll区域
+        this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+          click: true //结合BScroll的接口使用,是否将click事件传递,默认被拦截了
+        });
+        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+          probeType: 3 //结合BScroll的接口使用,3实时派发scroll事件
+        });
+        //结合BScroll的接口使用,监听scroll事件(实时派发的),并获取鼠标坐标
+        this.foodsScroll.on(&apos;scroll&apos;, (pos) =&gt; { 
+          this.scrollY = Math.abs(Math.round(pos.y));//滚动坐标会出现负的,并且是小数,所以需要处理一下
+        })
+      },
+      //计算foods内部块的高度
+      _calculateHeight(){
+        let foodList = this.$refs.foodsWrapper.getElementsByClassName(&apos;food-list-hook&apos;); //获取每一个food的dom对象
+        let height = 0;
+        this.listHeight.push(height); //初始化第一个高度为0
+        for (let i = 0; i &lt; foodList.length; i++) {
+          let item = foodList[i]; //每一个item都是刚才获取的food的每一个dom
+          height += item.clientHeight; //主要是为了获取每一个foods内部块的高度
+          this.listHeight.push(height);
+        }
+      }
+    },
+    components: {
+      shopcart,
+      cartcontrol,
+      food
+    }
+  }
+&lt;/script&gt;
+</code></pre><p>备注:</p>
+<ul>
+<li><food @add="addFood" :food="selectedFood" ref="food" \="">是通过selectFood方法写入到vue实例里面,然后传给子组件food</food></li>
+</ul>
+<ul>
+<li>&lt;shopcart ref=”shopcart” :selectFoods=”selectFoods” 这里selectFoods被自动添加了count属性,是为了让购物车更加简单的计算已选择的food</li>
+</ul>
+<ul>
+<li>这里最关键的是menu和food两个区域的对应处理:</li>
+</ul>
+<pre><code>- 在vue实例生命周期的开始created分别加载_initScroll和_calculateHeight
+
+
+- 通过_calculateHeight计算foods内部每一个块的高度,组成一个数组listHeight
+
+
+- 在_initScroll里面,设置了bscroll插件的一个监听事件scroll,将food区域当前的滚动到的位置的y坐标设置到一个vue实例属性scrollY this.scrollY = Math.abs(Math.round(pos.y));
+
+
+- 通过计算属性currentIndex,获取到food滚动区域对应的menu区域的子块的索引,然后通过设置一个class来做样式切换变化:class=&quot;{&apos;current&apos;:currentIndex === index},实现联动
+
+
+- 另外当点击menu 区域的时候,会触发selectMenu事件,也会根据点击到的menu子块的索引然后去触发food区域滚动到对应的高度区块区间this.foodsScroll.scrollToElement(el, 300);
+
+
+- 这样完成整个对应.
+</code></pre><ul>
+<li>抛物线小球动画横跨多个vue组件(也可以说是横跨了多个DOM),整个动画会在关于购物车添加按钮的动画里面说</li>
+</ul>
+<ul>
+<li>better-scroll需要安装,npm安装,具体参看better-scroll官网</li>
+</ul>
+<ul>
+<li>关于在selectMenu中点击,在pc界面会出现两次事件,在移动端就只出现一次事件的问题:</li>
+</ul>
+<pre><code>- 原因:
+
+
+- bsScrooler会监听事件(例如touchmove,click之类),并且阻止默认事件(prevent stop),并且他只会监听移动端的,pc端的没有监听
+
+
+- 在pc页面上 bsScroller也派发了一次click事件,原生也派发了一次click事件
+
+        //bsScroll的事件,有_constructed: true
+        MouseEvent {isTrusted: false, _constructed: true, screenX: 0, screenY: 0, clientX: 0…}
+        //pc的事件
+        MouseEvent {isTrusted: true, screenX: -1867, screenY: 520, clientX: 53, clientY: 400…}    
+</code></pre><ul>
+<li>解决:</li>
+</ul>
+<pre><code>- 针对bsScroole的事件,有_constructed: true,所以做处理,return掉非bsScroll的事件
+</code></pre><h2 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h2><pre><code>&lt;style lang=&quot;stylus&quot; rel=&quot;stylesheet/stylus&quot;&gt;
+  @import &quot;../../common/stylus/mixin.styl&quot;
+
+  .goods
+    display: flex
+    position: absolute //根据设计图实现,
+    top: 174px //去掉header和tab的位置
+    bottom: 46px //预留购物车位置
+    width: 100%
+    overflow: hidden
+    .menu-wrapper
+      flex: 0 0 80px //flex布局预留空间
+      width: 80px //兼容android浏览器,不加的话会没办法预留空间
+      background: #f3f5f7
+      .menu-item
+        display: table
+        height: 54px
+        width: 56px
+        padding: 0 12px
+        line-height: 14px
+        &amp;.current
+          position: relative
+          z-index: 10
+          margin-top: -1px
+          background: #ffffff
+          font-weight: 700
+          .text
+            border-none()
+        .icon
+          display: inline-block
+          vertical-align: top
+          width: 12px
+          height: 12px
+          margin-right: 2px
+          background-size: 12px 12px
+          background-repeat: no-repeat
+          &amp;.decrease
+            bg-image(&apos;decrease_3&apos;)
+          &amp;.discount
+            bg-image(&apos;discount_3&apos;)
+          &amp;.guarantee
+            bg-image(&apos;guarantee_3&apos;)
+          &amp;.invoice
+            bg-image(&apos;invoice_3&apos;)
+          &amp;.special
+            bg-image(&apos;special_3&apos;)
+        .text
+          display: table-cell
+          width: 56px
+          vertical-align: middle //table默认支持垂直居中
+          border-1px(rgba(7, 17, 27, 0.1))
+          font-size: 12px
+    .foods-wrapper
+      flex: 1
+      .title
+        padding-left: 14px
+        height: 26px
+        line-height: 26px
+        border-left: 2px solid #d9dde1
+        font-size: 12px
+        color: rgb(147, 153, 159)
+        background: #f3f5f7
+      .food-item
+        display: flex
+        margin: 18px
+        padding-bottom: 18px
+        border-1px: (rgba(7, 17, 27, 0.1))
+        &amp;:last-child
+          border-none() 
+          margin-bottom: 0
+        .icon
+          flex: 0 0 57px
+          margin-right: 10px
+        .content
+          flex: 1 //flex布局等分剩下空间
+          .name
+            margin: 2px 0 8px 0
+            height: 14px
+            line-height: 14px
+            font-size: 14px
+            color: rgb(7, 17, 27)
+          .desc, .extra
+            line-height: 10px
+            font-size: 10px
+            color: rgb(147, 153, 159)
+          .desc
+            margin-bottom: 8px
+            line-height: 12px
+          .extra
+            .count
+              margin-right: 12px
+          .price
+            font-weight: 700
+            line-height: 24px
+            .now
+              margin-right: 8px
+              font-size: 14px
+              color: rgb(240, 20, 20)
+            .old
+              text-decoration: line-through
+              font-size: 10px
+              color: rgb(240, 20, 20)
+        .cartcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom: 12px   
+&lt;/style&gt;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/关于购物车添加按钮的动画/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3086,434 +3868,11 @@ export default {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/24/flex布局/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/24/flex布局/" itemprop="url">flex布局</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-24T17:27:09+08:00">
-                2017-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、Flex-布局是什么？"><a href="#一、Flex-布局是什么？" class="headerlink" title="一、Flex 布局是什么？"></a>一、Flex 布局是什么？</h1><p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
-<p>任何一个容器都可以指定为 Flex 布局。</p>
-<pre><code>.box{
-  display: flex;
-}
-</code></pre><p>行内元素也可以使用 Flex 布局。</p>
-<pre><code>.box{
-  display: inline-flex;
-}
-</code></pre><p>Webkit 内核的浏览器，必须加上-webkit前缀。</p>
-<pre><code>.box{
-  display: -webkit-flex; /* Safari */
-  display: flex;
-}
-</code></pre><p>注意，设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。</p>
-<h1 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h1><p>采用 Flex 布局的元素，称为 Flex 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称”项目”。</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/1.png" alt=""></p>
-<p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。</p>
-<p>项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。</p>
-<h1 id="三、容器的属性"><a href="#三、容器的属性" class="headerlink" title="三、容器的属性"></a>三、容器的属性</h1><p>以下6个属性设置在容器上。</p>
-<ul>
-<li>flex-direction</li>
-<li>flex-wrap</li>
-<li>flex-flow</li>
-<li>justify-content</li>
-<li>align-items</li>
-<li>align-content</li>
-</ul>
-<h3 id="3-1-flex-direction属性"><a href="#3-1-flex-direction属性" class="headerlink" title="3.1 flex-direction属性"></a>3.1 flex-direction属性</h3><p>flex-direction属性决定主轴的方向（即项目的排列方向）。</p>
-<pre><code>.box {
-  flex-direction: row | row-reverse | column | column-reverse;
-}
-</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/2.png" alt=""></p>
-<p>它可能有4个值。</p>
-<ul>
-<li>row（默认值）：主轴为水平方向，起点在左端。</li>
-<li>row-reverse：主轴为水平方向，起点在右端。</li>
-<li>column：主轴为垂直方向，起点在上沿。</li>
-<li>column-reverse：主轴为垂直方向，起点在下沿。</li>
-</ul>
-<h3 id="3-2-flex-wrap属性"><a href="#3-2-flex-wrap属性" class="headerlink" title="3.2 flex-wrap属性"></a>3.2 flex-wrap属性</h3><p>默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/3.png" alt=""></p>
-<pre><code>.box{
-  flex-wrap: nowrap | wrap | wrap-reverse;
-}
-</code></pre><p>它可能取三个值。</p>
-<p>（1）nowrap（默认）：不换行。</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/bg2015071007.png" alt=""></p>
-<p>（2）wrap：换行，第一行在上方。</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/5.jpg" alt=""></p>
-<p>（3）wrap-reverse：换行，第一行在下方。</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/6.jpg" alt=""></p>
-<h3 id="3-3-flex-flow"><a href="#3-3-flex-flow" class="headerlink" title="3.3 flex-flow"></a>3.3 flex-flow</h3><p>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。</p>
-<pre><code>.box {
-  flex-flow: &lt;flex-direction&gt; || &lt;flex-wrap&gt;;
-}
-</code></pre><p>###3.4 justify-content属性<br>justify-content属性定义了项目在主轴上的对齐方式。</p>
-<pre><code>.box {
-  justify-content: flex-start | flex-end | center | space-between | space-around;
-}
-</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/7.png" alt=""></p>
-<p>它可能取5个值，具体对齐方式与轴的方向有关。下面假设主轴为从左到右。</p>
-<ul>
-<li>flex-start（默认值）：左对齐</li>
-<li>flex-end：右对齐</li>
-<li>center： 居中</li>
-<li>space-between：两端对齐，项目之间的间隔都相等。</li>
-<li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
-</ul>
-<h3 id="3-5-align-items属性"><a href="#3-5-align-items属性" class="headerlink" title="3.5 align-items属性"></a>3.5 align-items属性</h3><p>align-items属性定义项目在交叉轴上如何对齐。</p>
-<pre><code>.box {
-  align-items: flex-start | flex-end | center | baseline | stretch;
-}
-</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/8.png" alt=""></p>
-<p>它可能取5个值。具体的对齐方式与交叉轴的方向有关，下面假设交叉轴从上到下。</p>
-<ul>
-<li>flex-start：交叉轴的起点对齐。</li>
-<li>flex-end：交叉轴的终点对齐。</li>
-<li>center：交叉轴的中点对齐。</li>
-<li>baseline: 项目的第一行文字的基线对齐。</li>
-<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</li>
-</ul>
-<h3 id="3-6-align-content属性"><a href="#3-6-align-content属性" class="headerlink" title="3.6 align-content属性"></a>3.6 align-content属性</h3><p>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</p>
-<pre><code>.box {
-  align-content: flex-start | flex-end | center | space-between | space-around | stretch;
-}
-</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/9.png" alt=""></p>
-<p>该属性可能取6个值。</p>
-<ul>
-<li>flex-start：与交叉轴的起点对齐。</li>
-<li>flex-end：与交叉轴的终点对齐。</li>
-<li>center：与交叉轴的中点对齐。</li>
-<li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</li>
-<li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
-<li>stretch（默认值）：轴线占满整个交叉轴。</li>
-</ul>
-<h1 id="四、项目的属性"><a href="#四、项目的属性" class="headerlink" title="四、项目的属性"></a>四、项目的属性</h1><p>以下6个属性设置在项目上。</p>
-<ul>
-<li>order</li>
-<li>flex-grow</li>
-<li>flex-shrink</li>
-<li>flex-basis</li>
-<li>flex</li>
-<li>align-self</li>
-</ul>
-<h3 id="4-1-order属性"><a href="#4-1-order属性" class="headerlink" title="4.1 order属性"></a>4.1 order属性</h3><p>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
-<pre><code>.item {
-  order: &lt;integer&gt;;
-}
-</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/10.png" alt=""></p>
-<p>###4.2 flex-grow属性<br>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</p>
-<pre><code>.item {
-  flex-grow: &lt;number&gt;; /* default 0 */
-}
-</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/11.png" alt=""></p>
-<p>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
-<h3 id="4-3-flex-shrink属性"><a href="#4-3-flex-shrink属性" class="headerlink" title="4.3 flex-shrink属性"></a>4.3 flex-shrink属性</h3><p>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
-<pre><code>.item {
-  flex-shrink: &lt;number&gt;; /* default 1 */
-}
-</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/12.jpg" alt=""></p>
-<p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。</p>
-<p>负值对该属性无效。</p>
-<h3 id="4-4-flex-basis属性"><a href="#4-4-flex-basis属性" class="headerlink" title="4.4 flex-basis属性"></a>4.4 flex-basis属性</h3><p>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</p>
-<pre><code>.item {
-  flex-basis: &lt;length&gt; | auto; /* default auto */
-}
-</code></pre><p>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。</p>
-<h3 id="4-5-flex属性"><a href="#4-5-flex属性" class="headerlink" title="4.5 flex属性"></a>4.5 flex属性</h3><p>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</p>
-<pre><code>.item {
-  flex: none | [ &lt;&apos;flex-grow&apos;&gt; &lt;&apos;flex-shrink&apos;&gt;? || &lt;&apos;flex-basis&apos;&gt; ]
-}
-</code></pre><p>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。</p>
-<p>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。</p>
-<h3 id="4-6-align-self属性"><a href="#4-6-align-self属性" class="headerlink" title="4.6 align-self属性"></a>4.6 align-self属性</h3><p>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</p>
-<pre><code>.item {
-  align-self: auto | flex-start | flex-end | center | baseline | stretch;
-}
-</code></pre><p><img src="http://oncweb6po.bkt.clouddn.com/13.png" alt=""></p>
-<p>该属性可能取6个值，除了auto，其他都与align-items属性完全一致。<br>（完）</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/22/部署项目到服务器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/22/部署项目到服务器/" itemprop="url">部署项目到服务器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T22:52:29+08:00">
-                2017-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="1-购买服务器"><a href="#1-购买服务器" class="headerlink" title="1.购买服务器"></a>1.购买服务器</h3><p>阿里云学生机，华南区</p>
-<h3 id="2-安装Nginx"><a href="#2-安装Nginx" class="headerlink" title="2.安装Nginx"></a>2.安装Nginx</h3><pre><code>sudo apt-get install nginx
-
-yum install nginx
-service nginx start
-</code></pre><h3 id="3-创建网站的根目录"><a href="#3-创建网站的根目录" class="headerlink" title="3.创建网站的根目录"></a>3.创建网站的根目录</h3><pre><code>sudo mkdir -p /var/www
-</code></pre><h3 id="4-配置nginx服务器"><a href="#4-配置nginx服务器" class="headerlink" title="4.配置nginx服务器"></a>4.配置nginx服务器</h3><pre><code>cd /etc/nginx
-sudo vim /etc/nginx/...
-</code></pre><p>打开nginx的配置文件之后，找到server这一块，大概是长这个样子的</p>
-<pre><code>server {
-
-        listen 80 default_server;
-
-        listen [::]:80 default_server ipv6only=on;
-
-
-        root /usr/share/nginx/html;
-
-        index index.html index.htm;
-
-
-        server_name localhost;
-
-
-        location / {
-
-                try_files $uri $uri/ =404;
-
-        }
-
-}
-</code></pre><blockquote>
-<p>root 改成放代码的目录，一般是在/var/www里面（先通过Filezilla把代码放进去）</p>
-<p>如果有域名就在server_name 后面加域名！！</p>
-</blockquote>
-<h3 id="5-打开端口"><a href="#5-打开端口" class="headerlink" title="5.打开端口"></a>5.打开端口</h3><p>因为阿里云服务器默认没打开nginx配置里的80端口，所以要去配置</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20170822230303.png" alt=""></p>
-<h3 id="6-查错笔记"><a href="#6-查错笔记" class="headerlink" title="6.查错笔记"></a>6.查错笔记</h3><blockquote>
-<p>sudo vim/var/log/nginx</p>
-<p>sudo vim/var/log/access.log</p>
-<p>sudo vim/var/log/error.log</p>
-<p>sudo service nginx status //看nginx服务是否正常</p>
-<p>sudo service nginx restart //重新开nginx</p>
-<p>sudo nginx -t //查错</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -3559,7 +3918,7 @@ sudo vim /etc/nginx/...
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3572,7 +3931,7 @@ sudo vim /etc/nginx/...
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

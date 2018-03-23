@@ -248,6 +248,1036 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/商家页面seller-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/09/商家页面seller-vue/" itemprop="url">商家页面seller.vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:57:35+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h2><h3 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;seller&quot; ref=&quot;seller&quot;&gt;
+    &lt;div class=&quot;seller-content&quot;&gt;
+      &lt;!--overview部分--&gt;
+      &lt;div class=&quot;overview&quot;&gt;
+
+      &lt;/div&gt;
+      &lt;split&gt;&lt;/split&gt;
+      &lt;!--bulltin部分--&gt;
+      &lt;div class=&quot;bulletin&quot;&gt;
+
+      &lt;/div&gt;
+      &lt;split&gt;&lt;/split&gt;
+      &lt;!--pics部分--&gt;
+      &lt;div class=&quot;pics&quot;&gt;
+
+      &lt;/div&gt;
+      &lt;split&gt;&lt;/split&gt;
+      &lt;!--info部分--&gt;
+      &lt;div class=&quot;info&quot;&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</code></pre><ul>
+<li><p>seller-contentdiv是能够扩大高度的,能够被内容增加而撑高,而seller div是固定的高度的,从而形成滚动</p>
+<h3 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
+import split from &apos;../split/split&apos;;
+
+export default {
+  props: {
+    seller: { //app.vue里面router-view会传入一个seller
+      type: Object
+    }
+  },
+  watch: { //当seller变动的时候会触发
+    &apos;seller&apos;() {
+      this.$nextTick(() =&gt; {
+        this._initScroll();
+        this._initPics();
+      });
+    }
+  },
+  mounted() { //在dom被渲染之后触发
+    this.$nextTick(() =&gt; {
+      this._initScroll();
+      this._initPics();
+    });
+  },
+  methods: {
+    _initScroll() {
+      if (!this.scroll) {
+        this.scroll = new BScroll(this.$refs.seller, {
+          click: true
+        });
+      } else {
+        this.scroll.refresh();
+      }
+    },
+    _initPics() {
+      //详细代码在下面,这里暂时先忽略
+    }
+  },
+  components: {
+    split
+  }
+};
+</code></pre></li>
+</ul>
+<ul>
+<li>使用watch方法是为了监听数据seller的变化,因为当打开页面的时候,seller是异步获取的,并不一定是能够马上获取,没有seller的数据,相关dom就无法被渲染,并且bscroll是基于dom执行的,所以需要监听seller的变化然后来重新执行相关的初始化函数</li>
+</ul>
+<ul>
+<li>使用mounted方法是为了保证相关dom渲染完成,因为bscroll是基于dom执行的,但是当切换页面的时候,dom会重新渲染,但未必能够马上完成,所以需要在mounted方法里面重新执行相关的初始化函数</li>
+</ul>
+<ul>
+<li><p>关于watch和mounted的使用要基于vue的生命周期来理解vue生命周期</p>
+<h3 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h3><pre><code>.seller
+  position: absolute
+  top: 174px //给header留空间
+  bottom: 0
+  left: 0
+  width: 100%
+  overflow: hidden //隐藏多余部分,因为需要滚动
+</code></pre><h2 id="overview部分"><a href="#overview部分" class="headerlink" title="overview部分"></a>overview部分</h2><h3 id="html部分"><a href="#html部分" class="headerlink" title="html部分"></a>html部分</h3><pre><code>&lt;div class=&quot;overview&quot;&gt;
+  &lt;h1 class=&quot;title&quot;&gt;{{seller.name}}&lt;/h1&gt;
+  &lt;div class=&quot;desc border-1px&quot;&gt;
+    &lt;star :size=&quot;36&quot; :score=&quot;seller.score&quot;&gt;&lt;/star&gt;
+    &lt;span class=&quot;text&quot;&gt;({{seller.ratingCount}})&lt;/span&gt;
+    &lt;span class=&quot;text&quot;&gt;月售{{seller.sellCount}}单&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;!--列表处理remark内容--&gt;
+  &lt;ul class=&quot;remark&quot;&gt;
+  &lt;!--使用一个block块包裹内容--&gt;
+    &lt;li class=&quot;block&quot;&gt;
+    &lt;!--标题用h2标签--&gt;
+      &lt;h2&gt;起送价&lt;/h2&gt;
+      &lt;!--用content块包裹内容--&gt;
+      &lt;div class=&quot;content&quot;&gt;
+      &lt;!--用span代表特殊字体--&gt;
+        &lt;span class=&quot;stress&quot;&gt;{{seller.minPrice}}&lt;/span&gt;元
+      &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;block&quot;&gt;
+      &lt;h2&gt;商家配送&lt;/h2&gt;
+      &lt;div class=&quot;content&quot;&gt;
+        &lt;span class=&quot;stress&quot;&gt;{{seller.deliveryPrice}}&lt;/span&gt;元
+      &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;block&quot;&gt;
+      &lt;h2&gt;平均配送时间&lt;/h2&gt;
+      &lt;div class=&quot;content&quot;&gt;
+        &lt;span class=&quot;stress&quot;&gt;{{seller.deliveryTime}}&lt;/span&gt;分钟
+      &lt;/div&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;!--收藏按钮--&gt;
+  &lt;div class=&quot;favorite&quot; @click=&quot;toggleFavorite&quot;&gt;
+    &lt;span class=&quot;icon-favorite&quot; :class=&quot;{&apos;active&apos;:favorite}&quot;&gt;&lt;/span&gt;
+    &lt;span class=&quot;text&quot;&gt;{{favoriteText}}&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h3 id="js部分"><a href="#js部分" class="headerlink" title="js部分"></a>js部分</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
+//引入一个利用html5的localstorage的存储模块
+import { saveToLocal, loadFromLocal } from &apos;common/js/store&apos;;
+
+export default {
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  data() {
+    return {
+      favorite: (() =&gt; { 
+      //利用localstorage读取这个属性
+        return loadFromLocal(this.seller.id, &apos;favorite&apos;, false);
+      })()//vue需要返回的data必须是函数,所以加上()
+    };
+  },
+  computed: {
+    favoriteText() { //通过favorite的值来计算favoriteText的值
+      return this.favorite ? &apos;已收藏&apos; : &apos;收藏&apos;;
+    }
+  },
+  methods: {
+    toggleFavorite(event) {
+      if (!event._constructed) {
+        return;
+      }
+      //通过取反来设置切换
+      this.favorite = !this.favorite;
+      //利用localstorage存储这个属性
+      saveToLocal(this.seller.id, &apos;favorite&apos;, this.favorite);
+    }
+  }
+};
+</code></pre></li>
+</ul>
+<ul>
+<li>store.js参考:split,formatDate,store,util组件<h3 id="css部分"><a href="#css部分" class="headerlink" title="css部分"></a>css部分</h3>  .overview<pre><code>position: relative //设置相对布局参考位置
+padding: 18px
+.title
+  margin-bottom: 8px
+  line-height: 14px
+  color: rgb(7, 17, 27)
+  font-size: 14px
+.desc
+  padding-bottom: 18px
+  border-1px(rgba(7, 17, 27, 0.1))
+  font-size: 0
+  .star
+    display: inline-block
+    margin-right: 8px
+    vertical-align: top //行内对齐
+  .text
+    display: inline-block
+    margin-right: 12px
+    line-height: 18px
+    vertical-align: top //行内对齐
+    font-size: 10px
+    color: rgb(77, 85, 93)
+.remark
+  display: flex //flex布局
+  padding-top: 18px
+  .block
+    flex: 1 //flex布局等分区域
+    text-align: center
+    border-right: 1px solid rgba(7, 17, 27, 0.1)
+    &amp;:last-child
+      border: none
+    h2
+      margin-bottom: 4px
+      line-height: 10px
+      font-size: 10px
+      color: rgb(147, 153, 159)
+    .content //设置该块的公共属性
+      line-height: 24px
+      font-size: 10px
+      color: rgb(7, 17, 27)
+      .stress //特殊大小再插入class覆盖
+        font-size: 24px
+.favorite
+  position: absolute
+  width: 50px //设置一个固定宽度,被text-align使用
+  right: 11px
+  top: 18px
+  text-align: center
+  .icon-favorite
+    display: block
+    margin-bottom: 4px
+    line-height: 24px
+    font-size: 24px
+    color: #d4d6d9
+    &amp;.active
+      color: rgb(240, 20, 20)
+  .text
+    line-height: 10px
+    font-size: 10px
+    color: rgb(77, 85, 93)
+</code></pre><h2 id="bulletin部分"><a href="#bulletin部分" class="headerlink" title="bulletin部分"></a>bulletin部分</h2><h3 id="html代码-1"><a href="#html代码-1" class="headerlink" title="html代码"></a>html代码</h3>  <div class="bulletin"><br>          <h1 class="title">公告与活动</h1><br>          <div class="content-wrapper border-1px"><br>            <p class="content"></p><br>          </div><br>          <ul v-if="seller.supports" class="supports"><br>            <li class="support-item border-1px" v-for="(item,index) in seller.supports"><br>            <!--使用classMap做对应--><br>              <span class="icon" :class="classMap[seller.supports[index].type]"></span><br>              <span class="text"></span><br>            </li><br>          </ul><br>        </div>
+
+
+</li>
+</ul>
+<blockquote>
+<p>classMap的原理(classMap使用在之前的header组件使用过Header.vue)</p>
+</blockquote>
+<ul>
+<li>seller.supports的结构是这样的<br>  “supports”: [<pre><code>  {
+    &quot;type&quot;: 0,
+    &quot;description&quot;: &quot;在线支付满28减5&quot;
+  },
+  {
+    &quot;type&quot;: 1,
+    &quot;description&quot;: &quot;VC无限橙果汁全场8折&quot;
+  },
+  {
+    &quot;type&quot;: 2,
+    &quot;description&quot;: &quot;单人精彩套餐&quot;
+  },
+  {
+    &quot;type&quot;: 3,
+    &quot;description&quot;: &quot;该商家支持发票,请下单写好发票抬头&quot;
+  },
+  {
+    &quot;type&quot;: 4,
+    &quot;description&quot;: &quot;已加入“外卖保”计划,食品安全保障&quot;
+  }
+],
+</code></pre></li>
+</ul>
+<ul>
+<li>classMap是[‘decrease’, ‘discount’, ‘special’, ‘invoice’, ‘guarantee’]这样的,这个顺序是按照设计需要和数据结构排的,例如type为0对应在线支付满28减5</li>
+</ul>
+<ul>
+<li>如果要获取对应的class,就可以classMap[seller.supports[index].type],例如seller.supports[0].type就是0,那么就是classMap[0]就是decrease这个class</li>
+</ul>
+<ul>
+<li><p>如果要获取对应的description就可以seller.supports[index].description,例如seller.supports[0].description就直接知道了supports数组的第一个元素的description属性的值了</p>
+<h3 id="js代码-1"><a href="#js代码-1" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import split from &apos;../split/split&apos;;
+
+export default {
+  props: {
+    seller: {
+      type: Object
+    }
+  },
+  created() { //使用自建的一个classMap数组来对应不同的类别
+    this.classMap = [&apos;decrease&apos;, &apos;discount&apos;, &apos;special&apos;, &apos;invoice&apos;, &apos;guarantee&apos;];
+  },
+  components: {
+    split
+  }
+};
+</code></pre></li>
+</ul>
+<ul>
+<li>使用created方法是为了在加载的时候第一时间完成,因为vue的渲染需要this.classMap属性(created是vue的生命周期的第一个)<h3 id="css代码-1"><a href="#css代码-1" class="headerlink" title="css代码"></a>css代码</h3>  @import “../../common/stylus/mixin.styl”<pre><code>.bulletin
+  padding: 18px 18px 0 18px
+  .title
+    margin-bottom: 8px
+    line-height: 14px
+    color: rgb(7, 17, 27)
+    font-size: 14px
+  .content-wrapper
+    padding: 0 12px 16px 12px
+    border-1px(rgba(7, 17, 27, 0.1))
+    .content
+      line-height: 24px
+      font-size: 12px
+      color: rgb(240, 20, 20)
+  .supports
+    .support-item
+      padding: 16px 12px
+      border-1px(rgba(7, 17, 27, 0.1))
+      font-size: 0
+      &amp;:last-child
+        border-none() //需要引入一个mixin,处理没边框的问题
+    .icon
+      display: inline-block
+      width: 16px
+      height: 16px
+      vertical-align: top
+      margin-right: 6px
+      background-size: 16px 16px
+      background-repeat: no-repeat
+      &amp;.decrease //使用设计要求的大小的图标
+        bg-image(&apos;decrease_4&apos;) //使用mixin处理这些图标
+      &amp;.discount
+        bg-image(&apos;discount_4&apos;)
+      &amp;.guarantee
+        bg-image(&apos;guarantee_4&apos;)
+      &amp;.invoice
+        bg-image(&apos;invoice_4&apos;)
+      &amp;.special
+        bg-image(&apos;special_4&apos;)
+    .text
+      line-height: 16px
+      font-size: 12px
+      color: rgb(7, 17, 27)
+</code></pre><h2 id="pics部分"><a href="#pics部分" class="headerlink" title="pics部分"></a>pics部分</h2><h3 id="html代码-2"><a href="#html代码-2" class="headerlink" title="html代码"></a>html代码</h3>  <div class="pics"><br>          <h1 class="title">商家实景</h1><br>          <!--两个ref绑定picWrapper,picList--><br>          <div class="pic-wrapper" ref="picWrapper"><br>          <!--列表循环输出图片--><br>            <ul class="pic-list" ref="picList"><br>              <li class="pic-item" v-for="pic in seller.pics"><br>              <!--固定图片尺寸--><br>                <img :src="pic" width="120" height="90"><br>              </li><br>            </ul><br>          </div><br>  </div>
+
+
+</li>
+</ul>
+<ul>
+<li>ref获取picWrapper是为了滚动图片需要,父DOM是picWrapper,子DOM是picList</li>
+</ul>
+<ul>
+<li>ref获取picList是为了计算图片列表的总长度,用来设置图片列表的横向滚动,因为滚动的触发条件是子DOM比父DOM要”大”的时候才会触发,由于图片的数量是未知的,所以需要去计算,然后写入到picList<h3 id="js代码-2"><a href="#js代码-2" class="headerlink" title="js代码"></a>js代码</h3>  _initPics() { //编程习惯的前置下划线,代表内部使用的方法<pre><code>if (this.seller.pics) {
+  let picWidth = 120; //
+  let margin = 6;
+  //这是图片列表的总长度
+  let width = (picWidth + margin) * this.seller.pics.length - margin;
+  //设置图片列表的宽度等于列表的总长度
+  this.$refs.picList.style.width = width + &apos;px&apos;;
+  //异步绑定滚动
+  this.$nextTick(() =&gt; {
+    if (!this.picScroll) {
+      this.picScroll = new BScroll(this.$refs.picWrapper, {
+        scrollX: true, //bscroll的横向滚动属性
+        eventPassthrough: &apos;vertical&apos; //bscroll的过滤垂直滚动
+      });
+    } else {
+      this.picScroll.refresh();
+    }
+  });
+}
+</code></pre></li>
+</ul>
+<ul>
+<li>一般来说,当某页面本身是垂直滚动的时候,中间的某个DOM需要做横向滚动的话,需要处理滚动坐标的变化,例如手势滚动的时候有x,y坐标,是向上,下,左还是右会区分</li>
+</ul>
+<ul>
+<li>图片列表的总长度是单个图片的宽度+单个图片的外边距的和乘以图片的数量,再减去最后一个图片的外边距</li>
+</ul>
+<ul>
+<li>BScroll插件需要增加一个属性scrollX: true来传入横向的滚动坐标,也需要增加一个属性eventPassthrough: ‘vertical’过滤垂直的滚动,前者已经解释过,后者是因为需要横向滚动的页面是内嵌在垂直滚动的页面的里面的,所以会造成外面的垂直滚动事件也会传入到横向滚动的页面,为了避免影响横向滚动,所以需要屏蔽垂直滚动的事件</li>
+</ul>
+<ul>
+<li>我们平时在做这种滚动内嵌滚动的时候也可以参考这个处理方法.</li>
+</ul>
+<ul>
+<li>另外异步绑定滚动的常规做法,先判断是否已经有BScroll实例了,然后再确定是否需要刷新<h3 id="css代码-2"><a href="#css代码-2" class="headerlink" title="css代码"></a>css代码</h3>  .pics<pre><code>padding: 18px
+.title
+  margin-bottom: 12px
+  line-height: 14px
+  color: rgb(7, 17, 27)
+  font-size: 14px
+.pic-wrapper
+  width: 100% //图片列表区域是屏幕宽度
+  overflow: hidden //隐藏多余部分
+  white-space: nowrap  //连续的空白符会被合并
+  .pic-list
+    font-size: 0 //行内元素取消间隙
+    .pic-item
+      display: inline-block
+      margin-right: 6px
+      width: 120px
+      height: 90px
+      &amp;:last-child //最后一个图片没有外边距
+        margin: 0
+</code></pre><h2 id="info部分"><a href="#info部分" class="headerlink" title="info部分"></a>info部分</h2><h3 id="html代码-3"><a href="#html代码-3" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;info&quot;&gt;
+  &lt;h1 class=&quot;title border-1px&quot;&gt;商家信息&lt;/h1&gt;
+  &lt;ul&gt;
+    &lt;li class=&quot;info-item&quot; v-for=&quot;info in seller.infos&quot;&gt;{{info}}&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><h3 id="css代码-3"><a href="#css代码-3" class="headerlink" title="css代码"></a>css代码</h3>  .info<pre><code>padding: 18px 18px 0 18px
+color: rgb(7, 17, 27)
+.title
+  padding-bottom: 12px
+  line-height: 14px
+  border-1px(rgba(7, 17, 27, 0.1))
+  font-size: 14px
+.info-item
+  padding: 16px 12px
+  line-height: 16px
+  border-1px(rgba(7, 17, 27, 0.1)) //1像素的border 的mixin
+  font-size: 12px
+  &amp;:last-child
+    border-none() //没有border的mixin
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/商品详情页food-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/09/商品详情页food-vue/" itemprop="url">商品详情页food.vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:57:19+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h2><h3 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;template&gt;
+  &lt;transition name=&quot;move&quot;&gt;
+  &lt;!--要实现这个商品详情页的内容滚动,所以需要有一个显示标志和一个dom绑定--&gt;
+  &lt;div v-show=&quot;showFlag&quot; class=&quot;food&quot; ref=&quot;food&quot;&gt;
+  &lt;/div&gt;
+  &lt;/transition&gt;
+&lt;/template&gt;    
+</code></pre><ul>
+<li>用ref绑定food的DOM元素,为了被bscroll做滚动处理</li>
+</ul>
+<ul>
+<li>用transition包裹了整个food,为了实现这个页面的进入和退出动画<h3 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
+export default {
+  props: {
+    food: {
+      type: Object
+    }
+  },
+  data(){
+    return {
+      showFlag: false 
+    }
+  },
+  methods: {
+    show(){
+      this.showFlag = true; 
+      this.$nextTick(() =&gt; { //异步添加滚动绑定
+        if (!this.scroll) {
+          this.scroll = new BScroll(this.$refs.food, {
+            click: true
+          });
+        } else {
+          this.scroll.refresh();
+        }
+      })
+    },
+    hide(){
+      this.showFlag = false;
+    }
+}
+</code></pre></li>
+</ul>
+<ul>
+<li>通过跟hide方法切换showFlag的值来实现显示隐藏</li>
+</ul>
+<ul>
+<li>因为整个页面是比较长的,需要做滚动,所以异步加载bscroll<h3 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h3><pre><code>.food
+  position: fixed //霸占屏幕,全屏显示,所以用fixed布局
+  left: 0
+  top: 0
+  bottom: 48px //保留底部购物车底部栏的位置
+  z-index: 30 //z-index的数值是有考究的,要控制好各个页面的z-index纵深
+  width: 100%
+  background: #fff
+  transform: translate3d(0, 0, 0)
+  &amp;.move-enter-active, &amp;.move-leave-active //用vue的动画配置实现动画
+    transition: all 0.2s linear
+  &amp;.move-enter, &amp;.move-leave-active
+    transform: translate3d(100%, 0, 0)
+</code></pre></li>
+</ul>
+<ul>
+<li>对于整个商品详情页的打开和关闭效果体验,需要对其做动画处理,transition</li>
+</ul>
+<ul>
+<li>动画是3d变形,从右往左(改变的是x坐标),直线移动(linear)<h2 id="商品封面"><a href="#商品封面" class="headerlink" title="商品封面"></a>商品封面</h2><h3 id="html代码-1"><a href="#html代码-1" class="headerlink" title="html代码"></a>html代码</h3>  <div class="image-header"><pre><code>&lt;img :src=&quot;food.image&quot;&gt;
+&lt;!--有一个返回按钮,绑定一个hide方法--&gt;
+&lt;div class=&quot;back&quot; @click=&quot;hide&quot;&gt;
+&lt;!--使用icon--&gt;
+  &lt;i class=&quot;icon-arrow_lift&quot;&gt;&lt;/i&gt; 
+&lt;/div&gt;
+</code></pre>  </div><h3 id="js代码-1"><a href="#js代码-1" class="headerlink" title="js代码"></a>js代码</h3><pre><code>export default {
+  props: {
+    food: { //用goods.vue组件传入的food数据
+      type: Object
+    }
+  }
+}
+</code></pre></li>
+</ul>
+<ul>
+<li>在goods.vue组件上传入的food数据<food @add="addFood" :food="selectedFood" ref="food" \=""><h3 id="css代码-1"><a href="#css代码-1" class="headerlink" title="css代码"></a>css代码</h3>  .image-header<pre><code>position: relative
+width: 100%
+height: 0
+padding-top: 100% //这是一个css-hack技巧
+img
+  position: absolute
+  top: 0
+  left: 0
+  width: 100% //图片撑满整个img的div
+  height: 100%
+.back
+  position: absolute
+  top: 10px
+  left: 0
+  .icon-arrow_lift //返回按钮,使用的是icon的那个css
+    display: block
+    padding: 10px
+    font-size: 20px
+    color: #fff
+</code></pre></food></li>
+</ul>
+<ul>
+<li>在w3c规定里面,padding设置100%的时候,这个值的计算是相对于这个盒子模型的宽度计算的,然后现在是宽是100%,所以padding也是100%,然后使用的是padding-top,那么就是内上边距的高度就是宽度的值,所以这样就能自然撑开一个正方形,这样的目的在于页面打开的时候更自然,不会出现闪烁<h2 id="商品标题"><a href="#商品标题" class="headerlink" title="商品标题"></a>商品标题</h2><h3 id="html代码-2"><a href="#html代码-2" class="headerlink" title="html代码"></a>html代码</h3>  <div class="content"><br>    <h1 class="title"></h1><br>    <div class="detail"><br>      <span class="sell-count">月售份</span><br>      <span class="rating">好评率%</span><br>    </div><br>    <div class="price"><br>      <span class="now">￥</span><span class="old" v-show="food.oldPrice">￥</span><br>    </div><br>    <!--引入cartcontrol组件,并且用一个div包裹他--><br>    <div class="cartcontrol-wrapper"><br>      <cartcontrol @add="addFood" :food="food"></cartcontrol><br>    </div><br>    <transition name="fade"><br>    <!--使用.stop.prevent阻止冒泡和默认事件,避免穿透--><br>      <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count===0"><br>        加入购物车<br>      </div><br>    </transition><br>  </div>
+
+
+</li>
+</ul>
+<ul>
+<li>加入购物车按钮有一个动画fade,并且因为他的位置跟cartcontrol有重叠,避免穿透,所以直接.click.stop.prevent<br>加入购物车按钮的显示是通过判断food.count实现的,这个属性默认是没有的,当点击购物车按钮的时候强制生成Vue.set(this.food, ‘count’, 1);,这样做的目的是比较直观的增加一个属性去实现功能</li>
+</ul>
+<ul>
+<li><p>cartcontrol的使用跟一般组件使用差不多.</p>
+<h3 id="js代码-2"><a href="#js代码-2" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import BScroll from &apos;better-scroll&apos;;
+import Vue from &apos;vue&apos;;
+import cartcontrol from &apos;../../components/cartcontrol/cartcontrol&apos;;
+
+export default {
+  props: {
+    food: {
+      type: Object
+    }
+  }
+  methods: {
+    addFirst(event){ //点击加入购物车按钮,传入事件
+      if (!event._constructed) { //因为购物车按钮在bscroll里面,所以需要处理掉bscroll的事件类型
+        return;
+      }
+      this.$emit(&apos;add&apos;, event.target); //触发当前实例food上的事件add(在goods组件上绑定在food组件的add方法)
+      Vue.set(this.food, &apos;count&apos;, 1);
+    },
+    addFood(target) { //跟add关联的addFood方法
+      this.$emit(&apos;add&apos;, target); //触发当前实例food上的事件add(在goods组件上绑定在food组件的add方法)
+    }
+  },
+  components: {
+    cartcontrol
+  }
+}
+</code></pre></li>
+</ul>
+<ul>
+<li>两次触发当前实例的事件add是因为两个操作都是同一个动作,这个动作是绑定在food组件上的add方法,而food组件会在goods组件中被导入<food @add="addFood" :food="selectedFood" ref="food"></food>,而在goods组件里面,addFood方法就会指向当前goods组件的方法_drop,继而使用shopcart的小球抛物线动画this.$refs.shopcart.drop(target);,这样就是实现了使用跨组件调用方法的效果.<h3 id="css代码-2"><a href="#css代码-2" class="headerlink" title="css代码"></a>css代码</h3>  .content<pre><code>position: relative
+padding: 18px
+.title
+  line-height: 14px
+  margin-bottom: 8px
+  font-size: 14px
+  font-weight: 700
+  color: rgb(7, 17, 27)
+.detail
+  margin-bottom: 18px
+  line-height: 10px
+  height: 10px
+  font-size: 0 //注意行内元素的空格
+  .sell-count, .rating
+    font-size: 10px
+    color: rgb(147, 153, 159)
+  .sell-count
+    margin-right: 12px
+.price //这里的css样式就是在goods.vue出现过的样式,所以直接贴过来使用,也可以做成组件
+  font-weight: 700
+  line-height: 24px
+  .now
+    margin-right: 8px
+    font-size: 14px
+    color: rgb(240, 20, 20)
+  .old
+    text-decoration: line-through
+    font-size: 10px
+    color: rgb(147, 153, 159)
+.cartcontrol-wrapper //固定cartcontrol组件的样式
+  position: absolute
+  right: 12px
+  bottom: 12px
+.buy //加入购物车按钮的样式
+  position: absolute
+  right: 18px
+  bottom: 18px
+  z-index: 10 //显示在cartcontrol的更外面
+  height: 24px
+  line-height: 24px
+  padding: 0 12px
+  box-sizing: border-box //不希望padding和border把整个div撑大
+  border-radius: 12px
+  font-size: 10px
+  color: #fff
+  background: rgb(0, 160, 220)
+  opacity: 1 //加入动画,一个是为了体验,另外一个是为了延迟触发隐藏,避免小球抛物线动画出现问题
+  &amp;.fade-enter-active, &amp;.fade-leave-active
+    transition: all 0.2s
+  &amp;.fade-enter, &amp;.fade-leave-active
+    opacity: 0
+    z-index: -1
+</code></pre></li>
+</ul>
+<ul>
+<li>这里的z-index是10,因为加入购物车按钮和cartcontrol的按钮重叠了,所以需要设置一个比较靠外的z坐标</li>
+</ul>
+<ul>
+<li>这里的box-sizing可以直观的设置盒子模型的实际大小,而不用计算边框和内边距的影响,<br>这是box-sizing:border-size之后的图,注意这个auto,这是因为盒子的大小被固定了,边框和内边距也是固定的,然后内容会根据被固定的大小进行auto适配,这种从外到内的空间设置比较直观和方便</li>
+</ul>
+<p><img src="http://oncweb6po.bkt.clouddn.com/1480597-fa20b7741a01637b.png" alt=""></p>
+<ul>
+<li>这里加入动画的原因是当点击加入购物车的按钮时候(addFirst),因为food.count被添加了数据Vue.set(this.food, ‘count’, 1);,所以加入购物车按钮会被隐藏(v-show的display:none),但同时会执行this.$emit(‘add’, event.target);,只不过这个是异步执行的,并且这个被异步执行的方法add是抛物线小球动画计算初始目标高度的地方,所以当传入的购物车按钮被设置为display:none的时候,动画的目标初始高度无法计算,就会去使用父层div的高度,从而影响了抛物线小球动画效果.</li>
+</ul>
+<pre><code>- 设置一个动画延迟隐藏购物车按钮,从而给足够的时间vue将数据传递到异步执行的方法,不影响抛物线小球的动画初始目标计算
+</code></pre><h2 id="商品信息"><a href="#商品信息" class="headerlink" title="商品信息"></a>商品信息</h2><pre><code>&lt;!--引入split组件负责隔离行--&gt;
+        &lt;split v-show=&quot;food.info&quot;&gt;&lt;/split&gt;
+        &lt;div class=&quot;info&quot; v-show=&quot;food.info&quot;&gt;
+          &lt;h1 class=&quot;title&quot;&gt;商品信息&lt;/h1&gt;
+          &lt;p class=&quot;text&quot;&gt;{{food.info}}&lt;/p&gt;
+        &lt;/div&gt;
+  import split from &apos;../../components/split/split&apos;;
+
+  export default {
+    props: {
+      food: {
+        type: Object
+      }
+    },
+    components: {
+      split
+    }
+  }
+    .info
+      padding: 18px
+      .title
+        line-height: 14px
+        margin-bottom: 6px
+        font-size: 14px
+        color: rgb(7, 17, 27)
+      .text
+        line-height: 24px
+        padding: 0 8px
+        font-size: 12px
+        color: rgb(77, 85, 93)
+</code></pre><h2 id="商品评价"><a href="#商品评价" class="headerlink" title="商品评价"></a>商品评价</h2><h3 id="html代码-3"><a href="#html代码-3" class="headerlink" title="html代码"></a>html代码</h3><pre><code>&lt;div class=&quot;rating&quot;&gt;
+          &lt;h1 class=&quot;title&quot;&gt;商品评价&lt;/h1&gt;
+          &lt;!--ratingselect组件--&gt;
+          &lt;ratingselect @select=&quot;selectRating&quot; @toggle=&quot;toggleContent&quot; :selectType=&quot;selectType&quot;
+                        :onlyContent=&quot;onlyContent&quot; :desc=&quot;desc&quot;
+                        :ratings=&quot;food.ratings&quot;&gt;&lt;/ratingselect&gt;
+          &lt;div class=&quot;rating-wrapper&quot;&gt;
+          &lt;!--根据ratings长度显示ratings--&gt;
+            &lt;ul v-show=&quot;food.ratings &amp;&amp; food.ratings.length&quot;&gt;
+            &lt;!--根据不同类型的rateType来切换不同类型的rate--&gt;
+              &lt;li v-show=&quot;needShow(rating.rateType,rating.text)&quot; v-for=&quot;rating in food.ratings&quot; class=&quot;rating-item border-1px&quot;&gt;
+                &lt;div class=&quot;user&quot;&gt;
+                  &lt;span class=&quot;name&quot;&gt;{{rating.username}}&lt;/span&gt;
+                  &lt;img class=&quot;avatar&quot; width=&quot;12&quot; height=&quot;12&quot; :src=&quot;rating.avatar&quot;&gt;
+                &lt;/div&gt;
+                &lt;!--使用vue过滤器filter来处理时间--&gt;
+                &lt;div class=&quot;time&quot;&gt;{{rating.rateTime | formatDate}}&lt;/div&gt;
+                &lt;p class=&quot;text&quot;&gt;
+                &lt;!--根据不同类型的rateType来控制icon的显示--&gt;
+                  &lt;span
+                    :class=&quot;{&apos;icon-thumb_up&apos;:rating.rateType===0,&apos;icon-thumb_down&apos;:rating.rateType===1}&quot;&gt;&lt;/span&gt;
+                    {{rating.text}}
+                &lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;!--没有rate的时候显示--&gt;
+            &lt;div class=&quot;no-rating&quot; v-show=&quot;!food.ratings || !food.ratings.length&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+</code></pre><ul>
+<li>绑定一个ratingselect组件,负责处理rate选择的</li>
+</ul>
+<ul>
+<li>然后划分一个rating-wrapper区域,负责显示相关rate的信息</li>
+</ul>
+<ul>
+<li>在子组件ratingselect选择的信息会影响到父组件的rating-wrapper区域内容的变化</li>
+</ul>
+<pre><code>- needShow控制当前rate的内容显示,包括不同的type和是否排除没内容的rate
+
+
+- 绑定icon-thumb_up和icon-thumb_down的class来控制赞和批评的icon显示
+
+
+- 根据json数据里面的ratings数组来控制是否显示rate
+</code></pre><h3 id="js代码-3"><a href="#js代码-3" class="headerlink" title="js代码"></a>js代码</h3><pre><code>const ALL = 2; //将控制type类转为常量控制
+
+import Vue from &apos;vue&apos;;
+import ratingselect from &apos;../../components/ratingselect/ratingselect&apos;; //引入ratingselect组件
+
+export default {
+  props: {
+    food: {
+      type: Object
+    }
+  },
+  data(){
+    return { //这些是传入ratingselect组件的数据,并且初始化值
+      selectType: ALL, //默认所有rate
+      onlyContent: true, //默认只显示有内容的rate
+      desc: {
+        all: &apos;全部&apos;,
+        positive: &apos;推荐&apos;,
+        negative: &apos;吐槽&apos;
+      }
+    }
+  },
+  methods: {
+    needShow(type, text){ 
+      if (this.onlyContent &amp;&amp; !text) { //只显示有内容的 并且 没有内容就返回false
+        return false;
+      }
+
+      if (this.selectType === ALL) { //显示全部类型的rate
+        return true;
+      } else { //只显示对应的类型的rate
+        return type === this.selectType;
+      }
+    },
+    selectRating(type) { //设置rate的类型
+      this.selectType = type;
+      this.$nextTick(() =&gt; {//切换的时候需要重新刷新bscroll
+        this.scroll.refresh();
+      });
+    },
+    toggleContent() { //切换显示是否有内容的rate
+      this.onlyContent = !this.onlyContent;
+      this.$nextTick(() =&gt; { //切换的时候需要重新刷新bscroll
+        this.scroll.refresh();
+      });
+    }
+  },
+  components: {
+    ratingselect
+  }
+}
+</code></pre><ul>
+<li>selectRating和toggleContent使用异步$nextTick是因为vue是异步更新dom的,当改变了vue属性时候,当前的dom不是立即更新的(会导致页面的高度变化了,但是bscroll来不及更新,影响滚动体验),而是会放进去异步更新队列里面等候更新,即使这个队列的等待时间不长,但是也来不及马上更新dom,所以使用$nextTick强制刷新这个队列</li>
+</ul>
+<ul>
+<li>在food.vue组件使用selectRating和toggleContent来更新food.vue组件的属性,而不能在子组件ratingselect里面更新,因为vue限制了子组件不能更改父组件的属性,所以通过使用类似this.$emit(‘select’, type);来调用父组件的方法来更改</li>
+</ul>
+<h3 id="css代码-3"><a href="#css代码-3" class="headerlink" title="css代码"></a>css代码</h3><pre><code>.rating
+  padding-top: 18px
+  .title
+    line-height: 14px
+    margin-bottom: 6px
+    font-size: 14px
+    color: rgb(7, 17, 27)
+  .rating-wrapper
+    padding: 0 18px
+    .rating-item
+      position: relative;
+      padding: 16px 0;
+      border-1px(rgba(7, 17, 27, 0.1))
+      .user
+        position: absolute
+        right: 0
+        top: 16px
+        line-height: 12px
+        font-size: 0 //注意行内元素的空隙
+        .name
+          display: inline-block
+          margin-right: 6px
+          vertical-align: top
+          font-size: 10px
+          color: rgb(147, 153, 159)
+        .avatar
+          border-radius: 50%
+      .time
+        margin-bottom: 6px
+        line-height: 12px
+        font-size: 10px
+        color: rgb(147, 153, 159)
+      .text
+        line-height: 16px
+        font-size: 12px
+        color: rgb(7, 17, 27)
+        .icon-thumb_up, .icon-thumb_down 
+          margin-right: 4px
+          line-height: 16px
+          font-size: 12px
+        .icon-thumb_up
+          color: rgb(0, 160, 220)
+        .icon-thumb_down
+          color: rgb(147, 153, 159)
+    .no-rating
+      padding: 16px 0
+      font-size: 12px
+      color: rgb(147, 153, 159)
+</code></pre><p>商品评价里的时间处理<br>split组件和formatDate组件</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/shopcart-vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2329,793 +3359,11 @@ export default{ //导出到当前vue文件内使用
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/cartcontrol-vue购物车操作按钮/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/09/cartcontrol-vue购物车操作按钮/" itemprop="url">cartcontrol.vue购物车操作按钮</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:54:07+08:00">
-                2017-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h2><p>知识点:</p>
-<ul>
-<li>使用了vue2的动画实现方式-transition,这里主要在css上设计来配合vue2</li>
-</ul>
-<ul>
-<li>cartcontrol这个模块主要通过三个小模块实现,删除按钮,显示数量块,增加按钮</li>
-</ul>
-<ul>
-<li><p>删除按钮和增加按钮都带有一个click方法,并且都有v-show来根据food的数量来控制显示,而显示数量块就只是单纯显示food的数量</p>
-  <template><br>    <div class="cartcontrol"><br>    <!--外层动画--><br>      <transition name="move"><br>        <div class="cart-decrease" v-show="food.count>0" @click="decreaseCart"><br>        <!--内层动画--><br>          <span class="inner icon-remove_circle_outline"></span><br>        </div><br>      </transition><br>      <div class="cart-count" v-show="food.count>0"></div><br>      <div class="cart-add icon-add_circle" @click="addCart"></div><br>    </div><br>  </template>
-
-</li>
-</ul>
-<h2 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h2><p>知识点:</p>
-<ul>
-<li>引入vue模块,因为需要使用Vue.set方法</li>
-</ul>
-<ul>
-<li>接收来自goods.vue的food数据,然后使用</li>
-</ul>
-<ul>
-<li>有2个方法,一个是addCart,一个是decreaseCart,分别对应html代码中的@click</li>
-</ul>
-<ul>
-<li>addCart方法,默认会传入event原生dom事件</li>
-</ul>
-<pre><code>- 鉴于bsscrol插件的原因,需要return掉非bscrol的事件
-
-
-- 需要注意的是这里的food并没有count属性,所需要手动设置,虽然之前goods会将有count属性的food做自动处理,但是最开始的时候,所有food都没有count属性,并且cartcontrol是最开始触发对food的count属性进行添加的(点击一次就会对count++,增加一个food)
-
-
-- food数据是从父组件goods.vue传入的,所以对这个数据的修改,也能够反应到父组件,而这里使用Vue.set直接对vue的data进行对象数据写入,对food数据添加了一个count的属性,用来控制每一个food的被选中的数量,也因为shopcart.vue的数据也是从父组件goods.vue传入的,使用同一个food数据,从而关联到[shopcart.vue购物车]()的food的购买数量统计
-</code></pre><ul>
-<li><p>decreaseCart方法,同上</p>
-<pre><code>&lt;script&gt;
-  import Vue from &apos;vue&apos;;
-
-  export default{
-    props: {
-      food: {
-        type: Object
-      }
-    },
-    methods: {
-      addCart(event){
-        if (!event._constructed) {
-          return false;
-        }
-        if (!this.food.count) {
-          Vue.set(this.food, &apos;count&apos;, 1); //遇到没有这个属性的,会强行添加一个
-        } else {
-          this.food.count++; 
-        }
-        this.$emit(&apos;add&apos;, event.target);
-      },
-      decreaseCart(event){
-        if (!event._constructed) {
-          return false;
-        }
-        if (this.food.count) {
-          this.food.count--;
-        }
-      }
-    }
-  };
-&lt;/script&gt;
-</code></pre></li>
-</ul>
-<h2 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h2><p>知识点:</p>
-<ul>
-<li>vue2的动画</li>
-</ul>
-<ul>
-<li>Vue 提供了 transition 的封装组件,就是之前的<transition></transition></li>
-</ul>
-<ul>
-<li>这个动画是一个滚动淡入和淡出的效果</li>
-</ul>
-<ul>
-<li>首先,定义了这个动画效果的名字为move(<transition name="move">),并且将需要这个效果的内容用一个dom的div包裹起来,这个效果分2层,外层和内层inner(外层和内层用class来区分,通过增加一个内层class inner来区分)</transition></li>
-</ul>
-<ul>
-<li>然后,设置原始的动画状态(外层和内层)</li>
-</ul>
-<pre><code>- 外层设置了透明度为1和transform变形的3d位置
-
-
-- 内层设置了滚动角度和淡入淡出效果
-</code></pre><ul>
-<li>然后,设置vue的动画过渡属性</li>
-</ul>
-<pre><code>- move-enter-active和move-leave-active
-
-
-    - 这里设置匀速过渡效果是为了在动画进入过渡的结束状态和动画离开过渡的结束状态都是匀速过渡的变化效果,至于变化成什么效果需要看move-enter和move-leave-active
-
-
-- move-enter和move-leave-active
-
-
-    - 这里设置外层的透明度为0(内层会继承)和变形的3d位置
-
-
-    - 这里设置了内层滚动角度
-
-
-    - 这么做实现了动画在进入过渡后和离开过渡后都会内外层,并且会出现内层一边滚动到指定位置然后消失的效果
-</code></pre><ul>
-<li>font-size的使用</li>
-</ul>
-<pre><code>- 因为使用行内元素,所以需要通过设置font-size为0来取消间隙
-</code></pre><ul>
-<li><p>对于一些设计上的图标过小(操作区域太小)影响用户操作体验的情况,需要增加一个padding来实现增大操作区域的目的</p>
-<pre><code>&lt;style lang=&quot;stylus&quot; rel=&quot;stylesheet/stylus&quot;&gt;
-  .cartcontrol
-    font-size: 0
-    .cart-decrease //外层动画原始状态
-      display: inline-block
-      padding: 6px
-      opacity: 1 
-      transform: translate3d(0, 0, 0) 
-      .inner //内层动画原始状态
-        display: inline-block
-        line-height: 24px
-        font-size: 24px
-        color: rgb(0, 160, 220)
-        transition: all 0.4s linear 
-        transform: rotate(0)
-      &amp;.move-enter-active, &amp;.move-leave-active //vue动画过渡属性     
-        transition: all 0.4s linear
-      &amp;.move-enter, &amp;.move-leave-active //vue动画过渡属性
-        opacity: 0
-        transform: translate3d(24px, 0, 0)
-        .inner
-          transform: rotate(180deg)
-    .cart-count
-      display: inline-block
-      vertical-align: top
-      width: 12px
-      padding-top: 6px
-      line-height: 24px
-      text-align: center
-      font-size: 10px
-      color: rgb(147, 153, 159)
-    .cart-add
-      display: inline-block
-      padding: 6px
-      line-height: 24px
-      font-size: 24px
-      color: rgb(0, 160, 220)
-&lt;/style&gt;    
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/商品区域goods-vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/09/商品区域goods-vue/" itemprop="url">商品区域goods.vue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:53:45+08:00">
-                2017-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点:"></a>技术点:</h2><ul>
-<li>定义了2个wrapper,分别是menu-wrapper和foods-wrapper,对应当前页面的架构,左右两边的区域</li>
-</ul>
-<ul>
-<li>v-if和v-show的选择使用</li>
-</ul>
-<ul>
-<li><p>v-for传递索引</p>
-</li>
-<li><p>vue传递原生事件$event</p>
-</li>
-<li><p>使用stylus的mixin处理一些border和img的问题</p>
-</li>
-<li><p>建立menu区域和foods区域的Y坐标对应关系,实现滚动foods区域会显示相应的menu区域,点击某个menu区域就显示某个固定的foods区域</p>
-</li>
-<li><p>flex布局的使用,实现foods区域的布局</p>
-</li>
-<li><p>技巧类:对一些需要js操作的class(但是又没有实际用途的)可以建立一个类似food-list-hook钩子类</p>
-</li>
-<li><p>font-size为0的技术点,处理行内元素的间隙问题</p>
-</li>
-<li><p>vue的$nextTick使用</p>
-</li>
-<li><p>vue的$refs的使用</p>
-</li>
-<li><p>vue的computed属性使用</p>
-</li>
-<li><p>vue的class绑定使用</p>
-</li>
-<li><p>在一些地方里面,使用table的垂直居中会很简单实现垂直居中</p>
-</li>
-<li><p>better-scroll的使用</p>
-</li>
-</ul>
-<p><img src="http://oncweb6po.bkt.clouddn.com/2116342489-590b01d4d9952_articlex.png" alt=""></p>
-<h2 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h2><pre><code>&lt;template&gt;
-  &lt;div class=&quot;goods&quot;&gt;
-  //第一个区域,menu区域
-    &lt;div class=&quot;menu-wrapper&quot; ref=&quot;menuWrapper&quot;&gt;
-      &lt;ul&gt;
-      //v-for的使用,class绑定,传递原生事件
-        &lt;li v-for=&quot;(item,index) in goods&quot; class=&quot;menu-item&quot; :class=&quot;{&apos;current&apos;:currentIndex === index}&quot;
-            @click=&quot;selectMenu(index,$event)&quot;&gt;
-          &lt;span class=&quot;text border-1px&quot;&gt;
-          &lt;!--v-show使用--&gt;
-            &lt;span v-show=&quot;item.type&gt;0&quot; class=&quot;icon&quot; :class=&quot;classMap[item.type]&quot;&gt;&lt;/span&gt;{{item.name}}
-          &lt;/span&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-    //第二个区域 food区域
-    //$refs的使用
-    &lt;div class=&quot;foods-wrapper&quot; ref=&quot;foodsWrapper&quot;&gt;
-      &lt;ul&gt;
-      //hook钩子类的使用(food-list-hook)
-        &lt;li v-for=&quot;item in goods&quot; class=&quot;food-list food-list-hook&quot;&gt;
-          &lt;h1 class=&quot;title&quot;&gt;{{item.name}}&lt;/h1&gt;
-          &lt;ul&gt;
-            &lt;li v-for=&quot;food in item.foods&quot; class=&quot;food-item&quot;&gt;
-              &lt;div class=&quot;icon&quot;&gt;
-                &lt;img width=&quot;57&quot; height=&quot;57&quot; :src=&quot;food.icon&quot;&gt;
-              &lt;/div&gt;
-              &lt;div class=&quot;content&quot;&gt;
-                &lt;h2 class=&quot;name&quot;&gt;{{food.name}}&lt;/h2&gt;
-                &lt;p class=&quot;desc&quot;&gt;{{food.description}}&lt;/p&gt;
-                &lt;div class=&quot;extra&quot;&gt;
-                  &lt;span class=&quot;count&quot;&gt;月售{{food.sellCount}}份&lt;/span&gt;&lt;span&gt;好评率{{food.rating}}%&lt;/span&gt;
-                &lt;/div&gt;
-                &lt;div class=&quot;price&quot;&gt;
-                  &lt;span class=&quot;now&quot;&gt;¥{{food.price}}&lt;/span&gt;&lt;span class=&quot;old&quot;
-                                                                v-show=&quot;food.oldPrice&quot;&gt;¥{{food.price}}&lt;/span&gt;
-                &lt;/div&gt;
-              &lt;/div&gt;
-            &lt;/li&gt;
-          &lt;/ul&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-    //第三个区域,shopcart区域
-    &lt;shopcart ref=&quot;shopcart&quot; :selectFoods=&quot;selectFoods&quot; :deliveryPrice=&quot;seller.deliveryPrice&quot;
-              :minPrice=&quot;seller.minPrice&quot;&gt;&lt;/shopcart&gt;
-    //第四个区域,隐藏的食物详情区域
-    &lt;food @add=&quot;addFood&quot; :food=&quot;selectedFood&quot; ref=&quot;food&quot;&gt;&lt;/food&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-</code></pre><p>备注:</p>
-<ul>
-<li>v-for使用已经很常见了,不过这里需要了解,vue1和2有区别,现在是用vue2,所以index变量传递会变成现在这种模式(item,index) in goods</li>
-</ul>
-<ul>
-<li>vue传递原生事件使用$event</li>
-</ul>
-<ul>
-<li>:class=”{‘current’:currentIndex === index}”是vue的绑定class的使用方法,通过绑定一个class变量来直接操作,并且这里的逻辑会跟js代码里面对应<br>通过currentIndex和index做对比,来确认是否添加current类,他们之间的对比关系也就是menu区域和foods区域的显示区域的对比关系<br>通过添加current类来实现当前页面的区域的样式变化<br>currentIndex是一个计算属性,可以随时变化并且直接反应到dom上(看js里面逻辑)</li>
-</ul>
-<ul>
-<li>v-show和v-if的区别官网已经说过<ol>
-<li>v-if 是“真正的”条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。</li>
-<li>v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块。</li>
-</ol>
-</li>
-</ul>
-<p>一般来说， v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件不太可能改变，则使用 v-if 较好。</p>
-<ul>
-<li>$refs的使用是vue操作dom的一种方式:</li>
-</ul>
-<pre><code>- ref 被用来给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。
-
-
-- 如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素; 如果用在子组件上，引用就指向组件实例:
-</code></pre><ul>
-<li>hook钩子类的使用,需要结合js里面的语法来看,这个类只是用来操作,不会产生dom的渲染,方便js控制清晰.</li>
-</ul>
-<h2 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h2><pre><code>&lt;script&gt;
-  import BScroll from &apos;better-scroll&apos;; //导入better-scroll
-  import shopcart from &apos;../../components/shopcart/shopcart&apos;;//导入shopcart购物车组件
-  import cartcontrol from &apos;../../components/cartcontrol/cartcontrol&apos;; //导入购物组件
-  import food from &apos;../../components/food/food&apos;; //导入食物详情组件
-
-  const ERR_OK = 0; //常量,方便解耦
-
-  export default {
-    props: {
-      seller: {
-        type: Object
-      }
-    },
-    data(){
-      return {
-        goods: [],
-        listHeight: [], //用来储存foods区域的各个区块的高度(clientHeight)
-        scrollY: 0 //用来存储foods区域的滚动的Y坐标
-        selectedFood: {} //用来存储当前已被选择的food数据,对象保存形式
-      }
-    },
-    computed: {
-      currentIndex(){ //计算到达哪个区域的区间的时候的对应的索引值
-        for (let i = 0; i &lt; this.listHeight.length; i++) {
-          let height1 = this.listHeight[i]; //当前menu子块的高度
-          let height2 = this.listHeight[i + 1]; //下一个menu子块的高度
-          //滚动到底部的时候,height2为undefined,需要考虑这种情况
-          //需要确定是在两个menu子块的高度区间
-          if (!height2 || (this.scrollY &gt;= height1 &amp;&amp; this.scrollY &lt; height2)) {
-            return i; //返回这个menu子块的索引
-          }
-        }
-        return 0;
-      },
-      selectFoods() { //自动将所有的goods.food添加一个count属性,方便做数量运算
-        let foods = [];
-        this.goods.forEach((good) =&gt; {
-          good.foods.forEach((food) =&gt; {
-            if (food.count) {
-              foods.push(food);
-            }
-          });
-        });
-        return foods;
-      }
-    },
-    created(){
-      this.classMap = [&apos;decrease&apos;, &apos;discount&apos;, &apos;special&apos;, &apos;invoice&apos;, &apos;guarantee&apos;];
-
-      this.$http.get(&apos;/api/goods&apos;).then((response) =&gt; {
-        response = response.body;
-        if (response.errno === ERR_OK) {
-          this.goods = response.data;
-          this.$nextTick(() =&gt; { //使用$nextTick来等待异步完成之后更新dom
-            this._initScroll(); //绑定滚动dom
-            this._calculateHeight(); //计算foods区域的各个区域的高度
-          });
-        }
-      });
-    },
-    methods: {
-      selectFood(food, event){
-            if (!event._constructed) {//忽略掉BScroll的事件
-              return;
-            }
-            this.selectedFood = food; //写入当前选择的food
-            this.$refs.food.show(); //显示当前选择的food的详情页
-      },
-      selectMenu(index, event){
-        if (!event._constructed) { //忽略掉BScroll的事件
-          return;
-        }
-        let foodsList = this.$refs.foodsWrapper.getElementsByClassName(&apos;food-list-hook&apos;);
-        let el = foodsList[index];
-        //类似jump to的功能,通过这个方法,跳转到指定的dom
-        this.foodsScroll.scrollToElement(el, 300);
-      },
-      addFood(target) {
-        this._drop(target);
-      },
-      _drop(target) {
-        // 体验优化,异步执行下落动画
-        this.$nextTick(() =&gt; {
-          this.$refs.shopcart.drop(target); //调用shopcart的下落动画
-        });
-      },
-      _initScroll(){
-      //初始化scroll区域
-        this.menuScroll = new BScroll(this.$refs.menuWrapper, {
-          click: true //结合BScroll的接口使用,是否将click事件传递,默认被拦截了
-        });
-        this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
-          probeType: 3 //结合BScroll的接口使用,3实时派发scroll事件
-        });
-        //结合BScroll的接口使用,监听scroll事件(实时派发的),并获取鼠标坐标
-        this.foodsScroll.on(&apos;scroll&apos;, (pos) =&gt; { 
-          this.scrollY = Math.abs(Math.round(pos.y));//滚动坐标会出现负的,并且是小数,所以需要处理一下
-        })
-      },
-      //计算foods内部块的高度
-      _calculateHeight(){
-        let foodList = this.$refs.foodsWrapper.getElementsByClassName(&apos;food-list-hook&apos;); //获取每一个food的dom对象
-        let height = 0;
-        this.listHeight.push(height); //初始化第一个高度为0
-        for (let i = 0; i &lt; foodList.length; i++) {
-          let item = foodList[i]; //每一个item都是刚才获取的food的每一个dom
-          height += item.clientHeight; //主要是为了获取每一个foods内部块的高度
-          this.listHeight.push(height);
-        }
-      }
-    },
-    components: {
-      shopcart,
-      cartcontrol,
-      food
-    }
-  }
-&lt;/script&gt;
-</code></pre><p>备注:</p>
-<ul>
-<li><food @add="addFood" :food="selectedFood" ref="food" \="">是通过selectFood方法写入到vue实例里面,然后传给子组件food</food></li>
-</ul>
-<ul>
-<li>&lt;shopcart ref=”shopcart” :selectFoods=”selectFoods” 这里selectFoods被自动添加了count属性,是为了让购物车更加简单的计算已选择的food</li>
-</ul>
-<ul>
-<li>这里最关键的是menu和food两个区域的对应处理:</li>
-</ul>
-<pre><code>- 在vue实例生命周期的开始created分别加载_initScroll和_calculateHeight
-
-
-- 通过_calculateHeight计算foods内部每一个块的高度,组成一个数组listHeight
-
-
-- 在_initScroll里面,设置了bscroll插件的一个监听事件scroll,将food区域当前的滚动到的位置的y坐标设置到一个vue实例属性scrollY this.scrollY = Math.abs(Math.round(pos.y));
-
-
-- 通过计算属性currentIndex,获取到food滚动区域对应的menu区域的子块的索引,然后通过设置一个class来做样式切换变化:class=&quot;{&apos;current&apos;:currentIndex === index},实现联动
-
-
-- 另外当点击menu 区域的时候,会触发selectMenu事件,也会根据点击到的menu子块的索引然后去触发food区域滚动到对应的高度区块区间this.foodsScroll.scrollToElement(el, 300);
-
-
-- 这样完成整个对应.
-</code></pre><ul>
-<li>抛物线小球动画横跨多个vue组件(也可以说是横跨了多个DOM),整个动画会在关于购物车添加按钮的动画里面说</li>
-</ul>
-<ul>
-<li>better-scroll需要安装,npm安装,具体参看better-scroll官网</li>
-</ul>
-<ul>
-<li>关于在selectMenu中点击,在pc界面会出现两次事件,在移动端就只出现一次事件的问题:</li>
-</ul>
-<pre><code>- 原因:
-
-
-- bsScrooler会监听事件(例如touchmove,click之类),并且阻止默认事件(prevent stop),并且他只会监听移动端的,pc端的没有监听
-
-
-- 在pc页面上 bsScroller也派发了一次click事件,原生也派发了一次click事件
-
-        //bsScroll的事件,有_constructed: true
-        MouseEvent {isTrusted: false, _constructed: true, screenX: 0, screenY: 0, clientX: 0…}
-        //pc的事件
-        MouseEvent {isTrusted: true, screenX: -1867, screenY: 520, clientX: 53, clientY: 400…}    
-</code></pre><ul>
-<li>解决:</li>
-</ul>
-<pre><code>- 针对bsScroole的事件,有_constructed: true,所以做处理,return掉非bsScroll的事件
-</code></pre><h2 id="css代码"><a href="#css代码" class="headerlink" title="css代码"></a>css代码</h2><pre><code>&lt;style lang=&quot;stylus&quot; rel=&quot;stylesheet/stylus&quot;&gt;
-  @import &quot;../../common/stylus/mixin.styl&quot;
-
-  .goods
-    display: flex
-    position: absolute //根据设计图实现,
-    top: 174px //去掉header和tab的位置
-    bottom: 46px //预留购物车位置
-    width: 100%
-    overflow: hidden
-    .menu-wrapper
-      flex: 0 0 80px //flex布局预留空间
-      width: 80px //兼容android浏览器,不加的话会没办法预留空间
-      background: #f3f5f7
-      .menu-item
-        display: table
-        height: 54px
-        width: 56px
-        padding: 0 12px
-        line-height: 14px
-        &amp;.current
-          position: relative
-          z-index: 10
-          margin-top: -1px
-          background: #ffffff
-          font-weight: 700
-          .text
-            border-none()
-        .icon
-          display: inline-block
-          vertical-align: top
-          width: 12px
-          height: 12px
-          margin-right: 2px
-          background-size: 12px 12px
-          background-repeat: no-repeat
-          &amp;.decrease
-            bg-image(&apos;decrease_3&apos;)
-          &amp;.discount
-            bg-image(&apos;discount_3&apos;)
-          &amp;.guarantee
-            bg-image(&apos;guarantee_3&apos;)
-          &amp;.invoice
-            bg-image(&apos;invoice_3&apos;)
-          &amp;.special
-            bg-image(&apos;special_3&apos;)
-        .text
-          display: table-cell
-          width: 56px
-          vertical-align: middle //table默认支持垂直居中
-          border-1px(rgba(7, 17, 27, 0.1))
-          font-size: 12px
-    .foods-wrapper
-      flex: 1
-      .title
-        padding-left: 14px
-        height: 26px
-        line-height: 26px
-        border-left: 2px solid #d9dde1
-        font-size: 12px
-        color: rgb(147, 153, 159)
-        background: #f3f5f7
-      .food-item
-        display: flex
-        margin: 18px
-        padding-bottom: 18px
-        border-1px: (rgba(7, 17, 27, 0.1))
-        &amp;:last-child
-          border-none() 
-          margin-bottom: 0
-        .icon
-          flex: 0 0 57px
-          margin-right: 10px
-        .content
-          flex: 1 //flex布局等分剩下空间
-          .name
-            margin: 2px 0 8px 0
-            height: 14px
-            line-height: 14px
-            font-size: 14px
-            color: rgb(7, 17, 27)
-          .desc, .extra
-            line-height: 10px
-            font-size: 10px
-            color: rgb(147, 153, 159)
-          .desc
-            margin-bottom: 8px
-            line-height: 12px
-          .extra
-            .count
-              margin-right: 12px
-          .price
-            font-weight: 700
-            line-height: 24px
-            .now
-              margin-right: 8px
-              font-size: 14px
-              color: rgb(240, 20, 20)
-            .old
-              text-decoration: line-through
-              font-size: 10px
-              color: rgb(240, 20, 20)
-        .cartcontrol-wrapper
-            position: absolute
-            right: 0
-            bottom: 12px   
-&lt;/style&gt;
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -3161,7 +3409,7 @@ export default{ //导出到当前vue文件内使用
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3174,7 +3422,7 @@ export default{ //导出到当前vue文件内使用
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
