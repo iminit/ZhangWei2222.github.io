@@ -248,6 +248,473 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/vue的v-if与v-show/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/09/vue的v-if与v-show/" itemprop="url">vue的v-if与v-show</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:55:02+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-共同点"><a href="#1-共同点" class="headerlink" title="1.共同点"></a>1.共同点</h3><p>都是动态显示DOM元素</p>
+<h3 id="2-区别"><a href="#2-区别" class="headerlink" title="2.区别"></a>2.区别</h3><p>（1）手段：v-if是动态的向DOM树内添加或者删除DOM元素；v-show是通过设置DOM元素的display样式属性控制显隐；</p>
+<p>（2）编译过程：v-if切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；v-show只是简单的基于css切换；</p>
+<p>（3）编译条件：v-if是惰性的，如果初始条件为假，则什么也不做；只有在条件第一次变为真时才开始局部编译（编译被缓存？编译被缓存后，然后再切换的时候进行局部卸载); v-show是在任何条件下（首次条件是否为真）都被编译，然后被缓存，而且DOM元素保留；</p>
+<p>（4）性能消耗：v-if有更高的切换消耗；v-show有更高的初始渲染消耗；</p>
+<p>（5）使用场景：v-if适合运营条件不大可能改变；v-show适合频繁切换。</p>
+<h3 id="Tips："><a href="#Tips：" class="headerlink" title="Tips："></a>Tips：</h3><p>（1）如果v-show作用的元素，css文件中display:none，通过v-show进行设置不能显示该元素；<br>原因：v-show控制显隐，是通过js代码去修改元素的element style，如果value为false，设置display: none;如果value为true，设置display: ‘’；于是value为true时，只能将element style中的display效果清除，并不能覆盖css中的display效果；<br>如下图所示，value=true时，v-show改变的是element.style，由于无效，显示效果由css文件中的display决定。</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/605230-20160422103435320-1044614315.png" alt=""></p>
+<h3 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h3><p>使用v-show的话，在vue解析之前隐藏DOM的话，尽量在style属性里面设置display的值，不要在css文件中。</p>
+<pre><code>&lt;ul v-touch:tap=&quot;message=2&quot; style=&quot;display: none&quot; v-show=&quot;show&quot;&gt;
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/shopcart-list购物车列表页/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/09/shopcart-list购物车列表页/" itemprop="url">shopcart-list购物车列表页</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:54:36+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>需要使用better-scroll进行列表内容滚动绑定</li>
+</ul>
+<ul>
+<li>使用vue2的transition动画过渡处理动画</li>
+</ul>
+<ul>
+<li><p>使用子组件cartcontrol处理购物车的添加删除操作cartcontrol.vue购物车操作按钮</p>
+<pre><code>&lt;!--transition是vue2的动画格式--&gt;
+&lt;transition name=&quot;fold&quot;&gt; 
+    &lt;div class=&quot;shopcart-list&quot; v-show=&quot;listShow&quot;&gt;
+        &lt;div class=&quot;list-header&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;list-content&quot; ref=&quot;listContent&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/transition&gt;
+</code></pre></li>
+</ul>
+<h2 id="购物车详情内容shopcart-list"><a href="#购物车详情内容shopcart-list" class="headerlink" title="购物车详情内容shopcart-list"></a>购物车详情内容shopcart-list</h2><p>一共有两块,list-header,list-content,这是根据设计稿内容确定的</p>
+<h3 id="list-header"><a href="#list-header" class="headerlink" title="list-header"></a>list-header</h3><p>绑定清空按钮</p>
+<pre><code>&lt;div class=&quot;list-header&quot;&gt;
+            &lt;h1 class=&quot;title&quot;&gt;购物车&lt;/h1&gt;
+            &lt;!--绑定empty方法清空购物车内容--&gt;
+            &lt;span class=&quot;empty&quot; @click=&quot;empty&quot;&gt;清空&lt;/span&gt;
+&lt;/div&gt;
+</code></pre><p>通过设置selectFoods里面所有数据的count为0来实现清空的目的</p>
+<pre><code>empty() { //清空购物车内容
+        this.selectFoods.forEach((food) =&gt; {
+          food.count = 0;
+        });
+      },
+</code></pre><h3 id="list-content"><a href="#list-content" class="headerlink" title="list-content"></a>list-content</h3><p>这里也分开两部分来说:</p>
+<p>第一部分:</p>
+<ul>
+<li>使用ref来绑定一个dom,然后被vue使用,ref=”listContent”,这是为了将list-content的dom被使用,然后实例化better-scroll实现滚动list的效果</li>
+</ul>
+<ul>
+<li>购物车的清单是通过遍历selectFoods数组(通过父组件goods处理并传入goods.vue)得到的,v-for=”food in selectFoods”</li>
+</ul>
+<ul>
+<li>shopcart-list本身也有一个渐入渐出的动画</li>
+</ul>
+<ul>
+<li>list-content本身没有高度,是靠header和content撑开</li>
+</ul>
+<p>第二部分:</p>
+<ul>
+<li>复用子组件cartcontrol,因为这个子组件在购物车内容和购物车详情页的列表里都有使用,所以单独独立出来,复用代码 <cartcontrol @add="addFood" :food="food"></cartcontrol></li>
+</ul>
+<ul>
+<li>子组件cartcontrol会有2个动画,一个动画是他自己本身的水平滚动,一个是动画是要跟shopcart关联的抛物线滚动cartcontrol.vue购物车操作按钮</li>
+<li><p>代码部分:<br>html代码</p>
+<pre><code>&lt;!--ref是用来给better-scroll绑定的dom--&gt;
+&lt;div class=&quot;list-content&quot; ref=&quot;listContent&quot;&gt;
+  &lt;ul&gt;
+  &lt;!--遍历selectFoods获得被勾选的所有数据--&gt;
+    &lt;li class=&quot;food&quot; v-for=&quot;food in selectFoods&quot;&gt;
+      &lt;span class=&quot;name&quot;&gt;{{food.name}}&lt;/span&gt;
+      &lt;div class=&quot;price&quot;&gt;
+        &lt;span&gt;￥{{food.price * food.count}}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;!--购物车详情列表里面的购物车按钮组件cartcontrol--&gt;
+      &lt;div class=&quot;cartcontrol-wrapper&quot;&gt;
+        &lt;cartcontrol @add=&quot;addFood&quot; :food=&quot;food&quot;&gt;&lt;/cartcontrol&gt;
+      &lt;/div&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre></li>
+</ul>
+<h3 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h3><pre><code>import BScroll from &apos;better-scroll&apos;; //导入better-scroll
+import cartcontrol from &apos;../../components/cartcontrol/cartcontrol&apos;; //导入cartcontrol组件
+
+export default{ //导出到当前vue文件内使用
+  props: { //父组件goods传入数据
+    selectFoods: { //被勾选的所有foods的数据
+      type: Array, //默认值类型
+      default(){ //默认值,并且vue的data数据是一个函数写法实现的
+        return [
+          {}
+        ];
+      }
+    },
+  },
+  data(){
+    return {
+      fold: true // 控制购物车折叠效果的标志,默认是true代表折叠
+    }
+  },
+  computed: {
+    totalCount(){ //在这里被用来判断购物车是否有东西
+      let count = 0;
+      this.selectFoods.forEach((food) =&gt; {
+        count += food.count;
+      })
+      return count;
+    },
+    listShow(){ //购物车是否展示内部列表处理
+      if (!this.totalCount) { //判断没有数量的情况
+        this.fold = true; //折叠属性设置为true,即折叠起来,主要是更新fold的状态
+        return false; //返回false是给v-show使用,false会display none
+      }
+      let show = !this.fold; //使用fold的状态取反来实现常用的切换状态处理逻辑
+       if (show) { //展示购物车列表内容
+        this.$nextTick(() =&gt; { //异步处理,提高体验,防止卡顿
+          if (!this.scroll) { //如果没有绑定过better-scroll就绑定一个
+          //用$refs来绑定vue的dom元素
+            this.scroll = new BScroll(this.$refs.listContent, {
+              click: true //让better-scroll将click事件也传递
+            });
+          } else { //使用better-scroll的内置事件refresh直接更新绑定,不用重新实例化一次better-scroll
+            this.scroll.refresh();
+          }
+        });
+      }
+      return show; //返回布尔值给v-show使用
+    }
+  },
+  methods: {
+    toggleList(){ //封装一个方法来控制购物车列表的显示
+      if (!this.totalCount) {
+        return;
+      }
+      this.fold = !this.fold; //切换状态的处理
+    },
+  },
+  components: {
+    cartcontrol //注册cartcontrol组件,以便当前vue文件能够调用
+  }
+</code></pre><p>css代码</p>
+<pre><code>@import &quot;../../common/stylus/mixin.styl&quot;
+
+   .shopcart-list
+      position: absolute //因为需要固定在app主界面的底部(非footer)
+      left: 0
+      top: 0
+      z-index: -1 //因为要避免遮挡footer的图标
+      width: 100%
+      transform: translate3d(0, -100%, 0) //设置css方式的vue动画初始值,纵坐标的-100%是指相反方向的当前元素的100%高度,这是&quot;入&quot;
+      &amp;.fold-enter-active, &amp;.fold-leave-active //shopcart-list的渐入渐出动画,这是&quot;渐&quot;
+        transition: all 0.5s //全部元素0.5秒过渡变化
+      &amp;.fold-enter, &amp;.fold-leave-active // 这是&quot;出&quot;
+        transform: translate3d(0, 0, 0) //3d变形
+      .list-header
+        height: 40px 
+        line-height: 40px
+        padding: 0 18px
+        background: #f3f5f7
+        border-bottom: 1px solid rgba(7, 17, 27, 0.1)
+        .title
+          float: left
+          font-size: 14px
+          color: rgb(7, 17, 27)
+        .empty
+          float: right
+          font-size: 12px
+          color: rgb(0, 160, 220)
+
+      .list-content
+        padding: 0 18px
+        max-height: 217px //因为不固定高度,所以用max-height
+        overflow: hidden //要实现滚动,就要隐藏超出部分
+        background: #fff
+        .food
+          position: relative
+          padding: 12px 0
+          box-sizing: border-box
+          border-1px(rgba(7, 17, 27, 0.1))//要处理1px边框问题,引入mixin.styl
+          .name
+            line-height: 24px
+            font-size: 14px
+            color: rgb(7, 17, 27)
+          .price
+            position: absolute
+            right: 90px
+            bottom: 12px
+            line-height: 24px
+            font-size: 14px
+            font-weight: 700
+            color: rgb(240, 20, 20)
+          .cartcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom: 6px
+</code></pre><h2 id="购物车遮罩list-mask"><a href="#购物车遮罩list-mask" class="headerlink" title="购物车遮罩list-mask"></a>购物车遮罩list-mask</h2><pre><code>&lt;!--购物车详情页的遮罩并且动画处理--&gt;
+&lt;transition name=&quot;fade&quot;&gt;
+  &lt;div class=&quot;list-mask&quot; @click=&quot;hideList&quot; v-show=&quot;listShow&quot;&gt;&lt;/div&gt;
+&lt;/transition&gt;
+</code></pre><hr>
+<pre><code>hideList() { //遮罩隐藏
+        this.fold = true;
+      },
+</code></pre><ul>
+<li>遮罩的动画是普通的渐隐渐现,使用css3实现</li>
+</ul>
+<ul>
+<li>只需要操作数据属性就能够实现</li>
+</ul>
+<ul>
+<li>遮罩的层级是跟shopcart-list同级的,是因为同一层</li>
+</ul>
+<ul>
+<li><p>遮罩触发会放到shopcart组件的content元素,使用的方法是toggleList</p>
+<pre><code>.list-mask //遮罩的样式
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 40
+  backdrop-filter: blur(10px) //遮罩虚化
+  opacity: 1
+  background: rgba(7, 17, 27, 0.6)
+  &amp;.fade-enter-active, &amp;.fade-leave-active //遮罩动画
+    transition: all 0.5s
+  &amp;.fade-enter, &amp;.fade-leave-active
+    opacity: 0
+    background: rgba(7, 17, 27, 0)
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/cartcontrol-vue购物车操作按钮/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3475,399 +3942,6 @@ function padLeftZero(str){
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/Vue2-0组件之间通信/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/09/Vue2-0组件之间通信/" itemprop="url">Vue2.0组件之间通信</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:49:38+08:00">
-                2017-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>App.vue
-
-&lt;template&gt;
-  &lt;div id=&quot;app&quot;&gt;
-
-  &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-export default {
-  name: &apos;app&apos;,
-}
-&lt;/script&gt;
-
-&lt;style&gt;
-
-&lt;/style&gt;
-</code></pre><h3 id="一-我们先来创建中央事件总线，在src-assets-下创建一个eventBus-js-内容如下"><a href="#一-我们先来创建中央事件总线，在src-assets-下创建一个eventBus-js-内容如下" class="headerlink" title="一 .我们先来创建中央事件总线，在src/assets/下创建一个eventBus.js,内容如下"></a>一 .我们先来创建中央事件总线，在src/assets/下创建一个eventBus.js,内容如下</h3><pre><code>import Vue from &apos;Vue&apos;
-
-export default new Vue
-</code></pre><blockquote>
-<p>eventBus中我们只创建了一个新的Vue实例，以后它就承担起了组件之间通信的桥梁了，也就是中央事件总线。</p>
-</blockquote>
-<h3 id="二-创建一个firstChild组件，引入eventBus这个事件总线，接着添加一个按钮并绑定一个点击事件"><a href="#二-创建一个firstChild组件，引入eventBus这个事件总线，接着添加一个按钮并绑定一个点击事件" class="headerlink" title="二 . 创建一个firstChild组件，引入eventBus这个事件总线，接着添加一个按钮并绑定一个点击事件"></a>二 . 创建一个firstChild组件，引入eventBus这个事件总线，接着添加一个按钮并绑定一个点击事件</h3><pre><code>&lt;template&gt;
-    &lt;div id=&quot;firstChild&quot;&gt;
-        &lt;h2&gt;firstChild组件&lt;/h2&gt;
-        &lt;button @click=&quot;sendMsg&quot;&gt;向组件传值&lt;/button&gt;
-    &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-import bus from &apos;../assets/eventBus&apos;
-
-export default {
-    methods:{
-        sendMsg:function(){
-            bus.$emit(&quot;userDefinedEvent&quot;,&quot;this message is from firstChild&quot;)
-        }
-    }
-}
-&lt;/script&gt;
-
-&lt;style&gt;
-
-&lt;/style&gt;
-</code></pre><blockquote>
-<p>我们在响应点击事件的sendMsg函数中用$emit触发了一个自定义的userDefinedEvent事件，并传递了一个字符串参数<br>PS:$emit实例方法触发当前实例(这里的当前实例就是bus)上的事件,附加参数都会传给监听器回调。</p>
-</blockquote>
-<h3 id="三-我们再创建一个secondChild组件，引入eventBus事件总线，并用一个p标签来显示传递过来的值"><a href="#三-我们再创建一个secondChild组件，引入eventBus事件总线，并用一个p标签来显示传递过来的值" class="headerlink" title="三 . 我们再创建一个secondChild组件，引入eventBus事件总线，并用一个p标签来显示传递过来的值"></a>三 . 我们再创建一个secondChild组件，引入eventBus事件总线，并用一个p标签来显示传递过来的值</h3><pre><code>&lt;template&gt;
-    &lt;div id=&quot;secondChild&quot;&gt;
-        &lt;h2&gt;secondChild组件&lt;/h2&gt;
-        &lt;p&gt;从firstChild接收的字符串参数：{{msg}}&lt;/p&gt;
-    &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-import bus from &apos;../assets/eventBus&apos;
-
-export default {
-    data(){
-        return{
-            msg:&quot;默认值&quot;
-        }
-    },
-    mounted(){
-        var self = this
-        bus.$on(&quot;userDefinedEvent&quot;,function(msg){
-            self.msg = msg
-        })
-    }
-}
-&lt;/script&gt;
-
-&lt;style&gt;
-
-&lt;/style&gt;
-</code></pre><blockquote>
-<p>我们在mounted中，监听了userDefinedEvent,并把传递过来的字符串参数传递给了$on监听器的回调函数<br>PS:<br>mounted:是一个Vue生命周期中的钩子函数，简单点说就类似于jquery的ready，Vue会在文档加载完毕后调用mounted函数。<br>$on:监听当前实例上的自定义事件(此处当前实例为bus)。事件可以由$emit触发，回调函数会接收所有传入事件触发函数($emit)的额外参数。</p>
-</blockquote>
-<h3 id="四-在父组件中，注册这两个组件，并添加这两个组件的标签"><a href="#四-在父组件中，注册这两个组件，并添加这两个组件的标签" class="headerlink" title="四 . 在父组件中，注册这两个组件，并添加这两个组件的标签"></a>四 . 在父组件中，注册这两个组件，并添加这两个组件的标签</h3><pre><code>App.vue
-&lt;template&gt;
-  &lt;div id=&quot;app&quot;&gt;
-    &lt;firstChild&gt;&lt;/firstChild&gt;
-    &lt;secondChild&gt;&lt;/secondChild&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-import firstChild from &apos;./components/firstChild&apos;
-import secondChild from &apos;./components/secondChild&apos;
-export default {
-  name: &apos;app&apos;,
-  components:{
-    firstChild,
-    secondChild
-  }
-}
-&lt;/script&gt;
-
-&lt;style&gt;
-
-&lt;/style&gt;
-</code></pre><h3 id="保存所有修改的文件，然后打开浏览器窗口，内容如下-css请自行处理"><a href="#保存所有修改的文件，然后打开浏览器窗口，内容如下-css请自行处理" class="headerlink" title="保存所有修改的文件，然后打开浏览器窗口，内容如下(css请自行处理)"></a>保存所有修改的文件，然后打开浏览器窗口，内容如下(css请自行处理)</h3><p><img src="http://oncweb6po.bkt.clouddn.com/1916203-08aff10cb88ecc45.png" alt=""></p>
-<h3 id="点击向组件传值按钮，我们可以看到传值成功"><a href="#点击向组件传值按钮，我们可以看到传值成功" class="headerlink" title="点击向组件传值按钮，我们可以看到传值成功"></a>点击向组件传值按钮，我们可以看到传值成功</h3><p><img src="http://oncweb6po.bkt.clouddn.com/1916203-96aa0f4902fe8d63.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/Vue2-0子父组件通信/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/09/Vue2-0子父组件通信/" itemprop="url">Vue2.0子父组件通信</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:45:18+08:00">
-                2017-09-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="http://oncweb6po.bkt.clouddn.com/111.png" alt=""></p>
-<p>###一.父组件向子组件传值</p>
-<ol>
-<li>创建子组件，在src/components/文件夹下新建一个Child.vue</li>
-<li>Child.vue的中创建props，然后创建一个名为message的属性</li>
-</ol>
-<p><img src="http://oncweb6po.bkt.clouddn.com/222.png" alt=""></p>
-<p>3.在App.vue中注册Child组件，并在template中加入child标签，标签中添加message属性并赋值</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/333.png" alt=""></p>
-<p>4.保存修改的文件，查看浏览器</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/444.png" alt=""></p>
-<p>5.我们依然可以对message的值进行v-bind动态绑定</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/555.png" alt=""></p>
-<p>此时浏览器中</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/666.png" alt=""></p>
-<blockquote>
-<p>父组件向子组件传值成功<br>总结一下：</p>
-<ul>
-<li>子组件在props中创建一个属性，用以接收父组件传过来的值</li>
-</ul>
-<ul>
-<li>父组件中注册子组件</li>
-</ul>
-<ul>
-<li>在子组件标签中添加子组件props中创建的属性</li>
-</ul>
-<ul>
-<li>把需要传给子组件的值赋给该属性</li>
-</ul>
-</blockquote>
-<h3 id="二-子组件向父组件传值"><a href="#二-子组件向父组件传值" class="headerlink" title="二.子组件向父组件传值"></a>二.子组件向父组件传值</h3><p>1.在子组件中创建一个按钮，给按钮绑定一个点击事件</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/777.png" alt=""></p>
-<p>2.在响应该点击事件的函数中使用$emit来触发一个自定义事件，并传递一个参数</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/888.png" alt=""></p>
-<p>3.在父组件中的子标签中监听该自定义事件并添加一个响应该事件的处理方法</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/999.png" alt=""></p>
-<p>4.保存修改的文件，在浏览器中点击按钮</p>
-<p><img src="http://oncweb6po.bkt.clouddn.com/1010.png" alt=""></p>
-<blockquote>
-<p>子组件向父组件传值成功<br>总结一下：</p>
-<ul>
-<li>子组件中需要以某种方式例如点击事件的方法来触发一个自定义事件</li>
-</ul>
-<ul>
-<li>将需要传的值作为$emit的第二个参数，该值将作为实参传给响应自定义事件的方法</li>
-</ul>
-<ul>
-<li>在父组件中注册子组件并在子组件标签上绑定对自定义事件的监听</li>
-</ul>
-</blockquote>
-<p><strong>在通信中，无论是子组件向父组件传值还是父组件向子组件传值，他们都有一个共同点就是有中间介质，子向父的介质是自定义事件，父向子的介质是props中的属性。抓准这两点对于父子通信就好理解了</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3918,7 +3992,7 @@ export default {
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3931,7 +4005,7 @@ export default {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

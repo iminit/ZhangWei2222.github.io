@@ -248,6 +248,399 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/Vue2-0组件之间通信/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/09/Vue2-0组件之间通信/" itemprop="url">Vue2.0组件之间通信</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:49:38+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>App.vue
+
+&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: &apos;app&apos;,
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+
+&lt;/style&gt;
+</code></pre><h3 id="一-我们先来创建中央事件总线，在src-assets-下创建一个eventBus-js-内容如下"><a href="#一-我们先来创建中央事件总线，在src-assets-下创建一个eventBus-js-内容如下" class="headerlink" title="一 .我们先来创建中央事件总线，在src/assets/下创建一个eventBus.js,内容如下"></a>一 .我们先来创建中央事件总线，在src/assets/下创建一个eventBus.js,内容如下</h3><pre><code>import Vue from &apos;Vue&apos;
+
+export default new Vue
+</code></pre><blockquote>
+<p>eventBus中我们只创建了一个新的Vue实例，以后它就承担起了组件之间通信的桥梁了，也就是中央事件总线。</p>
+</blockquote>
+<h3 id="二-创建一个firstChild组件，引入eventBus这个事件总线，接着添加一个按钮并绑定一个点击事件"><a href="#二-创建一个firstChild组件，引入eventBus这个事件总线，接着添加一个按钮并绑定一个点击事件" class="headerlink" title="二 . 创建一个firstChild组件，引入eventBus这个事件总线，接着添加一个按钮并绑定一个点击事件"></a>二 . 创建一个firstChild组件，引入eventBus这个事件总线，接着添加一个按钮并绑定一个点击事件</h3><pre><code>&lt;template&gt;
+    &lt;div id=&quot;firstChild&quot;&gt;
+        &lt;h2&gt;firstChild组件&lt;/h2&gt;
+        &lt;button @click=&quot;sendMsg&quot;&gt;向组件传值&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import bus from &apos;../assets/eventBus&apos;
+
+export default {
+    methods:{
+        sendMsg:function(){
+            bus.$emit(&quot;userDefinedEvent&quot;,&quot;this message is from firstChild&quot;)
+        }
+    }
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+
+&lt;/style&gt;
+</code></pre><blockquote>
+<p>我们在响应点击事件的sendMsg函数中用$emit触发了一个自定义的userDefinedEvent事件，并传递了一个字符串参数<br>PS:$emit实例方法触发当前实例(这里的当前实例就是bus)上的事件,附加参数都会传给监听器回调。</p>
+</blockquote>
+<h3 id="三-我们再创建一个secondChild组件，引入eventBus事件总线，并用一个p标签来显示传递过来的值"><a href="#三-我们再创建一个secondChild组件，引入eventBus事件总线，并用一个p标签来显示传递过来的值" class="headerlink" title="三 . 我们再创建一个secondChild组件，引入eventBus事件总线，并用一个p标签来显示传递过来的值"></a>三 . 我们再创建一个secondChild组件，引入eventBus事件总线，并用一个p标签来显示传递过来的值</h3><pre><code>&lt;template&gt;
+    &lt;div id=&quot;secondChild&quot;&gt;
+        &lt;h2&gt;secondChild组件&lt;/h2&gt;
+        &lt;p&gt;从firstChild接收的字符串参数：{{msg}}&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import bus from &apos;../assets/eventBus&apos;
+
+export default {
+    data(){
+        return{
+            msg:&quot;默认值&quot;
+        }
+    },
+    mounted(){
+        var self = this
+        bus.$on(&quot;userDefinedEvent&quot;,function(msg){
+            self.msg = msg
+        })
+    }
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+
+&lt;/style&gt;
+</code></pre><blockquote>
+<p>我们在mounted中，监听了userDefinedEvent,并把传递过来的字符串参数传递给了$on监听器的回调函数<br>PS:<br>mounted:是一个Vue生命周期中的钩子函数，简单点说就类似于jquery的ready，Vue会在文档加载完毕后调用mounted函数。<br>$on:监听当前实例上的自定义事件(此处当前实例为bus)。事件可以由$emit触发，回调函数会接收所有传入事件触发函数($emit)的额外参数。</p>
+</blockquote>
+<h3 id="四-在父组件中，注册这两个组件，并添加这两个组件的标签"><a href="#四-在父组件中，注册这两个组件，并添加这两个组件的标签" class="headerlink" title="四 . 在父组件中，注册这两个组件，并添加这两个组件的标签"></a>四 . 在父组件中，注册这两个组件，并添加这两个组件的标签</h3><pre><code>App.vue
+&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;firstChild&gt;&lt;/firstChild&gt;
+    &lt;secondChild&gt;&lt;/secondChild&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import firstChild from &apos;./components/firstChild&apos;
+import secondChild from &apos;./components/secondChild&apos;
+export default {
+  name: &apos;app&apos;,
+  components:{
+    firstChild,
+    secondChild
+  }
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+
+&lt;/style&gt;
+</code></pre><h3 id="保存所有修改的文件，然后打开浏览器窗口，内容如下-css请自行处理"><a href="#保存所有修改的文件，然后打开浏览器窗口，内容如下-css请自行处理" class="headerlink" title="保存所有修改的文件，然后打开浏览器窗口，内容如下(css请自行处理)"></a>保存所有修改的文件，然后打开浏览器窗口，内容如下(css请自行处理)</h3><p><img src="http://oncweb6po.bkt.clouddn.com/1916203-08aff10cb88ecc45.png" alt=""></p>
+<h3 id="点击向组件传值按钮，我们可以看到传值成功"><a href="#点击向组件传值按钮，我们可以看到传值成功" class="headerlink" title="点击向组件传值按钮，我们可以看到传值成功"></a>点击向组件传值按钮，我们可以看到传值成功</h3><p><img src="http://oncweb6po.bkt.clouddn.com/1916203-96aa0f4902fe8d63.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/09/09/Vue2-0子父组件通信/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhangWei2222">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/person.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZhangWei2222">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/09/Vue2-0子父组件通信/" itemprop="url">Vue2.0子父组件通信</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T17:45:18+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://oncweb6po.bkt.clouddn.com/111.png" alt=""></p>
+<p>###一.父组件向子组件传值</p>
+<ol>
+<li>创建子组件，在src/components/文件夹下新建一个Child.vue</li>
+<li>Child.vue的中创建props，然后创建一个名为message的属性</li>
+</ol>
+<p><img src="http://oncweb6po.bkt.clouddn.com/222.png" alt=""></p>
+<p>3.在App.vue中注册Child组件，并在template中加入child标签，标签中添加message属性并赋值</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/333.png" alt=""></p>
+<p>4.保存修改的文件，查看浏览器</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/444.png" alt=""></p>
+<p>5.我们依然可以对message的值进行v-bind动态绑定</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/555.png" alt=""></p>
+<p>此时浏览器中</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/666.png" alt=""></p>
+<blockquote>
+<p>父组件向子组件传值成功<br>总结一下：</p>
+<ul>
+<li>子组件在props中创建一个属性，用以接收父组件传过来的值</li>
+</ul>
+<ul>
+<li>父组件中注册子组件</li>
+</ul>
+<ul>
+<li>在子组件标签中添加子组件props中创建的属性</li>
+</ul>
+<ul>
+<li>把需要传给子组件的值赋给该属性</li>
+</ul>
+</blockquote>
+<h3 id="二-子组件向父组件传值"><a href="#二-子组件向父组件传值" class="headerlink" title="二.子组件向父组件传值"></a>二.子组件向父组件传值</h3><p>1.在子组件中创建一个按钮，给按钮绑定一个点击事件</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/777.png" alt=""></p>
+<p>2.在响应该点击事件的函数中使用$emit来触发一个自定义事件，并传递一个参数</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/888.png" alt=""></p>
+<p>3.在父组件中的子标签中监听该自定义事件并添加一个响应该事件的处理方法</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/999.png" alt=""></p>
+<p>4.保存修改的文件，在浏览器中点击按钮</p>
+<p><img src="http://oncweb6po.bkt.clouddn.com/1010.png" alt=""></p>
+<blockquote>
+<p>子组件向父组件传值成功<br>总结一下：</p>
+<ul>
+<li>子组件中需要以某种方式例如点击事件的方法来触发一个自定义事件</li>
+</ul>
+<ul>
+<li>将需要传的值作为$emit的第二个参数，该值将作为实参传给响应自定义事件的方法</li>
+</ul>
+<ul>
+<li>在父组件中注册子组件并在子组件标签上绑定对自定义事件的监听</li>
+</ul>
+</blockquote>
+<p><strong>在通信中，无论是子组件向父组件传值还是父组件向子组件传值，他们都有一个共同点就是有中间介质，子向父的介质是自定义事件，父向子的介质是props中的属性。抓准这两点对于父子通信就好理解了</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/24/flex布局/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2067,773 +2460,6 @@ module.exports = {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/stylus/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/18/stylus/" itemprop="url">stylus</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:27:12+08:00">
-                2017-08-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、选择器"><a href="#一、选择器" class="headerlink" title="一、选择器"></a>一、选择器</h1><h3 id="1-使用缩排和凹排代替花括号-以及"><a href="#1-使用缩排和凹排代替花括号-以及" class="headerlink" title="(1).使用缩排和凹排代替花括号{以及}"></a>(1).使用缩排和凹排代替花括号{以及}</h3><pre><code>body
-  color white
-
-body {
-  color: #fff;
-}
-
-body
-  color: white
-</code></pre><h3 id="2-允许你使用逗号为多个选择器同时定义属性"><a href="#2-允许你使用逗号为多个选择器同时定义属性" class="headerlink" title="(2).允许你使用逗号为多个选择器同时定义属性"></a>(2).允许你使用逗号为多个选择器同时定义属性</h3><pre><code>textarea, input
-  border 1px solid #eee
-
-textarea,
-input {
-  border: 1px solid #eee;
-}
-</code></pre><blockquote>
-<p>唯一的例外就是长得像属性的选择器。例如，下面的foo bar baz可能是个属性或者是选择器。</p>
-</blockquote>
-<pre><code>foo bar baz
-&gt; input
-  border 1px solid
-</code></pre><blockquote>
-<p>为解决这个原因，我们可以在尾部加个逗号：</p>
-</blockquote>
-<pre><code>foo bar baz,
-form input,
-&gt; a
-  border 1px solid
-</code></pre><h3 id="3-字符-amp-指向父选择器。"><a href="#3-字符-amp-指向父选择器。" class="headerlink" title="(3).字符&amp;指向父选择器。"></a>(3).字符&amp;指向父选择器。</h3><pre><code>textarea
-input
-  color #A7A7A7
-  &amp;:hover
-    color #000
-
-textarea,
-input {
-  color: #a7a7a7;
-}
-textarea:hover,
-input:hover {
-  color: #000;
-}
-</code></pre><h3 id="4-unquote-处理Stylus无法处理的属性值"><a href="#4-unquote-处理Stylus无法处理的属性值" class="headerlink" title="(4).unquote()  处理Stylus无法处理的属性值"></a>(4).unquote()  处理Stylus无法处理的属性值</h3><pre><code>filter unquote(&apos;progid:DXImageTransform.Microsoft.BasicImage(rotation=1)&apos;)
-
-filter progid:DXImageTransform.Microsoft.BasicImage(rotation=1)
-</code></pre><h1 id="二、变量"><a href="#二、变量" class="headerlink" title="二、变量"></a>二、变量</h1><h3 id="1-可以指定表达式为变量，然后在我们的样式中贯穿使用"><a href="#1-可以指定表达式为变量，然后在我们的样式中贯穿使用" class="headerlink" title="(1).可以指定表达式为变量，然后在我们的样式中贯穿使用"></a>(1).可以指定表达式为变量，然后在我们的样式中贯穿使用</h3><pre><code>font-size = 14px
-body
-  font font-size Arial, sans-seri
-
-body {
-  font: 14px Arial, sans-serif;
-}
-</code></pre><h3 id="2-变量甚至可以组成一个表达式列表"><a href="#2-变量甚至可以组成一个表达式列表" class="headerlink" title="(2).变量甚至可以组成一个表达式列表"></a>(2).变量甚至可以组成一个表达式列表</h3><pre><code>font-size = 14px
-font = font-size &quot;Lucida Grande&quot;, Arial
-body
-  font font sans-serif
-
-body {
-  font: 14px &quot;Lucida Grande&quot;, Arial sans-serif;
-}
-</code></pre><h3 id="3-不需要分配值给变量就可以定义引用属性。"><a href="#3-不需要分配值给变量就可以定义引用属性。" class="headerlink" title="(3).不需要分配值给变量就可以定义引用属性。"></a>(3).不需要分配值给变量就可以定义引用属性。</h3><pre><code>#logo
-  position: absolute
-  top: 50%
-  left: 50%
-  width: 150px
-  height: 80px
-  margin-left: -(@width / 2)
-  margin-top: -(@height / 2)
-</code></pre><h1 id="三、插值"><a href="#三、插值" class="headerlink" title="三、插值"></a>三、插值</h1><p>通过使用{}字符包围表达式来插入值，其会变成标识符的一部分。</p>
-<pre><code>table
-  for row in 1 2 3 4 5
-    tr:nth-child({row})
-      height: 10px * row
-
-table tr:nth-child(1) {
-  height: 10px;
-}
-table tr:nth-child(2) {
-  height: 20px;
-}
-table tr:nth-child(3) {
-  height: 30px;
-}
-table tr:nth-child(4) {
-  height: 40px;
-}
-table tr:nth-child(5) {
-  height: 50px;
-}
-</code></pre><h1 id="四、运算符"><a href="#四、运算符" class="headerlink" title="四、运算符"></a>四、运算符</h1><h3 id="1-当在属性值内使用-时候，你必须用括号包住。"><a href="#1-当在属性值内使用-时候，你必须用括号包住。" class="headerlink" title="(1).当在属性值内使用/时候，你必须用括号包住。"></a>(1).当在属性值内使用/时候，你必须用括号包住。</h3><pre><code>font: (14px/1.5);
-</code></pre><h3 id="2"><a href="#2" class="headerlink" title="(2)."></a>(2).</h3><h1 id="五、Mixins-混合书写"><a href="#五、Mixins-混合书写" class="headerlink" title="五、Mixins 混合书写"></a>五、Mixins 混合书写</h1><p>混入和函数定义方法一致，但是应用却大相径庭。</p>
-<blockquote>
-<p>下面有定义的border-radius(n)方法，其却作为一个mixin（如，作为状态调用，而非表达式）调用。</p>
-<p>当border-radius()选择器中调用时候，属性会被扩展并复制在选择器中。</p>
-</blockquote>
-<pre><code>border-radius(n)
-  -webkit-border-radius n
-  -moz-border-radius n
-  border-radius 
-form input[type=button]
-  border-radius(5px)
-
-编译成：
-form input[type=button] {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-
-注意到我们混合书写中的border-radius当作了属性，而不是一个递归函数调用
-
-border-radius()
-  -webkit-border-radius arguments
-  -moz-border-radius arguments
-  border-radius arguments
-</code></pre><h1 id="六、方法"><a href="#六、方法" class="headerlink" title="六、方法"></a>六、方法</h1><h3 id="1-返回值"><a href="#1-返回值" class="headerlink" title="(1).返回值"></a>(1).返回值</h3><pre><code>很简单的例子，两数值相加的方法：
-
-add(a, b)
-  a + b
-我们可以在特定条件下使用该方法，如在属性值中：
-
-body 
-  padding add(10px, 5)
-
-渲染：
-body {
-  padding: 15px;
-}
-</code></pre><h3 id="2-默认参数"><a href="#2-默认参数" class="headerlink" title="(2).默认参数"></a>(2).默认参数</h3><p>可选参数往往有个默认的给定表达。在Stylus中，我们甚至可以超越默认参数。</p>
-<pre><code>例如：
-add(a, b = a)
-  a + b
-
-add(10, 5)
-// =&gt; 15
-
-add(10)
-// =&gt; 20
-
-注意：因为参数默认是赋值，我们可可以使用函数调用作为默认值。
-
-add(a, b = unit(a, px))
-  a + b
-</code></pre><h3 id="3-函数体"><a href="#3-函数体" class="headerlink" title="(3).函数体"></a>(3).函数体</h3><p>通过内置unit()把单位都变成px, 因为赋值在每个参数上，因此，我们可以无视单位换算。</p>
-<pre><code>add(a, b = a)
-  a = unit(a, px)
-  b = unit(b, px)
-  a + b
-
-add(15%, 10deg)
-// =&gt; 25
-</code></pre><h3 id="4-变量函数"><a href="#4-变量函数" class="headerlink" title="(4).变量函数"></a>(4).变量函数</h3><p>我们可以把函数当作变量传递到新的函数中。例如，invoke()接受函数作为参数，因此，我们可以传递add()以及sub().</p>
-<pre><code>invoke(a, b, fn)
-  fn(a, b)
-
-add(a, b)
-  a + b
-
-body
-  padding invoke(5, 10, add)
-  padding invoke(5, 10, sub)
-
-结果：
-body {
-  padding: 15;
-  padding: -5;
-}
-</code></pre><h3 id="5-参数"><a href="#5-参数" class="headerlink" title="(5).参数"></a>(5).参数</h3><pre><code>arguments是所有函数体都有的局部变量，包含传递的所有参数。
-
-例如：
-sum()
-  n = 0
-  for num in arguments
-    n = n + num
-
-sum(1,2,3,4,5)
-// =&gt; 15
-</code></pre><h1 id="七、关键字"><a href="#七、关键字" class="headerlink" title="七、关键字"></a>七、关键字</h1><p>Stylus支持关键字参数，或”kwargs”. 允许你根据相关参数名引用参数。</p>
-<pre><code>body {
-  color: rgba(255, 200, 100, 0.5);
-  color: rgba(red: 255, green: 200, blue: 100, alpha: 0.5);
-  color: rgba(alpha: 0.5, blue: 100, red: 255, 200);
-  color: rgba(alpha: 0.5, blue: 100, 255, 200);
-}
-等同于：
-body {
-   color: rgba(255,200,100,0.5);
-   color: rgba(255,200,100,0.5);
-   color: rgba(255,200,100,0.5);
-   color: rgba(255,200,100,0.5);
-}
-</code></pre><p>查看函数或混合书写中接受的参数，可以使用p()方法。</p>
-<pre><code>p(rgba)
-生成：
-inspect: rgba(red, green, blue, alpha)
-</code></pre><h1 id="八、内置方法"><a href="#八、内置方法" class="headerlink" title="八、内置方法"></a>八、内置方法</h1><p>Stylus支持name…形式的其余参数。这些参数可以消化传递给混写或函数的参数们。这在处理浏览器私有属性，如-moz或-webkit的时候很管用。</p>
-<pre><code>box-shadow()
-  -webkit-box-shadow arguments
-  -moz-box-shadow arguments
-  box-shadow arguments
-
-body
-  box-shadow #ddd 1px 1px, #eee 2px 2px
-
-body {
-  -webkit-box-shadow: #ddd 1px 1px, #eee 2px 2px;
-  -moz-box-shadow: #ddd 1px 1px, #eee 2px 2px;
-  box-shadow: #ddd 1px 1px, #eee 2px 2px;
-}
-</code></pre><h1 id="九、注释"><a href="#九、注释" class="headerlink" title="九、注释"></a>九、注释</h1><p>Stylus支持三种注释，单行注释，多行注释，以及多行缓冲注释。</p>
-<h3 id="1-单行注释"><a href="#1-单行注释" class="headerlink" title="(1).单行注释"></a>(1).单行注释</h3><p>跟JavaScript一样，双斜杠，CSS中不输出。</p>
-<pre><code>// 我是注释!
-body
-  padding 5px // 蛋疼的padding
-</code></pre><h3 id="2-多行注释"><a href="#2-多行注释" class="headerlink" title="(2).多行注释"></a>(2).多行注释</h3><p>多行注释看起来有点像CSS的常规注释。然而，它们只有在compress选项未启用的时候才会被输出。</p>
-<pre><code>/*
- * 给定数值合体
- */
-
-add(a, b)
-      a + b
-</code></pre><h3 id="3-多行缓冲注释"><a href="#3-多行缓冲注释" class="headerlink" title="(3).多行缓冲注释"></a>(3).多行缓冲注释</h3><p>跟多行注释类似，不同之处在于开始的时候，这里是/*!. 这个相当于告诉Stylus压缩的时候这段无视直接输出。</p>
-<pre><code>/*!
- * 给定数值合体
- */
-
-add(a, b)
-  a + b
-</code></pre><h1 id="十、条件"><a href="#十、条件" class="headerlink" title="十、条件"></a>十、条件</h1><h1 id="十一、迭代"><a href="#十一、迭代" class="headerlink" title="十一、迭代"></a>十一、迭代</h1><h1 id="十二、-import"><a href="#十二、-import" class="headerlink" title="十二、@import"></a>十二、@import</h1><h1 id="十三、-media"><a href="#十三、-media" class="headerlink" title="十三、@media"></a>十三、@media</h1><pre><code>@media print
-  #header
-  #footer
-    display none
-
-生成为：
-@media print {
-  #header,
-  #footer {
-    display: none;
-  }
-}
-</code></pre><h1 id="十四、-font-face"><a href="#十四、-font-face" class="headerlink" title="十四、@font-face"></a>十四、@font-face</h1><pre><code>@font-face
-  font-family Geo
-  font-style normal
-  src url(fonts/geo_sans_light/GensansLight.ttf)
-
-.ingeo
-  font-family Geo
-生成为：
-@font-face {
-  font-family: Geo;
-  font-style: normal;
-  src: url(&quot;fonts/geo_sans_light/GensansLight.ttf&quot;);
-}
-.ingeo {
-  font-family: Geo;
-}
-</code></pre><h1 id="十五、-keyframes"><a href="#十五、-keyframes" class="headerlink" title="十五、@keyframes"></a>十五、@keyframes</h1><pre><code>@keyframes pulse
-0%
-  background-color red
-  opacity 1.0
-  -webkit-transform scale(1.0) rotate(0deg)
-33%
-  background-color blue
-  opacity 0.75
-  -webkit-transform scale(1.1) rotate(-5deg)
-67%
-  background-color green
-  opacity 0.5
-  -webkit-transform scale(1.1) rotate(5deg)
-100%
-  background-color red
-  opacity 1.0
-  -webkit-transform scale(1.0) rotate(0deg)
-生成为：
-@-webkit-keyframes pulse {
-  0% {
-  background-color: red;
-  opacity: 1;
-    -webkit-transform: scale(1) rotate(0deg);
-  }
-
-  33% {
-    background-color: blue;
-    opacity: 0.75;
-    -webkit-transform: scale(1.1) rotate(-5deg);
-  }
-
-  67% {
-    background-color: green;
-    opacity: 0.5;
-    -webkit-transform: scale(1.1) rotate(5deg);
-  }
-
-  100% {
-    background-color: red;
-    opacity: 1;
-    -webkit-transform: scale(1) rotate(0deg);
-  }
-
-}
-</code></pre><h1 id="十六、-extend"><a href="#十六、-extend" class="headerlink" title="十六、@extend"></a>十六、@extend</h1><pre><code>message,
-.warning {
-  padding: 10px;
-  border: 1px solid #eee;
-}
-
-.warning {
-  color: #E2E21E;
-}
-
-.message {
-  padding: 10px;
-  border: 1px solid #eee;
-}
-
-.warning {
-  @extend .message;
-  color: #E2E21E;
-}
-</code></pre><h1 id="十七、url"><a href="#十七、url" class="headerlink" title="十七、url()"></a>十七、url()</h1><h1 id="十八、字面量css"><a href="#十八、字面量css" class="headerlink" title="十八、字面量css"></a>十八、字面量css</h1><p>如果遇到Stylus搞不定的特殊需求，你可以使用@css使其作为CSS字面量解决之。</p>
-<pre><code>@css {
-  body {
-    font: 14px;
-  }
-}
-编译为：
-body {
-  font: 14px;
-}
-</code></pre><h1 id="十九、CSS样式解析"><a href="#十九、CSS样式解析" class="headerlink" title="十九、CSS样式解析"></a>十九、CSS样式解析</h1><p>支持css,stylus</p>
-<h1 id="二十、使用"><a href="#二十、使用" class="headerlink" title="二十、使用"></a>二十、使用</h1><pre><code>#npm -g stylus
-
-在.styl文件夹中 stylus &lt;demo.styl&gt; demo.css
-stylus -w demo.styl -o demo.css
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://super-wei.xyz/2017/08/18/jquery-四-动画篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZhangWei2222">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/person.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZhangWei2222">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/18/jquery-四-动画篇/" itemprop="url">jquery(四)动画篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T12:26:35+08:00">
-                2017-08-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="1-jQuery中隐藏元素的hide方法"><a href="#1-jQuery中隐藏元素的hide方法" class="headerlink" title="1.jQuery中隐藏元素的hide方法"></a>1.jQuery中隐藏元素的hide方法</h1><pre><code>.hide( options )
-.hide(&quot;fast / slow&quot;)
-</code></pre><p>隐藏有动画效果</p>
-<h1 id="2-jQuery中显示元素的show方法"><a href="#2-jQuery中显示元素的show方法" class="headerlink" title="2.jQuery中显示元素的show方法"></a>2.jQuery中显示元素的show方法</h1><pre><code>.hide( options )
-.hide(&quot;fast / slow&quot;)
-</code></pre><p><strong>注意事项：</strong></p>
-<p>如果使用!important在你的样式中，比如display: none !important，如果你希望.show()方法正常工作，必须使用.css(‘display’, ‘block !important’)重写样式</p>
-<h1 id="3-jQuery中显示与隐藏切换toggle方法"><a href="#3-jQuery中显示与隐藏切换toggle方法" class="headerlink" title="3.jQuery中显示与隐藏切换toggle方法"></a>3.jQuery中显示与隐藏切换toggle方法</h1><pre><code>toggle();
-toggle( [duration ] [, complete ] )
-</code></pre><ol>
-<li>如果元素是最初显示，它会被隐藏</li>
-</ol>
-<ol>
-<li>如果隐藏的，它会显示出来</li>
-</ol>
-<h1 id="4-jQuery中下拉动画slideDown"><a href="#4-jQuery中下拉动画slideDown" class="headerlink" title="4.jQuery中下拉动画slideDown"></a>4.jQuery中下拉动画slideDown</h1><p>.slideDown()：用滑动动画显示一个匹配元素</p>
-<p>.slideDown( [duration ] [, complete ] )</p>
-<p>持续时间（duration）是以毫秒为单位的，数值越大，动画越慢，不是越快。字符串 ‘fast’ 和 ‘slow’ 分别代表200和600毫秒的延时。如果提供任何其他字符串，或者这个duration参数被省略，那么默认使用400 毫秒的延时。</p>
-<pre><code>具体使用：
-$(&quot;ele&quot;).slideDown(1000, function() {
-    //等待动画执行1秒后,执行别的动作....
-});
-</code></pre><h1 id="5-jQuery中上卷动画slideUp"><a href="#5-jQuery中上卷动画slideUp" class="headerlink" title="5.jQuery中上卷动画slideUp"></a>5.jQuery中上卷动画slideUp</h1><pre><code>$(&quot;elem&quot;).slideUp();
-
-.slideUp( [duration ] [, easing ] [, complete ] )
-</code></pre><p>因为动画是异步的，所以要在动画之后执行某些操作就必须要写到回调函数里面，这里要特别注意</p>
-<h1 id="6-jQuery中上卷下拉切换slideToggle"><a href="#6-jQuery中上卷下拉切换slideToggle" class="headerlink" title="6.jQuery中上卷下拉切换slideToggle"></a>6.jQuery中上卷下拉切换slideToggle</h1><pre><code>slideToggle();
-.slideToggle( [duration ] ,[ complete ] )
-</code></pre><h1 id="7-jQuery中淡出动画fadeOut"><a href="#7-jQuery中淡出动画fadeOut" class="headerlink" title="7.jQuery中淡出动画fadeOut"></a>7.jQuery中淡出动画fadeOut</h1><pre><code>.fadeOut( [duration ], [ complete ] )
-</code></pre><h1 id="8-jQuery中淡入动画fadeIn"><a href="#8-jQuery中淡入动画fadeIn" class="headerlink" title="8.jQuery中淡入动画fadeIn"></a>8.jQuery中淡入动画fadeIn</h1><pre><code>.fadeIn( [duration ], [ complete ] )
-</code></pre><p>淡入的动画原理：操作元素的不透明度从0%逐渐增加到100%</p>
-<h1 id="9-jQuery中淡入淡出切换fadeToggle"><a href="#9-jQuery中淡入淡出切换fadeToggle" class="headerlink" title="9.jQuery中淡入淡出切换fadeToggle"></a>9.jQuery中淡入淡出切换fadeToggle</h1><pre><code>.fadeToggle( [duration ] ,[ complete ] )
-</code></pre><h1 id="10-jQuery中淡入效果fadeTo"><a href="#10-jQuery中淡入效果fadeTo" class="headerlink" title="10.jQuery中淡入效果fadeTo"></a>10.jQuery中淡入效果fadeTo</h1><pre><code>.fadeTo( duration, opacity ,callback)
-</code></pre><p>相比fadeOut,fadeIn,可以改变透明度</p>
-<h1 id="11-toggle、sildeToggle以及fadeToggle的区别："><a href="#11-toggle、sildeToggle以及fadeToggle的区别：" class="headerlink" title="11.toggle、sildeToggle以及fadeToggle的区别："></a>11.toggle、sildeToggle以及fadeToggle的区别：</h1><ol>
-<li>toggle：切换显示与隐藏效果</li>
-</ol>
-<ol>
-<li>sildeToggle：切换上下拉卷滚效果</li>
-</ol>
-<ol>
-<li>fadeToggle：切换淡入淡出效果</li>
-</ol>
-<h1 id="12-jQuery中动画animate-上"><a href="#12-jQuery中动画animate-上" class="headerlink" title="12.jQuery中动画animate(上)"></a>12.jQuery中动画animate(上)</h1><pre><code>.animate( properties ,[ duration ], [ easing ], [ complete ] )
-</code></pre><p><strong>参数分解：</strong></p>
-<ul>
-<li>properties：一个或多个css属性的键值对所构成的Object对象。要特别注意所有用于动画的属性必须是数字的，除非另有说明；这些属性如果不是数字的将不能使用基本的jQuery功能。比如常见的，border、margin、padding、width、height、font、left、top、right、bottom、wordSpacing等等这些都是能产生动画效果的。background-color很明显不可以，因为参数是red或者GBG这样的值，非常用插件，否则正常情况下是不能只用动画效果的。注意，CSS 样式使用 DOM 名称（比如 “fontSize”）来设置，而非 CSS 名称（比如 “font-size”）。</li>
-</ul>
-<p>特别注意单位，属性值的单位像素（px）,除非另有说明。单位em 和 %需要指定使用</p>
-<pre><code>.animate({
-    left: 50, 
-    width: &apos;50px&apos;   
-    opacity: &apos;show&apos;,  
-    fontSize: &quot;10em&quot;,
-}, 500);
-</code></pre><p>除了定义数值，每个属性能使用’show’, ‘hide’, 和 ‘toggle’。这些快捷方式允许定制隐藏和显示动画用来控制元素的显示或隐藏</p>
-<pre><code>.animate({
-    width: &quot;toggle&quot;
-});
-</code></pre><p>如果提供一个以+= 或 -=开始的值，那么目标值就是以这个属性的当前值加上或者减去给定的数字来计算的</p>
-<pre><code>.animate({ 
-    left: &apos;+=50px&apos;
-}, &quot;slow&quot;);
-</code></pre><ul>
-<li>duration时间<br>动画执行的时间，持续时间是以毫秒为单位的；值越大表示动画执行的越慢，不是越快。还可以提供’fast’ 和 ‘slow’字符串，分别表示持续时间为200 和 600毫秒。</li>
-</ul>
-<ul>
-<li>easing动画运动的算法<br>jQuery库中默认调用 swing。如果需要其他的动画算法，请查找相关的插件</li>
-</ul>
-<ul>
-<li>complete回调<br>动画完成时执行的函数，这个可以保证当前动画确定完成后发会触发</li>
-</ul>
-<h1 id="13-jQuery中动画animate-下"><a href="#13-jQuery中动画animate-下" class="headerlink" title="13.jQuery中动画animate(下)"></a>13.jQuery中动画animate(下)</h1><pre><code>.animate( properties, options )
-</code></pre><p><strong>options参数</strong></p>
-<ul>
-<li>duration - 设置动画执行的时间</li>
-</ul>
-<ul>
-<li>easing - 规定要使用的 easing 函数，过渡使用哪种缓动函数</li>
-</ul>
-<ul>
-<li>step：规定每个动画的每一步完成之后要执行的函数</li>
-</ul>
-<ul>
-<li>progress：每一次动画调用的时候会执行这个回调，就是一个进度的概念</li>
-</ul>
-<ul>
-<li>complete：动画完成回调</li>
-</ul>
-<p>其中最关键的一点就是：</p>
-<blockquote>
-<p>如果多个元素执行动画，回调将在每个匹配的元素上执行一次，不是作为整个动画执行一次</p>
-</blockquote>
-<pre><code>$(&apos;#elem&apos;).animate({
-    width: &apos;toggle&apos;,  
-    height: &apos;toggle&apos;
-  }, {
-    duration: 5000,
-    specialEasing: {
-      width: &apos;linear&apos;,
-      height: &apos;easeOutBounce&apos;
-    },
-    complete: function() {
-      $(this).after(&apos;&lt;div&gt;Animation complete.&lt;/div&gt;&apos;);
-    }
-  });
-</code></pre><h1 id="14-jQuery中停止动画stop"><a href="#14-jQuery中停止动画stop" class="headerlink" title="14.jQuery中停止动画stop"></a>14.jQuery中停止动画stop</h1><ol>
-<li><p>stop()  停止当前动画</p>
-</li>
-<li><p>stop(true)  停止当前执行动画元素的所有动画行为</p>
-</li>
-<li><p>stop(true,true)  停止当前执行动画元素的所有动画行为，并且直接到达动画最后一帧</p>
-</li>
-</ol>
-<h1 id="15-jQuery中each方法的应用"><a href="#15-jQuery中each方法的应用" class="headerlink" title="15.jQuery中each方法的应用"></a>15.jQuery中each方法的应用</h1><p>用来处理对象和数组的遍历</p>
-<pre><code>jQuery.each(array, callback )
-jQuery.each( object, callback )
-</code></pre><hr>
-<pre><code>$.each([&quot;Aaron&quot;, &quot;慕课网&quot;], function(index, value) {
-   //index是索引,也就是数组的索引
-   //value就是数组中的值了
-});
-
-$.each([&quot;Aaron&quot;, &quot;慕课网&quot;], function(index, value) {
-    return false; //停止迭代
-});
-</code></pre><p>例子</p>
-<pre><code>$.each([&apos;Aaron&apos;, &apos;慕课网&apos;], function(i, item) {
-    $aaron.append(&quot;索引=&quot; + i + &quot;; 元素=&quot; + item);
-});
-
-$.each({
-    name: &quot;张三&quot;,
-    age: 18
-}, function(property, value) {
-    $aaron.append(&quot;属性名=&quot; + property + &quot;; 属性值=&quot; + value);
-});
-</code></pre><h1 id="16-jQuery中查找数组中的索引inArray"><a href="#16-jQuery中查找数组中的索引inArray" class="headerlink" title="16.jQuery中查找数组中的索引inArray"></a>16.jQuery中查找数组中的索引inArray</h1><p>jQuery.inArray()函数用于在数组中搜索指定的值，并返回其索引值。如果数组中不存在该值，则返回 -1。，可以通过fromIndex规定查找的起始值，默认数组是0开始。</p>
-<pre><code>jQuery.inArray( value, array ,[ fromIndex ] )
-</code></pre><p>例如：在数组中查找值是5的索引</p>
-<pre><code>$.inArray(5,[1,2,3,4,5,6,7]) //返回对应的索引：4
-</code></pre><p>注意：</p>
-<p>如果要判断数组中是否存在指定值，你需要通过该函数的返回值不等于(或大于)-1来进行判断</p>
-<h1 id="17-jQuery中去空格神器trim方法"><a href="#17-jQuery中去空格神器trim方法" class="headerlink" title="17.jQuery中去空格神器trim方法"></a>17.jQuery中去空格神器trim方法</h1><p>jQuery.trim()函数用于去除字符串两端的空白字符</p>
-<p>这个函数很简单，没有多余的参数用法</p>
-<p>需要注意：</p>
-<ol>
-<li>移除字符串开始和结尾处的所有换行符，空格(包括连续的空格)和制表符（tab）</li>
-</ol>
-<ol>
-<li>如果这些空白字符在字符串中间时，它们将被保留，不会被移除</li>
-</ol>
-<h1 id="18-jQuery中DOM元素的获取get方法"><a href="#18-jQuery中DOM元素的获取get方法" class="headerlink" title="18.jQuery中DOM元素的获取get方法"></a>18.jQuery中DOM元素的获取get方法</h1><pre><code>.get( [index ] )
-
-&lt;a&gt;1&lt;/a&gt;
-&lt;a&gt;2&lt;/a&gt;
-&lt;a&gt;3&lt;/a&gt;
-</code></pre><p><strong>注意2点</strong></p>
-<ol>
-<li>get方法是获取的dom对象，也就是通过document.getElementById获取的对象</li>
-</ol>
-<ol>
-<li>get方法是从0开始索引</li>
-</ol>
-<p>所以第二个a元素的查找： $(a).get(1)</p>
-<p><strong>负索引值参数</strong></p>
-<p>get方法还可以从后往前索引，传递一个负索引值，<strong>注意的负值的索引起始值是-1</strong></p>
-<p>同样是找到第二元素，可以传递 $(a).get(-2) </p>
-<blockquote>
-<p>get方法是获取dom对象，eq方法是获取jq对象.那么js取得的元素后面就必须跟js的方法或者属性，既$().get().style()。而不是$().get().css()。因为style是js独有的方法，而css()是jq独有的方法，get()方法后取得的js元素，它只能识别style()，而不能识别css()。</p>
-</blockquote>
-<h1 id="19-jQuery中DOM元素的获取index方法"><a href="#19-jQuery中DOM元素的获取index方法" class="headerlink" title="19.jQuery中DOM元素的获取index方法"></a>19.jQuery中DOM元素的获取index方法</h1><pre><code>.index()
-.index( selector )
-.index( element )
-</code></pre><ol>
-<li>如果不传递任何参数给 .index() 方法，则返回值就是jQuery对象中第一个元素相对于它同辈元素的位置</li>
-</ol>
-<ol>
-<li>如果在一组元素上调用 .index() ，并且参数是一个DOM元素或jQuery对象， .index() 返回值就是传入的元素相对于原先集合的位置</li>
-</ol>
-<ol>
-<li>如果参数是一个选择器， .index() 返回值就是原先元素相对于选择器匹配元素的位置。如果找不到匹配的元素，则 .index() 返回 -1</li>
-</ol>
-<p>例如</p>
-<pre><code>&lt;ul&gt;
-    &lt;a&gt;&lt;/a&gt;
-    &lt;li id=&quot;test1&quot;&gt;1&lt;/li&gt;
-    &lt;li id=&quot;test2&quot;&gt;2&lt;/li&gt;
-    &lt;li id=&quot;test3&quot;&gt;3&lt;/li&gt;
-&lt;/ul&gt;
-</code></pre><p>$(“li”).index() 没有传递参数，反正的结果是1，它的意思是返回同辈的排列循序，第一个li之前有a元素,同辈元素是a开始为0，所以li的开始索引是1</p>
-<p>如果要快速找到第二个li在列表中的索引,可以通过如下2种方式处理</p>
-<pre><code>$(&quot;li&quot;).index(document.getElementById(&quot;test2&quot;)) //结果：1
-$(&quot;li&quot;).index($(&quot;#test2&quot;))  //结果:1
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2884,7 +2510,7 @@ $(&quot;li&quot;).index($(&quot;#test2&quot;))  //结果:1
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2897,7 +2523,7 @@ $(&quot;li&quot;).index($(&quot;#test2&quot;))  //结果:1
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

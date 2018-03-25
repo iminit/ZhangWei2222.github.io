@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="ZhangWei2222">
 <meta property="og:description" content="什么是跨域？由于浏览器同源策略，凡是发送请求url的协议、域名、端口三者之间任意一个与当前页面地址不同即为跨域。存在跨域的情况：  何谓同源:  URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略: 浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。 从一个域上加载的脚本不允许访问另外一个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-23T03:20:32.586Z">
+<meta property="og:updated_time" content="2018-03-25T14:55:44.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域">
 <meta name="twitter:description" content="什么是跨域？由于浏览器同源策略，凡是发送请求url的协议、域名、端口三者之间任意一个与当前页面地址不同即为跨域。存在跨域的情况：  何谓同源:  URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。 同源策略: 浏览器的同源策略，限制了来自不同源的”document”或脚本，对当前”document”读取或设置某些属性。 从一个域上加载的脚本不允许访问另外一个">
@@ -338,7 +338,10 @@
 <ul>
 <li>域名和域名对应ip,如www.a.com访问20.205.28.90.</li>
 </ul>
-<h1 id="跨域请求资源的方法？"><a href="#跨域请求资源的方法？" class="headerlink" title="跨域请求资源的方法？"></a>跨域请求资源的方法？</h1><h3 id="1-JSONP"><a href="#1-JSONP" class="headerlink" title="1.JSONP"></a>1.JSONP</h3><p>这种方式主要是通过动态插入一个script标签。浏览器对script的资源引用没有同源限制，同时资源加载到页面后会立即执行（没有阻塞的情况下）。</p>
+<h1 id="跨域请求资源的方法？"><a href="#跨域请求资源的方法？" class="headerlink" title="跨域请求资源的方法？"></a>跨域请求资源的方法？</h1><blockquote>
+<p>如果前端，后台一家亲，用CORS，和后台说一声，拿到给的网址即可。<br>如果不是，需要前端解决，则可以用以下的办法</p>
+</blockquote>
+<h3 id="1-JSONP"><a href="#1-JSONP" class="headerlink" title="1.JSONP"></a>1.JSONP</h3><p>这种方式主要是通过动态插入一个script标签。浏览器对script的资源引用没有同源限制，同时资源加载到页面后会立即执行（没有阻塞的情况下）。</p>
 <pre><code>js代码
 &lt;script&gt;  
    var _script = document.createElement(&apos;script&apos;);  
@@ -556,6 +559,10 @@ if (req.headers.origin) {
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/03/25/Vscode中使用Emmet神奇快速编写HTML代码/" rel="prev" title="Vscode中使用Emmet神奇快速编写HTML代码">
+                Vscode中使用Emmet神奇快速编写HTML代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -631,7 +638,7 @@ if (req.headers.origin) {
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -644,7 +651,7 @@ if (req.headers.origin) {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
