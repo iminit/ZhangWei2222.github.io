@@ -8,7 +8,7 @@ subtitle:
 description: Dream High.
 keywords:
 author: Wei Zhang
-language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
@@ -43,20 +43,20 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 10
+  per_page: 5
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
-	webǰ��: web
+	webǰ��: web
 tag_map:
 
 # Date / Time format
@@ -74,7 +74,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: next.w
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -82,3 +82,19 @@ deploy:
   type: git
   repo: https://github.com/ZhangWei2222/ZhangWei2222.github.io.git
   branch: master
+
+symbols_count_time:
+  symbols: true                # 文章字数统计
+  time: true                   # 文章阅读时长
+  total_symbols: true          # 站点总字数统计
+  total_time: true             # 站点总阅读时长
+  exclude_codeblock: false     # 排除代码字数统计
+
+Plugins:
+  - hexo-generator-baidu-sitemap
+  - hexo-generator-sitemap
+
+baidusitemap:
+  path: baidusitemap.xml
+sitemap:
+  path: sitemap.xml
