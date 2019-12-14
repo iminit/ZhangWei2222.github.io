@@ -1,3 +1,12 @@
+---
+title: cors跨域
+date: 2019-11-18 14:43:37
+categories:
+- 浏览器
+tags:
+comments: false
+---
+
 实现 CORS 通信的关键是服务器。只要服务器实现了 CORS 接口，就可以跨源通信，即为了**解决跨域问题**。
 
 ### 请求类型
@@ -28,7 +37,7 @@
 
 三个相关头信息：
 - `Access-Control-Allow-Origin`
-    
+  
     - 该字段是必须的。表示许可范围的域名，通常有两种值：请求时 Origin 字段的值或者 *（星号）表示任意域名。
 - `Access-Control-Allow-Credentials`
     - 该字段可选。布尔值，表示是否允许在 CORS 请求之中发送 `Cookie` 。若不携带 `Cookie` 则不需要设置该字段。
