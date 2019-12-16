@@ -1,5 +1,5 @@
 ---
-title: 设计模式-六大原则
+title: 设计模式-UML类图
 date: 2019-12-13 14:10:47
 categories:
 - 设计模式
