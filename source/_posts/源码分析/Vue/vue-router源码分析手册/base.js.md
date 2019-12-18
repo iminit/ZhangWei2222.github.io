@@ -247,5 +247,147 @@ function formatMatch(record: ?RouteRecord): Array<RouteRecord> {
 
 ### 3. `confirmTransition`确认过渡函数
 
+负责控制所有的路由守卫的执行
 
+```js
+confirmTransition(route: Route, onComplete: Function, onAbort?: Function) {
+    const current = this.current;
+
+    // 中断跳转路由函数
+    const abort = err => {
+      // after merging https://github.com/vuejs/vue-router/pull/2771 we
+      // When the user navigates through history through back/forward buttons
+      // we do not want to throw the error. We only throw it if directly calling
+      // push/replace. That's why it's not included in isError
+      if (!isExtendedError(NavigationDuplicated, err) && isError(err)) {
+        if (this.errorCbs.length) {
+          this.errorCbs.forEach(cb => {
+            cb(err);
+          });
+        } else {
+          warn(false, "uncaught error during route navigation:");
+          console.error(err);
+        }
+      }
+      onAbort && onAbort(err);
+    };
+
+    // 如果是相同 直接返回
+    if (
+      isSameRoute(route, current) &&
+      // in the case the route map has been dynamically appended to
+      route.matched.length === current.matched.length
+    ) {
+      this.ensureURL();
+      return abort(new NavigationDuplicated(route));
+    }
+
+    // 下面分析
+    const { updated, deactivated, activated } = resolveQueue(
+      this.current.matched,
+      route.matched
+    );
+
+    // 下面分析
+    const queue: Array<?NavigationGuard> = [].concat(...);
+
+    // 下面分析
+    const iterator = (hook: NavigationGuard, next) => {
+      // ...
+    };
+
+    // 下面分析
+    runQueue(queue, iterator, () => {
+      // ...
+    });
+  }
+```
+
+
+
+#### 路由守卫的原理
+
+和组件的生命周期的钩子不同，路由守卫将重点放在路由上，**能够控制路由跳转，一般用在页面级别的路由跳转时控制跳转的逻辑**，比如在路由守卫中检查用户是否有进入当前页面的权限，没有则跳转到授权页面，亦或是在离开页面时警告用户有未确认的信息，确认后才能跳转等等
+
+在路由守卫中，一般会接收3个参数，to，from，next，前两个分别是跳转后和跳转前页面路由的 $route 对象，第三个参数 next 是一个函数，当执行 next 函数后会进行跳转，如果一个包含 next 参数的路由守卫里没有执行该函数，**页面会无法跳转**。
+
+#### ` resolveQueue`函数 获取所有需要激活、更新、销毁的路由
+
+```js
+const { updated, deactivated, activated } = resolveQueue(
+  this.current.matched,
+  route.matched
+);
+```
+
+根据跳转前和跳转后的route对象的`matched数组`(当前 $route 对象以及所有父级的路由记录)，返回这2个数组包含的路由记录的区别
+
+```js
+function resolveQueue(
+  current: Array<RouteRecord>,
+  next: Array<RouteRecord>
+): {
+  updated: Array<RouteRecord>,
+  activated: Array<RouteRecord>,
+  deactivated: Array<RouteRecord>
+} {
+  let i;
+  const max = Math.max(current.length, next.length);
+  for (i = 0; i < max; i++) {
+    // 当前路由路径和跳转路由路径不同时跳出遍历
+    if (current[i] !== next[i]) {
+      break;
+    }
+  }
+  return {
+    // 可复用的组件对应路由
+    updated: next.slice(0, i),
+    // 需要渲染的组件对应路由
+    activated: next.slice(i),
+    // 失活的组件对应路由
+    deactivated: current.slice(i)
+  };
+}
+```
+
+
+
+#### `queue`函数 获取所有需要执行的路由守卫
+
+数组中的守卫排列顺序是设计好的，对应vue-router官方文档中提到的路由导航解析流程
+
+1. 导航被触发
+2. 在失活的组件里调用离开守卫
+3. 调用全局的`beforeEach`守卫
+4. 在重用的组件里调用`beforeRouteUpdate`守卫(2.2+)
+5. 在路由配置里调用`beforeEnter`
+6. 解析异步路由组件
+7. 在被激活的组件里调用`beforeRouteEnter`
+8. 调用全局的`beforeResolve`守卫(2.5)
+9. 导航被确认
+10. 调用全局的`afterEach`钩子
+11. 触发DOM更新
+12. 用创建好的实例调用`beforeRouteEnter`守卫中传给`next`的回调函数
+
+```js
+/* NavigationGuard是一个标准的路由守卫的签名，经过 queue 数组内部这些函数的转换最终会返回路由守卫组成的数组
+    declare type NavigationGuard = (
+      to: Route,
+      from: Route,
+      next: (to?: RawLocation | false | Function | void) => void
+    ) => any
+    */
+const queue: Array<?NavigationGuard> = [].concat(
+  // 失活的组件钩子
+  extractLeaveGuards(deactivated),
+  // 全局 beforeEach 钩子
+  this.router.beforeHooks,
+  // 在当前路由改变，但是该组件被复用时调用
+  extractUpdateHooks(updated),
+  // 需要渲染组件 enter 守卫钩子
+  activated.map(m => m.beforeEnter),
+  // 解析异步路由组件
+  resolveAsyncComponents(activated)
+);
+```
 
