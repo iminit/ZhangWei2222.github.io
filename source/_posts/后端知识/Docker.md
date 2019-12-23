@@ -62,13 +62,93 @@ docker images
 
 ### 3. 运行容器
 
+例如：mongoDB
+
+```bash
+$ docker run -itd --name mongo -p 44:27017 mongo --auth
+ee91398c42556c3409fb8e69fc9df52b56678a930e28e65a40ae84b7eca68d53
+
+# 假如提示：
+docker: Error response from daemon: Conflict. The container name "/mongo" is already in use by container "c85def91c800e8dd8d3d05a858cffa0228d41db43651ebbbac4ecd853983afd7". You have to remove (or rename) that container to be able to reuse that name.
+
+# 使用rm删除容器
+$ docker rm mongo
+```
+
+- **-p 27017:27017** ：映射容器服务的 44 端口到宿主机的 27017 端口。外部可以直接通过 宿主机 ip:27017 访问到 mongo 的服务
+- **--auth**：需要密码才能访问容器服务
+
+### 4. 安装成功
+
+通过`docker ps`可以查看容器的运行信息
+
+```bash
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                   NAMES
+ee91398c4255        mongo               "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:44->27017/tcp   mongo
+```
 
 
 
+## Dockerfile 创建镜像
 
-##Dockerfile
+> 用来创建镜像的文本内容，文本内容包含一条条构建镜像所需的指令和说明
 
-创建镜像
+### 简单的案例
+```shell
+$ mkdir Dockerfile
+$ cd Dockerfile/
+$ vi Dockerfile/
+
+# 以下是内容
+FROM nginx
+RUN echo '<h1>hello, docker!</h1>' > /usr/share/nginx/html/index.html
+
+$ docker build -t nginx:test .
+# 查看新建的镜像
+$ docker images
+```
+
+### 常用指令
+
+![img](https://img2018.cnblogs.com/blog/450977/201905/450977-20190512115951746-136143052.png)
+
+- RUN 在 `docker build`时运行
+- CMD 在`docker run` 时运行
+
+```shell
+# 基于centos镜像
+FROM centos
+
+# 维护人的信息
+MAINTAINER The CentOS Project <303323496@qq.com>
+
+# 安装httpd软件包
+RUN yum -y update
+RUN yum -y install httpd
+
+# 开启80端口
+EXPOSE 80
+
+# 复制网站首页文件至镜像中web站点下
+ADD index.html /var/www/html/index.html
+
+# 复制该脚本至镜像中，并修改其权限
+ADD run.sh /run.sh
+RUN chmod 775 /run.sh
+
+# 当启动容器时执行的脚本文件
+CMD ["/run.sh"]
+```
+
+Dockerfile结构大致分为四个部分：
+
+1. 基础镜像信息
+2. 维护者信息
+3. 镜像操作指令
+4. 容器启动时执行指令
+
+更详细的介绍，参考这篇文章：[你必须知道的Dockerfile](https://www.cnblogs.com/edisonchou/p/dockerfile_inside_introduction.html)
 
 
 
@@ -98,7 +178,6 @@ docker images -a                               # 查看所有镜像
 docker rmi <imagename>            # 删除指定的镜像
 
 docker rmi $(docker images -q)             # 删除所有的镜像
-
 
 docker login             # 使用您的 Docker 凭证登录此 CLI 会话
 
