@@ -58,7 +58,7 @@ comments: false
 
 #### 预检请求
 
-```
+```json
 OPTIONS /cors HTTP/1.1
 Origin: http://api.bob.com
 Access-Control-Request-Method: PUT
@@ -78,7 +78,7 @@ User-Agent: Mozilla/5.0...
 #### 预检响应
 
 
-```
+```json 
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: http://api.bob.com
 Access-Control-Allow-Methods: GET, POST, PUT

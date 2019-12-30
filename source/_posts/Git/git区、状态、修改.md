@@ -56,7 +56,7 @@ comments: false
 ![image](https://s11.mogucdn.com/mlcdn/c45406/190731_37a9def9c890ceca88kh1d7501fd3_787x412.png)
 #### 已修改，但未暂存（未git add）
 
-```javascript
+```shell
 git diff 列出所有修改
 git diff [指定文件的修改]
 git checkout . 撤销工作区的所有修改
@@ -67,7 +67,7 @@ git clean -df 撤销新增的未跟踪文件和文件夹
 
 #### 已暂存，未提交（git add了，未git commit）
 
-```javascript
+```shell
 git diff --cached 查看暂存区和本地仓库的差异
 git reset (--soft) 回退到已修改状态，内容还在工作区
 git reset --hard 回退到未修改状态，清空所有的修改
@@ -76,7 +76,7 @@ git reset --hard 回退到未修改状态，清空所有的修改
 #### 已提交，未推送（git commit了，未git push）
 commit后，仓库中会生成版本号(hash值)，标志这次的提交。之后可以按照版本会进行控制
 
-```javascript
+```shell
 git diff [分支1] [分支2] 查看两个分支的差异
 git diff 本地仓库分支名 origin/远程仓库分支名 查看本地仓库和本地远程仓库的差异
 git reset (--soft) 回退到已修改状态，修改还在工作区
@@ -87,7 +87,7 @@ git reset --hard origin/远程仓库分支名 回退到与本地远程仓库一�
 
 #### 已推送到远程
 
-```javascript
+```shell
 git push -f origin 远程仓库分支名（慎用） 强制覆盖远程分支
 git push -f 如果关联过，可以忽略分支名（慎用）
 ```
@@ -96,7 +96,7 @@ git push -f 如果关联过，可以忽略分支名（慎用）
 
 #### 删除
 
-```javascript
+```shell
 rm 物理上的删除，版本库还未删除
 git rm 工作区和版本库都删除了
 git rm --cached 工作区还在，版本库删除了。适用于不想被版本控制的文件
@@ -105,7 +105,7 @@ git rm --cached 工作区还在，版本库删除了。适用于不想被版本�
 
 #### 移动
 
-```javascript
+```shell
 git mv test.txt TEST 把test.txt移到test
 
 实际上执行
@@ -117,7 +117,7 @@ git add TEST
 
 #### 查看版本号
 
-```javascript
+```shell
 git log 查看提交过的版本信息，会有很多信息：作者，时间等。可以加--pretty=oneline，只会显示版本号和commit的内容
 
 git reflog 查看所有的提交记录，包括已经删掉的和reset的操作
@@ -131,7 +131,7 @@ reset作用：改变HEAD的位置，可以改成之前存在的某个版本。�
 
 revert作用：反做。适用于，想撤销某次版本的提交，但不影响后面的版本（revert后会新建一个版本）。比如功能分支合并到主分支，功能分支发现有问题，又不能影响主分支后面的代码，就可以把它revert掉。
 
-```javascript
+```shell
 git revert -n 版本号
 ```
 

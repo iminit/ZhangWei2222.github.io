@@ -13,21 +13,21 @@ comments: false
 - 引入js和css
 
 
-```
+```html
 <link rel="stylesheet" href="css/animate.css">
 
 <script src="js/wow.min.js"></script>
 <script>
-new WOW().init();
+  new WOW().init();
 </script>
 ```
 
 - 在类名加入 wow 和喜欢的动画效果名字
 
 
-```
+```html
 <div class="wow bounceInUp">
-Content to Reveal Here
+  Content to Reveal Here
 </div>
 ```
 

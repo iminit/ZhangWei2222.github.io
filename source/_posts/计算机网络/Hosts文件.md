@@ -24,13 +24,13 @@ Hosts文件是一个没有扩展名的系统文件，主要的作用是定义域
 #### 3.屏蔽网站
 有一些网站会经常给自己安插件，可以把这些网站的域名映射到安全的Ip或者自己的Ip地址上，就不用访问了。
 
-```javascript
+```shell
 127.0.0.1 http://www.baidu.com#屏蔽的网站 
 ```
 
 ### 怎么改host
 
-```javascript
+```shell
 sudo vi /etc/hosts
 ```
 ip在前，域名在后（可多个域名映射一个ip）

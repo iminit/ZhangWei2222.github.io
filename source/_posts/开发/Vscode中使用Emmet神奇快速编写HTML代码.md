@@ -42,7 +42,7 @@ btn:r           => <button type="reset"\></button\>
 - 文本操作符
 
 
-```
+```html
 div{这是一段文本}
 <div>这是一段文本</div> //使用{文字}
 ```

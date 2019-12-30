@@ -24,7 +24,7 @@ comments: false
         - 达到降版本的作用，以及npm也回来啦~
 #### 2.安装Node、Mysql报错
 
-```javascript
+```shell
 问题1
 Error:Directory not empty @ dir_s_rmdir - /usr/local/opt/openssl
 
@@ -34,7 +34,7 @@ brew install openssl
 ```
 
 
-```javascript
+```shell
 问题2
 dyld:Library not loaded:/usr/local/opt/openssl/lib/libssl.1.0.0.dylib
 
@@ -44,7 +44,7 @@ brew install openssl
 ```
 
 
-```javascript
+```shell
 问题3
 If you need to have mysql@5.1 first in your PATH num:
 echo "export PATH='/USR/LOCAL/OPT...'" >> ~/.zshrc

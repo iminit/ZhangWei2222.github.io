@@ -9,12 +9,12 @@ comments: false
 ---
 
 #### 缺少权限
-```javascript
+```shell
 git push ![remote rejected] 分支名->分支名 (pre-receive hook declined) 
 ```
 
 #### 强制Push失败，提示分支被保护
-```javascript
+```shell
 you are not allowed to push code to protected branches on this project
 ```
 

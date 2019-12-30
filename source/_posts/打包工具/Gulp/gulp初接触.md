@@ -15,7 +15,7 @@ comments: false
 
 ## 项目结构
 
-```
+```js
 -dist //打包目录
     -css
         -built.css
@@ -44,17 +44,17 @@ comments: false
 首先在package.json文件中添加项目信息
 
 
-```
+```json
 {
-    "name": "gulp_test",
-    "version": "1.0.0"
+  "name": "gulp_test",
+  "version": "1.0.0"
 }
 ```
 
 ## 引入模块和插件
 ### 1.引入模块
 
-```
+```js
 // gulpfile.js
 var gulp = require('gulp');
 ```
@@ -100,7 +100,7 @@ API
 ### 3.各部分打包代码
 #### stylus css处理
 
-```
+```js
 gulp.task('stylusTask', function () {
   var processor = [
     autoprefixer,
@@ -119,7 +119,7 @@ gulp.task('stylusTask', function () {
 
 #### 打包asset
 
-```
+```js
 gulp.task('copyAsset', function () {
   return gulp.src([
     './src/asset/**/*'
@@ -131,26 +131,26 @@ gulp.task('copyAsset', function () {
 
 #### 打包html
 
-```
+```js
 gulp.task('copyHtml', function () {
   return gulp.src('./src/*.html')
     .pipe(htmlmin({
-        collapseWhitespace:true,
-        collapseBooleanAttributes:true,
-        removeComments:true,
-        removeEmptyAttributes:true,
-        removeScriptTypeAttributes:true,
-        removeStyleLinkTypeAttributes:true,
-        minifyJS:true,
-        minifyCSS:true    
-    }))
+    collapseWhitespace:true,
+    collapseBooleanAttributes:true,
+    removeComments:true,
+    removeEmptyAttributes:true,
+    removeScriptTypeAttributes:true,
+    removeStyleLinkTypeAttributes:true,
+    minifyJS:true,
+    minifyCSS:true    
+  }))
     .pipe(gulp.dest('./dist'))
 })
 ```
 
 #### 打包css
 
-```
+```js
 gulp.task('cssTask', ['stylusTask'], function () {
   return gulp.src('./src/css/built.css')
     .pipe(gulp.dest('./dist/css'))
@@ -162,7 +162,7 @@ gulp.task('cssTask', ['stylusTask'], function () {
 
 #### 打包js
 
-```
+```js
 gulp.task('jsTask', function () {
   return gulp.src('./src/js/*.js')
     .pipe(concat('built.js')) //合并到临时文件夹
@@ -175,22 +175,22 @@ gulp.task('jsTask', function () {
 
 #### 打包图片
 
-```
+```js
 gulp.task('copyImages', function () {
   return gulp.src('./src/images/*')
     .pipe(imagemin({
-      optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
-      progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
-      interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
-      multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
-    }))
+    optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+    progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
+    interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
+    multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
+  }))
     .pipe(gulp.dest('./dist/images'))
 })
 ```
 
 #### 热加载
 
-```
+```js
 gulp.task('reload', function () {
   return gulp.src('src/*.html')
     .pipe(connect.reload())
@@ -205,7 +205,7 @@ gulp.task('server', function () {
 });
 ```
 
-```
+```js
 gulp.task('auto', function() {
   gulp.watch('src/stylus/*.styl', ['stylusTask']);
   gulp.watch('src/css/*.css', ['reload'])
@@ -216,7 +216,7 @@ gulp.task('auto', function() {
 
 #### 执行任务
 
-```
+```js
 gulp.task('default', ['server', 'auto']);
 
 gulp.task('product', ['cssTask', 'copyHtml', 'copyImages', 'jsTask', 'copyAsset', 'copyImages'])
@@ -224,7 +224,7 @@ gulp.task('product', ['cssTask', 'copyHtml', 'copyImages', 'jsTask', 'copyAsset'
 
 #### 完整代码
 
-```
+```js
 // /*
 // * gulp-concat : 合并文件(js/css)
 // * gulp-rename : 文件重命名
@@ -309,15 +309,15 @@ gulp.task('copyAsset', function () {
 gulp.task('copyHtml', function () {
   return gulp.src('./src/*.html')
     .pipe(htmlmin({
-        collapseWhitespace:true,
-        collapseBooleanAttributes:true,
-        removeComments:true,
-        removeEmptyAttributes:true,
-        removeScriptTypeAttributes:true,
-        removeStyleLinkTypeAttributes:true,
-        minifyJS:true,
-        minifyCSS:true    
-    }))
+    collapseWhitespace:true,
+    collapseBooleanAttributes:true,
+    removeComments:true,
+    removeEmptyAttributes:true,
+    removeScriptTypeAttributes:true,
+    removeStyleLinkTypeAttributes:true,
+    minifyJS:true,
+    minifyCSS:true    
+  }))
     .pipe(gulp.dest('./dist'))
 })
 
@@ -344,11 +344,11 @@ gulp.task('jsTask', function () {
 gulp.task('copyImages', function () {
   return gulp.src('./src/images/*')
     .pipe(imagemin({
-      optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
-      progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
-      interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
-      multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
-    }))
+    optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+    progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
+    interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
+    multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
+  }))
     .pipe(gulp.dest('./dist/images'))
 })
 

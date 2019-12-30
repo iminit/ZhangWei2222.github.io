@@ -14,7 +14,7 @@ Pixi是一个超快的2D渲染引擎。
 需要在你项目的根目录运行一个web服务器
 #### 安装http-server
 
-```
+```js
 npm install http-server -g
 ```
 
@@ -27,7 +27,7 @@ Pixi的主要发布页面中获取最新版本。
 
 #### 测试用
 
-```
+```html
 <!doctype html>
 <html>
 <head>
@@ -51,7 +51,7 @@ Pixi的主要发布页面中获取最新版本。
 
 如果Pixi连接成功，一些这样的东西会在你的浏览器控制台里显示：
 
-```
+```js
 PixiJS 4.4.5 - * canvas * http://www.pixijs.com/  ♥♥♥
 ```
 
@@ -59,7 +59,7 @@ PixiJS 4.4.5 - * canvas * http://www.pixijs.com/  ♥♥♥
 ### 创建Pixi应用和 舞台
 
 
-```
+```js
 //Create a Pixi Application
 let app = new PIXI.Application({width: 256, height: 256});
 
@@ -73,7 +73,7 @@ document.body.appendChild(app.view);
 PIXI.Application算出了应该使用Canvas还是WebGL去渲染图象，它取决于你正在使用的浏览器支持哪一个。
 
 
-```
+```js
 let app = new PIXI.Application({
     width: 256,         // default: 800
     height: 256,        // default: 600
@@ -89,7 +89,7 @@ Pixi的画布对象将会默认选择WebGL引擎渲染模式，但是如果你�
 forceCanvas: true,
 
 
-```
+```js
 app.renderer.backgroundColor = 0x061639;  //改变背景颜色
 
 app.renderer.autoResize = true; //确认宽高的格式正确
@@ -116,31 +116,31 @@ Pixi拥有一个精灵类来创建游戏精灵。有三种主要的方法来创�
 Pixi强大的loader对象可以加载任何你需要种类的图像资源。
 
 
-```
+```js
 PIXI.loader
   .add([
-    "images/imageOne.png",
-    "images/imageTwo.png",
-    "images/imageThree.png"
-  ])
+  "images/imageOne.png",
+  "images/imageTwo.png",
+  "images/imageThree.png"
+])
   .load(setup);
 ```
 
 
 #### 显示精灵
 
-```
+```js
 app.stage.addChild(cat);
 
 //Create a Pixi Application
 let app = new PIXI.Application({
-    width: 256,
-    height: 256,                       
-    antialias: true,
-    transparent: false,
-    resolution: 1
-  }
-);
+  width: 256,
+  height: 256,                       
+  antialias: true,
+  transparent: false,
+  resolution: 1
+}
+                              );
 
 //Add the canvas that Pixi automatically created for you to the HTML document
 document.body.appendChild(app.view);
@@ -167,7 +167,7 @@ anySprite.visible = false;
 #### 使用别名
 来看看怎么将所有的Pixi对象和方法改成别名之后，来重写加载和显示图像的代码。
 
-```
+```js
 //Aliases
 let Application = PIXI.Application,
     loader = PIXI.loader,
@@ -176,13 +176,13 @@ let Application = PIXI.Application,
 
 //Create a Pixi Application
 let app = new Application({
-    width: 256,
-    height: 256,                       
-    antialias: true,
-    transparent: false,
-    resolution: 1
-  }
-);
+  width: 256,
+  height: 256,                       
+  antialias: true,
+  transparent: false,
+  resolution: 1
+}
+                         );
 
 //Add the canvas that Pixi automatically created for you to the HTML document
 document.body.appendChild(app.view);
@@ -210,7 +210,7 @@ function setup() {
 Img对象或canvas创建一个精灵
 如果因为某些原因你需要从JavaScript的Image对象之中创建，你可以使用Pixi的BaseTexture和Texture类：
 
-```
+```js
 let base = new PIXI.BaseTexture(anyImageObject),
     texture = new PIXI.Texture(base),
     sprite = new PIXI.Sprite(texture);
@@ -218,13 +218,13 @@ let base = new PIXI.BaseTexture(anyImageObject),
 
 - 你可以使用BaseTexture.fromCanvas从任何已经存在canvas标签中创建纹理：
 
-```
+```js
 let base = new PIXI.BaseTexture.fromCanvas(anyCanvasElement),
 ```
 
 - 如果你想改变已经显示的精灵的纹理，使用texture属性，可以设置任何Texture对象，像下面这样：
 
-```
+```js
 anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
 ```
 
@@ -232,15 +232,15 @@ anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
 
 监视加载进程
 
-```
+```js
 PIXI.loader.on("progress", loadProgressHandler);
 
 PIXI.loader
   .add([
-    "images/one.png",
-    "images/two.png",
-    "images/three.png"
-  ])
+  "images/one.png",
+  "images/two.png",
+  "images/three.png"
+])
   .on("progress", loadProgressHandler)
   .load(setup);
 
@@ -258,10 +258,10 @@ setup
 
 PIXI.loader
   .add([
-    "images/one.png",
-    "images/two.png",
-    "images/three.png"
-  ])
+  "images/one.png",
+  "images/two.png",
+  "images/three.png"
+])
   .on("progress", loadProgressHandler)
   .load(setup);
 
@@ -283,18 +283,18 @@ function setup() {
 }
 loading: images/one.png
 progress: 33.333333333333336%
-loading: images/two.png
+  loading: images/two.png
 progress: 66.66666666666667%
-loading: images/three.png
+  loading: images/three.png
 progress: 100%
-All files loaded
-//resource.error会告诉你有哪些加载时候的错误
+  All files loaded
+  //resource.error会告诉你有哪些加载时候的错误
 ```
 
 
 add 方法有四个基础参数:
 
-```
+```js
 add(name, url, optionObject, callbackFunction)
 ```
 
@@ -315,7 +315,7 @@ add(name, url, optionObject, callbackFunction)
 
 第一个就是文档里所谓的“正常语法”：
 
-```
+```js
 .add('key', 'http://...', function () {})
 .add('http://...', function () {})
 .add('http://...')
@@ -324,7 +324,7 @@ add(name, url, optionObject, callbackFunction)
 
 第二个就是所谓“对象语法”啦：
 
-```
+```js
 .add({
   name: 'key2',
   url: 'http://...'
@@ -350,7 +350,7 @@ add(name, url, optionObject, callbackFunction)
 
 第三个可以给add方法传一个对象的数组，或者既使用对象数组，又使用链式加载：
 
-```
+```js
 .add([
   {name: 'key4', url: 'http://...', onComplete: function () {} },
   {url: 'http://...', onComplete: function () {} },
@@ -363,7 +363,7 @@ add(name, url, optionObject, callbackFunction)
 
 ### 精灵位置
 
-```
+```js
 cat.x = 96;
 cat.y = 96;
 
@@ -373,7 +373,7 @@ sprite.position.set(x, y)
 
 ### 大小和比例
 
-```
+```js
 cat.width = 80;
 cat.height = 120;
 
@@ -385,9 +385,9 @@ cat.scale.set(0.5, 0.5);
 
 ### 旋转
 
-```
+```js
 cat.rotation = 0.5;
-旋转是相对于锚点的，有两种方法设置锚点
+// 旋转是相对于锚点的，有两种方法设置锚点
 cat.anchor.x = 0.5;
 cat.anchor.y = 0.5;
 cat.anchor.set(x, y)
@@ -396,7 +396,7 @@ cat.anchor.set(x, y)
 
 ### 原点
 
-```
+```js
 cat.pivot.set(32, 32)
 ```
 
@@ -407,7 +407,7 @@ anchor改变了精灵纹理的图像原点，用0到1的数据来填充。pivot�
 从精灵图（雪碧图）中创建精灵
 
 
-```
+```js
 loader
   .add("images/tileset.png")
   .load(setup);
@@ -450,7 +450,7 @@ Packer输出的标准纹理贴图集格式。
 如果你正在用免费版的Texture Packer，把 Algorithm 选项设为Basic，把 Trim mode 选项设为None，把 Extrude 选项设为0，把 Size constraints 选项设为 Any size ，把 PNG Opt Level 中所有的东西都滑到左边的 0位置。这就可以使得Texture Packer正常的输出你的纹理贴图集。
 如果你做完了，点击 Publish 按钮。选择输出文件名和存储地址，把生成文件保存起来。你将会获得两个文件：一个叫做treasureHunter.json，另外一个就是treasureHunter.png。为了让目录干净些，我们把他俩都放到一个叫做images的文件夹里面去。（你可以认为那个json文件是图片文件的延伸，所以把他们放进一个文件夹是很有意义的。）那个JSON文件里面写清楚了每一个子图像的名字，大小和位置。下面描述了“泡泡怪”这个怪物的子图像的信息。
 
-```
+```js
 "blob.png":
 {
 	"frame": {"x":55,"y":2,"w":32,"h":24},
@@ -467,7 +467,7 @@ Packer输出的标准纹理贴图集格式。
 #### 加载纹理贴图集
 建议给纹理贴图集的textures对象创建一个叫做id的别名
 
-```
+```js
 let id = PIXI.loader.resources["images/treasureHunter.json"].textures;
 let id = PIXI.loader.resources["images/treasureHunter.json"].textures;
 
@@ -493,31 +493,31 @@ function setup() {
 
 
 let numberOfBlobs = 6,
-      spacing = 48,
-      xOffset = 150;
+    spacing = 48,
+    xOffset = 150;
 
-  //Make as many blobs as there are `numberOfBlobs`
-  for (let i = 0; i < numberOfBlobs; i++) {
+//Make as many blobs as there are `numberOfBlobs`
+for (let i = 0; i < numberOfBlobs; i++) {
 
-    //Make a blob
-    let blob = new Sprite(id["blob.png"]);
+  //Make a blob
+  let blob = new Sprite(id["blob.png"]);
 
-    //Space each blob horizontally according to the `spacing` value.
-    //`xOffset` determines the point from the left of the screen
-    //at which the first blob should be added.
-    let x = spacing * i + xOffset;
+  //Space each blob horizontally according to the `spacing` value.
+  //`xOffset` determines the point from the left of the screen
+  //at which the first blob should be added.
+  let x = spacing * i + xOffset;
 
-    //Give the blob a random y position
-    //(`randomInt` is a custom function - see below)
-    let y = randomInt(0, app.stage.height - blob.height);
+  //Give the blob a random y position
+  //(`randomInt` is a custom function - see below)
+  let y = randomInt(0, app.stage.height - blob.height);
 
-    //Set the blob's position
-    blob.x = x;
-    blob.y = y;
+  //Set the blob's position
+  blob.x = x;
+  blob.y = y;
 
-    //Add the blob sprite to the stage
-    app.stage.addChild(blob);
-  }
+  //Add the blob sprite to the stage
+  app.stage.addChild(blob);
+}
 }
 //The `randomInt` helper function
 function randomInt(min, max) {
@@ -532,7 +532,7 @@ randomInt是一个很好的用来做游戏的工具函数
 
 ### 游戏状态
 
-```
+```js
 //Set the game state
 state = play;
 
@@ -562,7 +562,7 @@ cat.x += 1 + delta;
 ### 键盘移动
 
 
-```
+```js
 function keyboard(keyCode) {
   let key = {};
   key.code = keyCode;
@@ -603,7 +603,7 @@ function keyboard(keyCode) {
 
 用的方法：
 
-```
+```js
 let keyObject = keyboard(asciiKeyCodeNumber);
 keyObject.press = () => {
   //key object pressed
@@ -616,7 +616,7 @@ keyObject.release = () => {
 
 例子
 
-```
+```js
 //Define any variables that are used in more than one function
 let cat, state;
 

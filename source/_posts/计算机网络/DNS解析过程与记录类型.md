@@ -56,7 +56,9 @@ NS记录优先于A记录。即，如果一个主机地址同时存在NS记录和
 #### 6.TXT记录
 为某个主机名或域名设置的说明
 
-    admin IN TXT "jack, mobile:13800138000"；
+```shell
+admin IN TXT "jack, mobile:13800138000"；
+```
 
 #### 7.AAAA记录
 指向IPv6地址的记录。

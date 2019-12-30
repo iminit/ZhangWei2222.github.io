@@ -12,7 +12,7 @@ comments: false
 ## 1.为什么选择这种方法命名呢？
 以往命名的方法是
 
-```
+```html
 html结构
 <div class="main">
     <div class="bigBox">
@@ -53,7 +53,7 @@ block element modifier
 
 对一个组件（拿到设计稿，需要看清哪些可以做成一个个组件），可以这样命名
 
-```
+```html
 <div class="link-btn">
     <span class="link-btn__main-title red"></span>
     <span class="link-btn__sub-title"></span>
@@ -62,18 +62,19 @@ block element modifier
 
 这样在stylus中就可以这样
 
-```
+```stylus
 .link-btn
-    &__main-title
-        &.red
+  &__main-title
+    &.red
     &__sub-title
 ```
 
 编译出来的css就是
 
-```
+```css
 .link-btn{}
 .link-btn__main-title{}
 .link-btn__main-title red{}
 .link-btn__sub-title
 ```
+

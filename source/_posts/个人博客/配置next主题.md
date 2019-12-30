@@ -163,13 +163,13 @@ menu_icons:
 
 #### 生成分类页
 
-```
+```shell
 $ hexo new page categories
 ```
 
 成功后进入文件，打开后默认
 
-```
+```shell
 ---
 title: 文章分类
 date: 2017-05-27 13:47:40
@@ -178,7 +178,7 @@ date: 2017-05-27 13:47:40
 
 添加type
 
-```
+```shell
 ---
 title: 文章分类
 date: 2017-05-27 13:47:40
@@ -192,13 +192,13 @@ type: "categories"
 
 #### 生成标签页
 
-```
+```shell
 $ hexo new page tags
 ```
 
 成功后进入文件，打开后默认
 
-```
+```shell
 ---
 title: 标签
 date: 2017-05-27 13:47:40
@@ -207,7 +207,7 @@ date: 2017-05-27 13:47:40
 
 添加type
 
-```
+```shell
 ---
 title: 分类
 date: 2017-05-27 13:47:40
@@ -219,14 +219,14 @@ type: "tags"
 
 ### 创建 新文章
 
-```
+```shell
 hexo new '文章名'
 ```
 
 打开 scaffolds/post.md
 
 
-```
+```shell
 ---
 title: jQuery对表单的操作及更多应用
 date: 2017-05-26 12:12:57
@@ -270,24 +270,24 @@ social_icons:
 使用方法，新建 404.html 页面，放到主题的 source 目录下，内容如下：
 
 
-```
+```html
 <!DOCTYPE HTML>
 <html>
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8;"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="robots" content="all" />
-  <meta name="robots" content="index,follow"/>
-  <link rel="stylesheet" type="text/css" href="https://qzone.qq.com/gy/404/style/404style.css">
-</head>
-<body>
-  <script type="text/plain" src="http://www.qq.com/404/search_children.js"
-          charset="utf-8" homePageUrl="/"
-          homePageName="回到我的主页">
-  </script>
-  <script src="https://qzone.qq.com/gy/404/data.js" charset="utf-8"></script>
-  <script src="https://qzone.qq.com/gy/404/page.js" charset="utf-8"></script>
-</body>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8;"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="robots" content="all" />
+    <meta name="robots" content="index,follow"/>
+    <link rel="stylesheet" type="text/css" href="https://qzone.qq.com/gy/404/style/404style.css">
+  </head>
+  <body>
+    <script type="text/plain" src="http://www.qq.com/404/search_children.js"
+            charset="utf-8" homePageUrl="/"
+            homePageName="回到我的主页">
+    </script>
+    <script src="https://qzone.qq.com/gy/404/data.js" charset="utf-8"></script>
+    <script src="https://qzone.qq.com/gy/404/page.js" charset="utf-8"></script>
+  </body>
 </html>
 ```
 

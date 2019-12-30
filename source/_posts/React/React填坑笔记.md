@@ -9,14 +9,14 @@ comments: false
 ---
 
  #### 数组循环时缺少unique "key" prop
- ```javascript
+ ```shell
 warning:Each child in an array or iterator should have a unipue "key" prop.check the render method.
  ```
 注意render里的map，需要加key
 
 
 #### videoJs报错
-```javascript
+```shell
 VIDEOJS:ERROR:The "flash" tech is undefined.skipped browser support check for that tech.
 ```
 删除掉playerOptions的配置属性techOrder即可
@@ -25,7 +25,7 @@ VIDEOJS:ERROR:The "flash" tech is undefined.skipped browser support check for th
 #### videoJs与ReactJs冲突报错
 当使用ReactJs和videoJs时，将有两个相同data-reactid属性的元素，但ReactJs只允许唯一data-reactid
 
-```javascript
+```shell
 Uncaught Error:Invaeriant Violation:ReactMount Tow valid but unequal nodes with the same 'data-reactid'
 ```
 在video.js包的js文件中，修改：

@@ -33,21 +33,25 @@ index.html可以打开直接编辑。打开该文件，找到div标签可以看�
 
 文档类的构造函数，即为Egret程序的入口函数，可以观察到入口函数内有一行代码
 
-    this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+```js
+this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+```
 
 这行代码保证了onAddToStage方法执行时，文档类实例已经被添加到舞台中。并且在onAddToStage方法内，this.stage属性已经有效，其指向舞台对象。
 
 # 绘制一个单色背景
 
-    createGameScene方法
-    
-    var bg:egret.Shape = new egret.Shape();
-    
-    bg.graphics.beginFill( 0x336699 );
-    bg.graphics.drawRect( 0, 0, this.stage.stageWidth, this.stage.stageHeight );
-    bg.graphics.endFill();
-    
-    this.addChild( bg );
+```js
+createGameScene方法
+
+var bg:egret.Shape = new egret.Shape();
+
+bg.graphics.beginFill( 0x336699 );
+bg.graphics.drawRect( 0, 0, this.stage.stageWidth, this.stage.stageHeight );
+bg.graphics.endFill();
+
+this.addChild( bg );
+```
 
 egret.Shape对象有图形绘制功能，Shape对象中有graphic属性，用来专门负责图形绘制的工作。
 
@@ -72,27 +76,33 @@ fixedWidth模式下会保持原始宽高比缩放内容，缩放后应用程序�
 
 # 显示文字
 
-    var tx:egret.TextField = new egret.TextField();
-    tx.text = "I'm Jack, I will use Egret create a fantasy mobile game!";
-    tx.size = 32;
-    this.addChild( tx );
-    tx.x = 20;
-    tx.y = 20;
-    tx.width = this.stage.stageWidth - 40;
+```js
+var tx:egret.TextField = new egret.TextField();
+tx.text = "I'm Jack, I will use Egret create a fantasy mobile game!";
+tx.size = 32;
+this.addChild( tx );
+tx.x = 20;
+tx.y = 20;
+tx.width = this.stage.stageWidth - 40;
+```
 
 # 响应用户操作
 
  在前一节的基础上，我们就对这段文字添加一些响应操作。比如，改变颜色：
 
-    tx.touchEnabled = true;
-    tx.addEventListener( egret.TouchEvent.TOUCH_TAP, this.touchHandler, this );
+```js
+tx.touchEnabled = true;
+tx.addEventListener( egret.TouchEvent.TOUCH_TAP, this.touchHandler, this );
+```
 
 注意，第一行设置touchEnabled为true，意即允许该显示对象响应Touch事件，这是Egret中特别需要注意的问题。因为所有的显示对象，默认都是不响应Touch事件的，这是基于性能考虑，因为打开对这种事件的响应，是对性能有不可忽略的影响的。 其中第二行代码新增一个方法的引用，这就是事件处理函数，我们需要事件处理函数中对用户操作做出对应的反应。 在Main类中，加入如下代码：
 
-    private touchHandler( evt:egret.TouchEvent ):void{
-        var tx:egret.TextField = evt.currentTarget;
-        tx.textColor = 0x00ff00;
-    }
+```js
+private touchHandler( evt:egret.TouchEvent ):void{
+    var tx:egret.TextField = evt.currentTarget;
+    tx.textColor = 0x00ff00;
+}
+```
 
 # 资源加载
 
@@ -106,31 +116,33 @@ Egret的资源加载方式，是以一个资源加载清单为基础的。  如�
 
 通常Egret中的资源加载配置文件位于项目目录的resource文件夹内，取名default.res.json。Egret项目在创建时已经包含该文件。
 
+```js
+{
+  "resources": [
     {
-        "resources": [
-            {
-                "name": "bgImage",
-                "type": "image",
-                "url": "assets/bg.jpg"
-            },
-            {
-                "name": "egretIcon",
-                "type": "image",
-                "url": "assets/egret_icon.png"
-            },
-            {
-                "name": "description",
-                "type": "json",
-                "url": "config/description.json"
-            }
-        ],
-        "groups": [
-            {
-                "name": "preload",
-                "keys": "bgImage,egretIcon"
-            }
-        ]
+      "name": "bgImage",
+      "type": "image",
+      "url": "assets/bg.jpg"
+    },
+    {
+      "name": "egretIcon",
+      "type": "image",
+      "url": "assets/egret_icon.png"
+    },
+    {
+      "name": "description",
+      "type": "json",
+      "url": "config/description.json"
     }
+  ],
+    "groups": [
+      {
+        "name": "preload",
+        "keys": "bgImage,egretIcon"
+      }
+    ]
+}
+```
 
 配置文件中的”resource”我们可以视为资源库，当前游戏使用到的资源都可以放到这里。其中以资源为单位分别列出。每一项资源单位都包含三个属性：
 
@@ -162,10 +174,12 @@ Egret的资源加载方式，是以一个资源加载清单为基础的。  如�
 
 # 显示图片
 
-    var batman:egret.Bitmap = new egret.Bitmap( RES.getRes("hero-01") );
-    batman.x = -30;
-    batman.y = 20;
-    this.addChild( batman );
+```js
+var batman:egret.Bitmap = new egret.Bitmap( RES.getRes("hero-01") );
+batman.x = -30;
+batman.y = 20;
+this.addChild( batman );
+```
 
 显示所需的图片，在Egret对应的类就是Bitmap。 使用Bitmap创建一个图片时，在其构造函数中传入RES载入的资源，这里取得的是一个图片的资源，图片资源通过getRes获得的将是一个Texture对象。 这段代码用01号英雄图片资源创建了一个位图(Bitmap)显示对象，然后设定其坐标。最后添加到显示列表中。
 
@@ -175,11 +189,15 @@ Egret的资源加载方式，是以一个资源加载清单为基础的。  如�
 
 例：获得当前的显示深度
 
-    console.log( "display indexes:", this.getChildIndex( bg ), this.getChildIndex( batman ),  this.getChildIndex( captain ), this.getChildIndex( superman ), this.getChildIndex( hulk ) );
+```js
+console.log( "display indexes:", this.getChildIndex( bg ), this.getChildIndex( batman ),  this.getChildIndex( captain ), this.getChildIndex( superman ), this.getChildIndex( hulk ) );
+```
 
 # 修改显示深度
 
-    this.setChildIndex( batman, this.getChildIndex( captain ) );
+```js
+this.setChildIndex( batman, this.getChildIndex( captain ) );
+```
 
 关于显示深度的规则：
 
@@ -193,11 +211,15 @@ C. 某一容器内的显示列表的深度最大值是显示列表长度-1。
 
 # 交换显示深度
 
-    this.swapChildren( superman, hulk );
+```js
+this.swapChildren( superman, hulk );
+```
 
 # 不可逾越的显示深度最大值
 
-    this.setChildIndex( captain, 20 );
+```js
+this.setChildIndex( captain, 20 );
+```
 
 即使设置成20，但是打印出来的最大值仍然是4
 
@@ -209,11 +231,13 @@ C. 某一容器内的显示列表的深度最大值是显示列表长度-1。
 
 锚点：定位点。锚点自然地包含了两个部分：X方向锚点和Y方向锚点。anchorOffsetX和anchorOffsetY
 
-    例：
-    hulk.anchorOffsetX = 30;
-    hulk.anchorOffsetY = 40;
-    hulk.x += 30;
-    hulk.y += 40;
+```js
+// 例：
+hulk.anchorOffsetX = 30;
+hulk.anchorOffsetY = 40;
+hulk.x += 30;
+hulk.y += 40;
+```
 
 ## 设计并实现一组Tween动画
 

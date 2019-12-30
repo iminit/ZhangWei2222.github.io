@@ -71,15 +71,15 @@ CSRF利用cookie来进行攻击，那么我们可以在请求中添加不可伪�
 
 在客户端和服务端，对用户输入的数据进行转义。常见需要转义的特殊字符如 `<`，`>`，`&`，`"`，`'`。
 
-```
+```js
 function escapeHTML(str) {
-    if (!str) return '';
-    str = str.replace(/&/g, "&amp;");
-    str = str..replace(/</g, "&lt;");
-    str = str..replace(/>/g, "&gt;");
-    str = str..replace(/"/g, "&quot;");
-    str = str..replace(/'/g, "&#39;");
-    return str;
+  if (!str) return '';
+  str = str.replace(/&/g, "&amp;");
+  str = str..replace(/</g, "&lt;");
+  str = str..replace(/>/g, "&gt;");
+  str = str..replace(/"/g, "&quot;");
+  str = str..replace(/'/g, "&#39;");
+  return str;
 };
 ```
 
@@ -93,16 +93,16 @@ function escapeHTML(str) {
 
 1. 通过 HTTP 头信息的 Content-Security-Policy 的字段：
 
-```
+```json
 Content-Security-Policy: script-src 'self';
-                         object-src 'none';
-                         style-src cdn.example.org third-party.org;
-                         child-src https:
+object-src 'none';
+style-src cdn.example.org third-party.org;
+child-src https:
 ```
 
 2. 通过网页的 <meta> 标签
 
-```
+```html
 <meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'none'; style-src cdn.example.org third-party.org; child-src https:">
 ```
 
