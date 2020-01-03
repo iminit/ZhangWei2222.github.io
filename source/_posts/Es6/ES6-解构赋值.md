@@ -2,8 +2,6 @@
 title: ES6-解构赋值
 date: 2019-06-11 19:29:37
 categories:
-- JavaScript
-tags:
 - Es6
 comments: false
 ---

@@ -44,3 +44,27 @@ git config -l
 
 
 
+#### 4. 直接copy库，import后，报错
+
+> Cannot assign to read only property 'exports' of object '#<Object>'
+
+**原因：** 在webpack打包的时候，可以在js文件中混用require和export。但是不能混用import 以及module.exports。因为webpack 2中不允许混用import和module.exports
+
+**解决：** 把库的`index.js` module.exports 改成 export default function...
+
+
+
+#### 5. 在html文件中怎么引入库呢？直接在`script`引入地址会报错
+
+> Uncaught SyntaxError: Cannot use import statement outside a module
+
+**解决：**
+
+```html
+<script type="module">
+  import a from './库/index.js'
+</script>
+
+// 或者 
+<script src='./库/index.js' type="module"></script>
+```

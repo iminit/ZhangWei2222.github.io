@@ -2,8 +2,6 @@
 title:  ES6-新特性
 date: 2019-03-14 15:32:37
 categories:
-- JavaScript
-tags:
 - Es6
 comments: false
 ---

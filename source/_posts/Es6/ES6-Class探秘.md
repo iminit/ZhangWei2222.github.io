@@ -2,8 +2,6 @@
 title:  ES6-Class探秘
 date: 2019-05-27 16:27:37
 categories:
-- JavaScript
-tags:
 - Es6
 comments: false
 ---

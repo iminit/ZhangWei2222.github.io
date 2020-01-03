@@ -9,7 +9,7 @@ comments: false
 
 
 
-### 类数组 arguments 转化数组？
+## 类数组 arguments 转化数组？
 
 `arguments`(类数组) 是一个对象，属性从0开始，依次为1，2，3...有`callee`和`length`属性
 
@@ -17,7 +17,7 @@ comments: false
 - 用`getElementByTagName/ClassName/Name()` 获得的`HTMLCollection`
 - 用`querySlector`获得的`nodeList`
 
-#### 1、`Array.prototype.slice.call()`
+### 1、`Array.prototype.slice.call()`
 
 ```js
 function sum(a, b) {
@@ -27,7 +27,7 @@ function sum(a, b) {
 sum(1, 2) //3
 ```
 
-#### 2、`Array.from()`
+### 2、`Array.from()`
 
 ```js
 function sum(a, b) {
@@ -37,7 +37,7 @@ function sum(a, b) {
 sum(1, 2) //3
 ```
 
-#### 3、`ES6`展开运算符
+### 3、`ES6`展开运算符
 
 ```js
 function sum(a, b) {
@@ -47,7 +47,7 @@ function sum(a, b) {
 sum(1, 2) //3
 ```
 
-#### 4、利用 `concat`+`apply`
+### 4、利用 `concat`+`apply`
 
 ```js
 function sum(a, b) {
@@ -57,11 +57,13 @@ function sum(a, b) {
 sum(1, 2) //3
 ```
 
-#### 5、最原始、粗暴
+### 5、最原始、粗暴
 
 用`for`循环把类数组的每个属性值放到里面
 
-### 怎么中断`forEach`循环？
+
+
+## 怎么中断`forEach`循环？
 
 `forEach`不能中断循环，可以使用以下两种方法：
 
@@ -86,9 +88,11 @@ arr.some(item => {
 }) // 1 2 3 true
 ```
 
-### 判断数组是否包含某个值？
 
-#### 1、`array.indexOf`
+
+## 判断数组是否包含某个值？
+
+### 1、`array.indexOf`
 
 如果存在，返回数组元素的`下标`，否则返回 `-1`
 
@@ -98,7 +102,7 @@ let index = arr.indexOf(3);
 console.log(index); //2
 ```
 
-#### 2、`array.includes`
+### 2、`array.includes`
 
 如果存在，返回`true`，否则返回`false`
 
@@ -110,7 +114,7 @@ else
     console.log('不存在')；
 ```
 
-#### 3、`array.find`
+### 3、`array.find`
 
 返回数组中满足条件的`第一个元素的值`，否则返回`undefined`
 
@@ -122,7 +126,7 @@ let result = arr.find(item => {
 console.log(result); // 4
 ```
 
-#### 4、`array.findIndex`
+### 4、`array.findIndex`
 
 返回数组中满足条件的`第一个元素的下标`，否则返回`-1`
 
@@ -134,26 +138,28 @@ let result = arr.findIndex(item => {
 console.log(result); // 3
 ```
 
-### 数组扁平化 多层数组转化为一级数组？
+
+
+## 数组扁平化 多层数组转化为一级数组？
 
 ```js
 let arr = [1, 2, [3, [4, 5]], 6];
 let str = JSON.stringify(arr);
 ```
 
-#### 1、`ES6`的`flat`方法
+### 1、`ES6`的`flat`方法
 
 ```js
 arr = arr.flat(Infinity); // [1, 2, 3, 4, 5, 6]
 ```
 
-#### 2、`replace`+`split`
+### 2、`replace`+`split`
 
 ```js
 arr = str.replace(/(\[}\])/g,'').split(',')
 ```
 
-#### 3、`replace`+`JSON.parse`
+### 3、`replace`+`JSON.parse`
 
 ```js
 str = str.replace(/(\[}\])/g,'');
@@ -161,7 +167,7 @@ str = '[' + str + ']';
 arr = JSON.parse(str);
 ```
 
-#### 4、普通递归
+### 4、普通递归
 
 ```js
 let result = [];
@@ -177,7 +183,7 @@ let fn = function(ary) {
 }
 ```
 
-#### 5、利用`reduce`函数迭代
+### 5、利用`reduce`函数迭代
 
 ```js
 function flatten(ary) {
@@ -188,7 +194,7 @@ function flatten(ary) {
 console.log(flatten(arr));
 ```
 
-#### 6、扩展运算符
+### 6、扩展运算符
 
 ```js
 while(arr.some(Array.isArray())) {
@@ -196,11 +202,13 @@ while(arr.some(Array.isArray())) {
 }
 ```
 
-### 高阶函数
+
+
+## 高阶函数
 
 > 一个函数可以接收另一个函数作为参数 或 返回值为一个函数
 
-#### 1、map
+### 1、map
 参数
 - 两个参数：回调函数，回调函数的`this`(可选)
     - 回调函数默认传入三个值：依次为 当前元素、当前索引、整个数组
@@ -217,7 +225,7 @@ console.log(newNums); // [7, 10, 13]
 
 ```
 
-#### 2、reduce
+### 2、reduce
 参数
 - 两个参数：回调函数，初始值
     - 回调函数三个默认参数，依次为 积累值、当前值、整个数组
@@ -232,7 +240,7 @@ console.log(newNums); // 6
 
 不传默认值会自动以第一个元素为初始值，然后从第二个元素开始依次累计。
 
-#### 3、filter
+### 3、filter
 参数
 - 一个函数参数
     - 默认参数：当前元素
@@ -245,7 +253,7 @@ let nums = [1, 2, 3];
 let oddNums = nums.filter( item => item % 2);
 ```
 
-#### 4、sort
+### 4、sort
 参数
 - 一个用于比较的函数
     - 两个默认参数：比较的两个元素
@@ -262,9 +270,11 @@ nums.sort(function(a, b) {
 
 如果不传函数，则将数字转换为字符串，根据字母 `unicode值` 进行升序排序
 
-### `JSON.parse()` 与 `JSON.stringfy()`
 
-#### `JSON.parse()`
+
+## `JSON.parse()` 与 `JSON.stringfy()`
+
+### `JSON.parse()`
 
 将JavaScript对象表示法的JSON字符串转换为对象(字符串转对象)
 
@@ -274,7 +284,7 @@ var jsonObj = JSON.parse(jsonStr);
 alert(typeof jsonObj); //Object
 ```
 
-#### `JSON.stringfy()`
+### `JSON.stringfy()`
 
 将 JavaScript json对象转换为JavaScript对象表示法的JSON字符串(对象转为字符串)
 
