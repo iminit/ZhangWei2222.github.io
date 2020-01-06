@@ -6,7 +6,7 @@ categories:
 comments: false
 ---
 
-## UML 类图
+<!-- more -->
 
 #### 1. 继承
 

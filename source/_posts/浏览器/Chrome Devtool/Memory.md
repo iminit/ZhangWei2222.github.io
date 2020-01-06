@@ -31,7 +31,7 @@ Chrome 设置 -> 更多工具 -> 任务管理器 -> 右键任务管理器的表�
 
 ## Memory 面板
 
-![image-20200103095746916](/Users/wei/Library/Application Support/typora-user-images/image-20200103095746916.png)
+![image](https://img.youpin.mi-img.com/jianyu/88815ff8dbe237b4c40a88ae0cfad232.png?w=1920&h=472)
 
 - `Heap snapshot`：打印堆快照，堆快照文件显示页面的 JavaScript 对象和相关 DOM 节点之间的内存分配
 - `Allocation instrumentation on timeline`：在时间轴上记录内存信息，随着时间变化记录内存信息
