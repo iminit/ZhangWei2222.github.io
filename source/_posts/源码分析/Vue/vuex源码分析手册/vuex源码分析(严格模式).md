@@ -21,6 +21,8 @@ const store = new Vuex.Store({
 
 在`Store`类的option中设置`strict`参数为true，严格模式下，所有修改state的操作必须通过mutation实现，否则会抛出错误。
 
+<!-- more -->
+
 ```js
 /* 使用严格模式 */
 function enableStrictMode(store) {

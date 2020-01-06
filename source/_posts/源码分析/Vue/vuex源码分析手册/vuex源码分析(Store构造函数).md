@@ -25,6 +25,8 @@ comments: false
 
 6. 调用插件、devtool
 
+<!-- more -->
+
 ```js
 export class Store {
   constructor(options = {}) {

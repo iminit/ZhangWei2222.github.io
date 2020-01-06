@@ -9,7 +9,10 @@ comments: false
 
 ## MVCC介绍
 #### 1、定义
+
 MVCC（Multi-Version Concurrency Control）：多版本并发控制机制
+
+<!-- more -->
 
 #### 2、与 传统的基于锁的并发控制 的区别
 **读不上锁**：这种特性对于读多写少的场景，大大提高了系统的并发性。大部分关系型数据库都实现了MVCC

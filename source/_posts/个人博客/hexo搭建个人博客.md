@@ -11,6 +11,8 @@ comments: false
 ### 1. 安装Git Bash
 我一直不太喜欢在cmd中操作各种命令，所以挑了这个比较好使的Git Bash, 我的是windows环境，所以下载windows版本并安装就可以了。
 
+<!-- more -->
+
 - 下载地址https://git-for-windows.github.io/
 - 安装步骤：双击下载好的exe文件，一路next就好啦
 - 安装好后，打开gitbash，查看版本：

@@ -17,6 +17,8 @@ comments: false
 - 用`getElementByTagName/ClassName/Name()` 获得的`HTMLCollection`
 - 用`querySlector`获得的`nodeList`
 
+<!-- more -->
+
 ### 1、`Array.prototype.slice.call()`
 
 ```js

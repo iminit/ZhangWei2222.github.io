@@ -12,6 +12,8 @@ comments: false
 
 **nextTick** 的作用： 让回调函数在DOM更新完成后被调用。
 
+<!-- more -->
+
 ```javascript
 举个栗子：
 new Vue({

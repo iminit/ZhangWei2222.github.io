@@ -17,7 +17,7 @@ comments: false
 
 - git pull：相当于是从远程获取最新版本并merge到本地
 
-
+<!-- more -->
 
 ### git merge和git rebase的区别
 

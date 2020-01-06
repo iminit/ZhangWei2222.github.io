@@ -7,7 +7,9 @@ tags:
 comments: false
 ---
 
-## 如何实现随着滚动条滚动加载动画呢
+如何实现随着滚动条滚动加载动画呢？
+<!-- more -->
+
 使用wow.js 和animate.css即可实现随滚动条加载酷炫动画
 
 - 引入js和css

@@ -12,6 +12,8 @@ comments: false
 
 它是一个含使用从0开始，且自然递增的整数做键名，并且定义了length表示元素个数的对象
 
+<!-- more -->
+
 ```js
 var array = ['zhangsan', 'lisi', 'zhaoliu'];
 var arrayLike = {

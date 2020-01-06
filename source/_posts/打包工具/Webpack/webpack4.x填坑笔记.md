@@ -12,6 +12,8 @@ comments: false
 ## 前言
 今天继续迁移一个老的react项目，因为新的脚手架起的是webpack v4.x 版本，而老项目是v1.x 版本，所以配置上有蛮多的改变...在一堆报错中冲出杀路...
 
+<!-- more -->
+
 ### es2015报错
 
 2017年Babel 的官网上在9月宣布 ES2015 / ES2016/ ES2017 等等 ES20xx 时代的 presets 通通被废弃（deprecated），取而代之的是 babel-preset-env，并且承诺它将成为“未来不会过时的（future-proof）”解决方案。

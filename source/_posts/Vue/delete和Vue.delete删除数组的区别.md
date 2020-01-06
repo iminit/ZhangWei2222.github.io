@@ -17,6 +17,8 @@ Vue.delete(parentState, path[path.length - 1]);
 
 为啥使用Vue.delete删除呢？？
 
+<!-- more -->
+
 官方文档中是这样介绍的
 
 ```js

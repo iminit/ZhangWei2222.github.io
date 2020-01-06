@@ -11,7 +11,7 @@ comments: false
 
 undefined和null是两个基本类型
 
-
+<!-- more -->
 
 ### 存在场景不同
 

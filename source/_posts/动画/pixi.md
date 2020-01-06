@@ -10,6 +10,8 @@ comments: false
 ### 介绍
 Pixi是一个超快的2D渲染引擎。
 
+<!-- more -->
+
 ### 安装
 需要在你项目的根目录运行一个web服务器
 #### 安装http-server

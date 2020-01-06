@@ -7,6 +7,16 @@ tags:
 comments: false
 ---
 
+
+
+## 前言
+
+介绍两大模型与它们的区别
+
+<!-- more -->
+
+
+
 ## 两大模型—详情
 
 - OSI（Open System Interconnect），即开放式系统互联

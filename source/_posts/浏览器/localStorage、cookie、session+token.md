@@ -10,6 +10,8 @@ comments: false
 
 ## Cookie、sessionStorage、localStorage 区别
 
+<!-- more -->
+
 |              | Cookie                                                   | SessionStorage                     | LocalStorage      |
 | ------------ | -------------------------------------------------------- | ---------------------------------- | ----------------- |
 | 存放数据大小 | 4KB                                                      | 一般为 5 MB                        | 一般为 5 MB       |

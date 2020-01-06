@@ -15,6 +15,8 @@ comments: false
 
 `vuex/src/helper.js`
 
+<!-- more -->
+
 ## mapState
 
 为组件创建计算属性以返回 Vuex store 中的状态

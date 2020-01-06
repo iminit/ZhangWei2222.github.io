@@ -15,7 +15,7 @@ comments: false
 
 [Vuex Api 文档]: https://vuex.vuejs.org/zh/api/
 
-
+<!-- more -->
 
 ## commit(mutation)
 

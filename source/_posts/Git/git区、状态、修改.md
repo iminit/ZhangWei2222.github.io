@@ -20,6 +20,8 @@ comments: false
 #### 远程仓库
 托管代码的服务器
 
+<!-- more -->
+
 ## 状态
 #### 未跟踪
 未跟踪的文件改动不受到Git的版本控制
@@ -36,7 +38,10 @@ comments: false
 1. 已提交(Committed)
 1. 已推送(Pushed)
 
+
+
 ## 代码提交和同步流程
+
 ![image](https://s11.mogucdn.com/mlcdn/c45406/190731_4j8i0gi2ijj9bclbja540896lae54_798x388.png)
 1. 文件增删改，变为 已修改状态
 1. git add，变为 已暂存状态
@@ -52,7 +57,10 @@ comments: false
     1. git branch 查看本地仓库分支
     1. git branch -a  查看本地仓库和本地远程仓库(远程仓库的本地镜像)的所有分支
 
+
+
 ## 五种状态间的撤销更改
+
 ![image](https://s11.mogucdn.com/mlcdn/c45406/190731_37a9def9c890ceca88kh1d7501fd3_787x412.png)
 #### 已修改，但未暂存（未git add）
 
@@ -91,6 +99,8 @@ git reset --hard origin/远程仓库分支名 回退到与本地远程仓库一�
 git push -f origin 远程仓库分支名（慎用） 强制覆盖远程分支
 git push -f 如果关联过，可以忽略分支名（慎用）
 ```
+
+
 
 ## 其他
 
@@ -136,6 +146,8 @@ git revert -n 版本号
 ```
 
 
+
 ## 易混淆
+
 - git reset 可以作用在暂存区（git add了），可以回退到工作区；也可以作用在本地仓库（git commit了），可以回退/前进到任意版本
 - git checkout 可以撤销工作区的修改

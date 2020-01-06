@@ -12,6 +12,8 @@ comments: false
 #### 1.webpack介绍
 webpack是一个现代的JavaScript应用模块打包器（module bundler），它能把各种资源，例如JS（含JSX）、coffee、样式（less/sass）、图片等都作为模块来处理和使用。它有着难以置信的配置和神奇的效果，大大提高了我们程序员的工作效率。举个例子：我们可以直接使用require（xxx）的形式来引入各模块，即使他们可能需要经过编译（比如JSX和sass），但我们无须再上面花费太多心思，webpack有着各种健全的加载器（loader）在默默处理这些事情。它可以部分代替Grunt和gulp的功能。
 
+<!-- more -->
+
 #### 2.webpack的安装
 1、全局安装
 

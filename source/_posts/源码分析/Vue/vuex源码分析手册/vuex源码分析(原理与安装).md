@@ -17,7 +17,7 @@ comments: false
 
 里面有一个`resetStoreVM()方法`，通过vm重设store，新建Vue对象使用Vue内部的响应式实现注册state以及computed，我们在获取state的时候，拿的是` vm.$_store._vm._data.$$state`，这个变量是响应式的
 
-
+<!-- more -->
 
 # Vue.use 安装
 

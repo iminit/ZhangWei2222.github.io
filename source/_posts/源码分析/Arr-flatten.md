@@ -12,7 +12,7 @@ comments: false
 
 将多维数组一维化
 
-
+<!-- more -->
 
 ## 使用
 

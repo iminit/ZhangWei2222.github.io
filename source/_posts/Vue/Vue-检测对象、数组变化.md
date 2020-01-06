@@ -16,7 +16,11 @@ comments: false
 	- 修改数组长度 this.arr.length = 5 //不是响应的
 这是为什么呢？？
 
+
+<!-- more -->
+
 ## 为什么无法做到对象属性的添加与删除
+
 Vue使用Object.defineProperty，在初始化实例时对属性执行getter/setter转化，进行监测，属性必须在data对象上存在才能让Vue将它转换成响应式。
 
 ### 解决方案

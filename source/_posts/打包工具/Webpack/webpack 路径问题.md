@@ -10,6 +10,10 @@ comments: false
 
 
 
+在分析 Vuex 源码的时候，为了方便调试，引入了本地的 Vuex 包，并更改 Webpack 配置的路径，其中有个  `vuex$ vue$`的路径配置挺有意思，为什么要配这个呢？
+
+<!-- more -->
+
 ```js
 // 在 webpack.base.conf.js中
 resolve: {
@@ -21,7 +25,7 @@ resolve: {
             "@": resolve("src")
     }
 },
-// 为啥？？
+  // 为啥？？
 ```
 
 首先看`vuex/src/index.js && index.esm.js`这两个文件，可以看出index.ems.js只多了export对象

@@ -12,6 +12,8 @@ comments: false
 
 在 Post 方法中，设定 http的头（header)，在里面声明不同的 content-type
 
+<!-- more -->
+
 ## 传输的数据格式
 
 1. application/x-www-form-urlencoded

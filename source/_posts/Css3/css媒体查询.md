@@ -9,7 +9,7 @@ comments: false
 
 ### 1.语法
 
-```
+```html
 <!-- link元素中的CSS媒体查询 -->
 <link rel="stylesheet" media="(max-width: 800px)" href="example.css" />
 
@@ -24,6 +24,8 @@ comments: false
 ```
 
 即使媒体查询返回false, 标签指向的样式表也将会被下载(但是它们不会被应用)
+
+<!-- more -->
 
 ### 2.逻辑操作符
 #### (1).and

@@ -10,6 +10,8 @@ comments: false
 
 引入块级作用域的概念；ES6前，Js 没有块级作用域 {} 的概念
 
+<!-- more -->
+
 #### let 与 var 与 const 区别
 
 - **let、const** 

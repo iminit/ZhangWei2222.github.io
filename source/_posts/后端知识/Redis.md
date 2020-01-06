@@ -11,7 +11,7 @@ comments: false
 
 Redis是一个key-value存储系统，数据存储在内存中，通常被称为数据结构服务器
 
-
+<!-- more -->
 
 ### 优点
 

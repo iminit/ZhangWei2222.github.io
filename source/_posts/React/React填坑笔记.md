@@ -14,6 +14,8 @@ warning:Each child in an array or iterator should have a unipue "key" prop.check
  ```
 注意render里的map，需要加key
 
+<!-- more -->
+
 
 #### videoJs报错
 ```shell

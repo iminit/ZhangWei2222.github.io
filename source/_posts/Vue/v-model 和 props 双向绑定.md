@@ -15,6 +15,8 @@ comments: false
 1. v-bind绑定一个value属性
 2. v-on指令给当前元素绑定input事件
 
+<!-- more -->
+
 ```js
 // 在自定义组件中
 <my-component v-model="inputValue"></my-component>

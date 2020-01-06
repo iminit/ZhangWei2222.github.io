@@ -20,7 +20,7 @@ comments: false
 - beforeDestroy（销毁前）
 - destroyed（销毁后）
 
-
+<!-- more -->
 
 #### keep-alive
 

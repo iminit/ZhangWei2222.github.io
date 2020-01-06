@@ -8,12 +8,14 @@ tags:
 comments: false
 ---
 
-### 前言
+## 前言
 公司实习期间，使用的是分配的mac,之前使用包括自己的电脑都是window，所以现在有机会可以放开胸怀使用Linux命令啦！
 
 首先需要安装[iTerm2](https://www.jianshu.com/p/9c3439cc3bdb)，可以打造舒适的终端体验。有了颜色和背景色，敲起代码来倍爽！
 
-### 掌握一些常用的命令：
+<!-- more -->
+
+## 掌握一些常用的命令：
 
 - 查看目录
     - ls
@@ -53,5 +55,8 @@ comments: false
     - rm 文件名
     - rm -rf 文件夹名
 
-### shell命令
+
+
+## shell命令
+
 突然意识到linux命令和shell命令原来不能统称一体，linux和windows都为操作系统，其中shell是一个脚本，我们可以通过使用它操作系统，但在不同的系统中，使用的shell不同，比如linux默认都是GUNbash shell，而windows默认是cmd。

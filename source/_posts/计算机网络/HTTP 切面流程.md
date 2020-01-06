@@ -1,12 +1,16 @@
 ---
-title:  HTTP 切面流程
+title: HTTP 切面流程
 date: 2020-01-02 16:26:37
 categories:
-- 计算机网络
+  - 计算机网络
 tags:
-- Http
+  - Http
 comments: false
 ---
+
+## 前言
+
+介绍 Http、Koa.js 的切面流程
 
 <!-- more -->
 
@@ -24,9 +28,7 @@ comments: false
 - http 响应
   - 响应操作
 
-
-
-## Koa.js的HTTP旅程
+## Koa.js 的 HTTP 旅程
 
 ![koa2-77 013](https://user-images.githubusercontent.com/8216630/42408401-ada72fca-81fe-11e8-9f05-c5a93bb15670.jpeg)
 

@@ -15,7 +15,7 @@ comments: false
 
 3.不允许使用JavaScript关键字和保留字做变量名。
 
-
+<!-- more -->
 
 #### 2.声明
 

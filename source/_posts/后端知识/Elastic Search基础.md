@@ -9,6 +9,8 @@ comments: false
 
 ## 安装 
 
+<!-- more -->
+
 ### Mac 安装教程
 https://blog.csdn.net/Sibylsf/article/details/90636509
 

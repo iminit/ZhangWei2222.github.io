@@ -11,6 +11,8 @@ comments: false
 
 Egret 采用 TypeScript 进行编程，它是 JavaScript 的一个超集，而且本质上向这个语言添加了可选的静态类型和基于类的面向对象编程。TypeScript 扩展了 JavaScript 的语法，原生 JavaScript 的方法在 TypeScript 也是可以使用的。比如Math等。
 
+<!-- more -->
+
 # 建立工作环境
 
 Egret Wing 是一款针对 Egret 项目的集成开发环境，通过可视化的方式创建、编辑和管理项目中所有游戏用户界面，并可以同时进行 TypeScript 代码编写和断点调试。

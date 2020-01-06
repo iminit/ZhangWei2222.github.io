@@ -11,6 +11,8 @@ comments: false
 ## 前言
 虽然都是BY，都是表条件（HAVING WHERE），它们有什么不同呢？？
 
+<!-- more -->
+
 ## ORDER BY / GROUP BY 区别
 ### ORDER BY
 - 行的排序（ASC正序，DESC倒序）

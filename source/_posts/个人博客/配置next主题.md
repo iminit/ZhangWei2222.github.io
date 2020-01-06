@@ -9,8 +9,9 @@ tags:
 comments: false
 ---
 
-
 # 安装Next
+
+<!-- more -->
 
 ### 下载主题
 在博客根目录

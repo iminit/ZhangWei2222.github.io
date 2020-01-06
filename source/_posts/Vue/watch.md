@@ -10,6 +10,8 @@ comments: false
 
 场景：比如搜索框，一般会在页面生成`created()`或`mounted()`生命周期调用接口方法获取全部数据，然后`watch`输入的`value`，再调用一次接口方法。代码如下
 
+<!-- more -->
+
 ```js
 export default {
 	data(){

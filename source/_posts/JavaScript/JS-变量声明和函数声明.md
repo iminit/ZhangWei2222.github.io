@@ -8,6 +8,9 @@ comments: false
 
 ### 变量声明提前
 var 声明一个变量，这个变量会被提前到整个函数的顶部，但没有被赋值
+
+<!-- more -->
+
 ```js
 (function(){
     console.log(a);//undefined

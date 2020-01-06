@@ -8,7 +8,18 @@ tags:
 comments: false
 ---
 
+
+
+## 前言
+
+介绍 Https 与其和 Http 的区别
+
+<!-- more -->
+
+
+
 ## 与 Http 的区别
+
 - Http 的 URL 以 http:// 开头，而 Https 的 URL 以 https:// 开头
 - Http 默认80端口，Https 默认443端口
 - Http 处在应用层，Https 处在传输层

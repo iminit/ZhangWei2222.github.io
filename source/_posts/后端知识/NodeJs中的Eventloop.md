@@ -10,6 +10,8 @@ comments: false
 
 ## NodeJs中的EventLoop图
 
+<!-- more -->
+
 ```JS
    ┌───────────────────────┐
 ┌─>│        timers         │<————— 执行 setTimeout()、setInterval() 的回调

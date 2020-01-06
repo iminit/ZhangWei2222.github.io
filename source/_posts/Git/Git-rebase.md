@@ -10,7 +10,7 @@ comments: false
 ## 前言
 闻rebase色变，最近刚好在项目中用到了rebase合并分支与commit号，特此记录（非常艰难的探索）
 
-
+<!-- more -->
 
 ## 合并分支
 

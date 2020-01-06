@@ -8,6 +8,8 @@ comments: false
 
 #### 1、安装插件
 
+<!-- more -->
+
 ```js
 // 安装vue的官方插件
 npm i vue-class-component vue-property-decorator --save

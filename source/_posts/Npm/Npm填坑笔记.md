@@ -9,6 +9,9 @@ comments: false
 ---
 
 #### 1.node版本不对
+
+<!-- more -->
+
 - 问题描述
     - npm i时，发现报错primordials is not defined.
 - 原因

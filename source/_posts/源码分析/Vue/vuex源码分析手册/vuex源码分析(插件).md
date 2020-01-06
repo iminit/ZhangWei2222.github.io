@@ -13,6 +13,8 @@ comments: false
 
 `vuex/src/plugins/devtool`
 
+<!-- more -->
+
 ```js
 /* 从window对象的__VUE_DEVTOOLS_GLOBAL_HOOK__中获取devtool插件 */
 const target =

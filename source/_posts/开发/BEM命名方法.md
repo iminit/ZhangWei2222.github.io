@@ -8,8 +8,10 @@ tags:
 comments: false
 ---
 
-
 ## 1.为什么选择这种方法命名呢？
+
+<!-- more -->
+
 以往命名的方法是
 
 ```html

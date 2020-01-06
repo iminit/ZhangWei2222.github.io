@@ -11,6 +11,8 @@ comments: false
 ## 一、Emmet带给我们的便利
 可以极大的提高代码编写的效率，不用再打<>这样的尖括号。它提供了一种非常简练的语法规则，然后立刻生成对应的 HTML 结构或者 CSS 代码，同时还有多种实用的功能帮助进行前端开发。
 
+<!-- more -->
+
 VsCode内置了Emmet语法,在后缀为.html/.css中输入缩写后按Tab键即会自动生成相应代码
 
 > 请注意在VsCode新版本中按Tab不再默认启用Emmet展开缩写!需要在首选项配置中将emmet.triggerExpansionOnTab设置为true值!

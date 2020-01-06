@@ -9,6 +9,8 @@ comments: false
 
 
 
+## 前言
+
 看了胜凯发的关于git 文件重命名的文章，自己尝试了一下
 
 首先：直接更改文件名，git status ，追踪不到更改
@@ -17,7 +19,7 @@ comments: false
 
 
 
-#### 方法一
+## 方法一
 
 ```shell
 $ git mv src/components/rename.vue src/components/Rename.vue
@@ -43,7 +45,7 @@ $ git pull 刷新一下就出来新命名的了
 
 
 
-#### 方法二
+## 方法二
 
 ```shell
 $ git config core.ignorecase false 

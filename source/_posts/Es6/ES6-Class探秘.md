@@ -9,6 +9,8 @@ comments: false
 ## 前言
 总所周知，咱们传统的生成实例对象的方法是通过构造函数：
 
+<!-- more -->
+
 ```javascript
 function Point(x, y) {
     this.x = x;

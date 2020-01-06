@@ -13,6 +13,8 @@ comments: false
 - 全局：npm install gulp -g
 - 开发环境：npm install gulp –save-dev
 
+<!-- more -->
+
 ## 项目结构
 
 ```js
@@ -51,7 +53,10 @@ comments: false
 }
 ```
 
+
+
 ## 引入模块和插件
+
 ### 1.引入模块
 
 ```js
