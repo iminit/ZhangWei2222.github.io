@@ -8,7 +8,10 @@ tags:
 comments: false
 ---
 
-#### 缺少权限
+<!-- more -->
+
+#### 1. 缺少权限
+
 ```shell
 git push ![remote rejected] 分支名->分支名 (pre-receive hook declined) 
 ```
@@ -34,7 +37,7 @@ localhost% sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh
 curl: (7) Failed to connect to raw.githubusercontent.com port 443: Operation timed out
 ```
 
-解决：配置git账号
+**解决：**配置git账号
 
 ```shell
 git config --global user.name 'xx'
@@ -68,3 +71,17 @@ git config -l
 // 或者 
 <script src='./库/index.js' type="module"></script>
 ```
+
+
+
+### 6.  Broken pipe
+
+```shell
+$ git pull      
+# packet_write_wait: Connection to 10.108.238.163 port 22: Broken pipe
+# fatal: 无法读取远程仓库。
+
+# 请确认您有正确的访问权限并且仓库存在。
+```
+
+**解决：**突然无法 pull ，原因是 gitlab 升级，过一会就好了....
