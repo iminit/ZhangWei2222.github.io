@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="跨域是浏览器行为关闭浏览器跨域限制 (不推荐，会有安全问题) 1open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨域配置">
+<meta property="og:url" content="http://yoursite.com/2019/11/14/浏览器/跨域配置/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="跨域是浏览器行为关闭浏览器跨域限制 (不推荐，会有安全问题) 1open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.115Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="跨域配置">
+<meta name="twitter:description" content="跨域是浏览器行为关闭浏览器跨域限制 (不推荐，会有安全问题) 1open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir">
+  <link rel="canonical" href="http://yoursite.com/2019/11/14/浏览器/跨域配置/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>跨域配置 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/14/浏览器/跨域配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">跨域配置
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-14 17:26:37" itemprop="dateCreated datePublished" datetime="2019-11-14T17:26:37+08:00">2019-11-14</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/浏览器/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>6.2k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>6 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="跨域是浏览器行为"><a href="#跨域是浏览器行为" class="headerlink" title="跨域是浏览器行为"></a>跨域是浏览器行为</h2><p>关闭浏览器跨域限制 (不推荐，会有安全问题)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="种类"><a href="#种类" class="headerlink" title="种类"></a>种类</h2><ol>
+<li>通过jsonp跨域</li>
+<li>document.domain + iframe跨域</li>
+<li>location.hash + iframe</li>
+<li>window.name + iframe跨域</li>
+<li>postMessage跨域</li>
+<li>跨域资源共享（CORS）</li>
+<li>nginx代理跨域</li>
+<li>nodejs中间件代理跨域（http-proxy-middleware）</li>
+<li>WebSocket协议跨域</li>
+</ol>
+<h2 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h2><p>需要后端单独支持，已经不推荐使用了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JSONP</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createJsonp</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>),</span><br><span class="line">        timeName = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + <span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random() * <span class="number">1000</span>),</span><br><span class="line">        callback = <span class="string">"JSONP_"</span> + timeName;</span><br><span class="line">    <span class="built_in">window</span>[callback] = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        clearTimeout(timeout_flag);</span><br><span class="line">        <span class="built_in">document</span>.body.removeChild(script);</span><br><span class="line">        success(data);</span><br><span class="line">    &#125;</span><br><span class="line">    script.src = url + (url.indexOf(<span class="string">"?"</span>) &gt; <span class="number">-1</span> ? <span class="string">"&amp;"</span> : <span class="string">"?"</span>) + <span class="string">"callback="</span> + callback;</span><br><span class="line">    script.type = <span class="string">"text/javascript"</span>;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">    setTime(callback, script);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//设置请求超时</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setTime</span>(<span class="params">callback, script</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeOut !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">        timeout_flag = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (dataType === <span class="string">"jsonp"</span>) &#123;</span><br><span class="line">                <span class="keyword">delete</span> <span class="built_in">window</span>[callback];</span><br><span class="line">                <span class="built_in">document</span>.body.removeChild(script);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                timeout_bool = <span class="literal">true</span>;</span><br><span class="line">                xhr &amp;&amp; xhr.abort();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"timeout"</span>);</span><br><span class="line">        &#125;, timeOut);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h2><p>react</p>
+<p> 1）：安装http-proxy-middleware管理包，cnpm http-proxy-middleware –save</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="built_in">require</span>(‘http-proxy-middleware‘);</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">app</span>) </span>&#123;</span><br><span class="line">  app.use(proxy(‘/api‘, &#123; </span><br><span class="line">       target: ‘http:<span class="comment">//192.168.1.144:8181‘ ,</span></span><br><span class="line">       secure: <span class="literal">false</span>,</span><br><span class="line">       changeOrigin: <span class="literal">true</span>,</span><br><span class="line">       pathRewrite: &#123;</span><br><span class="line">        <span class="string">"^/api"</span>: <span class="string">"/"</span></span><br><span class="line">       &#125;,</span><br><span class="line">       <span class="comment">// cookieDomainRewrite: "http://localhost:3000"</span></span><br><span class="line">    &#125;));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>vue.config.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">        host: <span class="string">'0.0.0.0'</span>,</span><br><span class="line">        port: <span class="number">8081</span>,</span><br><span class="line">        https: <span class="literal">false</span>,</span><br><span class="line">        hotOnly: <span class="literal">false</span>,</span><br><span class="line">        disableHostCheck: <span class="literal">true</span>,</span><br><span class="line">        <span class="comment">// proxy: &#123;</span></span><br><span class="line">        <span class="comment">//   '/api': &#123;</span></span><br><span class="line">        <span class="comment">//     target: 'https://m.youpin.mi.com',</span></span><br><span class="line">        <span class="comment">//     ws: true,</span></span><br><span class="line">        <span class="comment">//     changeOrigin: true,</span></span><br><span class="line">        <span class="comment">//     pathRewrite: &#123;</span></span><br><span class="line">        <span class="comment">//         '^/api': '/api', // rewrite path</span></span><br><span class="line">        <span class="comment">//     &#125;,</span></span><br><span class="line">        <span class="comment">//     headers: &#123;</span></span><br><span class="line">        <span class="comment">//         Origin: 'https://m.youpin.mi.com',</span></span><br><span class="line">        <span class="comment">//         Referer: 'https://m.youpin.mi.com'</span></span><br><span class="line">        <span class="comment">//     &#125;</span></span><br><span class="line">        <span class="comment">//   &#125;,</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><p>终极解决方案，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen <span class="number">8092</span>;</span><br><span class="line">    server_name aa.app.xiaomiyoupin.com;</span><br><span class="line">    error_log /usr/local/etc/nginx/logs/shop.error.log;</span><br><span class="line">    access_log /usr/local/etc/nginx/logs/shop.access.log;</span><br><span class="line">    # 前端页面走本地（vue-cli开的server）</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http:<span class="comment">//localhost:8081;</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    # 后端接口都是/api开头的</span><br><span class="line">    location /api &#123;</span><br><span class="line">        proxy_http_version <span class="number">1.1</span>;</span><br><span class="line">        proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">        proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">        # proxy_set_header   X-NginX-Proxy    true;</span><br><span class="line">        # proxy_set_header   Connection "";</span><br><span class="line">        proxy_set_header   Host             app.xiaomiyoupin.com;</span><br><span class="line">        # proxy_pass http://st.shop.youpin.srv;</span><br><span class="line">        proxy_pass https:<span class="comment">//m.xiaomiyoupin.com;</span></span><br><span class="line">    &#125;</span><br><span class="line">    location ~ ^<span class="regexp">/app/</span>shopv3/ &#123;</span><br><span class="line">        proxy_set_header Cookie <span class="string">'beegosessionID=94c74e9ad2349278b5a67fa17076230e; b_auth=mijiayoupin; serviceToken=cTww0DUseqPODIcT5cvyy9nNT+yBPhcaVfZcWmmlV5N6ajVrta+HoJPzdbhB08jVYVbFX5bNseY2MJitcQED7x1k3CoCAApFfaXeCC7n45Iqn7OSkvIr7spQqX4QGIQXGxwg9Ddn8zW/w4Wjc4qssQ==; cUserId=DKtjN6Lk5SugGBs04CbYODo2nsI; YPToken=4PberWbMNP6-TSzQkMdASH5N5PVDEObS0YFnL-h91PwlqjBU7QO5k5wZ7AKfUE3h'</span>;</span><br><span class="line">        proxy_set_header Referer <span class="string">'https://m.xiaomiyoupin.com'</span>;</span><br><span class="line">        # proxy_set_header Host $host;</span><br><span class="line">        proxy_pass https:<span class="comment">//m.xiaomiyoupin.com;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="cors"><a href="#cors" class="headerlink" title="cors"></a>cors</h2><p>每次都发送两次请求，并发量比较大的时候，对服务器压力比较大</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">'*'</span>,<span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'*'</span>); <span class="comment">//这个表示任意域名都可以访问，这样写不能携带cookie了。</span></span><br><span class="line"><span class="comment">//   res.header('Access-Control-Allow-Origin', 'http://www.baidu.com'); //这样写，只有www.baidu.com 可以访问。</span></span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'PUT, POST, GET, DELETE, OPTIONS'</span>);<span class="comment">//设置方法</span></span><br><span class="line">    <span class="keyword">if</span> (req.method == <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">      res.send(<span class="number">200</span>); <span class="comment">// 意思是，在正常的请求之前，会发送一个验证，是否可以请求。</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>完整的server例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"><span class="comment">// var cors = require('cors')</span></span><br><span class="line"><span class="comment">// app.use(cors())</span></span><br><span class="line"><span class="comment">// var corsOptions = &#123;</span></span><br><span class="line"><span class="comment">//   origin: 'http://www.baidu.com', //只有百度可以访问</span></span><br><span class="line"><span class="comment">//   optionsSuccessStatus: 200 </span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// app.get('/products/:id', cors(corsOptions), function (req, res, next) &#123;</span></span><br><span class="line"><span class="comment">//   res.json(&#123;msg: '只有百度可以访问'&#125;)</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line">app.use(<span class="string">'*'</span>,<span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'*'</span>); <span class="comment">//这个表示任意域名都可以访问，这样写不能携带cookie了。</span></span><br><span class="line"><span class="comment">//   res.header('Access-Control-Allow-Origin', 'http://www.baidu.com'); //这样写，只有www.baidu.com 可以访问。</span></span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'PUT, POST, GET, DELETE, OPTIONS'</span>);<span class="comment">//设置方法</span></span><br><span class="line">    <span class="keyword">if</span> (req.method == <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">      res.send(<span class="number">200</span>); <span class="comment">// 意思是，在正常的请求之前，会发送一个验证，是否可以请求。</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">app.get(<span class="string">'/'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">    res.send(<span class="string">'hello'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.post(<span class="string">'/api2'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// console.log(req)</span></span><br><span class="line">    res.json(&#123;</span><br><span class="line">        <span class="string">"data"</span>:<span class="number">1</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// res.send(&#123;some:'json'&#125;);</span></span><br><span class="line">&#125;)</span><br><span class="line">app.get(<span class="string">'/api3'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// console.log(req)</span></span><br><span class="line">    res.jsonp(&#123;</span><br><span class="line">        <span class="string">"data"</span>:<span class="number">1</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// res.send(&#123;some:'json'&#125;);</span></span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'CORS-enabled web server listening on port 3000'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>jsonp的实现，需要后端支持，所以实际项目中不建议用这种方法</li>
+<li>cors 每次会发送两次请求：第一次为option，无参数无返回，只是询问能否跨域，如果可以再发一次真正的请求，并发量比较大的时候，对服务器压力比较大</li>
+<li>prox 可以在vue.config.js 里写proxy代理（小项目应该比较适用）</li>
+<li>nginx 本地起一个服务器，然后对接口进行转发（终极方案：推荐）</li>
+<li>花瓶 和nginx差不多原理，通过劫持系统的端口进行转发返回</li>
+<li>WebSocket协议跨域、postMessage跨域等利用本身可跨域的协议进行跨域</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/13/技术文章阅后感/Bable/" rel="next" title="阅后感-Babel">
+                  <i class="fa fa-chevron-left"></i> 阅后感-Babel
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/11/18/浏览器/web前端攻击方式/" rel="prev" title="web前端攻击方式">
+                  web前端攻击方式 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域是浏览器行为"><span class="nav-text">跨域是浏览器行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#种类"><span class="nav-text">种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jsonp"><span class="nav-text">jsonp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proxy"><span class="nav-text">proxy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx"><span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cors"><span class="nav-text">cors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

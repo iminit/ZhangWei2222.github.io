@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="Html1&amp;lt;a href=&apos;//hongbao.mogu.com/h5/list&apos;&amp;gt;&amp;lt;/a&amp;gt; 可以自适应 http、https">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发小手册">
+<meta property="og:url" content="http://yoursite.com/2019/05/23/开发/开发小手册/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="Html1&amp;lt;a href=&apos;//hongbao.mogu.com/h5/list&apos;&amp;gt;&amp;lt;/a&amp;gt; 可以自适应 http、https">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.068Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发小手册">
+<meta name="twitter:description" content="Html1&amp;lt;a href=&apos;//hongbao.mogu.com/h5/list&apos;&amp;gt;&amp;lt;/a&amp;gt; 可以自适应 http、https">
+  <link rel="canonical" href="http://yoursite.com/2019/05/23/开发/开发小手册/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>开发小手册 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/23/开发/开发小手册/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">开发小手册
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-23 09:30:37" itemprop="dateCreated datePublished" datetime="2019-05-23T09:30:37+08:00">2019-05-23</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发/" itemprop="url" rel="index"><span itemprop="name">开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.3k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Html"><a href="#Html" class="headerlink" title="Html"></a>Html</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href='//hongbao.mogu.com/h5/list'&gt;&lt;/a&gt; 可以自适应 http、https</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="兜底"><a href="#兜底" class="headerlink" title="兜底"></a>兜底</h2><p>开发中，时刻注意兜底，比如展示一个图片，要考虑到后台没有返回数据时的兜底；展示数据时，要做兼容处理 this.arr = result || [],不然会有很多报错，因为变量Undefined，页面无法渲染</p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><h4 id="Fork"><a href="#Fork" class="headerlink" title="Fork"></a>Fork</h4><p>在刚开始实习时，为了谨慎起见，学姐要求fork项目来进行开发，开发完毕，再到gitlab提mr，学姐查看完毕再合到正式的分支上，过程如下</p>
+<ul>
+<li>先在项目中fork到自己的远程仓库</li>
+<li>打开命令行，进入文件夹</li>
+<li>git status 查看是否更改</li>
+<li>git pull 更新远程仓库</li>
+<li>git remote -v 查看关联的远程仓库的详细信息<ul>
+<li>一个别名仓库下会有两个地址<ul>
+<li>fetch 用于从远程仓库拉代码</li>
+<li>push 用于向远程仓库提交代码</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>git remote add 别名 [fork的仓库地址]</li>
+<li>git push 别名 [远程仓库分支名]</li>
+<li>在gitlab 进行和并提交</li>
+<li>删除仓库信息<ul>
+<li>git remote remove 别名</li>
+</ul>
+</li>
+</ul>
+<h4 id="建立并切换远程分支"><a href="#建立并切换远程分支" class="headerlink" title="建立并切换远程分支"></a>建立并切换远程分支</h4><p>一种办法是直接在gitlab-Commits-Branches创建分支</p>
+<p>一种是命令行建</p>
+<ul>
+<li>clone代码后，新建且切换分支 git checkout -b feature/reason</li>
+<li>提交时 git push -u origin feature/reason feature/reason</li>
+</ul>
+<h4 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit -am === git commit -a -m == git add . git commit -m</span><br><span class="line"></span><br><span class="line">git commit --amand 可以重写commit内容</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看Log树"><a href="#查看Log树" class="headerlink" title="查看Log树"></a>查看Log树</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline --graph</span><br></pre></td></tr></table></figure>
+
+<h4 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h4><p>当自己在develop分支开发时，远端develop有新的更改，只需要把本地的修改stash，pull拉取远端的develop新代码后再pop出存起来的本地修改，会自动合并，有冲突会提示</p>
+<h2 id="微信小程序"><a href="#微信小程序" class="headerlink" title="微信小程序"></a>微信小程序</h2><h4 id="控制台诸多报错-卡掉-突然无数据返回"><a href="#控制台诸多报错-卡掉-突然无数据返回" class="headerlink" title="控制台诸多报错/卡掉/突然无数据返回"></a>控制台诸多报错/卡掉/突然无数据返回</h4><p>重启微信开发者工具，重新导入项目，一次不行试两次，基本都是玄学问题</p>
+<h4 id="简单写法总结"><a href="#简单写法总结" class="headerlink" title="简单写法总结"></a>简单写法总结</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$couponlist.setData(&#123;tabType&#125;) == <span class="keyword">this</span>.$couponlist.setData(&#123;<span class="attr">tabType</span>:tabType&#125;)</span><br><span class="line"><span class="comment">// 因为小程序赋值还挺麻烦的，需要setData,使用这种方法还是省力不少</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="当触发-点击事件-的按钮为遍历出来时"><a href="#当触发-点击事件-的按钮为遍历出来时" class="headerlink" title="当触发 点击事件 的按钮为遍历出来时"></a>当触发 点击事件 的按钮为遍历出来时</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">does not have a method <span class="string">'logger'</span> to handle event <span class="string">'tap'</span></span><br></pre></td></tr></table></figure>
+
+<p>需要在绑定点击事件时：bindtap=”$.logger”</p>
+<h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><h4 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h4><p>直接在代码中写一句debugger，断点完毕~</p>
+<h4 id="开启-emmet语法"><a href="#开启-emmet语法" class="headerlink" title="开启 emmet语法"></a>开启 emmet语法</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">"emmet.triggerExpansionOnTab": true,</span><br><span class="line">"emmet.showAbbreviationSuggestions": true,</span><br><span class="line">"emmet.showExpandedAbbreviation": "always",</span><br><span class="line">"emmet.includeLanguages": &#123;</span><br><span class="line">  "vue-html": "html",</span><br><span class="line">  "vue": "html"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="开项目"><a href="#开项目" class="headerlink" title="开项目"></a>开项目</h4><p>终端切到目录，直接code .</p>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h4 id="渐变线"><a href="#渐变线" class="headerlink" title="渐变线"></a>渐变线</h4><p>有时候标题两边会有渐变线，可以用css解决，linear-gradient默认是从上到下的顺序渐变，可以在第一个参数设置方向，然后是 颜色 从哪个地方开始变（很有用~）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background-image</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">-90deg</span>, <span class="selector-id">#FFFFFF</span> 0%, <span class="selector-id">#D8D8D8</span> 100%);</span><br></pre></td></tr></table></figure>
+
+<h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><h4 id="constructor及super"><a href="#constructor及super" class="headerlink" title="constructor及super"></a>constructor及super</h4><ul>
+<li>constructor                   <ul>
+<li>表示父类的构造方法，用来新建父类的this对象，该方法是类中必须有的，如果没有显示定义，则会默认添加空的constructor( )方法。</li>
+</ul>
+</li>
+<li>super( )子类 <ul>
+<li>必须 在 constructor( )调用 super( )方法，否则新建实例时会报错，因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工，如果不调用super方法；子类就得不到this对象。</li>
+</ul>
+</li>
+<li>super()和super(props)的区别<ul>
+<li>就是你是否需要在构造函数内使用this.props，如果需要那么你就必须要写props，如果不需要，那么写不写效果是一样的</li>
+</ul>
+</li>
+</ul>
+<h4 id="jsx不能实现常规的换行操作"><a href="#jsx不能实现常规的换行操作" class="headerlink" title="jsx不能实现常规的换行操作"></a>jsx不能实现常规的换行操作</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> html  = reason.replace(<span class="regexp">/\&amp;/g</span>,<span class="string">'&lt;br/&gt;'</span>)</span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">    &lt;div dangerouslySetInnerHTML=&#123;&#123;<span class="attr">_html</span>:html&#125;&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><h4 id="简单写法总结-1"><a href="#简单写法总结-1" class="headerlink" title="简单写法总结"></a>简单写法总结</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">!isMoreloading &amp;&amp; <span class="keyword">this</span>.setData(&#123;.&#125;) 相当于<span class="keyword">if</span>(!isMoreloading) &#123;<span class="keyword">this</span>.setData(&#123;.&#125;)&#125;</span><br><span class="line"></span><br><span class="line">reset(tabType=<span class="string">''</span>,isResetList=<span class="literal">false</span>) 可以设置默认参数</span><br></pre></td></tr></table></figure>
+
+<h4 id="forEach不能break跳出循环，需要换成for循环"><a href="#forEach不能break跳出循环，需要换成for循环" class="headerlink" title="forEach不能break跳出循环，需要换成for循环"></a>forEach不能break跳出循环，需要换成for循环</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">会报错 VM192:<span class="number">3</span> Uncaught <span class="built_in">SyntaxError</span>: Illegal <span class="keyword">break</span> statement</span><br></pre></td></tr></table></figure>
+
+<h4 id="从数组中随机取指定数目的元素"><a href="#从数组中随机取指定数目的元素" class="headerlink" title="从数组中随机取指定数目的元素"></a>从数组中随机取指定数目的元素</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomArrayElements</span>(<span class="params">arr, count</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> shuffled = arr.slice(<span class="number">0</span>), i = arr.length, min = i - count, temp, index;</span><br><span class="line">    <span class="keyword">while</span> (i-- &gt; min) &#123;</span><br><span class="line">        index = <span class="built_in">Math</span>.floor((i + <span class="number">1</span>) * <span class="built_in">Math</span>.random());</span><br><span class="line">        temp = shuffled[index];</span><br><span class="line">        shuffled[index] = shuffled[i];</span><br><span class="line">        shuffled[i] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> shuffled.slice(min);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> items = [<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>,<span class="string">'10'</span>];</span><br><span class="line"><span class="built_in">console</span>.log( getRandomArrayElements(items, <span class="number">4</span>) );</span><br></pre></td></tr></table></figure>
+
+<h4 id="过滤数组内不想要的元素"><a href="#过滤数组内不想要的元素" class="headerlink" title="过滤数组内不想要的元素"></a>过滤数组内不想要的元素</h4><p>在项目中比较常用到哦！比如把已经选择的元素从数组中剔除</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr = arr.filter( <span class="function"><span class="params">item</span> =&gt;</span> item.emotionName != tab.emotionName)</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h4 id="端口占用"><a href="#端口占用" class="headerlink" title="端口占用"></a>端口占用</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :端口号</span><br><span class="line">kill 9 端口号</span><br></pre></td></tr></table></figure>
+
+<h2 id="Npm"><a href="#Npm" class="headerlink" title="Npm"></a>Npm</h2><h4 id="npm-link"><a href="#npm-link" class="headerlink" title="npm link"></a>npm link</h4><p>当我们本地开发一个模块时，可以在模块里</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link</span><br></pre></td></tr></table></figure>
+
+<p>模块会被链接到全局，然后再到引用这个模块的项目里</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm link 模块文件名</span><br></pre></td></tr></table></figure>
+
+<p>即可实现模块到项目的映射</p>
+<h2 id="头条小程序"><a href="#头条小程序" class="headerlink" title="头条小程序"></a>头条小程序</h2><ul>
+<li>不支持引入json文件，需要把数据放到js文件中，export default，然后在所需要的文件中import即可</li>
+<li>不支持css嵌套书写，但支持element, element选择器，所以不必头疼命名啦</li>
+</ul>
+<h2 id="移动端"><a href="#移动端" class="headerlink" title="移动端"></a>移动端</h2><h4 id="输入框"><a href="#输入框" class="headerlink" title="输入框"></a>输入框</h4><h5 id="上下跳动"><a href="#上下跳动" class="headerlink" title="上下跳动"></a>上下跳动</h5><p>有试过类似滑动卡片效果的项目，里面有输入框，当移动端书写的时候，输入法上有 上/下 跳动的按钮，如果用户点击 上/下，会相应跳到 上/下 的输入框，因为是滑动卡片，所以也会相应跳到上/下一个卡片，体验非常不好。</p>
+<p>解决：需要把输入框的上下跳转禁掉；把输入框全部置为disabled，点击的当前输入框移除disabled属性即可。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/04/23/计算机网络/死锁/" rel="next" title="死锁">
+                  <i class="fa fa-chevron-left"></i> 死锁
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/05/24/Npm/Npm、Cnpm、Nrm、Nvm/" rel="prev" title="Npm、Cnpm、Nrm、Nvm">
+                  Npm、Cnpm、Nrm、Nvm <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Html"><span class="nav-text">Html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兜底"><span class="nav-text">兜底</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git"><span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Fork"><span class="nav-text">Fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立并切换远程分支"><span class="nav-text">建立并切换远程分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commit"><span class="nav-text">commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看Log树"><span class="nav-text">查看Log树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stash"><span class="nav-text">stash</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微信小程序"><span class="nav-text">微信小程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#控制台诸多报错-卡掉-突然无数据返回"><span class="nav-text">控制台诸多报错/卡掉/突然无数据返回</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单写法总结"><span class="nav-text">简单写法总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当触发-点击事件-的按钮为遍历出来时"><span class="nav-text">当触发 点击事件 的按钮为遍历出来时</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode"><span class="nav-text">vscode</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#断点"><span class="nav-text">断点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开启-emmet语法"><span class="nav-text">开启 emmet语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开项目"><span class="nav-text">开项目</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#渐变线"><span class="nav-text">渐变线</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React"><span class="nav-text">React</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#constructor及super"><span class="nav-text">constructor及super</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jsx不能实现常规的换行操作"><span class="nav-text">jsx不能实现常规的换行操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS"><span class="nav-text">JS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单写法总结-1"><span class="nav-text">简单写法总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach不能break跳出循环，需要换成for循环"><span class="nav-text">forEach不能break跳出循环，需要换成for循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从数组中随机取指定数目的元素"><span class="nav-text">从数组中随机取指定数目的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过滤数组内不想要的元素"><span class="nav-text">过滤数组内不想要的元素</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统"><span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#端口占用"><span class="nav-text">端口占用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Npm"><span class="nav-text">Npm</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#npm-link"><span class="nav-text">npm link</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#头条小程序"><span class="nav-text">头条小程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动端"><span class="nav-text">移动端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#输入框"><span class="nav-text">输入框</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#上下跳动"><span class="nav-text">上下跳动</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

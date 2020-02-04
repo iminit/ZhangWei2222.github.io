@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="主体结构html代码1234567&amp;lt;template&amp;gt;  &amp;lt;transition name=&amp;quot;move&amp;quot;&amp;gt;  &amp;lt;!--要实现这个商品详情页的内容滚动,所以需要有一个显示标志和一个dom绑定--&amp;gt;  &amp;lt;div v-show=&amp;quot;showFlag&amp;quot; class=&amp;quot;food&amp;quot; ref=&amp;quot;food">
+<meta name="keywords" content="饿了么教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="商品详情页food.vue">
+<meta property="og:url" content="http://yoursite.com/2017/09/09/Vue/饿了么教程/商品详情页food.vue/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="主体结构html代码1234567&amp;lt;template&amp;gt;  &amp;lt;transition name=&amp;quot;move&amp;quot;&amp;gt;  &amp;lt;!--要实现这个商品详情页的内容滚动,所以需要有一个显示标志和一个dom绑定--&amp;gt;  &amp;lt;div v-show=&amp;quot;showFlag&amp;quot; class=&amp;quot;food&amp;quot; ref=&amp;quot;food">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.032Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="商品详情页food.vue">
+<meta name="twitter:description" content="主体结构html代码1234567&amp;lt;template&amp;gt;  &amp;lt;transition name=&amp;quot;move&amp;quot;&amp;gt;  &amp;lt;!--要实现这个商品详情页的内容滚动,所以需要有一个显示标志和一个dom绑定--&amp;gt;  &amp;lt;div v-show=&amp;quot;showFlag&amp;quot; class=&amp;quot;food&amp;quot; ref=&amp;quot;food">
+  <link rel="canonical" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/商品详情页food.vue/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>商品详情页food.vue | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/商品详情页food.vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">商品详情页food.vue
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-09-09 15:15:47" itemprop="dateCreated datePublished" datetime="2017-09-09T15:15:47+08:00">2017-09-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>11k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>10 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h3><p>html代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;transition name=&quot;move&quot;&gt;</span><br><span class="line">  &lt;!--要实现这个商品详情页的内容滚动,所以需要有一个显示标志和一个dom绑定--&gt;</span><br><span class="line">  &lt;div v-show=&quot;showFlag&quot; class=&quot;food&quot; ref=&quot;food&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;/transition&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+<ul>
+<li>用ref绑定food的DOM元素,为了被bscroll做滚动处理</li>
+<li>用transition包裹了整个food,为了实现这个页面的进入和退出动画</li>
+</ul>
+<p>js代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import BScroll from &apos;better-scroll&apos;;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    food: &#123;</span><br><span class="line">      type: Object</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      showFlag: false </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    show()&#123;</span><br><span class="line">      this.showFlag = true; </span><br><span class="line">      this.$nextTick(() =&gt; &#123; //异步添加滚动绑定</span><br><span class="line">        if (!this.scroll) &#123;</span><br><span class="line">          this.scroll = new BScroll(this.$refs.food, &#123;</span><br><span class="line">            click: true</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          this.scroll.refresh();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    hide()&#123;</span><br><span class="line">      this.showFlag = false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过跟hide方法切换showFlag的值来实现显示隐藏</li>
+<li>因为整个页面是比较长的,需要做滚动,所以异步加载bscroll</li>
+</ul>
+<p>css代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.food</span><br><span class="line">  position: fixed //霸占屏幕,全屏显示,所以用fixed布局</span><br><span class="line">  left: 0</span><br><span class="line">  top: 0</span><br><span class="line">  bottom: 48px //保留底部购物车底部栏的位置</span><br><span class="line">  z-index: 30 //z-index的数值是有考究的,要控制好各个页面的z-index纵深</span><br><span class="line">  width: 100%</span><br><span class="line">  background: #fff</span><br><span class="line">  transform: translate3d(0, 0, 0)</span><br><span class="line">  &amp;.move-enter-active, &amp;.move-leave-active //用vue的动画配置实现动画</span><br><span class="line">    transition: all 0.2s linear</span><br><span class="line">  &amp;.move-enter, &amp;.move-leave-active</span><br><span class="line">    transform: translate3d(100%, 0, 0)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对于整个商品详情页的打开和关闭效果体验,需要对其做动画处理,transition</li>
+<li>动画是3d变形,从右往左(改变的是x坐标),直线移动(linear)</li>
+</ul>
+<h3 id="商品封面"><a href="#商品封面" class="headerlink" title="商品封面"></a>商品封面</h3><p>html代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;img :src=&quot;food.image&quot;&gt;</span><br><span class="line">&lt;!--有一个返回按钮,绑定一个hide方法--&gt;</span><br><span class="line">&lt;div class=&quot;back&quot; @click=&quot;hide&quot;&gt;</span><br><span class="line">&lt;!--使用icon--&gt;</span><br><span class="line">  &lt;i class=&quot;icon-arrow_lift&quot;&gt;&lt;/i&gt; </span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>js代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    food: &#123; //用goods.vue组件传入的food数据</span><br><span class="line">      type: Object</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在goods.vue组件上传入的food数据</p>
+<p>css代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.image-header</span><br><span class="line">position: relative</span><br><span class="line">width: 100%</span><br><span class="line">height: 0</span><br><span class="line">padding-top: 100% //这是一个css-hack技巧</span><br><span class="line">img</span><br><span class="line">  position: absolute</span><br><span class="line">  top: 0</span><br><span class="line">  left: 0</span><br><span class="line">  width: 100% //图片撑满整个img的div</span><br><span class="line">  height: 100%</span><br><span class="line">.back</span><br><span class="line">  position: absolute</span><br><span class="line">  top: 10px</span><br><span class="line">  left: 0</span><br><span class="line">  .icon-arrow_lift //返回按钮,使用的是icon的那个css</span><br><span class="line">    display: block</span><br><span class="line">    padding: 10px</span><br><span class="line">    font-size: 20px</span><br><span class="line">    color: #fff</span><br></pre></td></tr></table></figure>
+
+<p>在w3c规定里面,padding设置100%的时候,这个值的计算是相对于这个盒子模型的宽度计算的,然后现在是宽是100%,所以padding也是100%,然后使用的是padding-top,那么就是内上边距的高度就是宽度的值,所以这样就能自然撑开一个正方形,这样的目的在于页面打开的时候更自然,不会出现闪烁</p>
+<h3 id="商品标题"><a href="#商品标题" class="headerlink" title="商品标题"></a>商品标题</h3><p>html代码</p>
+<p>月售份<br>好评率%</p>
+<p>￥￥</p>
+<p>加入购物车</p>
+<ul>
+<li>加入购物车按钮有一个动画fade,并且因为他的位置跟cartcontrol有重叠,避免穿透,所以直接.click.stop.prevent</li>
+<li>加入购物车按钮的显示是通过判断food.count实现的,这个属性默认是没有的,当点击购物车按钮的时候强制生成Vue.set(this.food, ‘count’, 1);,这样做的目的是比较直观的增加一个属性去实现功能</li>
+<li>cartcontrol的使用跟一般组件使用差不多.</li>
+</ul>
+<p>js代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import BScroll from &apos;better-scroll&apos;;</span><br><span class="line">import Vue from &apos;vue&apos;;</span><br><span class="line">import cartcontrol from &apos;../../components/cartcontrol/cartcontrol&apos;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    food: &#123;</span><br><span class="line">      type: Object</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    addFirst(event)&#123; //点击加入购物车按钮,传入事件</span><br><span class="line">      if (!event._constructed) &#123; //因为购物车按钮在bscroll里面,所以需要处理掉bscroll的事件类型</span><br><span class="line">        return;</span><br><span class="line">      &#125;</span><br><span class="line">      this.$emit(&apos;add&apos;, event.target); //触发当前实例food上的事件add(在goods组件上绑定在food组件的add方法)</span><br><span class="line">      Vue.set(this.food, &apos;count&apos;, 1);</span><br><span class="line">    &#125;,</span><br><span class="line">    addFood(target) &#123; //跟add关联的addFood方法</span><br><span class="line">      this.$emit(&apos;add&apos;, target); //触发当前实例food上的事件add(在goods组件上绑定在food组件的add方法)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    cartcontrol</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两次触发当前实例的事件add是因为两个操作都是同一个动作,这个动作是绑定在food组件上的add方法,而food组件会在goods组件中被导入,而在goods组件里面,addFood方法就会指向当前goods组件的方法_drop,继而使用shopcart的小球抛物线动画this.$refs.shopcart.drop(target);,这样就是实现了使用跨组件调用方法的效果.</p>
+<p>css代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">.content</span><br><span class="line">position: relative</span><br><span class="line">padding: 18px</span><br><span class="line">.title</span><br><span class="line">  line-height: 14px</span><br><span class="line">  margin-bottom: 8px</span><br><span class="line">  font-size: 14px</span><br><span class="line">  font-weight: 700</span><br><span class="line">  color: rgb(7, 17, 27)</span><br><span class="line">.detail</span><br><span class="line">  margin-bottom: 18px</span><br><span class="line">  line-height: 10px</span><br><span class="line">  height: 10px</span><br><span class="line">  font-size: 0 //注意行内元素的空格</span><br><span class="line">  .sell-count, .rating</span><br><span class="line">    font-size: 10px</span><br><span class="line">    color: rgb(147, 153, 159)</span><br><span class="line">  .sell-count</span><br><span class="line">    margin-right: 12px</span><br><span class="line">.price //这里的css样式就是在goods.vue出现过的样式,所以直接贴过来使用,也可以做成组件</span><br><span class="line">  font-weight: 700</span><br><span class="line">  line-height: 24px</span><br><span class="line">  .now</span><br><span class="line">    margin-right: 8px</span><br><span class="line">    font-size: 14px</span><br><span class="line">    color: rgb(240, 20, 20)</span><br><span class="line">  .old</span><br><span class="line">    text-decoration: line-through</span><br><span class="line">    font-size: 10px</span><br><span class="line">    color: rgb(147, 153, 159)</span><br><span class="line">.cartcontrol-wrapper //固定cartcontrol组件的样式</span><br><span class="line">  position: absolute</span><br><span class="line">  right: 12px</span><br><span class="line">  bottom: 12px</span><br><span class="line">.buy //加入购物车按钮的样式</span><br><span class="line">  position: absolute</span><br><span class="line">  right: 18px</span><br><span class="line">  bottom: 18px</span><br><span class="line">  z-index: 10 //显示在cartcontrol的更外面</span><br><span class="line">  height: 24px</span><br><span class="line">  line-height: 24px</span><br><span class="line">  padding: 0 12px</span><br><span class="line">  box-sizing: border-box //不希望padding和border把整个div撑大</span><br><span class="line">  border-radius: 12px</span><br><span class="line">  font-size: 10px</span><br><span class="line">  color: #fff</span><br><span class="line">  background: rgb(0, 160, 220)</span><br><span class="line">  opacity: 1 //加入动画,一个是为了体验,另外一个是为了延迟触发隐藏,避免小球抛物线动画出现问题</span><br><span class="line">  &amp;.fade-enter-active, &amp;.fade-leave-active</span><br><span class="line">    transition: all 0.2s</span><br><span class="line">  &amp;.fade-enter, &amp;.fade-leave-active</span><br><span class="line">    opacity: 0</span><br><span class="line">    z-index: -1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里的z-index是10,因为加入购物车按钮和cartcontrol的按钮重叠了,所以需要设置一个比较靠外的z坐标</li>
+<li>这里的box-sizing可以直观的设置盒子模型的实际大小,而不用计算边框和内边距的影响,</li>
+<li>这是box-sizing:border-size之后的图,注意这个auto,这是因为盒子的大小被固定了,边框和内边距也是固定的,然后内容会根据被固定的大小进行auto适配,这种从外到内的空间设置比较直观和方便</li>
+<li>这里加入动画的原因是当点击加入购物车的按钮时候(addFirst),因为food.count被添加了数据Vue.set(this.food, ‘count’, 1);,所以加入购物车按钮会被隐藏(v-show的display:none),但同时会执行this.$emit(‘add’, event.target);,只不过这个是异步执行的,并且这个被异步执行的方法add是抛物线小球动画计算初始目标高度的地方,所以当传入的购物车按钮被设置为display:none的时候,动画的目标初始高度无法计算,就会去使用父层div的高度,从而影响了抛物线小球动画效果.</li>
+<li><ul>
+<li>设置一个动画延迟隐藏购物车按钮,从而给足够的时间vue将数据传递到异步执行的方法,不影响抛物线小球的动画初始目标计算<h3 id="商品信息"><a href="#商品信息" class="headerlink" title="商品信息"></a>商品信息</h3></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--引入split组件负责隔离行--&gt;</span><br><span class="line">        &lt;split v-show=&quot;food.info&quot;&gt;&lt;/split&gt;</span><br><span class="line">        &lt;div class=&quot;info&quot; v-show=&quot;food.info&quot;&gt;</span><br><span class="line">          &lt;h1 class=&quot;title&quot;&gt;商品信息&lt;/h1&gt;</span><br><span class="line">          &lt;p class=&quot;text&quot;&gt;&#123;&#123;food.info&#125;&#125;&lt;/p&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">  import split from &apos;../../components/split/split&apos;;</span><br><span class="line"></span><br><span class="line">  export default &#123;</span><br><span class="line">    props: &#123;</span><br><span class="line">      food: &#123;</span><br><span class="line">        type: Object</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    components: &#123;</span><br><span class="line">      split</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">    .info</span><br><span class="line">      padding: 18px</span><br><span class="line">      .title</span><br><span class="line">        line-height: 14px</span><br><span class="line">        margin-bottom: 6px</span><br><span class="line">        font-size: 14px</span><br><span class="line">        color: rgb(7, 17, 27)</span><br><span class="line">      .text</span><br><span class="line">        line-height: 24px</span><br><span class="line">        padding: 0 8px</span><br><span class="line">        font-size: 12px</span><br><span class="line">        color: rgb(77, 85, 93)</span><br></pre></td></tr></table></figure>
+
+<h3 id="商品评价"><a href="#商品评价" class="headerlink" title="商品评价"></a>商品评价</h3><p>html代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;rating&quot;&gt;</span><br><span class="line">          &lt;h1 class=&quot;title&quot;&gt;商品评价&lt;/h1&gt;</span><br><span class="line">          &lt;!--ratingselect组件--&gt;</span><br><span class="line">          &lt;ratingselect @select=&quot;selectRating&quot; @toggle=&quot;toggleContent&quot; :selectType=&quot;selectType&quot;</span><br><span class="line">                        :onlyContent=&quot;onlyContent&quot; :desc=&quot;desc&quot;</span><br><span class="line">                        :ratings=&quot;food.ratings&quot;&gt;&lt;/ratingselect&gt;</span><br><span class="line">          &lt;div class=&quot;rating-wrapper&quot;&gt;</span><br><span class="line">          &lt;!--根据ratings长度显示ratings--&gt;</span><br><span class="line">            &lt;ul v-show=&quot;food.ratings &amp;&amp; food.ratings.length&quot;&gt;</span><br><span class="line">            &lt;!--根据不同类型的rateType来切换不同类型的rate--&gt;</span><br><span class="line">              &lt;li v-show=&quot;needShow(rating.rateType,rating.text)&quot; v-for=&quot;rating in food.ratings&quot; class=&quot;rating-item border-1px&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;user&quot;&gt;</span><br><span class="line">                  &lt;span class=&quot;name&quot;&gt;&#123;&#123;rating.username&#125;&#125;&lt;/span&gt;</span><br><span class="line">                  &lt;img class=&quot;avatar&quot; width=&quot;12&quot; height=&quot;12&quot; :src=&quot;rating.avatar&quot;&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">                &lt;!--使用vue过滤器filter来处理时间--&gt;</span><br><span class="line">                &lt;div class=&quot;time&quot;&gt;&#123;&#123;rating.rateTime | formatDate&#125;&#125;&lt;/div&gt;</span><br><span class="line">                &lt;p class=&quot;text&quot;&gt;</span><br><span class="line">                &lt;!--根据不同类型的rateType来控制icon的显示--&gt;</span><br><span class="line">                  &lt;span</span><br><span class="line">                    :class=&quot;&#123;&apos;icon-thumb_up&apos;:rating.rateType===0,&apos;icon-thumb_down&apos;:rating.rateType===1&#125;&quot;&gt;&lt;/span&gt;</span><br><span class="line">                    &#123;&#123;rating.text&#125;&#125;</span><br><span class="line">                &lt;/p&gt;</span><br><span class="line">              &lt;/li&gt;</span><br><span class="line">            &lt;/ul&gt;</span><br><span class="line">            &lt;!--没有rate的时候显示--&gt;</span><br><span class="line">            &lt;div class=&quot;no-rating&quot; v-show=&quot;!food.ratings || !food.ratings.length&quot;&gt;&lt;/div&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>绑定一个ratingselect组件,负责处理rate选择的</li>
+<li>然后划分一个rating-wrapper区域,负责显示相关rate的信息</li>
+<li>在子组件ratingselect选择的信息会影响到父组件的rating-wrapper区域内容的变化<ul>
+<li>needShow控制当前rate的内容显示,包括不同的type和是否排除没内容的rate</li>
+<li>绑定icon-thumb_up和icon-thumb_down的class来控制赞和批评的icon显示</li>
+<li>根据json数据里面的ratings数组来控制是否显示rate</li>
+</ul>
+</li>
+</ul>
+<p>js代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">const ALL = 2; //将控制type类转为常量控制</span><br><span class="line"></span><br><span class="line">import Vue from &apos;vue&apos;;</span><br><span class="line">import ratingselect from &apos;../../components/ratingselect/ratingselect&apos;; //引入ratingselect组件</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    food: &#123;</span><br><span class="line">      type: Object</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123; //这些是传入ratingselect组件的数据,并且初始化值</span><br><span class="line">      selectType: ALL, //默认所有rate</span><br><span class="line">      onlyContent: true, //默认只显示有内容的rate</span><br><span class="line">      desc: &#123;</span><br><span class="line">        all: &apos;全部&apos;,</span><br><span class="line">        positive: &apos;推荐&apos;,</span><br><span class="line">        negative: &apos;吐槽&apos;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    needShow(type, text)&#123; </span><br><span class="line">      if (this.onlyContent &amp;&amp; !text) &#123; //只显示有内容的 并且 没有内容就返回false</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (this.selectType === ALL) &#123; //显示全部类型的rate</span><br><span class="line">        return true;</span><br><span class="line">      &#125; else &#123; //只显示对应的类型的rate</span><br><span class="line">        return type === this.selectType;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    selectRating(type) &#123; //设置rate的类型</span><br><span class="line">      this.selectType = type;</span><br><span class="line">      this.$nextTick(() =&gt; &#123;//切换的时候需要重新刷新bscroll</span><br><span class="line">        this.scroll.refresh();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    toggleContent() &#123; //切换显示是否有内容的rate</span><br><span class="line">      this.onlyContent = !this.onlyContent;</span><br><span class="line">      this.$nextTick(() =&gt; &#123; //切换的时候需要重新刷新bscroll</span><br><span class="line">        this.scroll.refresh();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    ratingselect</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>selectRating和toggleContent使用异步$nextTick是因为vue是异步更新dom的,当改变了vue属性时候,当前的dom不是立即更新的(会导致页面的高度变化了,但是bscroll来不及更新,影响滚动体验),而是会放进去异步更新队列里面等候更新,即使这个队列的等待时间不长,但是也来不及马上更新dom,所以使用$nextTick强制刷新这个队列</li>
+<li>在food.vue组件使用selectRating和toggleContent来更新food.vue组件的属性,而不能在子组件ratingselect里面更新,因为vue限制了子组件不能更改父组件的属性,所以通过使用类似this.$emit(‘select’, type);来调用父组件的方法来更改</li>
+</ul>
+<p>css代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">.rating</span><br><span class="line">  padding-top: 18px</span><br><span class="line">  .title</span><br><span class="line">    line-height: 14px</span><br><span class="line">    margin-bottom: 6px</span><br><span class="line">    font-size: 14px</span><br><span class="line">    color: rgb(7, 17, 27)</span><br><span class="line">  .rating-wrapper</span><br><span class="line">    padding: 0 18px</span><br><span class="line">    .rating-item</span><br><span class="line">      position: relative;</span><br><span class="line">      padding: 16px 0;</span><br><span class="line">      border-1px(rgba(7, 17, 27, 0.1))</span><br><span class="line">      .user</span><br><span class="line">        position: absolute</span><br><span class="line">        right: 0</span><br><span class="line">        top: 16px</span><br><span class="line">        line-height: 12px</span><br><span class="line">        font-size: 0 //注意行内元素的空隙</span><br><span class="line">        .name</span><br><span class="line">          display: inline-block</span><br><span class="line">          margin-right: 6px</span><br><span class="line">          vertical-align: top</span><br><span class="line">          font-size: 10px</span><br><span class="line">          color: rgb(147, 153, 159)</span><br><span class="line">        .avatar</span><br><span class="line">          border-radius: 50%</span><br><span class="line">      .time</span><br><span class="line">        margin-bottom: 6px</span><br><span class="line">        line-height: 12px</span><br><span class="line">        font-size: 10px</span><br><span class="line">        color: rgb(147, 153, 159)</span><br><span class="line">      .text</span><br><span class="line">        line-height: 16px</span><br><span class="line">        font-size: 12px</span><br><span class="line">        color: rgb(7, 17, 27)</span><br><span class="line">        .icon-thumb_up, .icon-thumb_down </span><br><span class="line">          margin-right: 4px</span><br><span class="line">          line-height: 16px</span><br><span class="line">          font-size: 12px</span><br><span class="line">        .icon-thumb_up</span><br><span class="line">          color: rgb(0, 160, 220)</span><br><span class="line">        .icon-thumb_down</span><br><span class="line">          color: rgb(147, 153, 159)</span><br><span class="line">    .no-rating</span><br><span class="line">      padding: 16px 0</span><br><span class="line">      font-size: 12px</span><br><span class="line">      color: rgb(147, 153, 159)</span><br></pre></td></tr></table></figure>
+
+<h3 id="商品评价里的时间处理"><a href="#商品评价里的时间处理" class="headerlink" title="商品评价里的时间处理"></a>商品评价里的时间处理</h3><p>split组件和formatDate组件</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/饿了么教程/" rel="tag"># 饿了么教程</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/09/09/Vue/饿了么教程/评价列表ratings组件/" rel="next" title="评价列表ratings组件">
+                  <i class="fa fa-chevron-left"></i> 评价列表ratings组件
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/09/09/Vue/饿了么教程/商品区域goods.vue/" rel="prev" title="商品区域goods.vue">
+                  商品区域goods.vue <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#主体结构"><span class="nav-text">主体结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#商品封面"><span class="nav-text">商品封面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#商品标题"><span class="nav-text">商品标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#商品信息"><span class="nav-text">商品信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#商品评价"><span class="nav-text">商品评价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#商品评价里的时间处理"><span class="nav-text">商品评价里的时间处理</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

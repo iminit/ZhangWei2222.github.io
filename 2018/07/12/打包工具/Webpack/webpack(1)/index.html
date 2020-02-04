@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="概念webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。">
+<meta name="keywords" content="Webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack(2)">
+<meta property="og:url" content="http://yoursite.com/2018/07/12/打包工具/Webpack/webpack(1)/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="概念webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.075Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack(2)">
+<meta name="twitter:description" content="概念webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。">
+  <link rel="canonical" href="http://yoursite.com/2018/07/12/打包工具/Webpack/webpack(1)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>webpack(2) | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/打包工具/Webpack/webpack(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">webpack(2)
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-12 14:10:36" itemprop="dateCreated datePublished" datetime="2018-07-12T14:10:36+08:00">2018-07-12</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/打包工具/" itemprop="url" rel="index"><span itemprop="name">打包工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5.3k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。</p>
+<a id="more"></a>
+
+<h1 id="四个核心概念"><a href="#四个核心概念" class="headerlink" title="四个核心概念"></a>四个核心概念</h1><ul>
+<li>入口(entry)</li>
+<li>输出(output)</li>
+<li>loader</li>
+<li>插件(plugins)</li>
+</ul>
+<h1 id="入口-entry"><a href="#入口-entry" class="headerlink" title="入口(entry)"></a>入口(entry)</h1><p>入口起点(entry point)指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。每个依赖项随即被处理，最后输出到称之为 bundles 的文件中。</p>
+<p>可以通过在 webpack 配置中配置 entry 属性，来指定一个入口起点（或多个入口起点）。默认值为 ./src。</p>
+<h2 id="单个入口（简写）语法"><a href="#单个入口（简写）语法" class="headerlink" title="单个入口（简写）语法"></a>单个入口（简写）语法</h2><p>用法：entry: string|Array<string></string></p>
+<pre><code>webpack.config.js
+
+const config = {
+  entry: &apos;./path/to/my/entry/file.js&apos;
+};
+
+module.exports = config;</code></pre><p>有失灵活性，如果需要快速为只有一个入口起点的应用程序或工具设置webpack配置的时候，是个不错的选择。</p>
+<h2 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h2><p>用法：entry: {[entryChunkName: string]: string|</p>
+<p>  Array<string>}</string></p>
+<pre><code>webpack.config.js
+
+const config = {
+  entry: {
+    app: &apos;./src/app.js&apos;,
+    vendors: &apos;./src/vendors.js&apos;
+  }
+};</code></pre><h2 id="常见场景"><a href="#常见场景" class="headerlink" title="常见场景"></a>常见场景</h2><h3 id="1-分离-应用程序-app-和-第三方库-vendor-入口"><a href="#1-分离-应用程序-app-和-第三方库-vendor-入口" class="headerlink" title="1.分离 应用程序(app) 和 第三方库(vendor) 入口"></a>1.分离 应用程序(app) 和 第三方库(vendor) 入口</h3><pre><code>webpack.config.js
+
+const config = {
+  entry: {
+    app: &apos;./src/app.js&apos;,
+    vendors: &apos;./src/vendors.js&apos;
+  }
+};</code></pre><h3 id="2-多页面应用程序"><a href="#2-多页面应用程序" class="headerlink" title="2.多页面应用程序"></a>2.多页面应用程序</h3><pre><code>webpack.config.js
+
+const config = {
+  entry: {
+    pageOne: &apos;./src/pageOne/index.js&apos;,
+    pageTwo: &apos;./src/pageTwo/index.js&apos;,
+    pageThree: &apos;./src/pageThree/index.js&apos;
+  }
+};</code></pre><p>根据经验：每个 HTML 文档只使用一个入口起点。</p>
+<h1 id="输出-output"><a href="#输出-output" class="headerlink" title="输出(output)"></a>输出(output)</h1><p>output 属性告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件，默认值为 ./dist。注意，即使可以存在多个入口起点，但只指定一个输出配置。</p>
+<h2 id="用法-Usage"><a href="#用法-Usage" class="headerlink" title="用法(Usage)"></a>用法(Usage)</h2><p>在 webpack 中配置 output 属性的最低要求是，将它的值设置为一个对象，包括以下两点：</p>
+<ul>
+<li><p>filename 用于输出文件的文件名。</p>
+</li>
+<li><p>目标输出目录 path 的绝对路径。</p>
+<pre><code>webpack.config.js
+
+const config = {
+  output: {
+    filename: &apos;bundle.js&apos;,
+    path: &apos;/home/proj/public/assets&apos;
+  }
+};
+
+module.exports = config;</code></pre></li>
+</ul>
+<h2 id="多个入口起点"><a href="#多个入口起点" class="headerlink" title="多个入口起点"></a>多个入口起点</h2><p>应该使用占位符(substitutions)来确保每个文件具有唯一的名称。</p>
+<pre><code>{
+  entry: {
+    app: &apos;./src/app.js&apos;,
+    search: &apos;./src/search.js&apos;
+  },
+  output: {
+    filename: &apos;[name].js&apos;,
+    path: __dirname + &apos;/dist&apos;
+  }
+}
+
+// 写入到硬盘：./dist/app.js, ./dist/search.js</code></pre><h2 id="高级进阶"><a href="#高级进阶" class="headerlink" title="高级进阶"></a>高级进阶</h2><p>以下是使用 CDN 和资源 hash 的复杂示例：</p>
+<pre><code>config.js
+
+output: {
+  path: &quot;/home/proj/cdn/assets/[hash]&quot;,
+  publicPath: &quot;http://cdn.example.com/assets/[hash]/&quot;
+}</code></pre><p>在编译时不知道最终输出文件的 publicPath 的情况下，publicPath 可以留空，并且在入口起点文件运行时动态设置。如果你在编译时不知道 publicPath，你可以先忽略它，并且在入口起点设置 <strong>webpack_public_path</strong>。</p>
+<pre><code>__webpack_public_path__ = myRuntimePublicPath
+
+// 剩余的应用程序入口</code></pre><h1 id="模式-mode"><a href="#模式-mode" class="headerlink" title="模式(mode)"></a>模式(mode)</h1><p>提供 mode 配置选项，告知 webpack 使用相应模式的内置优化。</p>
+<p>string</p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>只在配置中提供 mode 选项：</p>
+<pre><code>module.exports = {
+  mode: &apos;production&apos;
+};</code></pre><p>或者从 CLI 参数中传递：</p>
+<pre><code>webpack --mode=production</code></pre><p>支持以下字符串值：</p>
+<p>选项    |  描述<br>| - | :-: | -: |<br>development | 会将 process.env.NODE_ENV 的值设为 development。启用 NamedChunksPlugin 和 NamedModulesPlugin。<br>production | 会将 process.env.NODE_ENV 的值设为 production。启用 FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin 和 UglifyJsPlugin.<br>记住，只设置 NODE_ENV，则不会自动设置 mode。</p>
+<h2 id="mode-development"><a href="#mode-development" class="headerlink" title="mode: development"></a>mode: development</h2><pre><code>// webpack.development.config.js
+module.exports = {
++ mode: &apos;development&apos;
+- plugins: [
+-   new webpack.NamedModulesPlugin(),
+-   new webpack.DefinePlugin({ &quot;process.env.NODE_ENV&quot;: JSON.stringify(&quot;development&quot;) }),
+- ]
+}</code></pre><h2 id="mode-production"><a href="#mode-production" class="headerlink" title="mode: production"></a>mode: production</h2><pre><code>// webpack.production.config.js
+module.exports = {
++  mode: &apos;production&apos;,
+-  plugins: [
+-    new UglifyJsPlugin(/* ... */),
+-    new webpack.DefinePlugin({ &quot;process.env.NODE_ENV&quot;: JSON.stringify(&quot;production&quot;) }),
+-    new webpack.optimize.ModuleConcatenationPlugin(),
+-    new webpack.NoEmitOnErrorsPlugin()
+-  ]
+}</code></pre><h1 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h1><p>loader 让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。loader 可以将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。oader 可以将文件从不同的语言（如 TypeScript）转换为 JavaScript，或将内联图像转换为 data URL。loader 甚至允许你直接在 JavaScript 模块中 import CSS文件！</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>例如，你可以使用 loader 告诉 webpack 加载 CSS 文件，或者将 TypeScript 转为 JavaScript。为此，首先安装相对应的 loader：</p>
+<pre><code>npm install --save-dev css-loader
+npm install --save-dev ts-loader</code></pre><p>然后指示 webpack 对每个 .css 使用 css-loader，以及对所有 .ts 文件使用 ts-loader：</p>
+<pre><code>webpack.config.js
+
+module.exports = {
+  module: {
+    rules: [
+      { test: /\.css$/, use: &apos;css-loader&apos; },
+      { test: /\.ts$/, use: &apos;ts-loader&apos; }
+    ]
+  }
+};</code></pre><h2 id="使用-loader"><a href="#使用-loader" class="headerlink" title="使用 loader"></a>使用 loader</h2><ul>
+<li>配置（推荐）：在 webpack.config.js 文件中指定 loader。</li>
+<li>内联：在每个 import 语句中显式指定 loader。</li>
+<li>CLI：在 shell 命令中指定它们。</li>
+</ul>
+<h2 id="配置-Configuration"><a href="#配置-Configuration" class="headerlink" title="配置[Configuration]"></a>配置[Configuration]</h2><p>module.rules 允许你在 webpack 配置中指定多个 loader。 这是展示 loader 的一种简明方式，并且有助于使代码变得简洁。同时让你对各个 loader 有个全局概览：</p>
+<pre><code>module: {
+  rules: [
+    {
+      test: /\.css$/,
+      use: [
+        { loader: &apos;style-loader&apos; },
+        {
+          loader: &apos;css-loader&apos;,
+          options: {
+            modules: true
+          }
+        }
+      ]
+    }
+  ]
+}</code></pre><h1 id="插件-plugins"><a href="#插件-plugins" class="headerlink" title="插件(plugins)"></a>插件(plugins)</h1><h2 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h2><p>由于插件可以携带参数/选项，你必须在 webpack 配置中，向 plugins 属性传入 new 实例。</p>
+<p>根据你的 webpack 用法，这里有多种方式使用插件。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><pre><code>webpack.config.js
+
+const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;); //通过 npm 安装
+const webpack = require(&apos;webpack&apos;); //访问内置的插件
+const path = require(&apos;path&apos;);
+
+const config = {
+  entry: &apos;./path/to/my/entry/file.js&apos;,
+  output: {
+    filename: &apos;my-first-webpack.bundle.js&apos;,
+    path: path.resolve(__dirname, &apos;dist&apos;)
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        use: &apos;babel-loader&apos;
+      }
+    ]
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin(),
+    new HtmlWebpackPlugin({template: &apos;./src/index.html&apos;})
+  ]
+};
+
+module.exports = config;</code></pre><h1 id="依赖图-dependency-graph"><a href="#依赖图-dependency-graph" class="headerlink" title="依赖图(dependency graph)"></a>依赖图(dependency graph)</h1><p>任何时候，一个文件依赖于另一个文件，webpack 就把此视为文件之间有依赖关系。这使得 webpack 可以接收非代码资源(non-code asset)（例如图像或 web 字体），并且可以把它们作为_依赖_提供给你的应用程序。</p>
+<p>webpack 从命令行或配置文件中定义的一个模块列表开始，处理你的应用程序。 从这些入口起点开始，webpack 递归地构建一个依赖图，这个依赖图包含着应用程序所需的每个模块，然后将所有这些模块打包为少量的 bundle - 通常只有一个 - 可由浏览器加载。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Webpack/" rel="tag"># Webpack</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/03/25/开发/Vscode中使用Emmet神奇快速编写HTML代码/" rel="next" title="Vscode中使用Emmet神奇快速编写HTML代码">
+                  <i class="fa fa-chevron-left"></i> Vscode中使用Emmet神奇快速编写HTML代码
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/07/12/开发/编码规范/" rel="prev" title="编码规范">
+                  编码规范 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四个核心概念"><span class="nav-text">四个核心概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#入口-entry"><span class="nav-text">入口(entry)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单个入口（简写）语法"><span class="nav-text">单个入口（简写）语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象语法"><span class="nav-text">对象语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见场景"><span class="nav-text">常见场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-分离-应用程序-app-和-第三方库-vendor-入口"><span class="nav-text">1.分离 应用程序(app) 和 第三方库(vendor) 入口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-多页面应用程序"><span class="nav-text">2.多页面应用程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输出-output"><span class="nav-text">输出(output)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法-Usage"><span class="nav-text">用法(Usage)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多个入口起点"><span class="nav-text">多个入口起点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级进阶"><span class="nav-text">高级进阶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模式-mode"><span class="nav-text">模式(mode)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法"><span class="nav-text">用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mode-development"><span class="nav-text">mode: development</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mode-production"><span class="nav-text">mode: production</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#loader"><span class="nav-text">loader</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-loader"><span class="nav-text">使用 loader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-Configuration"><span class="nav-text">配置[Configuration]</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件-plugins"><span class="nav-text">插件(plugins)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法-1"><span class="nav-text">用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖图-dependency-graph"><span class="nav-text">依赖图(dependency graph)</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

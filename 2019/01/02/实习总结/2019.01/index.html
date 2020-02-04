@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="2019.01.021.git 不提交某个文件">
+<meta name="keywords" content="百田">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019.01">
+<meta property="og:url" content="http://yoursite.com/2019/01/02/实习总结/2019.01/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="2019.01.021.git 不提交某个文件">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.058Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2019.01">
+<meta name="twitter:description" content="2019.01.021.git 不提交某个文件">
+  <link rel="canonical" href="http://yoursite.com/2019/01/02/实习总结/2019.01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>2019.01 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/实习总结/2019.01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">2019.01
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-02 16:34:16" itemprop="dateCreated datePublished" datetime="2019-01-02T16:34:16+08:00">2019-01-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/实习总结/" itemprop="url" rel="index"><span itemprop="name">实习总结</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="2019-01-02"><a href="#2019-01-02" class="headerlink" title="2019.01.02"></a>2019.01.02</h3><p>1.git 不提交某个文件</p>
+<a id="more"></a>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git update-index --assume-unchanged src/partner/dc/config/dbs.js</span><br></pre></td></tr></table></figure>
+
+<p>2.测试IE</p>
+<p>IETester</p>
+<p>3.IE报错</p>
+<blockquote>
+<p>IE11浏览器出现”TypeError:对象不支持”starsWith”属性或方法”</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install babel-polyfill --save</span><br></pre></td></tr></table></figure>
+
+<p>在入口文件第一行加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;babel-polyfill&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断IE和Edge，世界之窗"><a href="#判断IE和Edge，世界之窗" class="headerlink" title="判断IE和Edge，世界之窗"></a>判断IE和Edge，世界之窗</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串</span><br><span class="line">var isIE =</span><br><span class="line">  userAgent.indexOf(&quot;compatible&quot;) &gt; -1 &amp;&amp; userAgent.indexOf(&quot;MSIE&quot;) &gt; -1;</span><br><span class="line">var isEdge = userAgent.indexOf(&quot;Edge&quot;)&gt;-1&amp;&amp;!isIE;</span><br><span class="line">var isWorld = userAgent.match(&quot;TheWorld&quot;);</span><br><span class="line">var isIE11 = userAgent.indexOf(&apos;Trident&apos;)&gt;-1&amp;&amp;userAgent.indexOf(&apos;rv:11.0&apos;)&gt;-1;</span><br><span class="line">if (isIE) &#123;</span><br><span class="line">  var reIE = new RegExp(&quot;MSIE (\\d+\\.\\d+);&quot;);</span><br><span class="line">  reIE.test(userAgent);</span><br><span class="line">  var fIEVersion = parseFloat(RegExp[&quot;$1&quot;]);</span><br><span class="line">  if (fIEVersion == 7) &#123;</span><br><span class="line">    return 7;</span><br><span class="line">  &#125; else if (fIEVersion == 8) &#123;</span><br><span class="line">    return 8;</span><br><span class="line">  &#125; else if (fIEVersion == 9) &#123;</span><br><span class="line">    return 9;</span><br><span class="line">  &#125; else if (fIEVersion == 10) &#123;</span><br><span class="line">    return 10;</span><br><span class="line">  &#125; else if (isEdge) &#123;</span><br><span class="line">      return &quot;edge&quot;;</span><br><span class="line">  &#125; else if (isIE11) &#123;</span><br><span class="line">      return 11;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">      return -1;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2019-01-03"><a href="#2019-01-03" class="headerlink" title="2019.01.03"></a>2019.01.03</h3><p>slice &amp;&amp; splice</p>
+<p>slice不改变原数组，切割</p>
+<p>splice会改变原数组，删除</p>
+<h3 id="2019-01-04"><a href="#2019-01-04" class="headerlink" title="2019.01.04"></a>2019.01.04</h3><p>单例模式</p>
+<ol>
+<li>如果有同样的函数或组件出现，会销毁前一个</li>
+<li>router-view 是个单例</li>
+</ol>
+<p>例子：<br>项目中，父子组件都用到了播放器组件，因为vue，不会销毁，两个点击后都会出现，设计单例模式</p>
+<p>因为vue的destoryed销毁后dom还在，还需要进行一系列操作。而v-if可以实现组件销毁，因此通过v-if设计。</p>
+<h3 id="2019-01-14"><a href="#2019-01-14" class="headerlink" title="2019.01.14"></a>2019.01.14</h3><p>pixi教程</p>
+<h3 id="2019-01-15"><a href="#2019-01-15" class="headerlink" title="2019.01.15"></a>2019.01.15</h3><p>调试Node,下载nodemon,然后nodemon 文件，不然每次改完都需要run</p>
+<h3 id="2019-01-16"><a href="#2019-01-16" class="headerlink" title="2019.01.16"></a>2019.01.16</h3><p>1.引用模块<br>module.exports = getSql;<br>才能用getSql引用模块</p>
+<p>import 方法，不能嵌套用，比如<br>cp_game.js在其他地方require，就不能import，只能require</p>
+<p>2.console.log &amp;&amp; log4js<br>console是控制台对象，console.log是到了运行端的控制台，所以express部分是打印到了后端控制台而不是浏览器；界面的是打印到了浏览器标准的服务器log，其实是变成了文本文件。log4js标准是后端很稳定可靠的日志设计，log4js是node版本，本质也会产生log文件，会到一个文本文件里。</p>
+<h3 id="2019-01-17"><a href="#2019-01-17" class="headerlink" title="2019.01.17"></a>2019.01.17</h3><p>1.return不成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">如果一个方法里有异步，return会不成功，采用以下方法</span><br><span class="line"></span><br><span class="line">a:function(sql,callback) &#123;</span><br><span class="line">    if(callback) &#123;</span><br><span class="line">        callback(a)</span><br><span class="line">    &#125;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a(sql,function(result)&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.log4js不会自动创建文件夹</p>
+<p>3.命名</p>
+<ol>
+<li><p>命名使用业务术语，而非计算机术语，即更多表现业务逻辑。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list =&gt; flaggedCells</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尽量不要缩写</p>
+</li>
+<li><p>不同的程序员命名相同的业务术语一致</p>
+</li>
+<li><p>驼峰命名</p>
+</li>
+<li><p>如何缩短命名，避免范围内重复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">比如：</span><br><span class="line">person下的 personName personId</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>4.工具<br>不是简单地把通用的代码抽离出来，而是实现用户在页面中输入少量且简单地代码，工具收到参数后即可进行功能作用——通用、简化</p>
+<h3 id="2018-01-22"><a href="#2018-01-22" class="headerlink" title="2018.01.22"></a>2018.01.22</h3><p>vue不要直接赋值</p>
+<p>this.skillform.intentionTable = result.data</p>
+<p>容易赋值不成功，比如result.data 没有id的属性，之后操作this.skillform.intentionTable.id是不能成功的</p>
+<h3 id="2018-01-23"><a href="#2018-01-23" class="headerlink" title="2018.01.23"></a>2018.01.23</h3><h5 id="try-catch-throw"><a href="#try-catch-throw" class="headerlink" title="try,catch,throw"></a>try,catch,throw</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">    //在这里运行代码</span><br><span class="line">&#125;</span><br><span class="line">catch(err) &#123;</span><br><span class="line">    //在这里处理错误</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>throw 创建自定义错误</p>
+<p>可以直接用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(x&gt;10) &#123;</span><br><span class="line">    throw &apos;too high&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>与try catch连用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">    if(x&gt;10) throw &apos;too high&apos;</span><br><span class="line">&#125;</span><br><span class="line">catch(err) &#123;</span><br><span class="line">    let a = &apos;Error:&apos; + err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="export-export-default-import-export-module-exports-require"><a href="#export-export-default-import-export-module-exports-require" class="headerlink" title="export,export default,import || export,module.exports,require"></a>export,export default,import || export,module.exports,require</h5><h6 id="module-exports-和-require"><a href="#module-exports-和-require" class="headerlink" title="module exports 和 require"></a>module exports 和 require</h6><p>因为Node应用由模块组成，采用CommonJs模块规范。根据这个规范，每个文件就是一个模块，有自己的作用域。在这些文件里面定义的变量、函数、类，都是私有的，对外不可见。因此规避了作用域污染。<br>根据CommonJS规定，每个模块内部，module变量代表当前模块，这个变量是一个对象，它的exports属性是对外的接口，加载某个模块，其实就是加载该模块的exports属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MyModule.js</span><br><span class="line">const config = &#123;</span><br><span class="line">    case: function()&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = config</span><br><span class="line"></span><br><span class="line">引入 </span><br><span class="line">var config = require(&apos;./MyModule&apos;)</span><br></pre></td></tr></table></figure>
+
+<h6 id="exports-与-module-exports"><a href="#exports-与-module-exports" class="headerlink" title="exports 与 module.exports"></a>exports 与 module.exports</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node中，exports = module.exports</span><br></pre></td></tr></table></figure>
+
+<p>但</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exports = config (x)</span><br><span class="line">exports.config = config (√)</span><br></pre></td></tr></table></figure>
+
+<h6 id="export和import"><a href="#export和import" class="headerlink" title="export和import"></a>export和import</h6><p>ES6中，导出export，导入import</p>
+<h6 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h6><ol>
+<li>export语句输出的接口，与其对应的值是动态绑定关系，即通过该接口，可以取到模块内部实时的值。<br>CommonJS输出的值是缓存，不存在动态更新。</li>
+<li>export和import命令不能在块级作用域，要在模块顶层。</li>
+<li>import命令具有提升效果，会提升到整个模块的头部，首先执行。</li>
+</ol>
+<h4 id="检查父子组件！！"><a href="#检查父子组件！！" class="headerlink" title="检查父子组件！！"></a>检查父子组件！！</h4><p>一个诡异的问题：</p>
+<blockquote>
+<p>页面有添加和修改功能，修改后表格会相应更新，但添加不会。<br>它们都是通过点击打开弹窗（子组件），保存后调用表格（父组件）的初始化功能。<br>后发现，添加是在另一个组件，其父组件不是表格而是表格的父组件（页面），所以需要调用表格的方法打开父组件。</p>
+</blockquote>
+<h3 id="2018-01-25"><a href="#2018-01-25" class="headerlink" title="2018.01.25"></a>2018.01.25</h3><p>1.git push失败</p>
+<p>因为做博客，换了账号提交，还提交了很多次，结果push失败。</p>
+<p>首先用现在的账号回到第一次提交git abort</p>
+<p>然后git add ….</p>
+<p>换账号，git log,git reset… 提交</p>
+<p>2.operation not permitted</p>
+<p>权限不够，给文件夹加上权限。如有加不上的，一直报无权限的，试试注销电脑</p>
+<p>3.不提交log文件</p>
+<p>.gitgnore中，加上 *.log ，git add .gitgnore</p>
+<h3 id="2019-01-28"><a href="#2019-01-28" class="headerlink" title="2019.01.28"></a>2019.01.28</h3><p>算一个字符串在数组中出现多少次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const countOccurrences = (arr,value) =&gt; arr.reduce( (a,v) =&gt; (v===value?a+1:a+0),0 )</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/百田/" rel="tag"># 百田</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/12/04/实习总结/2018.12/" rel="next" title="2018.12">
+                  <i class="fa fa-chevron-left"></i> 2018.12
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/01/14/动画/pixi/" rel="prev" title="pixi">
+                  pixi <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-01-02"><span class="nav-text">2019.01.02</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#判断IE和Edge，世界之窗"><span class="nav-text">判断IE和Edge，世界之窗</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-01-03"><span class="nav-text">2019.01.03</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-01-04"><span class="nav-text">2019.01.04</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-01-14"><span class="nav-text">2019.01.14</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-01-15"><span class="nav-text">2019.01.15</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-01-16"><span class="nav-text">2019.01.16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-01-17"><span class="nav-text">2019.01.17</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-01-22"><span class="nav-text">2018.01.22</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-01-23"><span class="nav-text">2018.01.23</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#try-catch-throw"><span class="nav-text">try,catch,throw</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#export-export-default-import-export-module-exports-require"><span class="nav-text">export,export default,import || export,module.exports,require</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#module-exports-和-require"><span class="nav-text">module exports 和 require</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#exports-与-module-exports"><span class="nav-text">exports 与 module.exports</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#export和import"><span class="nav-text">export和import</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#补充"><span class="nav-text">补充</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查父子组件！！"><span class="nav-text">检查父子组件！！</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-01-25"><span class="nav-text">2018.01.25</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2019-01-28"><span class="nav-text">2019.01.28</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

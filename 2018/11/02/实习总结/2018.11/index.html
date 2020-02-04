@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="2018.11.021.JS获取上一访问页面URL地址 document.referrer 2.获取后跳转到指定页面，也可获取当前页面地址 document.location.href">
+<meta name="keywords" content="百田">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2018.11">
+<meta property="og:url" content="http://yoursite.com/2018/11/02/实习总结/2018.11/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="2018.11.021.JS获取上一访问页面URL地址 document.referrer 2.获取后跳转到指定页面，也可获取当前页面地址 document.location.href">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2018.11">
+<meta name="twitter:description" content="2018.11.021.JS获取上一访问页面URL地址 document.referrer 2.获取后跳转到指定页面，也可获取当前页面地址 document.location.href">
+  <link rel="canonical" href="http://yoursite.com/2018/11/02/实习总结/2018.11/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>2018.11 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/实习总结/2018.11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">2018.11
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-02 18:27:10" itemprop="dateCreated datePublished" datetime="2018-11-02T18:27:10+08:00">2018-11-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/实习总结/" itemprop="url" rel="index"><span itemprop="name">实习总结</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="2018-11-02"><a href="#2018-11-02" class="headerlink" title="2018.11.02"></a>2018.11.02</h3><p>1.JS获取上一访问页面URL地址</p>
+<p>document.referrer</p>
+<p>2.获取后跳转到指定页面，也可获取当前页面地址</p>
+<p>document.location.href</p>
+<a id="more"></a>
+
+<h3 id="2018-11-07"><a href="#2018-11-07" class="headerlink" title="2018.11.07"></a>2018.11.07</h3><p>ant的输入框返回一个value，而不是整个值，比如输入123，返回的是1，2，3</p>
+<blockquote>
+<p>处理：函数在失焦后执行,blur()</p>
+</blockquote>
+<h3 id="2018-11-09"><a href="#2018-11-09" class="headerlink" title="2018.11.09"></a>2018.11.09</h3><p>1.router的history模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history没有#</span><br></pre></td></tr></table></figure>
+
+<p>2.打包工具可视化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm i -g @vue/cli</span><br><span class="line">vue ui</span><br></pre></td></tr></table></figure>
+
+<p>3.vue ssr</p>
+<p>服务器渲染，之前是浏览器渲染，服务器更快</p>
+<h3 id="2018-11-12"><a href="#2018-11-12" class="headerlink" title="2018.11.12"></a>2018.11.12</h3><p>1.小技巧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">微信聊天：新建一个文件夹，写上时间、名称，专门用于开发</span><br></pre></td></tr></table></figure>
+
+<p>2.process.browser</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">判断是否在浏览器环境中，在的话，可以调用window（因为vue ssr没有window）</span><br><span class="line"></span><br><span class="line">if(process.browser) &#123;</span><br><span class="line">    console.log(localstorage)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.服务器端的路由是全部注册好的，不用做区别，因为之前浏览器是为了加载速度</p>
+<h3 id="2018-11-14"><a href="#2018-11-14" class="headerlink" title="2018.11.14"></a>2018.11.14</h3><p>1.写css</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">需要有一个大的id，包裹，减少环境污染</span><br></pre></td></tr></table></figure>
+
+<p>2.一个debug产生的想法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">发现steps组件无数据-&gt;找steps组件，发现无数据传入-&gt;往上查找，发现父组件未传数据（因为不符合条件）</span><br></pre></td></tr></table></figure>
+
+<h3 id="2018-11-16"><a href="#2018-11-16" class="headerlink" title="2018.11.16"></a>2018.11.16</h3><p>1.git 坑1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git commit -a -&gt; 去到奇怪的地方 -&gt; 退出 -&gt; git add . 报错：Unable to create &apos;D:/cms-open/.git/index.lock&apos;:File exists. -&gt; 解决：rm -f ./.git/index.lock</span><br><span class="line"></span><br><span class="line">git commit -a -m “massage”:</span><br><span class="line">其他功能如-m参数，加的-a参数可以将所有已跟踪文件中的执行修改或删除操作的文件都提交到本地仓库，即使它们没有经过git add添加到暂存区，注意，新加的文件（即没有被git系统管理的文件）是不能被提交到本地仓库的。建议一般不要使用-a参数，正常的提交还是使用git add先将要改动的文件添加到暂存区，再用git commit 提交到本地版本库。</span><br></pre></td></tr></table></figure>
+
+<p>2.git 坑2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit 不成功 导致pull有冲突 -&gt; git rebase --abort 回滚到pull之前 -&gt; git pull 解决 </span><br><span class="line"></span><br><span class="line">每次解决冲突后，git status 看看</span><br></pre></td></tr></table></figure>
+
+<h3 id="2018-11-19"><a href="#2018-11-19" class="headerlink" title="2018.11.19"></a>2018.11.19</h3><p>当要断其他点：比如 serer.js 或 router -&gt; Debug(visual) -&gt; Start bugging</p>
+<h3 id="2018-11-20"><a href="#2018-11-20" class="headerlink" title="2018.11.20"></a>2018.11.20</h3><table>
+<thead>
+<tr>
+<th>computed</th>
+<th>watch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当变量少，逻辑简单，使用推荐；如果变量多，逻辑复杂不推荐，因缓存</td>
+<td>迫不得已才用</td>
+</tr>
+<tr>
+<td>&gt; computed&gt;watch</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>post</th>
+<th>put</th>
+<th>patch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建一个新资源，不幂等</td>
+<td>更新，要完整的资源对象，幂等（局部更新）</td>
+<td>不幂等（局部更新）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>幂等：在计算机范畴内表示一个操作执行任意次对系统的影响跟一次是相同的</p>
+</blockquote>
+<h3 id="2018-11-26"><a href="#2018-11-26" class="headerlink" title="2018.11.26"></a>2018.11.26</h3><table>
+<thead>
+<tr>
+<th>git reset –soft</th>
+<th>git reset –hard</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>回退到某个版本，只回退到commit 的信息，且之前修改的代码还在；如果还要提交，直接commit 即可</td>
+<td>彻底回退到某个版本，本地的源码也会变为上一个版本的内容，撤销的commit 中新包含的更改被冲掉</td>
+</tr>
+</tbody></table>
+<h3 id="2018-11-30"><a href="#2018-11-30" class="headerlink" title="2018.11.30"></a>2018.11.30</h3><p>1.React</p>
+<h5 id="一、新特性-ES6"><a href="#一、新特性-ES6" class="headerlink" title="一、新特性(ES6)"></a>一、新特性(ES6)</h5><p>let</p>
+<ul>
+<li>与var的区别<ul>
+<li>let声明的变量只在其声明的块或子块中可用，var声明的变量的作用域是整个封闭区域。</li>
+<li>let不能变量提升，var可以</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.log(bar) undefined</span><br><span class="line">console.log(foo) foo is not undefined</span><br><span class="line">var bar = 1;</span><br><span class="line">let foo = 2;</span><br></pre></td></tr></table></figure>
+
+<h5 id="二、React是什么"><a href="#二、React是什么" class="headerlink" title="二、React是什么"></a>二、React是什么</h5><p>一个采用声明式，高效且灵活的用来构建用户界面的框架</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class ShoppingList extends React.Component &#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div class = &apos;test&apos;&gt;</span><br><span class="line">                &lt;h1&gt;&#123;this.props.name&#125;&lt;/h1&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ShoppingList 是一种React组件类。一个组件会接受名为props的参数，并通过名为render的方法返回一个嵌套结构的视图。React会根据你的描述讲对应的内容在屏幕上渲染出来。</p>
+<p>在JSX语法中可以任意使用JavaScript表达式，只需用一个大括号把表达式括起来。</p>
+<h6 id="1-通过props传递数据"><a href="#1-通过props传递数据" class="headerlink" title="1).通过props传递数据"></a>1).通过props传递数据</h6><p>Board传 -&gt; Square</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">calss Board extends React.Component &#123;</span><br><span class="line">    render Square(i) &#123;</span><br><span class="line">        return &lt;Square value=&#123;i&#125; /&gt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">calss Square extends React.Component &#123;</span><br><span class="line">    render &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;button className=&apos;Square&apos;&gt;</span><br><span class="line">                &#123;this.props.value&#125;</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-给组件添加交互功能"><a href="#2-给组件添加交互功能" class="headerlink" title="2).给组件添加交互功能"></a>2).给组件添加交互功能</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">calss Square extends React.Component &#123;</span><br><span class="line">    constructor()&#123;</span><br><span class="line">        super();</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            value: null</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    render &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;button className=&apos;Square&apos; onClick=&#123;()=&gt;this.setState(&#123;value:&apos;x&apos;&#125;)&#125;&gt;</span><br><span class="line">                &#123;this.props.value&#125;</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在Js classes中，必须使用super();方法才能在继承父类的子类中正确获取到类型的this</p>
+<h6 id="3-开发工具"><a href="#3-开发工具" class="headerlink" title="3).开发工具"></a>3).开发工具</h6><p>React Devtools</p>
+<h5 id="三、状态提升"><a href="#三、状态提升" class="headerlink" title="三、状态提升"></a>三、状态提升</h5><h6 id="1-不可变性"><a href="#1-不可变性" class="headerlink" title="1).不可变性"></a>1).不可变性</h6><p>当遇到需要同时获取多个子组件数据，或者两个组件之间需要相互通讯的情况时，把子组件的state数据提升至其共同的父组件当中保存，之后父组件可以通过props将状态数据传递到子组件当中，这样应用当中的状态数据就能够更方便的交流共享了。</p>
+<p>不可变性在React相当重要</p>
+<ul>
+<li>slice()方法可以对已有的数组数据进行浅拷贝</li>
+</ul>
+<p>改变应用数据方法</p>
+<ul>
+<li>直接修改</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var player = &#123;score:1,name:&apos;Jeff&apos;&#125;;</span><br><span class="line">player.score = 2;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>替换修改</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var player = &#123;&#125;</span><br><span class="line">var newPlayer = &#123;...player,score:2&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-函数定义组件"><a href="#2-函数定义组件" class="headerlink" title="2).函数定义组件"></a>2).函数定义组件</h6><p>React专门为只有render方法的组件提供了一种更简便的定义组件的方法：函数定义组件（写一个props为参数的function返回JSX元素即可）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Square (props) &#123;</span><br><span class="line">    return(</span><br><span class="line">        &lt;burron className=&apos;Square&apos; onClick=&#123;props.onClick&#125;</span><br><span class="line">            &#123;props.value&#125;</span><br><span class="line">        &lt;/button&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>props.onClick 不能加(),会立即触发</p>
+<h6 id="3-轮流落子"><a href="#3-轮流落子" class="headerlink" title="3).轮流落子"></a>3).轮流落子</h6><p>用一个xIsNext操控</p>
+<h6 id="4-判断赢家"><a href="#4-判断赢家" class="headerlink" title="4).判断赢家"></a>4).判断赢家</h6><h5 id="四、保存历史记录"><a href="#四、保存历史记录" class="headerlink" title="四、保存历史记录"></a>四、保存历史记录</h5><h6 id="1-展示每步历史记录链接"><a href="#1-展示每步历史记录链接" class="headerlink" title="1).展示每步历史记录链接"></a>1).展示每步历史记录链接</h6><p>React元素事实上都是JS当中的对象，我们可以把元素当做参数或定义到变量中使用。在React当中渲染多个重复的项目时，我们一般都以数组的方式传递React元素，最基本的方法是使用数组的map方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const moves  = history.map( (step,move)=&gt;&#123;</span><br><span class="line">    const desc = move?&apos;Move #&apos;+move:&apos;Game start&apos;;</span><br><span class="line">    return (</span><br><span class="line">        &lt;li&gt;</span><br><span class="line">            &lt;a href=&apos;#&apos; onClick=&#123;()=&gt;this.jumpTo(move)&#125;&#123;desc&#125;&lt;/a&gt;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-keys"><a href="#2-keys" class="headerlink" title="2).keys"></a>2).keys</h6><p>强烈建议在渲染列表项时添加keys值，key值会和对应元素绑定。</p>
+<p>所以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;li key=&#123;move&#125;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.class判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:class=&quot;&#123;test:isTest==true&#125;&quot;</span><br><span class="line">:class=&quot;test&gt;0?&apos;test&apos;:&apos;&apos;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>3.React文档</p>
+<h5 id="一、JSX简历"><a href="#一、JSX简历" class="headerlink" title="一、JSX简历"></a>一、JSX简历</h5><p>JSX，一种javascrpt的语法扩展，用来声明react当中的元素。</p>
+<p>1.在JSX中使用表达式</p>
+<blockquote>
+<p>可任意在JSX中使用JS表达式：但要在大括号里；不要套引号，会识别为字符串；JSX标签是闭合的 结尾处用&lt;/&gt;；reactDom使用小驼峰命名定义属性的名称，class=&gt;className</p>
+</blockquote>
+<p>2.书写JSX时，一般要带上换行和缩进——可读性<br>在JSX代码外，扩上一个小括号，防止分号自动插入</p>
+<h5 id="二、元素渲染"><a href="#二、元素渲染" class="headerlink" title="二、元素渲染"></a>二、元素渲染</h5><h6 id="1-将元素渲染到DOM中"><a href="#1-将元素渲染到DOM中" class="headerlink" title="1).将元素渲染到DOM中"></a>1).将元素渲染到DOM中</h6><p>要把它们传递给ReactDom.render()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&apos;root&apos;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-更新元素渲染"><a href="#2-更新元素渲染" class="headerlink" title="2).更新元素渲染"></a>2).更新元素渲染</h6><p>React元素都是不可变的，当元素被创建之后，无法改变其内容或属性，一个元素就像动画里的一帧，代表应用界面在某一时间点的样子。</p>
+<p>React只会更新必要的部分</p>
+<h5 id="三、组件-amp-props"><a href="#三、组件-amp-props" class="headerlink" title="三、组件 &amp; props"></a>三、组件 &amp; props</h5><h6 id="1-函数定义-类定义组件"><a href="#1-函数定义-类定义组件" class="headerlink" title="1).函数定义/类定义组件"></a>1).函数定义/类定义组件</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function Welcome(props) &#123;</span><br><span class="line">    return &lt;h1&gt;Hello,&#123;props.name&#125;&lt;h1&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Welcome extends React.Component &#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return &lt;h1&gt;Hello,&#123;props.name&#125;&lt;h1&gt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-组件名称必须大写字母开头"><a href="#2-组件名称必须大写字母开头" class="headerlink" title="2).组件名称必须大写字母开头"></a>2).组件名称必须大写字母开头</h6><h6 id="3-props只读性"><a href="#3-props只读性" class="headerlink" title="3).props只读性"></a>3).props只读性</h6><h5 id="四、state-amp-生命周期"><a href="#四、state-amp-生命周期" class="headerlink" title="四、state &amp; 生命周期"></a>四、state &amp; 生命周期</h5>
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/百田/" rel="tag"># 百田</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2018/10/08/实习总结/2018.10/" rel="next" title="2018.1">
+                  <i class="fa fa-chevron-left"></i> 2018.1
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/11/17/数据库/SQL必知必会/" rel="prev" title="SQL必知必会">
+                  SQL必知必会 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-02"><span class="nav-text">2018.11.02</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-07"><span class="nav-text">2018.11.07</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-09"><span class="nav-text">2018.11.09</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-12"><span class="nav-text">2018.11.12</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-14"><span class="nav-text">2018.11.14</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-16"><span class="nav-text">2018.11.16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-19"><span class="nav-text">2018.11.19</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-20"><span class="nav-text">2018.11.20</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-26"><span class="nav-text">2018.11.26</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-30"><span class="nav-text">2018.11.30</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、新特性-ES6"><span class="nav-text">一、新特性(ES6)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、React是什么"><span class="nav-text">二、React是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-通过props传递数据"><span class="nav-text">1).通过props传递数据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-给组件添加交互功能"><span class="nav-text">2).给组件添加交互功能</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-开发工具"><span class="nav-text">3).开发工具</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、状态提升"><span class="nav-text">三、状态提升</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-不可变性"><span class="nav-text">1).不可变性</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-函数定义组件"><span class="nav-text">2).函数定义组件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-轮流落子"><span class="nav-text">3).轮流落子</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-判断赢家"><span class="nav-text">4).判断赢家</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、保存历史记录"><span class="nav-text">四、保存历史记录</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-展示每步历史记录链接"><span class="nav-text">1).展示每步历史记录链接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-keys"><span class="nav-text">2).keys</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一、JSX简历"><span class="nav-text">一、JSX简历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、元素渲染"><span class="nav-text">二、元素渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-将元素渲染到DOM中"><span class="nav-text">1).将元素渲染到DOM中</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-更新元素渲染"><span class="nav-text">2).更新元素渲染</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、组件-amp-props"><span class="nav-text">三、组件 &amp; props</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-函数定义-类定义组件"><span class="nav-text">1).函数定义/类定义组件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-组件名称必须大写字母开头"><span class="nav-text">2).组件名称必须大写字母开头</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-props只读性"><span class="nav-text">3).props只读性</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、state-amp-生命周期"><span class="nav-text">四、state &amp; 生命周期</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

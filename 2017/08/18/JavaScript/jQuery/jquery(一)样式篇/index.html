@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="1.$(document).ready作用是等页面的文档（document）中的节点都加载完毕后，再执行后续的代码，因为我们在执行代码的时候，可能会依赖页面的某一个元素，我们要确保这个元素真正的的被加载完毕后才能正确的使用。">
+<meta name="keywords" content="jQuery">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jquery(一)样式篇">
+<meta property="og:url" content="http://yoursite.com/2017/08/18/JavaScript/jQuery/jquery(一)样式篇/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="1.$(document).ready作用是等页面的文档（document）中的节点都加载完毕后，再执行后续的代码，因为我们在执行代码的时候，可能会依赖页面的某一个元素，我们要确保这个元素真正的的被加载完毕后才能正确的使用。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:16.966Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jquery(一)样式篇">
+<meta name="twitter:description" content="1.$(document).ready作用是等页面的文档（document）中的节点都加载完毕后，再执行后续的代码，因为我们在执行代码的时候，可能会依赖页面的某一个元素，我们要确保这个元素真正的的被加载完毕后才能正确的使用。">
+  <link rel="canonical" href="http://yoursite.com/2017/08/18/JavaScript/jQuery/jquery(一)样式篇/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>jquery(一)样式篇 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/jQuery/jquery(一)样式篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">jquery(一)样式篇
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-18 15:15:47" itemprop="dateCreated datePublished" datetime="2017-08-18T15:15:47+08:00">2017-08-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>9.3k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>8 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-document-ready"><a href="#1-document-ready" class="headerlink" title="1.$(document).ready"></a>1.$(document).ready</h3><p>作用是等页面的文档（document）中的节点都加载完毕后，再执行后续的代码，因为我们在执行代码的时候，可能会依赖页面的某一个元素，我们要确保这个元素真正的的被加载完毕后才能正确的使用。</p><a id="more"></a>
+<h3 id="2-jQuery对象与DOM对象"><a href="#2-jQuery对象与DOM对象" class="headerlink" title="2.jQuery对象与DOM对象"></a>2.jQuery对象与DOM对象</h3><p>通过一个简单的例子，简单区分下jQuery对象与DOM对象：<br>我们要获取页面上这个id为imooc的p元素，然后给这个文本节点增加一段文字：“您好！通过慕课网学习jQuery才是最佳的途径”，并且让文字颜色变成红色。</p>
+<p>普通处理，通过标准JavaScript处理：</p>
+<p>v</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ar p = document.getElementById(&apos;imooc&apos;);</span><br><span class="line">p.innerHTML = &apos;您好！通过慕课网学习jQuery才是最佳的途径&apos;;</span><br><span class="line">p.style.color = &apos;red&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>通过原生DOM模型提供的document.getElementById(“imooc”) 方法获取的DOM元素就是一个DOM对象，再通过innerHTML与style属性处理文本与颜色。</p>
+<p>jQuery的处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var $p = $(&apos;#imooc&apos;);</span><br><span class="line">$p.html(&apos;您好！通过慕课网学习jQuery才是最佳的途径&apos;).css(&apos;color&apos;,&apos;red&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>通过$(‘#imooc’)方法会得到一个$p的jQuery对象，$p是一个类数组对象。这个对象里面包含了DOM对象的信息，然后封装了很多操作方法，调用自己的方法html与css，得到的效果与标准的JavaScript处理结果是一致的。</p>
+<h3 id="3-jQuery对象转化成DOM对象"><a href="#3-jQuery对象转化成DOM对象" class="headerlink" title="3.jQuery对象转化成DOM对象"></a>3.jQuery对象转化成DOM对象</h3><p>在很多场景中，我们需要jQuery与DOM能够相互的转换，它们都是可以操作的DOM元素，jQuery是一个类数组对象，而DOM对象就是一个单独的DOM元素。</p>
+<p>如何把jQuery对象转成DOM对象？</p>
+<h4 id="1-利用数组下标的方式读取到jQuery中的DOM对象"><a href="#1-利用数组下标的方式读取到jQuery中的DOM对象" class="headerlink" title="(1).利用数组下标的方式读取到jQuery中的DOM对象"></a>(1).利用数组下标的方式读取到jQuery中的DOM对象</h4><p>HTML代码</p>
+<p>元素一</p>
+<p>元素二</p>
+<p>元素三<br>JavaScript代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var $div = $(&apos;div&apos;) //jQuery对象</span><br><span class="line">var div = $div[0] //转化成DOM对象</span><br><span class="line">div.style.color = &apos;red&apos; //操作dom对象的属性</span><br></pre></td></tr></table></figure>
+
+<p>用jQuery找到所有的div元素（3个），因为jQuery对象也是一个数组结构，可以通过数组下标索引找到第一个div元素，通过返回的div对象，调用它的style属性修改第一个div元素的颜色。这里需要注意的一点是，数组的索引是从0开始的，也就是第一个元素下标是0</p>
+<h4 id="2-通过jQuery自带的get-方法"><a href="#2-通过jQuery自带的get-方法" class="headerlink" title="(2).通过jQuery自带的get()方法"></a>(2).通过jQuery自带的get()方法</h4><p>jQuery对象自身提供一个.get() 方法允许我们直接访问jQuery对象中相关的DOM节点，get方法中提供一个元素的索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var $div = $(&apos;div&apos;) //jQuery对象</span><br><span class="line">var div = $div.get(0) //通过get方法，转化成DOM对象</span><br><span class="line">div.style.color = &apos;red&apos; //操作dom对象的属性</span><br></pre></td></tr></table></figure>
+
+<p>其实我们翻开源码，看看就知道了，get方法就是利用的第一种方式处理的，只是包装成一个get让开发者更直接方便的使用。</p>
+<h3 id="4-DOM对象转化成jQuery对象"><a href="#4-DOM对象转化成jQuery对象" class="headerlink" title="4.DOM对象转化成jQuery对象"></a>4.DOM对象转化成jQuery对象</h3><p>相比较jQuery转化成DOM，开发中更多的情况是把一个dom对象加工成jQuery对象。$(参数)是一个多功能的方法，通过传递不同的参数而产生不同的作用。</p>
+<p>如果传递给$(DOM)函数的参数是一个DOM对象，jQuery方法会把这个DOM对象给包装成一个新的jQuery对象</p>
+<p>通过$(dom)方法将普通的dom对象加工成jQuery对象之后，我们就可以调用jQuery的方法了</p>
+<p>HTML代码</p>
+<p>元素一</p>
+<p>元素二</p>
+<p>元素三<br>JavaScript代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var div = document.getElementsByTagName(&apos;div&apos;); //dom对象</span><br><span class="line">var $div = $(div); //jQuery对象</span><br><span class="line">var $first = $div.first(); //找到第一个div元素</span><br><span class="line">$first.css(&apos;color&apos;, &apos;red&apos;); //给第一个元素设置颜色</span><br></pre></td></tr></table></figure>
+
+<p>通过getElementsByTagName获取到所有div节点的元素，结果是一个dom合集对象，不过这个对象是一个数组合集(3个div元素)。通过$(div)方法转化成jQuery对象，通过调用jQuery对象中的first与css方法查找第一个元素并且改变其颜色。</p>
+<h3 id="5-jQuery选择器之id选择器"><a href="#5-jQuery选择器之id选择器" class="headerlink" title="5.jQuery选择器之id选择器"></a>5.jQuery选择器之id选择器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$( &quot;#id&quot; )</span><br></pre></td></tr></table></figure>
+
+<p>id是唯一的，每个id值在一个页面中只能使用一次。如果多个元素分配了相同的id，将只匹配该id选择集合的第一个DOM元素。但这种行为不应该发生;有超过一个元素的页面使用相同的id是无效的</p>
+<h3 id="6-jQuery选择器之类选择器"><a href="#6-jQuery选择器之类选择器" class="headerlink" title="6.jQuery选择器之类选择器"></a>6.jQuery选择器之类选择器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$( &quot;.class&quot; )</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-jQuery选择器之元素选择器"><a href="#7-jQuery选择器之元素选择器" class="headerlink" title="7.jQuery选择器之元素选择器"></a>7.jQuery选择器之元素选择器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$( &quot;element&quot; )</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-jQuery选择器之全选择器（-选择器）"><a href="#8-jQuery选择器之全选择器（-选择器）" class="headerlink" title="8.jQuery选择器之全选择器（*选择器）"></a>8.jQuery选择器之全选择器（*选择器）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$( &quot;*&quot; )</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-jQuery选择器之层级选择器"><a href="#9-jQuery选择器之层级选择器" class="headerlink" title="9.jQuery选择器之层级选择器"></a>9.jQuery选择器之层级选择器</h3><ol>
+<li>层级选择器都有一个参考节点</li>
+<li>后代选择器包含子选择器的选择的内容</li>
+<li>一般兄弟选择器包含相邻兄弟选择的内容</li>
+<li>相邻兄弟选择器和一般兄弟选择器所选择到的元素，必须在同一个父元素下<h3 id="10-jQuery选择器之基本筛选选择器"><a href="#10-jQuery选择器之基本筛选选择器" class="headerlink" title="10.jQuery选择器之基本筛选选择器"></a>10.jQuery选择器之基本筛选选择器</h3></li>
+</ol>
+<ol>
+<li>:eq(), :lt(), :gt(), :even, :odd 用来筛选他们前面的匹配表达式的集合元素，根据之前匹配的元素在进一步筛选，注意jQuery合集都是从0开始索引</li>
+<li>gt是一个段落筛选，从指定索引的下一个开始，gt(1) 实际从2开始<h3 id="11-jQuery选择器之内容筛选选择器"><a href="#11-jQuery选择器之内容筛选选择器" class="headerlink" title="11.jQuery选择器之内容筛选选择器"></a>11.jQuery选择器之内容筛选选择器</h3></li>
+</ol>
+<ol>
+<li>:contains与:has都有查找的意思，但是contains查找包含“指定文本”的元素，has查找包含“指定元素”的元素</li>
+<li>如果:contains匹配的文本包含在元素的子元素中，同样认为是符合条件的。</li>
+<li>:parent与:empty是相反的，两者所涉及的子元素，包括文本节点<h3 id="12-jQuery选择器之可见性筛选选择器"><a href="#12-jQuery选择器之可见性筛选选择器" class="headerlink" title="12.jQuery选择器之可见性筛选选择器"></a>12.jQuery选择器之可见性筛选选择器</h3></li>
+</ol>
+<p>元素可以被认为是隐藏的几个情况：</p>
+<ol>
+<li>他们的CSS display值是none。</li>
+<li>他们是type=”hidden”的表单元素。</li>
+<li>它们的宽度和高度都显式设置为0。</li>
+<li>一个祖先元素是隐藏的，因此该元素是不会在页面上显示。<h3 id="13-jQuery选择器之属性筛选选择器"><a href="#13-jQuery选择器之属性筛选选择器" class="headerlink" title="13.jQuery选择器之属性筛选选择器"></a>13.jQuery选择器之属性筛选选择器</h3></li>
+</ol>
+<p>在这么多属性选择器中[attr=”value”]和[attr*=”value”]是最实用的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[attr=&quot;value&quot;]能帮我们定位不同类型的元素，特别是表单form元素的操作，比如说input[type=&quot;text&quot;],input[type=&quot;checkbox&quot;]等</span><br><span class="line">[attr*=&quot;value&quot;]能在网站中帮助我们匹配不同类型的文件</span><br></pre></td></tr></table></figure>
+
+<h3 id="14-jQuery选择器之子元素筛选选择器"><a href="#14-jQuery选择器之子元素筛选选择器" class="headerlink" title="14.jQuery选择器之子元素筛选选择器"></a>14.jQuery选择器之子元素筛选选择器</h3><p>子元素筛选选择器不常使用，其筛选规则比起其它的选择器稍微要复杂点</p>
+<ol>
+<li>:first只匹配一个单独的元素，但是:first-child选择器可以匹配多个：即为每个父级元素匹配第一个子元素。这相当于:nth-child(1)</li>
+<li>:last 只匹配一个单独的元素， :last-child 选择器可以匹配多个元素：即，为每个父级元素匹配最后一个子元素</li>
+<li>如果子元素只有一个的话，:first-child与:last-child是同一个</li>
+<li>:only-child匹配某个元素是父元素中唯一的子元素，就是说当前子元素是父元素中唯一的元素，则匹配</li>
+<li>jQuery实现:nth-child(n)是严格来自CSS规范，所以n值是“索引”，也就是说，从1开始计数，:nth-child(index)从1开始的，而eq(index)是从0开始的</li>
+<li>nth-child(n) 与 :nth-last-child(n) 的区别前者是从前往后计算，后者从后往前计算<h3 id="15-jQuery选择器之表单元素选择器"><a href="#15-jQuery选择器之表单元素选择器" class="headerlink" title="15.jQuery选择器之表单元素选择器"></a>15.jQuery选择器之表单元素选择器</h3></li>
+</ol>
+<p>除了input筛选选择器，几乎每个表单类别筛选器都对应一个input元素的type值。大部分表单类别筛选器可以使用属性筛选器替换。比如 $(‘:password’) == $(‘[type=password]’)</p>
+<h3 id="16-jQuery选择器之表单对象属性筛选选择器"><a href="#16-jQuery选择器之表单对象属性筛选选择器" class="headerlink" title="16.jQuery选择器之表单对象属性筛选选择器"></a>16.jQuery选择器之表单对象属性筛选选择器</h3><ol>
+<li>选择器适用于复选框和单选框，对于下拉框元素, 使用 :selected 选择器</li>
+<li>在某些浏览器中，选择器:checked可能会错误选取到元素，所以保险起见换用选择器input:checked，确保只会选取元素<h3 id="17-jQuery选择器之特殊选择器this"><a href="#17-jQuery选择器之特殊选择器this" class="headerlink" title="17.jQuery选择器之特殊选择器this"></a>17.jQuery选择器之特殊选择器this</h3></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">HTML</span><br><span class="line">p.addEventListener(&apos;click&apos;,function()&#123;</span><br><span class="line">    //this === p</span><br><span class="line">    //以下两者的修改都是等价的</span><br><span class="line">    this.style.color = &quot;red&quot;;</span><br><span class="line">    p.style.color = &quot;red&quot;;</span><br><span class="line">&#125;,false);</span><br><span class="line"></span><br><span class="line"> this.style.color = &quot;red&quot;</span><br><span class="line">$(&apos;p&apos;).click(function()&#123;</span><br><span class="line">    //把p元素转化成jQuery的对象</span><br><span class="line">    var $this= $(this) </span><br><span class="line">    $this.css(&apos;color&apos;,&apos;red&apos;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>this，表示当前的上下文对象是一个html对象，可以调用html对象所拥有的属性和方法。<br>$(this),代表的上下文对象是一个jquery的上下文对象，可以调用jQuery的方法和属性值。</p>
+<h3 id="18-jQuery的属性与样式之-attr-与-removeAttr"><a href="#18-jQuery的属性与样式之-attr-与-removeAttr" class="headerlink" title="18.jQuery的属性与样式之.attr()与.removeAttr()"></a>18.jQuery的属性与样式之.attr()与.removeAttr()</h3><h4 id="1-attr-有4个表达式"><a href="#1-attr-有4个表达式" class="headerlink" title="(1).attr()有4个表达式"></a>(1).attr()有4个表达式</h4><ol>
+<li>attr(传入属性名)：获取属性的值</li>
+<li>attr(属性名, 属性值)：设置属性的值</li>
+<li>attr(属性名,函数值)：设置属性的函数值</li>
+<li>attr(attributes)：给指定元素设置多个属性值，即：{属性名一: “属性值一” , 属性名二: “属性值二” , … … }<h4 id="2-removeAttr-删除方法"><a href="#2-removeAttr-删除方法" class="headerlink" title="(2).removeAttr()删除方法"></a>(2).removeAttr()删除方法</h4>.removeAttr( attributeName ) : 为匹配的元素集合中的每个元素中移除一个属性（attribute）</li>
+</ol>
+<h4 id="3-注意的问题"><a href="#3-注意的问题" class="headerlink" title="(3).注意的问题"></a>(3).注意的问题</h4><p>dom中有个概念的区分：Attribute和Property翻译出来都是“属性”，《js高级程序设计》书中翻译为“特性”和“属性”。简单理解，Attribute就是dom节点自带的属性</p>
+<blockquote>
+<p>获取Attribute就需要用attr，获取Property就需要用prop</p>
+</blockquote>
+<h3 id="19-jQuery的属性与样式之html-及-text"><a href="#19-jQuery的属性与样式之html-及-text" class="headerlink" title="19.jQuery的属性与样式之html()及.text()"></a>19.jQuery的属性与样式之html()及.text()</h3><p>读取、修改元素的html结构或者元素的文本内容是常见的DOM操作，jQuery针对这样的处理提供了2个便捷的方法.html()与.text()</p>
+<h4 id="1-html-方法"><a href="#1-html-方法" class="headerlink" title="(1).html()方法"></a>(1).html()方法</h4><p>获取集合中第一个匹配元素的HTML内容 或 设置每一个匹配元素的html内容，具体有3种用法：</p>
+<ol>
+<li>.html() 不传入值，就是获取集合中第一个匹配元素的HTML内容</li>
+<li>.html( htmlString ) 设置每一个匹配元素的html内容</li>
+<li>.html( function(index, oldhtml) ) 用来返回设置HTML内容的一个函数<h4 id="2-注意事项："><a href="#2-注意事项：" class="headerlink" title="(2).注意事项："></a>(2).注意事项：</h4>.html()方法内部使用的是DOM的innerHTML属性来处理的，所以在设置与获取上需要注意的一个最重要的问题，这个操作是针对整个HTML内容（不仅仅只是文本内容）</li>
+</ol>
+<h4 id="3-text-方法"><a href="#3-text-方法" class="headerlink" title="(3).text()方法"></a>(3).text()方法</h4><p>得到匹配元素集合中每个元素的文本内容结合，包括他们的后代，或设置匹配元素集合中每个元素的文本内容为指定的文本内容。，具体有3种用法：</p>
+<ol>
+<li>.text() 得到匹配元素集合中每个元素的合并文本，包括他们的后代</li>
+<li>.text( textString ) 用于设置匹配元素内容的文本</li>
+<li>.text( function(index, text) ) 用来返回设置文本内容的一个函数<h4 id="4-注意事项："><a href="#4-注意事项：" class="headerlink" title="(4).注意事项："></a>(4).注意事项：</h4>.text()结果返回一个字符串，包含所有匹配元素的合并文本</li>
+</ol>
+<h4 id="5-html与-text的异同"><a href="#5-html与-text的异同" class="headerlink" title="(5).html与.text的异同:"></a>(5).html与.text的异同:</h4><ol>
+<li>.html与.text的方法操作是一样，只是在具体针对处理对象不同</li>
+<li>.html处理的是元素内容，.text处理的是文本内容</li>
+<li>.html只能使用在HTML文档中，.text 在XML 和 HTML 文档中都能使用</li>
+<li>如果处理的对象只有一个子文本节点，那么html处理的结果与text是一样的</li>
+<li>火狐不支持innerText属性，用了类似的textContent属性，.text()方法综合了2个属性的支持，所以可以兼容所有浏览器<h3 id="20-jQuery的属性与样式之-val"><a href="#20-jQuery的属性与样式之-val" class="headerlink" title="20.jQuery的属性与样式之.val()"></a>20.jQuery的属性与样式之.val()</h3>jQuery中有一个.val()方法主要是用于处理表单元素的值，比如 input, select 和 textarea。</li>
+</ol>
+<h4 id="1-val-方法"><a href="#1-val-方法" class="headerlink" title="(1).val()方法"></a>(1).val()方法</h4><ol>
+<li>.val()无参数，获取匹配的元素集合中第一个元素的当前值</li>
+<li>.val( value )，设置匹配的元素集合中每个元素的值</li>
+<li>.val( function ) ，一个用来返回设置值的函数</li>
+</ol>
+<h4 id="2-注意事项：-1"><a href="#2-注意事项：-1" class="headerlink" title="(2)注意事项："></a>(2)注意事项：</h4><ol>
+<li>通过.val()处理select元素， 当没有选择项被选中，它返回null</li>
+<li>.val()方法多用来设置表单的字段的值</li>
+<li>如果select元素有multiple（多选）属性，并且至少一个选择项被选中， .val()方法返回一个数组，这个数组包含每个选中选择项的值</li>
+</ol>
+<h4 id="3-html-text-和-val-的差异总结："><a href="#3-html-text-和-val-的差异总结：" class="headerlink" title="(3).html(),.text()和.val()的差异总结："></a>(3).html(),.text()和.val()的差异总结：</h4><ol>
+<li>.html(),.text(),.val()三种方法都是用来读取选定元素的内容；只不过.html()是用来读取元素的html内容（包括html标签），.text()用来读取元素的纯文本内容，包括其后代元素，.val()是用来读取表单元素的”value”值。其中.html()和.text()方法不能使用在表单元素上,而.val()只能使用在表单元素上；另外.html()方法使用在多个元素上时，只读取第一个元素；.val()方法和.html()相同，如果其应用在多个元素上时，只能读取第一个表单元素的”value”值，但是.text()和他们不一样，如果.text()应用在多个元素上时，将会读取所有选中元素的文本内容。</li>
+<li>.html(htmlString),.text(textString)和.val(value)三种方法都是用来替换选中元素的内容，如果三个方法同时运用在多个元素上时，那么将会替换所有选中元素的内容。</li>
+<li>.html(),.text(),.val()都可以使用回调函数的返回值来动态的改变多个元素的内容。</li>
+</ol>
+<h3 id="21-jQuery的属性与样式之增加样式-addClass"><a href="#21-jQuery的属性与样式之增加样式-addClass" class="headerlink" title="21.jQuery的属性与样式之增加样式.addClass()"></a>21.jQuery的属性与样式之增加样式.addClass()</h3><p>通过动态改变类名（class），可以让其修改元素呈现出不同的效果。在HTML结构中里，多个class以空格分隔，当一个节点（或称为一个标签）含有多个class时，DOM元素响应的className属性获取的不是class名称的数组，而是一个含有空格的字符串，这就使得多class操作变得很麻烦。同样的jQuery开发者也考虑到这种情况，增加了一个.addClass()方法，用于动态增加class类名</p>
+<h4 id="1-addClass-className-方法"><a href="#1-addClass-className-方法" class="headerlink" title="(1).addClass( className )方法"></a>(1).addClass( className )方法</h4><ol>
+<li>.addClass( className ) : 为每个匹配元素所要增加的一个或多个样式名</li>
+<li>.addClass( function(index, currentClass) ) : 这个函数返回一个或更多用空格隔开的要增加的样式名<h4 id="2-注意事项：-2"><a href="#2-注意事项：-2" class="headerlink" title="(2).注意事项："></a>(2).注意事项：</h4>.addClass()方法不会替换一个样式类名。它只是简单的添加一个样式类名到元素上<h4 id="3"><a href="#3" class="headerlink" title="(3)."></a>(3).</h4>简单的描述下：在p元素增加一个newClass的样式</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p class=&quot;orgClass&quot;&gt;</span><br><span class="line">$(&quot;p&quot;).addClass(&quot;newClass&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>那么p元素的class实际上是 class=”orgClass newClass”样式只会在原本的类上继续增加，通过空格分隔</p>
+<h3 id="22-jQuery的属性与样式之删除样式-removeClass"><a href="#22-jQuery的属性与样式之删除样式-removeClass" class="headerlink" title="22.jQuery的属性与样式之删除样式.removeClass()"></a>22.jQuery的属性与样式之删除样式.removeClass()</h3><p>jQuery通过.addClass()方法可以很便捷的增加样式。如果需要样式之间的切换，同样jQuery提供了一个很方便的.removeClass()，它的作用是从匹配的元素中删除全部或者指定的class</p>
+<h4 id="1-removeClass-方法"><a href="#1-removeClass-方法" class="headerlink" title="(1).removeClass( )方法"></a>(1).removeClass( )方法</h4><ul>
+<li>.removeClass( [className ] )：每个匹配元素移除的一个或多个用空格隔开的样式名</li>
+<li>.removeClass( function(index, class) ) ： 一个函数，返回一个或多个将要被移除的样式名<h4 id="2-注意事项"><a href="#2-注意事项" class="headerlink" title="(2).注意事项"></a>(2).注意事项</h4>如果一个样式类名作为一个参数,只有这样式类会被从匹配的元素集合中删除 。 如果没有样式名作为参数，那么所有的样式类将被移除</li>
+</ul>
+<h3 id="23-jQuery的属性与样式之切换样式-toggleClass"><a href="#23-jQuery的属性与样式之切换样式-toggleClass" class="headerlink" title="23.jQuery的属性与样式之切换样式.toggleClass()"></a>23.jQuery的属性与样式之切换样式.toggleClass()</h3><p>在做某些效果的时候，可能会针对同一节点的某一个样式不断的切换，也就是addClass与removeClass的互斥切换，比如隔行换色效果</p>
+<p>jQuery提供一个toggleClass方法用于简化这种互斥的逻辑，通过toggleClass方法动态添加删除Class，一次执行相当于addClass，再次执行相当于removeClass</p>
+<h4 id="1-toggleClass-方法："><a href="#1-toggleClass-方法：" class="headerlink" title="(1).toggleClass( )方法："></a>(1).toggleClass( )方法：</h4><p>在匹配的元素集合中的每个元素上添加或删除一个或多个样式类,取决于这个样式类是否存在或值切换属性。即：如果存在（不存在）就删除（添加）一个类</p>
+<ol>
+<li>.toggleClass( className )：在匹配的元素集合中的每个元素上用来切换的一个或多个（用空格隔开）样式类名</li>
+<li>.toggleClass( className, switch )：一个布尔值，用于判断样式是否应该被添加或移除</li>
+<li>.toggleClass( [switch ] )：一个用来判断样式类添加还是移除的 布尔值</li>
+<li>.toggleClass( function(index, class, switch) [, switch ] )：用来返回在匹配的元素集合中的每个元素上用来切换的样式类名的一个函数。接收元素的索引位置和元素旧的样式类作为参数<h4 id="2-注意事项：-3"><a href="#2-注意事项：-3" class="headerlink" title="(2).注意事项："></a>(2).注意事项：</h4></li>
+<li>toggleClass是一个互斥的逻辑，也就是通过判断对应的元素上是否存在指定的Class名，如果有就删除，如果没有就增加</li>
+<li>toggleClass会保留原有的Class名后新增，通过空格隔开</li>
+</ol>
+<h3 id="24-jQuery的属性与样式之样式操作-css"><a href="#24-jQuery的属性与样式之样式操作-css" class="headerlink" title="24.jQuery的属性与样式之样式操作.css()"></a>24.jQuery的属性与样式之样式操作.css()</h3><p>通过JavaScript获取dom元素上的style属性，我们可以动态的给元素赋予样式属性。在jQuery中我们要动态的修改style属性我们只要使用css()方法就可以实现了</p>
+<p>.css() 方法：获取元素样式属性的计算值或者设置元素的CSS属性</p>
+<h4 id="1-获取："><a href="#1-获取：" class="headerlink" title="(1).获取："></a>(1).获取：</h4><ul>
+<li>.css( propertyName ) ：获取匹配元素集合中的第一个元素的样式属性的计算值</li>
+<li>.css( propertyNames )：传递一组数组，返回一个对象结果</li>
+</ul>
+<h4 id="2-设置："><a href="#2-设置：" class="headerlink" title="(2).设置："></a>(2).设置：</h4><p>.css(propertyName, value )：设置CSS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">css(“background-color”,”red”)</span><br><span class="line">css(“backgroundColor”,”yellow”)</span><br></pre></td></tr></table></figure>
+
+<p>.css( propertyName, function )：可以传入一个回调函数，返回取到对应的值进行处理</p>
+<p>.css( properties )：可以传一个对象，同时设置多个样式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">css(&#123;</span><br><span class="line">    &apos;font-size&apos;        :&quot;15px&quot;,</span><br><span class="line">    &quot;background-color&quot; :&quot;#40E0D0&quot;,</span><br><span class="line">    &quot;border&quot;           :&quot;1px solid red&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-注意事项："><a href="#3-注意事项：" class="headerlink" title="(3).注意事项："></a>(3).注意事项：</h4><ol>
+<li>浏览器属性获取方式不同，在获取某些值的时候都jQuery采用统一的处理，比如颜色采用RBG，尺寸采用px</li>
+<li>.css()方法支持驼峰写法与大小写混搭的写法，内部做了容错的处理</li>
+<li>当一个数只被作为值（value）的时候， jQuery会将其转换为一个字符串，并添在字符串的结尾处添加px，例如 .css(“width”,50}) 与 .css(“width”,”50px”})一样</li>
+</ol>
+<h3 id="25-jQuery的属性与样式之-css-与-addClass-设置样式的区别"><a href="#25-jQuery的属性与样式之-css-与-addClass-设置样式的区别" class="headerlink" title="25.jQuery的属性与样式之.css()与.addClass()设置样式的区别"></a>25.jQuery的属性与样式之.css()与.addClass()设置样式的区别</h3><h4 id="1-可维护性："><a href="#1-可维护性：" class="headerlink" title="(1).可维护性："></a>(1).可维护性：</h4><p>.addClass()的本质是通过定义个class类的样式规则，给元素添加一个或多个类。css方法是通过JavaScript大量代码进行改变元素的样式</p>
+<p>通过.addClass()我们可以批量的给相同的元素设置统一规则，变动起来比较方便，可以统一修改删除。如果通过.css()方法就需要指定每一个元素是一一的修改，日后维护也要一一的修改，比较麻烦</p>
+<h4 id="2-灵活性："><a href="#2-灵活性：" class="headerlink" title="(2).灵活性："></a>(2).灵活性：</h4><p>通过.css()方式可以很容易动态的去改变一个样式的属性，不需要在去繁琐的定义个class类的规则。一般来说在不确定开始布局规则，通过动态生成的HTML代码结构中，都是通过.css()方法处理的</p>
+<h4 id="3-样式值："><a href="#3-样式值：" class="headerlink" title="(3).样式值："></a>(3).样式值：</h4><p>.addClass()本质只是针对class的类的增加删除，不能获取到指定样式的属性的值，.css()可以获取到指定的样式值。</p>
+<h4 id="4-样式的优先级"><a href="#4-样式的优先级" class="headerlink" title="(4).样式的优先级"></a>(4).样式的优先级</h4><p>通过.css方法设置的样式属性优先级要高于.addClass方法</p>
+<h4 id="5-总结"><a href="#5-总结" class="headerlink" title="(5).总结"></a>(5).总结</h4><p>.addClass与.css方法各有利弊，一般是静态的结构，都确定了布局的规则，可以用addClass的方法，增加统一的类规则</p>
+<p>如果是动态的HTML结构，在不确定规则，或者经常变化的情况下，一般多考虑.css()方式</p>
+<h3 id="26-jQuery的属性与样式之元素的数据存储"><a href="#26-jQuery的属性与样式之元素的数据存储" class="headerlink" title="26.jQuery的属性与样式之元素的数据存储"></a>26.jQuery的属性与样式之元素的数据存储</h3><p>.data( key, value ) //实例接口,存数据<br>.data( key ) //实例接口,存数据</p>
+<p>删除</p>
+<p>jQuery.removeData( element [, name ] )<br>.removeData( [name ] )</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/jQuery/" rel="tag"># jQuery</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/08/18/移动端/px pd pid 等移动端知识/" rel="next" title="px pd pid 等移动端知识">
+                  <i class="fa fa-chevron-left"></i> px pd pid 等移动端知识
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/08/18/移动端/两个viewport的故事(一)/" rel="prev" title="两个viewport的故事(一)">
+                  两个viewport的故事(一) <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-document-ready"><span class="nav-text">1.$(document).ready</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-jQuery对象与DOM对象"><span class="nav-text">2.jQuery对象与DOM对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-jQuery对象转化成DOM对象"><span class="nav-text">3.jQuery对象转化成DOM对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-利用数组下标的方式读取到jQuery中的DOM对象"><span class="nav-text">(1).利用数组下标的方式读取到jQuery中的DOM对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-通过jQuery自带的get-方法"><span class="nav-text">(2).通过jQuery自带的get()方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-DOM对象转化成jQuery对象"><span class="nav-text">4.DOM对象转化成jQuery对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-jQuery选择器之id选择器"><span class="nav-text">5.jQuery选择器之id选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-jQuery选择器之类选择器"><span class="nav-text">6.jQuery选择器之类选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-jQuery选择器之元素选择器"><span class="nav-text">7.jQuery选择器之元素选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-jQuery选择器之全选择器（-选择器）"><span class="nav-text">8.jQuery选择器之全选择器（*选择器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-jQuery选择器之层级选择器"><span class="nav-text">9.jQuery选择器之层级选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-jQuery选择器之基本筛选选择器"><span class="nav-text">10.jQuery选择器之基本筛选选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-jQuery选择器之内容筛选选择器"><span class="nav-text">11.jQuery选择器之内容筛选选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-jQuery选择器之可见性筛选选择器"><span class="nav-text">12.jQuery选择器之可见性筛选选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-jQuery选择器之属性筛选选择器"><span class="nav-text">13.jQuery选择器之属性筛选选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-jQuery选择器之子元素筛选选择器"><span class="nav-text">14.jQuery选择器之子元素筛选选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-jQuery选择器之表单元素选择器"><span class="nav-text">15.jQuery选择器之表单元素选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-jQuery选择器之表单对象属性筛选选择器"><span class="nav-text">16.jQuery选择器之表单对象属性筛选选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-jQuery选择器之特殊选择器this"><span class="nav-text">17.jQuery选择器之特殊选择器this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-jQuery的属性与样式之-attr-与-removeAttr"><span class="nav-text">18.jQuery的属性与样式之.attr()与.removeAttr()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-attr-有4个表达式"><span class="nav-text">(1).attr()有4个表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-removeAttr-删除方法"><span class="nav-text">(2).removeAttr()删除方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-注意的问题"><span class="nav-text">(3).注意的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-jQuery的属性与样式之html-及-text"><span class="nav-text">19.jQuery的属性与样式之html()及.text()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-html-方法"><span class="nav-text">(1).html()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-注意事项："><span class="nav-text">(2).注意事项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-text-方法"><span class="nav-text">(3).text()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-注意事项："><span class="nav-text">(4).注意事项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-html与-text的异同"><span class="nav-text">(5).html与.text的异同:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-jQuery的属性与样式之-val"><span class="nav-text">20.jQuery的属性与样式之.val()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-val-方法"><span class="nav-text">(1).val()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-注意事项：-1"><span class="nav-text">(2)注意事项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-html-text-和-val-的差异总结："><span class="nav-text">(3).html(),.text()和.val()的差异总结：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-jQuery的属性与样式之增加样式-addClass"><span class="nav-text">21.jQuery的属性与样式之增加样式.addClass()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-addClass-className-方法"><span class="nav-text">(1).addClass( className )方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-注意事项：-2"><span class="nav-text">(2).注意事项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-text">(3).</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-jQuery的属性与样式之删除样式-removeClass"><span class="nav-text">22.jQuery的属性与样式之删除样式.removeClass()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-removeClass-方法"><span class="nav-text">(1).removeClass( )方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-注意事项"><span class="nav-text">(2).注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-jQuery的属性与样式之切换样式-toggleClass"><span class="nav-text">23.jQuery的属性与样式之切换样式.toggleClass()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-toggleClass-方法："><span class="nav-text">(1).toggleClass( )方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-注意事项：-3"><span class="nav-text">(2).注意事项：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-jQuery的属性与样式之样式操作-css"><span class="nav-text">24.jQuery的属性与样式之样式操作.css()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-获取："><span class="nav-text">(1).获取：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-设置："><span class="nav-text">(2).设置：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-注意事项："><span class="nav-text">(3).注意事项：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-jQuery的属性与样式之-css-与-addClass-设置样式的区别"><span class="nav-text">25.jQuery的属性与样式之.css()与.addClass()设置样式的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-可维护性："><span class="nav-text">(1).可维护性：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-灵活性："><span class="nav-text">(2).灵活性：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-样式值："><span class="nav-text">(3).样式值：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-样式的优先级"><span class="nav-text">(4).样式的优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-总结"><span class="nav-text">(5).总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#26-jQuery的属性与样式之元素的数据存储"><span class="nav-text">26.jQuery的属性与样式之元素的数据存储</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

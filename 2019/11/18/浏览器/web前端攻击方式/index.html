@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="CSRF 跨站点伪造请求(cross site request forgery),利用的是网站对用户网页浏览器的信任。攻击者盗用你的身份，以你的名义发送恶意请求，会造成个人隐私泄露以及财产安全。 常见场景：以你名义发送邮件，发消息；盗取你的账号，购买商品，虚拟货币转账等等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web前端攻击方式">
+<meta property="og:url" content="http://yoursite.com/2019/11/18/浏览器/web前端攻击方式/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="CSRF 跨站点伪造请求(cross site request forgery),利用的是网站对用户网页浏览器的信任。攻击者盗用你的身份，以你的名义发送恶意请求，会造成个人隐私泄露以及财产安全。 常见场景：以你名义发送邮件，发消息；盗取你的账号，购买商品，虚拟货币转账等等。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.108Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web前端攻击方式">
+<meta name="twitter:description" content="CSRF 跨站点伪造请求(cross site request forgery),利用的是网站对用户网页浏览器的信任。攻击者盗用你的身份，以你的名义发送恶意请求，会造成个人隐私泄露以及财产安全。 常见场景：以你名义发送邮件，发消息；盗取你的账号，购买商品，虚拟货币转账等等。">
+  <link rel="canonical" href="http://yoursite.com/2019/11/18/浏览器/web前端攻击方式/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>web前端攻击方式 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/18/浏览器/web前端攻击方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">web前端攻击方式
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-18 11:11:37" itemprop="dateCreated datePublished" datetime="2019-11-18T11:11:37+08:00">2019-11-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/浏览器/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><blockquote>
+<p>跨站点伪造请求(cross site request forgery),利用的是网站对用户网页浏览器的信任。攻击者盗用你的身份，以你的名义发送恶意请求，会造成个人隐私泄露以及财产安全。</p>
+<p>常见场景：以你名义发送邮件，发消息；盗取你的账号，购买商品，虚拟货币转账等等。</p>
+</blockquote><a id="more"></a>
+<h3 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>用户登录受信任网站A，并在本地生成保存Cookie</li>
+<li>在不登出A的情况下，访问病毒网站B</li>
+<li>网站B要求访问A，发出请求</li>
+<li>根据网站B的请求，浏览器带着保存的Cookie访问A</li>
+<li>A不知道上述请求是来自用户还是病毒网站B，由于请求中带上了Cookie，A会根据用户的权限处理请求，达到模拟用户操作的目的</li>
+</ol>
+<h3 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h3><h4 id="1、验证-HTTP-Referer-字段"><a href="#1、验证-HTTP-Referer-字段" class="headerlink" title="1、验证 HTTP Referer 字段"></a>1、验证 HTTP Referer 字段</h4><p>HTTP的referer字段保存了http的来源地址，受访网站可以验证这个地址是否合法，如果不合法，则有可能为CSRF攻击，拒绝该请求。但这种方法不是万无一失的，referer的值是由浏览器提供的，我们并不能保证浏览器没有安全漏洞，目前已有一些方法可以篡改referer值，而且有些用户为了保护自己的隐私可以设置浏览器在发送请求时不再提供referer值。</p>
+<h4 id="2、在请求地址中添加token并验证"><a href="#2、在请求地址中添加token并验证" class="headerlink" title="2、在请求地址中添加token并验证"></a>2、在请求地址中添加token并验证</h4><p>CSRF利用cookie来进行攻击，那么我们可以在请求中添加不可伪造的信息并不存在与cookie中，可以在请求中以参数形式随机产生一个token，并在服务器建立一个拦截器验证这个token。</p>
+<h4 id="3、在HTTP头中自定义属性并验证"><a href="#3、在HTTP头中自定义属性并验证" class="headerlink" title="3、在HTTP头中自定义属性并验证"></a>3、在HTTP头中自定义属性并验证</h4><p>解决了上种方法在请求中加入 token 的不便，同时，通过 XMLHttpRequest 请求的地址不会被记录到浏览器的地址栏，也不用担心 token 会透过 Referer 泄露到其他网站中去。</p>
+<h4 id="4、Cookie-Hashing（所有表单都包含同一个伪随机数）"><a href="#4、Cookie-Hashing（所有表单都包含同一个伪随机数）" class="headerlink" title="4、Cookie Hashing（所有表单都包含同一个伪随机数）"></a>4、Cookie Hashing（所有表单都包含同一个伪随机数）</h4><h4 id="5、验证码"><a href="#5、验证码" class="headerlink" title="5、验证码"></a>5、验证码</h4><p>每次用户提交都需要用户在表单中填写一个图片上的随机字符串</p>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><blockquote>
+<p>跨站脚本攻击(corss site scripting),利用的是用户对指定网站的信任。攻击者通过在网页中注入恶意脚本，当用户浏览网页时，恶意脚本执行，控制用户浏览器行为的一种攻击方式。</p>
+<p>常见场景：强制弹出广告页面，刷流量，传播跨站脚本蠕虫，网页挂马；窃取用户Cookie，获取用户隐私，盗取用户账号；劫持用户（浏览器）会话，从而执行任意操作，例如进行非法转账、强制发表日志、发送电子邮件等。</p>
+</blockquote>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ol>
+<li>反射型xss。出现在URL中作为参数提交到服务器，服务器解析并响应，响应结果中包含xss代码，最后浏览器解析执行。</li>
+<li>存储型xss。攻击者输入恶意的脚本数据存入数据库，当其他用户读取时，用户浏览器将解析执行这段脚本。</li>
+</ol>
+<h3 id="防御-1"><a href="#防御-1" class="headerlink" title="防御"></a>防御</h3><h4 id="1、浏览器自带防御"><a href="#1、浏览器自带防御" class="headerlink" title="1、浏览器自带防御"></a>1、浏览器自带防御</h4><p>现今主流浏览器（IE，Chrome 和 Safari）带有 HTTP <code>X-XSS-Protection</code> 响应头，当检测到跨站脚本攻击(XSS)时，浏览器将停止加载页面。</p>
+<p><code>X-XSS-Protection</code> 响应头有以下 4 个值：</p>
+<ul>
+<li><code>X-XSS-Protection: 0</code> 禁止XSS过滤</li>
+<li><code>X-XSS-Protection: 1</code> 启用XSS过滤（通常浏览器是默认的）。如果检测到跨站脚本攻击，浏览器将清除页面（删除不安全的部分）。</li>
+<li><code>X-XSS-Protection: 1; mode=block</code> 启用XSS过滤。如果检测到攻击，浏览器将不会清除页面，而是阻止页面加载。</li>
+<li><code>X-XSS-Protection: 1; report=&lt;reporting-uri&gt;</code> 启用XSS过滤。如果检测到跨站脚本攻击，浏览器将清除页面并使用CSP report-uri指令的功能发送违规报告。</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li>存在兼容性问题</li>
+<li>只对反射型 XSS 有一定的防御力，其原理也只是检查 URL 和 DOM 中元素的相关性</li>
+</ul>
+<h4 id="2、转义"><a href="#2、转义" class="headerlink" title="2、转义"></a>2、转义</h4><p>在客户端和服务端，对用户输入的数据进行转义。常见需要转义的特殊字符如 <code>&lt;</code>，<code>&gt;</code>，<code>&amp;</code>，<code>&quot;</code>，<code>&#39;</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escapeHTML</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!str) <span class="keyword">return</span> <span class="string">''</span>;</span><br><span class="line">  str = str.replace(<span class="regexp">/&amp;/g</span>, <span class="string">"&amp;amp;"</span>);</span><br><span class="line">  str = str..replace(<span class="regexp">/&lt;/g</span>, <span class="string">"&amp;lt;"</span>);</span><br><span class="line">  str = str..replace(<span class="regexp">/&gt;/g</span>, <span class="string">"&amp;gt;"</span>);</span><br><span class="line">  str = str..replace(<span class="regexp">/"/g</span>, <span class="string">"&amp;quot;"</span>);</span><br><span class="line">  str = str..replace(<span class="regexp">/'/g</span>, <span class="string">"&amp;#39;"</span>);</span><br><span class="line">  <span class="keyword">return</span> str;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、过滤"><a href="#3、过滤" class="headerlink" title="3、过滤"></a>3、过滤</h4><p>常见于富文本内容，因为其需要保留 HTML，所以不能直接使用转义方法，而可以通过<strong>使用白名单</strong>，来允许特定的 HTML 标签及属性，来抵御 XSS 攻击。</p>
+<h4 id="4、内容安全策略（CSP）"><a href="#4、内容安全策略（CSP）" class="headerlink" title="4、内容安全策略（CSP）"></a>4、内容安全策略（CSP）</h4><p>白名单制度，开发者明确告诉客户端，哪些外部资源可以加载和执行，大大增强了网页的安全性。</p>
+<ol>
+<li>通过 HTTP 头信息的 Content-Security-Policy 的字段：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: script-src 'self';</span><br><span class="line">object-src 'none';</span><br><span class="line">style-src cdn.example.org third-party.org;</span><br><span class="line">child-src https:</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>通过网页的 <meta> 标签</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Security-Policy"</span> <span class="attr">content</span>=<span class="string">"script-src 'self'; object-src 'none'; style-src cdn.example.org third-party.org; child-src https:"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上述解释</p>
+<ul>
+<li>脚本：只信任当前域名</li>
+<li><code>&lt;object&gt;</code>标签：不信任任何 URL，即不加载任何资源</li>
+<li>样式表：只信任 <code>cdn.example.org</code>和<code>third-party.org</code></li>
+<li>页面子内容，如 <code>&lt;frame&gt;</code>、<code>&lt;iframe&gt;</code>：必须使用HTTPS协议加载</li>
+<li>其他资源：没有限制</li>
+<li>启用后，不符合 CSP 的外部资源就会被阻止加载。</li>
+</ul>
+<h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><p>什么是SQL注入？攻击者向服务器提交恶意的sql代码，导致源程序执行包含恶意代码的sql。</p>
+<h3 id="典型实例为："><a href="#典型实例为：" class="headerlink" title="典型实例为："></a>典型实例为：</h3><p>用户输入的信息带有 delete 、drop等危害性十足的sql，就像用户登录时输入了用户名 ‘ or 1=1 #（mysql是#，oracle是–），那么在我们没有任何防御措施的情况下就会变为“select * from user where username=’’ or 1=1 # passport=md5()”。#后面是注释，所以一定会执行</p>
+<p>  防止SQL注入</p>
+<p>1）在JAVA中使用预编译PreparedStatement；</p>
+<p>2）对数据库特殊字符进行转义处理或编码转换；</p>
+<p>3）在应用发布前，使用专业的sql 注入检测工具进行检测，及时发现和修补sql注入漏洞；</p>
+<h2 id="lt-四-gt-文件上传漏洞"><a href="#lt-四-gt-文件上传漏洞" class="headerlink" title="&lt;四&gt;文件上传漏洞"></a>&lt;四&gt;文件上传漏洞</h2><p>-典型实例为：<br>没有对用户上传的文件做校验，恶意用户长时间上传超大文件占用系统资源，上传可执行脚本获取获取服务器信息</p>
+<p>-推荐防御措施：<br>对用户上传做限流，每个用户每天最多上传多少内容。<br>对文件类型进行判断，不能通过后缀名判断，而要通过判断魔数（文件起始的几个字节）来判断，很多文件类型的魔数是不变的。</p>
+<h2 id="lt-五-gt-DDOS：分布式拒绝服务攻击"><a href="#lt-五-gt-DDOS：分布式拒绝服务攻击" class="headerlink" title="&lt;五&gt;DDOS：分布式拒绝服务攻击"></a>&lt;五&gt;DDOS：分布式拒绝服务攻击</h2><p>-典型实例为：<br>1.攻击者提前控制大量计算机，并在某一时刻指挥大量计算机同时对某一服务器进行访问来达到瘫痪主机的目的。</p>
+<p>2.相信大家都知道TCP三次握手的机制，（如不了解请参考文章底部补充）攻击者利用此机制对服务器返回的ACK确认包不回应，这样服务器就会存在大量的等待列表，不断重试，等待队列满了以后不再接受TCP连接，从而阻挡了正常用户的使用</p>
+<p>3.攻击者向DNS服务器发送海量的域名解析请求，DNS首先查缓存，如果缓存不存在的话会去递归调用上级服务器查询，直到查询到全球13台根服务器为止，当解析请求过多时正常用户访问就会出现DNS解析超时问题</p>
+<p>-推荐防御措施：<br>使用缓存，当缓存中存在时就直接取出，不要频繁的连接数据库。</p>
+<p>缩短 SYN Timeout时间，即缩短从接受到SYN报文到确定这个报文无效并丢弃该连接的时间。</p>
+<p>限制源ip每秒发起的DNS请求等</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/14/浏览器/跨域配置/" rel="next" title="跨域配置">
+                  <i class="fa fa-chevron-left"></i> 跨域配置
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/11/18/JavaScript/javascript高阶(一)/" rel="prev" title="javascript高阶">
+                  javascript高阶 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF"><span class="nav-text">CSRF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击流程"><span class="nav-text">攻击流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防御"><span class="nav-text">防御</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、验证-HTTP-Referer-字段"><span class="nav-text">1、验证 HTTP Referer 字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、在请求地址中添加token并验证"><span class="nav-text">2、在请求地址中添加token并验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、在HTTP头中自定义属性并验证"><span class="nav-text">3、在HTTP头中自定义属性并验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、Cookie-Hashing（所有表单都包含同一个伪随机数）"><span class="nav-text">4、Cookie Hashing（所有表单都包含同一个伪随机数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、验证码"><span class="nav-text">5、验证码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS"><span class="nav-text">XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类"><span class="nav-text">分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防御-1"><span class="nav-text">防御</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、浏览器自带防御"><span class="nav-text">1、浏览器自带防御</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、转义"><span class="nav-text">2、转义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、过滤"><span class="nav-text">3、过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、内容安全策略（CSP）"><span class="nav-text">4、内容安全策略（CSP）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL注入"><span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#典型实例为："><span class="nav-text">典型实例为：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lt-四-gt-文件上传漏洞"><span class="nav-text">&lt;四&gt;文件上传漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lt-五-gt-DDOS：分布式拒绝服务攻击"><span class="nav-text">&lt;五&gt;DDOS：分布式拒绝服务攻击</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

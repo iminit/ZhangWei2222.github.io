@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="一、准备工作1.需求分析2.项目资源准备resource文件3.图标字体制作在iconmoonhttps://icomoon.io/将resource中的svg文件转为font4.项目目录设计 vue init webpack 项目名字 cd 文件 npm install npm run dev">
+<meta name="keywords" content="饿了么教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="饿了么教程">
+<meta property="og:url" content="http://yoursite.com/2017/09/09/Vue/饿了么教程/饿了么教程/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="一、准备工作1.需求分析2.项目资源准备resource文件3.图标字体制作在iconmoonhttps://icomoon.io/将resource中的svg文件转为font4.项目目录设计 vue init webpack 项目名字 cd 文件 npm install npm run dev">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="饿了么教程">
+<meta name="twitter:description" content="一、准备工作1.需求分析2.项目资源准备resource文件3.图标字体制作在iconmoonhttps://icomoon.io/将resource中的svg文件转为font4.项目目录设计 vue init webpack 项目名字 cd 文件 npm install npm run dev">
+  <link rel="canonical" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/饿了么教程/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>饿了么教程 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/饿了么教程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">饿了么教程
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-09-09 15:15:47" itemprop="dateCreated datePublished" datetime="2017-09-09T15:15:47+08:00">2017-09-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>18k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>16 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h3><h4 id="1-需求分析"><a href="#1-需求分析" class="headerlink" title="1.需求分析"></a>1.需求分析</h4><h4 id="2-项目资源准备"><a href="#2-项目资源准备" class="headerlink" title="2.项目资源准备"></a>2.项目资源准备</h4><p>resource文件</p><h4 id="3-图标字体制作"><a href="#3-图标字体制作" class="headerlink" title="3.图标字体制作"></a>3.图标字体制作</h4><p>在iconmoon<a href="https://icomoon.io/将resource中的svg文件转为font" target="_blank" rel="noopener">https://icomoon.io/将resource中的svg文件转为font</a></p><h4 id="4-项目目录设计"><a href="#4-项目目录设计" class="headerlink" title="4.项目目录设计"></a>4.项目目录设计</h4><ol>
+<li>vue init webpack 项目名字</li>
+<li>cd 文件</li>
+<li>npm install</li>
+<li>npm run dev</li>
+</ol><a id="more"></a>
+
+
+<ul>
+<li>删除src中asset文件夹<ul>
+<li>直接删除会报错，需要把vue.vue中的图片引入注释掉</li>
+</ul>
+</li>
+<li>创建common文件夹<ul>
+<li>创建font文件夹（将前面下载的字体打包中的font移入）</li>
+<li>创建js文件夹</li>
+<li>创建stylus文件夹（将前面下载的字体打包中的css移入，并改名为icon.styl）</li>
+</ul>
+</li>
+<li>在components中创建header文件夹，文件夹中创建header.vue</li>
+</ul>
+<h4 id="5-mock数据（模拟后台数据）"><a href="#5-mock数据（模拟后台数据）" class="headerlink" title="5.mock数据（模拟后台数据）"></a>5.mock数据（模拟后台数据）</h4><ol>
+<li>在根目录下引入data文件</li>
+<li>在/build/dev-server.js中</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">var app = express()</span><br><span class="line"></span><br><span class="line">var appData = require(&apos;../data.json&apos;);</span><br><span class="line">var seller = appData.seller;</span><br><span class="line">var goods = appData.goods;</span><br><span class="line">var ratings = appData.ratings;</span><br><span class="line"></span><br><span class="line">var apiRoutes = express.Router();</span><br><span class="line"></span><br><span class="line">apiRoutes.get(&apos;/seller&apos;,function(req,res)&#123;</span><br><span class="line">  res.json(&#123;</span><br><span class="line">    erron: 0,</span><br><span class="line">    data : seller</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">apiRoutes.get(&apos;/goods&apos;,function(req,res)&#123;</span><br><span class="line">  res.json(&#123;</span><br><span class="line">    erron: 0,</span><br><span class="line">    data : goods</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">apiRoutes.get(&apos;/ratings&apos;,function(req,res)&#123;</span><br><span class="line">  res.json(&#123;</span><br><span class="line">    erron: 0,</span><br><span class="line">    data : ratings</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(&apos;/api&apos;,apiRoutes);</span><br></pre></td></tr></table></figure>
+
+<p>在网址后面加上/api/seller检查</p>
+<h3 id="二、页面骨架开发"><a href="#二、页面骨架开发" class="headerlink" title="二、页面骨架开发"></a>二、页面骨架开发</h3><h4 id="1-组件拆分（上）"><a href="#1-组件拆分（上）" class="headerlink" title="1.组件拆分（上）"></a>1.组件拆分（上）</h4><p>在static中创建css文件夹，里面引入reset.css</p>
+<h4 id="2-组件拆分（中）"><a href="#2-组件拆分（中）" class="headerlink" title="2.组件拆分（中）"></a>2.组件拆分（中）</h4><p>在header.vue中编写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;header&quot;&gt;</span><br><span class="line">        I am header</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"> &lt;script&gt;</span><br><span class="line">    export default &#123;&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang=&quot;stylus&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在app.vue中的script引入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import header from &apos;./components/header/header.vue&apos;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    &apos;v-header&apos;: header</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下载插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install stylus-loader stylus --save-dev</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-组件拆分（下）"><a href="#3-组件拆分（下）" class="headerlink" title="3.组件拆分（下）"></a>3.组件拆分（下）</h4><p>在app.vue的style中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#app</span><br><span class="line">  .tab</span><br><span class="line">    display:flex</span><br><span class="line">    width:100%</span><br><span class="line">    height:40px</span><br><span class="line">    line-height 40px  </span><br><span class="line">    .tab-item</span><br><span class="line">      flex 1</span><br><span class="line">      text-align center</span><br></pre></td></tr></table></figure>
+
+<p>使用flex布局，依赖node_modules中的postcss插件搞定css兼容问题</p>
+<h4 id="4-vue-router"><a href="#4-vue-router" class="headerlink" title="4.vue-router"></a>4.vue-router</h4><p>设置选项卡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;tab&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;tab-item&quot;&gt;</span><br><span class="line">    &lt;router-link to=&apos;./goods&apos;&gt;商品&lt;/router-link&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;tab-item&quot;&gt;</span><br><span class="line">    &lt;router-link to=&apos;./ratings&apos;&gt;评论&lt;/router-link&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;tab-item&quot;&gt;</span><br><span class="line">    &lt;router-link to=&apos;./seller&apos;&gt;商家&lt;/router-link&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在/router/index.js中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import goods from &apos;@/components/goods/goods&apos;</span><br><span class="line">import ratings from &apos;@/components/ratings/ratings&apos;</span><br><span class="line">import seller from &apos;@/components/seller/seller&apos;</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;/&apos;,</span><br><span class="line">        redirect:&apos;/goods&apos;  //设置首页为goods</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;/ratings&apos;,</span><br><span class="line">      name: &apos;ratings&apos;,</span><br><span class="line">      component: ratings</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;/seller&apos;,</span><br><span class="line">      name: &apos;seller&apos;,</span><br><span class="line">      component: seller</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>各自编写goods,ratings,seller组件</p>
+<p>写css样式</p>
+<h4 id="5-像素实现"><a href="#5-像素实现" class="headerlink" title="5.像素实现"></a>5.像素实现</h4><p>因为不太会配置estin,会有很多报错，所以不装它。为了实现像素自适应，引入flexible插件，因为稿子宽度为750，所以html基准为750/10，使用px-rem插件（注意配置默认值为75，一般不配置的话为16）</p>
+<ol>
+<li>在common文件夹引入两个文件</li>
+<li>在App.vue中引入</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window._ = require(&apos;./common/js/flexible.debug&apos;)</span><br><span class="line">window._ = require(&apos;./common/js/flexible_css.debug&apos;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-实现手机预览"><a href="#6-实现手机预览" class="headerlink" title="6.实现手机预览"></a>6.实现手机预览</h4><p>将localhost改成ip地址，复制地址到草料生成二维码，扫码</p>
+<h3 id="三、项目实战-header组件开发"><a href="#三、项目实战-header组件开发" class="headerlink" title="三、项目实战-header组件开发"></a>三、项目实战-header组件开发</h3><p>1.Axios从远程读取数据</p>
+<ul>
+<li>安装axious</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install axios --save</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在所在页面引入axious</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import axios from &apos;axios&apos;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>服务端拉取常用商品数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">created()&#123;[</span><br><span class="line">      axios.get(&apos;/api/seller&apos;).then((response) =&gt; &#123;</span><br><span class="line">        if(response.data.erron === 0)&#123;</span><br><span class="line">          this.seller = response.data.data</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之前要分好数据（dev-server.js），然后在router的index.js中，加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mode: &apos;history&apos; 为了去掉地址中的#</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-外部组件"><a href="#2-外部组件" class="headerlink" title="2.外部组件"></a>2.外部组件</h4><p>(1).将app.vue拉取的数据与header.vue连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">props:&#123;</span><br><span class="line"></span><br><span class="line">seller:&#123;</span><br><span class="line">    type:Object</span><br><span class="line">&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>(2).获取数据中图片地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img width=&quot;64&quot; height=&quot;64&quot; :src=&quot;seller.avatar&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>(3).判断2x图还是3x图<br>写/src/common/stylus/mixin.styl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bg-image($url)</span><br><span class="line">    background-image: url($url+&quot;@2x.png&quot;)</span><br><span class="line">    @media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3)</span><br><span class="line">        background-image: url($url+&quot;@3x.png&quot;)</span><br><span class="line">在header.vue引入</span><br><span class="line"></span><br><span class="line">@import &quot;../../common/stylus/mixin&quot;</span><br><span class="line">css书写</span><br><span class="line">bg-imge(‘decrease’)</span><br></pre></td></tr></table></figure>
+
+<p>(4).引入图标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import &quot;../../common/stylus/icon&quot;</span><br></pre></td></tr></table></figure>
+
+<p>记得改里面的路径</p>
+<p>(5).判断是减/折/套…<br>绑定class，建立classMap数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;span class=&quot;icon&quot; :class=&quot;classMap[seller.supports[0].type]&quot;&gt;&lt;/span&gt;</span><br><span class="line"></span><br><span class="line">created ()&#123;</span><br><span class="line">    this.classMap = [&apos;decrease&apos;,&apos;discount&apos;,&apos;special&apos;,&apos;invoice&apos;,&apos;guarantee&apos;,&apos;special&apos;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&amp;.decrease</span><br><span class="line">    bg-image(&apos;decrease_1&apos;)</span><br><span class="line">&amp;.discount</span><br><span class="line">    bg-image(&apos;discount_1&apos;)</span><br><span class="line">&amp;.guarantee</span><br><span class="line">    bg-image(&apos;guarantee_1&apos;)</span><br><span class="line">&amp;.invoice</span><br><span class="line">    bg-image(&apos;invoice_1&apos;)</span><br><span class="line">&amp;.special</span><br><span class="line">    bg-image(&apos;special_1&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>(6).做背景图<br>最后做背景，用定位定上去</p>
+<h4 id="3-详情弹层页"><a href="#3-详情弹层页" class="headerlink" title="3.详情弹层页"></a>3.详情弹层页</h4><p>(1).星星评分<br>新建/src/components/star/star.vue<br>将half,on,off等图片放进star文件夹中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class=&quot;star&quot; :class=&quot;starType&quot;&gt;</span><br><span class="line">        &lt;span v-for=&quot;itemClass in itemClasses&quot; :class=&quot;itemClass&quot; class=&quot;star-item&quot;&gt;&lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&apos;text/ecmascript-6&apos;&gt;</span><br><span class="line">    const LENGTH = 5</span><br><span class="line">    const CLS_ON = &apos;on&apos;</span><br><span class="line">    const CLS_HALF = &apos;half&apos;</span><br><span class="line">    const CLS_OFF = &apos;off&apos;</span><br><span class="line"></span><br><span class="line">    export default &#123;</span><br><span class="line">        props:&#123;</span><br><span class="line">            size:&#123;</span><br><span class="line">                type:Number</span><br><span class="line">            &#125;,</span><br><span class="line">            score:&#123;</span><br><span class="line">                type:Number</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        computed:&#123;</span><br><span class="line">            starType()&#123;</span><br><span class="line">                return &apos;star-&apos;+this.size;</span><br><span class="line">            &#125;,</span><br><span class="line">            itemClasses()&#123;</span><br><span class="line">                let result = []</span><br><span class="line">                let score = Math.floor(this.score*2)/2</span><br><span class="line">                let hasDecimal = score %1 !== 0;</span><br><span class="line">                let integer = Math.floor(score);</span><br><span class="line">                for(let i = 0;i&lt;integer;i++)&#123;</span><br><span class="line">                    result.push(CLS_ON)</span><br><span class="line">                &#125;</span><br><span class="line">                if(hasDecimal)&#123;</span><br><span class="line">                    result.push(CLS_HALF)</span><br><span class="line">                &#125;</span><br><span class="line">                while(result.length&lt;LENGTH)&#123;</span><br><span class="line">                    result.push(CLS_OFF);</span><br><span class="line">                &#125;</span><br><span class="line">                return result</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang=&apos;stylus&apos;&gt;</span><br><span class="line">@import &quot;../../common/stylus/mixin&quot;</span><br><span class="line"></span><br><span class="line">    .star</span><br><span class="line">        font-size 0</span><br><span class="line">        .star-item</span><br><span class="line">            display inline-block</span><br><span class="line">            background-repeat no-repeat</span><br><span class="line">        &amp;.star-48</span><br><span class="line">            .star-item</span><br><span class="line">                width .533333rem</span><br><span class="line">                height .533333rem</span><br><span class="line">                margin-right .586667rem</span><br><span class="line">                background-size .533333rem .533333rem</span><br><span class="line">                &amp;:last-child</span><br><span class="line">                    margin-right 0</span><br><span class="line">                &amp;.on </span><br><span class="line">                    bg-image(&apos;star48_on&apos;)</span><br><span class="line">                &amp;.half </span><br><span class="line">                    bg-image(&apos;star48_half&apos;)</span><br><span class="line">                &amp;.off </span><br><span class="line">                    bg-image(&apos;star48_off&apos;)</span><br><span class="line">        &amp;.star-36</span><br><span class="line">            .star-item</span><br><span class="line">                width .2rem</span><br><span class="line">                height .2rem</span><br><span class="line">                margin-right .16rem</span><br><span class="line">                background-size .2rem .2rem</span><br><span class="line">                &amp;:last-child</span><br><span class="line">                    margin-right 0</span><br><span class="line">                &amp;.on </span><br><span class="line">                    bg-image(&apos;star36_on&apos;)</span><br><span class="line">                &amp;.half </span><br><span class="line">                    bg-image(&apos;star36_half&apos;)</span><br><span class="line">                &amp;.off </span><br><span class="line">                    bg-image(&apos;star36_off&apos;)</span><br><span class="line">        &amp;.star-24</span><br><span class="line">            .star-item</span><br><span class="line">                width .133333rem</span><br><span class="line">                height .133333rem</span><br><span class="line">                margin-right .08rem</span><br><span class="line">                background-size .133333rem .133333rem</span><br><span class="line">                &amp;:last-child</span><br><span class="line">                    margin-right 0</span><br><span class="line">                &amp;.on </span><br><span class="line">                    bg-image(&apos;star24_on&apos;)</span><br><span class="line">                &amp;.half </span><br><span class="line">                    bg-image(&apos;star24_half&apos;)</span><br><span class="line">                &amp;.off </span><br><span class="line">                    bg-image(&apos;star24_off&apos;)</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;star-wrapper&quot;&gt;</span><br><span class="line">    &lt;star :size=&apos;48&apos; :score=&apos;seller.score&apos;&gt;&lt;/star&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>(2).线-文字-线布局<br>flex布局</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.title</span><br><span class="line">    display flex</span><br><span class="line">    width 80%</span><br><span class="line">    margin .746667rem auto .64rem auto</span><br><span class="line">    .line</span><br><span class="line">        flex 1</span><br><span class="line">        position relative</span><br><span class="line">        top -0.16rem</span><br><span class="line">        border-bottom .013333rem solid rgba(255,255,255,0.2)</span><br><span class="line">    .text</span><br><span class="line">        padding 0 .32rem</span><br><span class="line">        font-weight 700</span><br><span class="line">        font-size .373333rem</span><br></pre></td></tr></table></figure>
+
+<p>(3).减、折、特、票、保列表的遍历</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul v-if=&quot;seller.supports&quot; class=&quot;supports&quot;&gt;</span><br><span class="line">    &lt;li class=&quot;support-item&quot; v-for=&quot;(item, index) in seller.supports&quot;&gt;</span><br><span class="line">        &lt;span class=&quot;icon&quot; :class=&quot;classMap[seller.supports[index].type]&quot;&gt;&lt;/span&gt;</span><br><span class="line">        &lt;span class=&apos;text&apos;&gt;&#123;&#123;seller.supports[index].description&#125;&#125;&lt;/span&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<p>(4).动画</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition name=&quot;fade&quot;&gt;</span><br><span class="line">    &lt;div transition=&quot;fade&quot; class=&quot;detail&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/transition&gt;</span><br><span class="line"></span><br><span class="line">.detail</span><br><span class="line">    background rgba(7,17,27,0.8)</span><br><span class="line">    backdrop-filter blur(.133333rem)</span><br><span class="line">    &amp;.fade-enter-active,&amp;.fade-leave, &amp;.fade-leave-active</span><br><span class="line">        opacity 1</span><br><span class="line">        background rgba(7,17,27,0.8)</span><br><span class="line">        transition all 0.5s</span><br><span class="line">    &amp;.fade-enter</span><br><span class="line">        opacity 0</span><br><span class="line">        background rgba(7,17,27,0)</span><br><span class="line">        transition all 0.5s</span><br></pre></td></tr></table></figure>
+
+<p>(5).Sticky footers<br>问题</p>
+<p>如果页面内容不够长的时候，页脚块粘贴在视窗底部；如果内容足够长时，页脚块会被内容向下推送。</p>
+<p>解决方案</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-show=&apos;detailShow&apos; class=&quot;detail&quot; transition=&quot;fade&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;detail-wrapper clearfix&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;detail-main&quot;&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;detail-close&quot; @click=&apos;hideDetail&apos;&gt;</span><br><span class="line">        &lt;i class=&quot;icon-close&quot;&gt;&lt;/i&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">.detail-wrapper</span><br><span class="line">    min-height 100%</span><br><span class="line">    width 100%</span><br><span class="line">    .detail-main</span><br><span class="line">        margin-top 1.706667rem</span><br><span class="line">        padding-bottom .853333rem</span><br><span class="line"></span><br><span class="line">.detail-close</span><br><span class="line">    position relative</span><br><span class="line">    width .853333rem</span><br><span class="line">    height .853333rem</span><br><span class="line">    margin:-1.7067rem auto 0 auto</span><br><span class="line">    clear both</span><br></pre></td></tr></table></figure>
+
+<p>在base.styl中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.clearfix</span><br><span class="line">    display: inline-block</span><br><span class="line">    &amp;:after</span><br><span class="line">        display: block</span><br><span class="line">        content:&quot;.&quot;</span><br><span class="line">        height: 0</span><br><span class="line">        line-height: 0</span><br><span class="line">        clear: both</span><br><span class="line">        visibility: hidden</span><br></pre></td></tr></table></figure>
+
+<p>(6).点击显示/关闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-show=&apos;detailShow&apos; class=&quot;detail&quot; transition=&quot;fade&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;detail-close&quot; @click=&apos;hideDetail&apos;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            detailShow:false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, </span><br><span class="line">    methods: &#123;</span><br><span class="line">        showDetail() &#123;</span><br><span class="line">            this.detailShow = true;</span><br><span class="line">        &#125;,</span><br><span class="line">        hideDetail() &#123;</span><br><span class="line">            this.detailShow = false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="food商品详情页实现"><a href="#food商品详情页实现" class="headerlink" title="food商品详情页实现"></a>food商品详情页实现</h3><h4 id="1-将food组件和goods组件连接在一起"><a href="#1-将food组件和goods组件连接在一起" class="headerlink" title="1.将food组件和goods组件连接在一起"></a>1.将food组件和goods组件连接在一起</h4><p>在goods template中引用food标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;food :food=&apos;selectedFood&apos;&gt;&lt;/food&gt;</span><br><span class="line">在goods script 中引入food组件</span><br><span class="line"></span><br><span class="line">import food from &apos;../food/food&apos;</span><br><span class="line">在goods script components中引入food组件</span><br><span class="line"></span><br><span class="line">goods组件输出food数据</span><br><span class="line"></span><br><span class="line">data()&#123;</span><br><span class="line">    return&#123;</span><br><span class="line">        selectedFood:&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">在food组件注册属性food</span><br><span class="line"></span><br><span class="line">props:&#123;</span><br><span class="line">    food:&#123;</span><br><span class="line">        type:Object</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-获取点击的物品"><a href="#2-获取点击的物品" class="headerlink" title="2.获取点击的物品"></a>2.获取点击的物品</h4><p>在商品中绑定点击事件 goods组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;li @click=&quot;selectFood(food,$event)&quot; v-for=&quot;food in item.foods&quot; class=&quot;food-item&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在goods methods中加selectFood事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">selectFood(food,event)&#123;</span><br><span class="line">    if(!event._constructed)&#123; //忽略掉BScroll的事件</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    this.selectedFood = food //写入当前选择的food</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-点击物品弹出层"><a href="#3-点击物品弹出层" class="headerlink" title="3.点击物品弹出层"></a>3.点击物品弹出层</h4><p>在food组件中添加methods</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">methods:&#123;</span><br><span class="line">    show()&#123;</span><br><span class="line">        this.showFlag = true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">在food组件中注册showFlag值</span><br><span class="line"></span><br><span class="line">data()&#123;</span><br><span class="line">    return&#123;</span><br><span class="line">        showFlag:false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>在goods组件 food标签添加ref属性，连接子组件</p>
+<p>ref=”food”<br>在goods组件 selectFood方法中调用子组件show方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$refs.food.show()</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-实现弹出层从右到左动画"><a href="#4-实现弹出层从右到左动画" class="headerlink" title="4.实现弹出层从右到左动画"></a>4.实现弹出层从右到左动画</h4><p>给food组件 template最外层中 加一个标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;transition name=&apos;move&apos;&gt;&lt;/transition&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-在-food组件-css中"><a href="#5-在-food组件-css中" class="headerlink" title="5.在 food组件 css中"></a>5.在 food组件 css中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.food</span><br><span class="line">  transform: translate3d(0, 0, 0)</span><br><span class="line">  &amp;.move-enter-active, &amp;.move-leave-active</span><br><span class="line">    transition: all 0.2s linear</span><br><span class="line">  &amp;.move-enter, &amp;.move-leave-active</span><br><span class="line">    transform: translate3d(100%, 0, 0)</span><br><span class="line">5.让图片宽高一样的黑魔法</span><br><span class="line">.image-header</span><br><span class="line">    position relative </span><br><span class="line">    width 100%</span><br><span class="line">    height 0</span><br><span class="line">    padding-top 100%</span><br><span class="line">    img</span><br><span class="line">        position absolute</span><br><span class="line">        top 0</span><br><span class="line">        left 0</span><br><span class="line">        width 100%</span><br><span class="line">        height 100%</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-返回小图标"><a href="#6-返回小图标" class="headerlink" title="6.返回小图标"></a>6.返回小图标</h4><p>可以在外面套给div，里面的i标签用padding定位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.back</span><br><span class="line">    position absolute</span><br><span class="line">    top .266667rem</span><br><span class="line">    left 0</span><br><span class="line">    .icon-arrow_lift</span><br><span class="line">        display block</span><br><span class="line">        padding .266667rem</span><br><span class="line">        font-size .533333rem</span><br><span class="line">        color #ffffff</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-隐藏滚动条-food"><a href="#7-隐藏滚动条-food" class="headerlink" title="7.隐藏滚动条(food)"></a>7.隐藏滚动条(food)</h4><p>引入better.scroll插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import BScroll from &apos;better-scroll&apos;</span><br></pre></td></tr></table></figure>
+
+<p>在最外层div，加注册</p>
+<p>ref=’food’<br>在show方法上加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">this.$nextTick(()=&gt;&#123;  //在这个函数中调用以防内容还未加载完就执行，获取不到元素的高度导致无法滑动</span><br><span class="line">    if(!this.scroll)&#123;</span><br><span class="line">        this.scroll = new BScroll(this.$refs.food,&#123;</span><br><span class="line">            click:true</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        this.scroll.refresh()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-点击购物车，数量加一"><a href="#8-点击购物车，数量加一" class="headerlink" title="8.点击购物车，数量加一"></a>8.点击购物车，数量加一</h4><p>在methods,addCart()中加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">addCart(event)&#123;</span><br><span class="line">    if (!event._constructed) &#123;</span><br><span class="line">    return;</span><br><span class="line">    &#125;</span><br><span class="line">    if(!this.food.count)&#123;</span><br><span class="line">        Vue.set(this.food,&apos;count&apos;,1) //不能像平常那样this.food.count = 1</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        this.food.count++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>引入vue</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-分割线"><a href="#9-分割线" class="headerlink" title="9.分割线"></a>9.分割线</h4><p>因为出现次数多，所以直接写一个组件</p>
+<h4 id="10-商品评价"><a href="#10-商品评价" class="headerlink" title="10.商品评价"></a>10.商品评价</h4><p>编写ratingselect组件<br>加属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">const POSITIVE = 0</span><br><span class="line">const NEGATIVE = 1</span><br><span class="line">const ALL = 2</span><br><span class="line"></span><br><span class="line">export default&#123;</span><br><span class="line">    props:&#123;</span><br><span class="line">        ratings:&#123;</span><br><span class="line">            type:Array,</span><br><span class="line">            default()&#123;</span><br><span class="line">                return []</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        selectType:&#123;</span><br><span class="line">            type:Number,</span><br><span class="line">            default:ALL</span><br><span class="line">        &#125;,</span><br><span class="line">        onlyContent:&#123;</span><br><span class="line">            type:Boolean,</span><br><span class="line">            default:false</span><br><span class="line">        &#125;,</span><br><span class="line">        desc:&#123;</span><br><span class="line">            type:Object,</span><br><span class="line">            default()&#123;</span><br><span class="line">                return&#123;</span><br><span class="line">                    all:&apos;全部&apos;,</span><br><span class="line">                    positive:&apos;满意&apos;,</span><br><span class="line">                    negative:&apos;不满意&apos;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>引入到food组件中（常规方法）</p>
+<h4 id="11-food组件改ratingselect组件（父组件改子组件数据）"><a href="#11-food组件改ratingselect组件（父组件改子组件数据）" class="headerlink" title="11.food组件改ratingselect组件（父组件改子组件数据）"></a>11.food组件改ratingselect组件（父组件改子组件数据）</h4><p>data输出数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data()&#123;</span><br><span class="line">    return&#123;</span><br><span class="line">        selectType:ALL,</span><br><span class="line">        onlyContent:true,</span><br><span class="line">        desc:&#123;</span><br><span class="line">            all:&apos;全部&apos;,</span><br><span class="line">            positive:&apos;推荐&apos;,</span><br><span class="line">            negative:&apos;吐槽&apos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>标签绑定数据</p>
+<p>别忘了在show()中初始化数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">show()&#123;</span><br><span class="line">    this.selectType = ALL</span><br><span class="line">    this.onlyContent = true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-消除间隙，把父元素的font-size设置为0"><a href="#12-消除间隙，把父元素的font-size设置为0" class="headerlink" title="12.消除间隙，把父元素的font-size设置为0"></a>12.消除间隙，把父元素的font-size设置为0</h4><h4 id="13-如何添加active类-选中"><a href="#13-如何添加active类-选中" class="headerlink" title="13.如何添加active类(选中)"></a>13.如何添加active类(选中)</h4><p>设置selectType属性<br>将每个描述与selectType属性链接（desc属性）<br>判断selectType属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:class=&quot;&#123;&apos;active&apos;:selectType===2&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="14-点击-只显示有内容的评价"><a href="#14-点击-只显示有内容的评价" class="headerlink" title="14.点击 只显示有内容的评价"></a>14.点击 只显示有内容的评价</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:class=&quot;&#123;&apos;on&apos;:onlyContent&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>绑定属性</p>
+<h4 id="15-点击只显示有内容的评价-切换"><a href="#15-点击只显示有内容的评价-切换" class="headerlink" title="15.点击只显示有内容的评价 切换"></a>15.点击只显示有内容的评价 切换</h4><p>添加toggleContent()方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">toggleContent(event)&#123;</span><br><span class="line">    if(!event._constructed)&#123; //better.scroll 会给pc端添加click事件，需要阻止</span><br><span class="line">        return </span><br><span class="line">    &#125;</span><br><span class="line">    this.onlyContent = !this.onlyContent</span><br><span class="line">    this.$emit(&apos;toggle&apos;)  //与food相关联，将数据传出去</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="16-全部-推荐-吐槽-按钮的切换"><a href="#16-全部-推荐-吐槽-按钮的切换" class="headerlink" title="16.全部 推荐 吐槽 按钮的切换"></a>16.全部 推荐 吐槽 按钮的切换</h4><p>在标签中引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@click=&quot;select(2,$event)&quot;</span><br><span class="line">添加 select(type,event)方法</span><br><span class="line"></span><br><span class="line">select(type,event)&#123;</span><br><span class="line">    if(!event._constructed)&#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    this.selectType = type</span><br><span class="line">    this.$emit(&apos;select&apos;,type)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后会根据css写的样式进行展示</p>
+<h4 id="17-可以同时判断两个类"><a href="#17-可以同时判断两个类" class="headerlink" title="17.可以同时判断两个类"></a>17.可以同时判断两个类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span :class=&quot;&#123;&apos;icon-thumb_up&apos;:rating.rateType===0,&apos;icon-thumb_down&apos;:rating.rateType===1&#125;&quot;&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="18-实现点击全部-推荐-吐槽，显示该显示的内容"><a href="#18-实现点击全部-推荐-吐槽，显示该显示的内容" class="headerlink" title="18.实现点击全部 推荐 吐槽，显示该显示的内容"></a>18.实现点击全部 推荐 吐槽，显示该显示的内容</h4><h5 id="1-在评论区加上展示的方法"><a href="#1-在评论区加上展示的方法" class="headerlink" title="1.在评论区加上展示的方法"></a>1.在评论区加上展示的方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-show=&quot;needShow(rating.rateType,rating.text)&quot; v-for=&quot;rating in food.ratings&quot;</span><br><span class="line">    class=&quot;rating-item&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-needShow-type-text"><a href="#2-needShow-type-text" class="headerlink" title="2.needShow(type,text)"></a>2.needShow(type,text)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">needShow(type, text) &#123;</span><br><span class="line">  if (this.onlyContent &amp;&amp; !text) &#123;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line">  if (this.selectType === ALL) &#123;</span><br><span class="line">    return true;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return type === this.selectType;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-实现food组件和ratingselect组件链接"><a href="#3-实现food组件和ratingselect组件链接" class="headerlink" title="3.实现food组件和ratingselect组件链接"></a>3.实现food组件和ratingselect组件链接</h5><p>ratingselect组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  select(type, event) &#123;</span><br><span class="line">    if (!event._constructed) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    this.$emit(&apos;select&apos;, type);</span><br><span class="line">  &#125;,</span><br><span class="line">  toggleContent(event) &#123;</span><br><span class="line">    if (!event._constructed) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    this.$emit(&apos;toggle&apos;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>food组件绑定ratingselect组件的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;ratingselect @select=&quot;selectRating&quot; @toggle=&quot;toggleContent&quot; :selectType=&quot;selectType&quot;</span><br><span class="line">:onlyContent=&quot;onlyContent&quot; :desc=&quot;desc&quot;</span><br><span class="line">:ratings=&quot;food.ratings&quot;&gt;&lt;/ratingselect&gt;</span><br></pre></td></tr></table></figure>
+
+<p>写绑定的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">selectRating(type) &#123;</span><br><span class="line"></span><br><span class="line">this.selectType = type;</span><br><span class="line">this.$nextTick(() =&gt; &#123;</span><br><span class="line">  this.scroll.refresh();</span><br><span class="line">&#125;);</span><br><span class="line">&#125;,</span><br><span class="line">toggleContent() &#123;</span><br><span class="line"></span><br><span class="line">this.onlyContent = !this.onlyContent;</span><br><span class="line">this.$nextTick(() =&gt; &#123;</span><br><span class="line">  this.scroll.refresh();</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="19-将时间戳转化为日期格式-yyyy-MM-dd-hh-mm"><a href="#19-将时间戳转化为日期格式-yyyy-MM-dd-hh-mm" class="headerlink" title="19.将时间戳转化为日期格式 yyyy-MM-dd hh:mm"></a>19.将时间戳转化为日期格式 yyyy-MM-dd hh:mm</h4><h5 id="1-filters-把时间戳传到函数里"><a href="#1-filters-把时间戳传到函数里" class="headerlink" title="1.filters 把时间戳传到函数里"></a>1.filters 把时间戳传到函数里</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;time&quot;&gt;&#123;&#123;rating.rateTime | formatDate&#125;&#125;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">filters:&#123;</span><br><span class="line">    formatDate(time)&#123;</span><br><span class="line">        let date = new Date(time)</span><br><span class="line">        return formatDate(date,&apos;yyyy-MM-dd hh:mm&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-传入formaDate模块，因为用的export-，所以要用"><a href="#2-传入formaDate模块，因为用的export-，所以要用" class="headerlink" title="2.传入formaDate模块，因为用的export ，所以要用{}"></a>2.传入formaDate模块，因为用的export ，所以要用{}</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123;formatDate&#125; from &apos;../../common/js/date&apos;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-date-js"><a href="#3-date-js" class="headerlink" title="3.date.js"></a>3.date.js</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">export function formatDate(date,fmt)&#123;</span><br><span class="line">    if(/(y+)/.test(fmt))&#123;</span><br><span class="line">        fmt = fmt.replace(RegExp.$1,(date.getFullYear()+&apos;&apos;).substr(4-RegExp.$1.length))</span><br><span class="line">    &#125;</span><br><span class="line">    let o = &#123;</span><br><span class="line">        &apos;M+&apos;:date.getMonth() +1,</span><br><span class="line">        &apos;d+&apos;:date.getDate(),</span><br><span class="line">        &apos;h+&apos;:date.getHours(),</span><br><span class="line">        &apos;m+&apos;:date.getMinutes(),</span><br><span class="line">        &apos;s+&apos;:date.getSeconds()</span><br><span class="line">    &#125;</span><br><span class="line">    for(let k in o)&#123;</span><br><span class="line">        if(new RegExp(`($&#123;k&#125;)`).test(fmt))&#123;</span><br><span class="line">            let str = o[k] + &apos;&apos;</span><br><span class="line">            fmt = fmt.replace(RegExp.$1,(RegExp.$1.length === 1)?str:padLeftZero(str))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return fmt</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function padLeftZero(str)&#123;</span><br><span class="line">    return (&apos;00&apos;+str).substr(str.length)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/饿了么教程/" rel="tag"># 饿了么教程</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/09/09/Vue/vue的v-if与v-show/" rel="next" title="vue的v-if与v-show">
+                  <i class="fa fa-chevron-left"></i> vue的v-if与v-show
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/09/09/Vue/vue过渡动画/" rel="prev" title="vue过渡动画">
+                  vue过渡动画 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、准备工作"><span class="nav-text">一、准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-需求分析"><span class="nav-text">1.需求分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-项目资源准备"><span class="nav-text">2.项目资源准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-图标字体制作"><span class="nav-text">3.图标字体制作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-项目目录设计"><span class="nav-text">4.项目目录设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-mock数据（模拟后台数据）"><span class="nav-text">5.mock数据（模拟后台数据）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、页面骨架开发"><span class="nav-text">二、页面骨架开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-组件拆分（上）"><span class="nav-text">1.组件拆分（上）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-组件拆分（中）"><span class="nav-text">2.组件拆分（中）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-组件拆分（下）"><span class="nav-text">3.组件拆分（下）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-vue-router"><span class="nav-text">4.vue-router</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-像素实现"><span class="nav-text">5.像素实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-实现手机预览"><span class="nav-text">6.实现手机预览</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、项目实战-header组件开发"><span class="nav-text">三、项目实战-header组件开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-外部组件"><span class="nav-text">2.外部组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-详情弹层页"><span class="nav-text">3.详情弹层页</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#food商品详情页实现"><span class="nav-text">food商品详情页实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-将food组件和goods组件连接在一起"><span class="nav-text">1.将food组件和goods组件连接在一起</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-获取点击的物品"><span class="nav-text">2.获取点击的物品</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-点击物品弹出层"><span class="nav-text">3.点击物品弹出层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-实现弹出层从右到左动画"><span class="nav-text">4.实现弹出层从右到左动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-在-food组件-css中"><span class="nav-text">5.在 food组件 css中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-返回小图标"><span class="nav-text">6.返回小图标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-隐藏滚动条-food"><span class="nav-text">7.隐藏滚动条(food)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-点击购物车，数量加一"><span class="nav-text">8.点击购物车，数量加一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-分割线"><span class="nav-text">9.分割线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-商品评价"><span class="nav-text">10.商品评价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-food组件改ratingselect组件（父组件改子组件数据）"><span class="nav-text">11.food组件改ratingselect组件（父组件改子组件数据）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-消除间隙，把父元素的font-size设置为0"><span class="nav-text">12.消除间隙，把父元素的font-size设置为0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-如何添加active类-选中"><span class="nav-text">13.如何添加active类(选中)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-点击-只显示有内容的评价"><span class="nav-text">14.点击 只显示有内容的评价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-点击只显示有内容的评价-切换"><span class="nav-text">15.点击只显示有内容的评价 切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-全部-推荐-吐槽-按钮的切换"><span class="nav-text">16.全部 推荐 吐槽 按钮的切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-可以同时判断两个类"><span class="nav-text">17.可以同时判断两个类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-实现点击全部-推荐-吐槽，显示该显示的内容"><span class="nav-text">18.实现点击全部 推荐 吐槽，显示该显示的内容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-在评论区加上展示的方法"><span class="nav-text">1.在评论区加上展示的方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-needShow-type-text"><span class="nav-text">2.needShow(type,text)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-实现food组件和ratingselect组件链接"><span class="nav-text">3.实现food组件和ratingselect组件链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-将时间戳转化为日期格式-yyyy-MM-dd-hh-mm"><span class="nav-text">19.将时间戳转化为日期格式 yyyy-MM-dd hh:mm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-filters-把时间戳传到函数里"><span class="nav-text">1.filters 把时间戳传到函数里</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-传入formaDate模块，因为用的export-，所以要用"><span class="nav-text">2.传入formaDate模块，因为用的export ，所以要用{}</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-date-js"><span class="nav-text">3.date.js</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

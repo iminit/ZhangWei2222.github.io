@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="前言Memory作用：方便开发人员定位内存泄漏问题，从 内存 着手，提高页面性能">
+<meta name="keywords" content="Chrome Devtool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome Devtool Memory 使用指南">
+<meta property="og:url" content="http://yoursite.com/2020/01/03/浏览器/Chrome Devtool/Memory/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="前言Memory作用：方便开发人员定位内存泄漏问题，从 内存 着手，提高页面性能">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/8e3f2cda1049bd29a5f53df2050bdfd9.jpeg?w=1864&h=1044">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/88815ff8dbe237b4c40a88ae0cfad232.png?w=1920&h=472">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/779dc7e0f200d1e4a74c2a2f797230d7.jpeg?w=1918&h=324">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/85a96443003d9d1d22120a79f8e03a8c.jpeg?w=1919&h=692">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/ad22ebcdb9bed7bca90cf342143fd807.jpeg?w=1920&h=573">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/599b9682bb9543ebd76ed881d7e63c69.jpeg?w=1721&h=296">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/fbbb1008441917972082060fdd8b2d00.jpeg?w=1057&h=314">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/14ffa267456367d7d851df94d9d38e59.jpeg?w=1729&h=703">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/9b4c3c992b535d7820c3c2af8acc4c32.jpeg?w=1920&h=683">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.103Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chrome Devtool Memory 使用指南">
+<meta name="twitter:description" content="前言Memory作用：方便开发人员定位内存泄漏问题，从 内存 着手，提高页面性能">
+<meta name="twitter:image" content="https://img.youpin.mi-img.com/jianyu/8e3f2cda1049bd29a5f53df2050bdfd9.jpeg?w=1864&h=1044">
+  <link rel="canonical" href="http://yoursite.com/2020/01/03/浏览器/Chrome Devtool/Memory/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Chrome Devtool Memory 使用指南 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/03/浏览器/Chrome Devtool/Memory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Chrome Devtool Memory 使用指南
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-03 09:46:37" itemprop="dateCreated datePublished" datetime="2020-01-03T09:46:37+08:00">2020-01-03</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/浏览器/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>Memory</code>作用：方便开发人员定位内存泄漏问题，从 内存 着手，提高页面性能</p>
+<a id="more"></a>
+
+
+
+<h2 id="Chrome-任务管理器"><a href="#Chrome-任务管理器" class="headerlink" title="Chrome 任务管理器"></a>Chrome 任务管理器</h2><p>Chrome 设置 -&gt; 更多工具 -&gt; 任务管理器 -&gt; 右键任务管理器的表格标题处，启用 JavaScript 使用的内存</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/8e3f2cda1049bd29a5f53df2050bdfd9.jpeg?w=1864&h=1044" alt="img"></p>
+<ul>
+<li><strong>内存占用空间：原生内存。</strong>DOM 节点存储在原生内存中，如果此值正在增大，说明正在创建 DOM 节点</li>
+<li><strong>JavaScript 使用的内存：JS堆。</strong>包含两个值，关注实时数字（括号中的数字），实时数字表示页面上的可到达对象正在使用的内存量。如果此数字在增大，要么是正在创建新对象，要么是现有对象正在增长</li>
+</ul>
+<h2 id="Memory-面板"><a href="#Memory-面板" class="headerlink" title="Memory 面板"></a>Memory 面板</h2><p><img src="https://img.youpin.mi-img.com/jianyu/88815ff8dbe237b4c40a88ae0cfad232.png?w=1920&h=472" alt="image"></p>
+<ul>
+<li><code>Heap snapshot</code>：打印堆快照，堆快照文件显示页面的 JavaScript 对象和相关 DOM 节点之间的内存分配</li>
+<li><code>Allocation instrumentation on timeline</code>：在时间轴上记录内存信息，随着时间变化记录内存信息</li>
+<li><code>Allocation sampling</code>：内存信息采样，使用采样的方法记录内存分配。此配置文件类型具有最小的性能开销，可用于长时间运行的操作。它提供了由 JavaScript 执行堆栈细分的良好近似值分配，哪些函数影响了内存的分配，并且该函数所耗内存在内存分配中占比多少</li>
+</ul>
+<h2 id="Heap-snapshot"><a href="#Heap-snapshot" class="headerlink" title="Heap snapshot"></a><code>Heap snapshot</code></h2><p><img src="https://img.youpin.mi-img.com/jianyu/779dc7e0f200d1e4a74c2a2f797230d7.jpeg?w=1918&h=324" alt="img"></p>
+<p><strong>区域一：</strong></p>
+<p>从左到右有三个操作：查看方式、对象归类的筛选、快照选择</p>
+<p>查看（内存快照）方式有：</p>
+<ul>
+<li><code>Summary</code>：可以显示<strong>按构造函数名称分组</strong>的对象。使用此视图可以根据按构造函数名称分组的类型，深入了解对象及其内存使用，适用于跟踪 DOM 泄漏</li>
+<li><code>Comparison</code>：可以<strong>显示两个快照之间的不同</strong>。使用此视图可以比较两个（或多个）内存快照在某个操作前后的差异。检查已释放内存的变化和参考计数，可以确认是否存在内存泄漏以其原因</li>
+<li><code>Containment</code>：此视图提供了一种<strong>对象结构视图</strong>来分析内存使用，由顶级对象作为入口</li>
+<li><code>Statistic</code>：内存使用饼状的<strong>统计图</strong></li>
+</ul>
+<p><strong>区域二：</strong></p>
+<ul>
+<li><code>Shallow Size</code>：浅层大小，对象自身占用的内存大小</li>
+<li><code>Retained Size</code>：保留大小，将对象本身联通其无法从 GC 根到达的相关对象一起删除后释放的内存大小</li>
+<li><code>Distance</code>：使用节点到根节点最短路径距离</li>
+</ul>
+<h3 id="Comparison-视图"><a href="#Comparison-视图" class="headerlink" title="Comparison 视图"></a>Comparison 视图</h3><p>比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div class=&quot;hello&quot;&gt;</span><br><span class="line">  &#123;&#123;testArray&#125;&#125;</span><br><span class="line">  &lt;div @click=&quot;click&quot;&gt;增加&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        testArray: [&#123; value: &quot;hello&quot; &#125;]</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      click() &#123;</span><br><span class="line">        this.testArray.push(&#123;</span><br><span class="line">          value: &quot;:::::::::&quot;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>点击 增加 按钮前，打印一下堆快照；点击 增加 按钮后，打印一次堆快照，选择 Comparison 视图，会与快照 1 进行比较</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/85a96443003d9d1d22120a79f8e03a8c.jpeg?w=1919&h=692" alt="img"></p>
+<p><strong>分析：</strong>Retainers 就是这个值的保留树，表明这个值存储在内存位置为（345883）的 VNode 的 text 键上，这个 VNode 又位于 Array （345887）的 0号位上，Array 是一个 children 位于 VNode 上</p>
+<h4 id="闭包（closure）"><a href="#闭包（closure）" class="headerlink" title="闭包（closure）"></a>闭包（closure）</h4><p><img src="https://img.youpin.mi-img.com/jianyu/ad22ebcdb9bed7bca90cf342143fd807.jpeg?w=1920&h=573" alt="img"></p>
+<p>闭包可以通过一对正反操作进行比较，比如点击造成了一个闭包，再点击一次释放一个闭包，查看闭包所占内存。闭包情况很常见，一般情况下只要闭包没有滥用就不会有什么问题</p>
+<h3 id="Containment-视图"><a href="#Containment-视图" class="headerlink" title="Containment 视图"></a>Containment 视图</h3><p><img src="https://img.youpin.mi-img.com/jianyu/599b9682bb9543ebd76ed881d7e63c69.jpeg?w=1721&h=296" alt="img"></p>
+<ul>
+<li><p><code>Distance</code>：从 window 出发的最短保留路径上的属性引用数量</p>
+</li>
+<li><p>文档 DOM 树：由可以通过遍历文档到达的所有原生 DOM 节点组成</p>
+</li>
+</ul>
+<p>内存图从根开始，根可能是浏览器的 window 对象或者 Node 的 Global 对象，我们无法控制此根对象的垃圾回收方式。任何无法从根到达的对象都会被 GC 回收</p>
+<p>Size 指 Js 堆，原生对象不会在 Js 堆中表示，所以大小为 0</p>
+<h2 id="Allocation-instrumentation-on-timeline"><a href="#Allocation-instrumentation-on-timeline" class="headerlink" title="Allocation instrumentation on timeline"></a><code>Allocation instrumentation on timeline</code></h2><p>比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">click() &#123;</span><br><span class="line">  <span class="comment">// 每次点击 字符串长度都以上一次为基础增加到5倍，拉大差异突出效果，并且之后在字符串头部加上count值做区分</span></span><br><span class="line">  <span class="keyword">this</span>.count *= <span class="number">5</span>;</span><br><span class="line">  <span class="keyword">var</span> str = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="keyword">this</span>.count * <span class="number">10</span>).join(<span class="string">":"</span>);</span><br><span class="line">  <span class="keyword">this</span>.testArray.push(&#123;</span><br><span class="line">    value: <span class="keyword">this</span>.count + str</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img.youpin.mi-img.com/jianyu/fbbb1008441917972082060fdd8b2d00.jpeg?w=1057&h=314" alt="img"></p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/14ffa267456367d7d851df94d9d38e59.jpeg?w=1729&h=703" alt="img"></p>
+<ul>
+<li><p>每条线的高度与最近分配的对象大小对应</p>
+</li>
+<li><p>竖线的颜色：这些对象是否仍然显示在最终的堆快照中</p>
+<ul>
+<li>蓝色竖线：在时间线最后对象仍然显示</li>
+<li>灰色竖线：对象已在时间线期间分配，但曾对其进行垃圾回收</li>
+</ul>
+</li>
+</ul>
+<h2 id="Allocation-sampling"><a href="#Allocation-sampling" class="headerlink" title="Allocation sampling"></a><code>Allocation sampling</code></h2><p><img src="https://img.youpin.mi-img.com/jianyu/9b4c3c992b535d7820c3c2af8acc4c32.jpeg?w=1920&h=683" alt="img"></p>
+<p>可以通过 Chart、Tree、Heavy 不同的形式，查看函数调用栈、函数占用的内存、引用内存等，点击可以跳转到具体的 source 代码处</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Chrome-Devtool/" rel="tag"># Chrome Devtool</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/01/02/计算机网络/HTTP 切面流程/" rel="next" title="HTTP 切面流程">
+                  <i class="fa fa-chevron-left"></i> HTTP 切面流程
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/01/06/实习总结/小米有品实习感悟/" rel="prev" title="小米有品实习感悟">
+                  小米有品实习感悟 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chrome-任务管理器"><span class="nav-text">Chrome 任务管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-面板"><span class="nav-text">Memory 面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Heap-snapshot"><span class="nav-text">Heap snapshot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Comparison-视图"><span class="nav-text">Comparison 视图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包（closure）"><span class="nav-text">闭包（closure）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Containment-视图"><span class="nav-text">Containment 视图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Allocation-instrumentation-on-timeline"><span class="nav-text">Allocation instrumentation on timeline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Allocation-sampling"><span class="nav-text">Allocation sampling</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

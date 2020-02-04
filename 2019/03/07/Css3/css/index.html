@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="CSS选择器id选择器(#myid)、类选择器(.myclassname)、标签选择器(div, h1, p)、相邻选择器(h1 + p)、子选择器（ul &amp;gt; li）、后代选择器（li a）、通配符选择器（*）、属性选择器（a[rel=”external”]）、伪类选择器（a:hover, li:nth-child）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css">
+<meta property="og:url" content="http://yoursite.com/2019/03/07/Css3/css/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="CSS选择器id选择器(#myid)、类选择器(.myclassname)、标签选择器(div, h1, p)、相邻选择器(h1 + p)、子选择器（ul &amp;gt; li）、后代选择器（li a）、通配符选择器（*）、属性选择器（a[rel=”external”]）、伪类选择器（a:hover, li:nth-child）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://s11.mogucdn.com/mlcdn/c45406/190611_737e5c9c9fdajfg6h8jb3k2hb3g9h_700x443.png">
+<meta property="og:updated_time" content="2020-02-04T04:55:16.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css">
+<meta name="twitter:description" content="CSS选择器id选择器(#myid)、类选择器(.myclassname)、标签选择器(div, h1, p)、相邻选择器(h1 + p)、子选择器（ul &amp;gt; li）、后代选择器（li a）、通配符选择器（*）、属性选择器（a[rel=”external”]）、伪类选择器（a:hover, li:nth-child）">
+<meta name="twitter:image" content="http://s11.mogucdn.com/mlcdn/c45406/190611_737e5c9c9fdajfg6h8jb3k2hb3g9h_700x443.png">
+  <link rel="canonical" href="http://yoursite.com/2019/03/07/Css3/css/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>css | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/Css3/css/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">css
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-07 15:32:37" itemprop="dateCreated datePublished" datetime="2019-03-07T15:32:37+08:00">2019-03-07</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Css3/" itemprop="url" rel="index"><span itemprop="name">Css3</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>7.2k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>7 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="CSS选择器"><a href="#CSS选择器" class="headerlink" title="CSS选择器"></a>CSS选择器</h3><p>id选择器(#myid)、类选择器(.myclassname)、标签选择器(div, h1, p)、相邻选择器(h1 + p)、子选择器（ul &gt; li）、后代选择器（li a）、通配符选择器（*）、属性选择器（a[rel=”external”]）、伪类选择器（a:hover, li:nth-child）</p><a id="more"></a>
+<h3 id="CSS优先级算法如何计算？"><a href="#CSS优先级算法如何计算？" class="headerlink" title="CSS优先级算法如何计算？"></a>CSS优先级算法如何计算？</h3><p><strong>!important &gt; 行内样式&gt;ID选择器 &gt; 类选择器 &gt; 标签 &gt; 通配符 &gt; 继承 &gt; 浏览器默认属性</strong></p>
+<p>*优先级就近原则，同权重情况下样式定义最近者为准;</p>
+<p>*载入样式以最后载入的定位为准;</p>
+<p><strong>优先级</strong></p>
+<p>同权重:内联样式表（标签内部）&gt;嵌入样式表（当前文件中）&gt;外部样式表（外部文件中）。</p>
+<p>!important &gt;  id &gt; class &gt; tag</p>
+<p>important比内联优先级高</p>
+<h3 id="CSS优化、提高性能的方法有哪些？"><a href="#CSS优化、提高性能的方法有哪些？" class="headerlink" title="CSS优化、提高性能的方法有哪些？"></a>CSS优化、提高性能的方法有哪些？</h3><p>关键选择器（key selector）。选择器的最后面的部分为关键选择器（即用来匹配目标元素的部分）；</p>
+<p>如果规则拥有ID选择器作为其关键选择器，则不要为规则增加标签。过滤掉无关的规则（这样样式系统就不会浪费时间去匹配它们了）；</p>
+<p>提取项目的通用公有样式，增强可复用性，按模块编写组件；增强项目的协同开发性、可维护性和可扩展性;</p>
+<p>使用预处理工具或构建工具（gulp对css进行语法检查、自动补前缀、打包压缩、自动优雅降级）；</p>
+<h3 id="CSS盒子模型了解吗，IE盒子模型会在IE的什么版本出现呢"><a href="#CSS盒子模型了解吗，IE盒子模型会在IE的什么版本出现呢" class="headerlink" title="CSS盒子模型了解吗，IE盒子模型会在IE的什么版本出现呢"></a>CSS盒子模型了解吗，IE盒子模型会在IE的什么版本出现呢</h3><p>IE5.5及更早的版本使用的是IE盒模型。IE6及其以上的版本在标准兼容模式下使用的是W3C的盒模型标准。</p>
+<p>w3c盒子模型的范围包括margin、border、padding、content,并且content部分不包含其他部分。</p>
+<p>当设置background颜色时候，会覆盖padding+width，当border为dashed虚线时，背景色会嵌进去</p>
+<p>IE盒子模型的范围包括margin、border、padding、content,和w3c盒子模型不同的是，IE盒子模型的content部分包含了padding和border.</p>
+<p><img src="http://s11.mogucdn.com/mlcdn/c45406/190611_737e5c9c9fdajfg6h8jb3k2hb3g9h_700x443.png" alt="img"></p>
+<p>box-sizing: content-box(w3c) border-box(ie)</p>
+<h3 id="CSS3-新特性"><a href="#CSS3-新特性" class="headerlink" title="CSS3 新特性"></a>CSS3 新特性</h3><p><strong>1.CSS3的选择器</strong></p>
+<p>1）E:last-child 匹配父元素的最后一个子元素E。</p>
+<p>2）E:nth-child(n)匹配父元素的第n个子元素E。 </p>
+<p>3）E:nth-last-child(n) CSS3 匹配父元素的倒数第n个子元素E。</p>
+<p><strong>2. @Font-face 特性</strong></p>
+<p><strong>3. 圆角</strong></p>
+<p><strong>4.阴影（Shadow）</strong>  <strong>5.CSS3 的渐变效果</strong> </p>
+<p>background-image:-webkit-gradient(linear,0% 0%,100% 0%,from(#2A8BBE),to(#FE280E));</p>
+<p><strong>6. CSS3制作特效</strong></p>
+<p>1) Transition 对象变换时的过渡效果</p>
+<p>2) Transforms 2D转换效果</p>
+<p>主要包括 translate（水平移动）、rotate（旋转）、scale（伸缩）、skew（倾斜）</p>
+<p>3) Animation动画特效 @keyframes</p>
+<h3 id="CSS继承属性有哪些"><a href="#CSS继承属性有哪些" class="headerlink" title="CSS继承属性有哪些"></a>CSS继承属性有哪些</h3><p>　1、字体系列属性</p>
+<p>　　font-family：字体系列</p>
+<p>　　font-weight：字体的粗细</p>
+<p>　　font-size：字体的大小</p>
+<p>　　font-style：字体的风格</p>
+<p>　2、文本系列属性</p>
+<p>　　text-indent：文本缩进</p>
+<p>　　text-align：文本水平对齐</p>
+<p>　　line-height：行高</p>
+<p>　　word-spacing：单词之间的间距</p>
+<p>　　letter-spacing：中文或者字母之间的间距</p>
+<p>　　text-transform：控制文本大小写（就是uppercase、lowercase、capitalize这三个）</p>
+<p>　　color：文本颜色</p>
+<p>　3、元素可见性：</p>
+<p>　　visibility：控制元素显示隐藏</p>
+<p>　4、列表布局属性：</p>
+<p>　　list-style：列表风格，包括list-style-type、list-style-image等</p>
+<p>　5、光标属性：</p>
+<p>　　cursor：光标显示为何种形态</p>
+<h3 id="块级元素、行内元素"><a href="#块级元素、行内元素" class="headerlink" title="块级元素、行内元素"></a>块级元素、行内元素</h3><p><strong>块级元素</strong>：块级大多为结构性标记</p>
+<pre><code>&lt;address&gt;...&lt;/address&gt;
+&lt;center&gt;...&lt;/center&gt;  地址文字
+&lt;h1&gt;...&lt;/h1&gt;  标题一级
+&lt;h2&gt;...&lt;/h2&gt;  标题二级
+&lt;h3&gt;...&lt;/h3&gt;  标题三级
+&lt;h4&gt;...&lt;/h4&gt;  标题四级
+&lt;h5&gt;...&lt;/h5&gt;  标题五级
+&lt;h6&gt;...&lt;/h6&gt;  标题六级
+&lt;hr&gt;  水平分割线
+&lt;p&gt;...&lt;/p&gt;  段落
+&lt;pre&gt;...&lt;/pre&gt;  预格式化
+&lt;blockquote&gt;...&lt;/blockquote&gt;  段落缩进   前后5个字符
+&lt;marquee&gt;...&lt;/marquee&gt;  滚动文本
+&lt;ul&gt;...&lt;/ul&gt;  无序列表
+&lt;ol&gt;...&lt;/ol&gt;  有序列表
+&lt;dl&gt;...&lt;/dl&gt;  定义列表
+&lt;table&gt;...&lt;/table&gt;  表格
+&lt;form&gt;...&lt;/form&gt;  表单
+&lt;div&gt;...&lt;/div&gt;</code></pre><p><strong>行内元素</strong>：行内大多为描述性标记</p>
+<pre><code>&lt;span&gt;.
+&lt;a&gt;...&lt;/a&gt;  链接
+&lt;br&gt;  换行
+&lt;b&gt;...&lt;/b&gt;  加粗
+&lt;strong&gt;...&lt;/strong&gt;  加粗
+&lt;img &gt;  图片
+&lt;sup&gt;...&lt;/sup&gt;  上标
+&lt;sub&gt;...&lt;/sub&gt;  下标
+&lt;i&gt;...&lt;/i&gt;  斜体
+&lt;em&gt;...&lt;/em&gt;  斜体
+&lt;del&gt;...&lt;/del&gt;  删除线
+&lt;u&gt;...&lt;/u&gt;  下划线
+&lt;input&gt;...&lt;/input&gt;  文本框
+&lt;textarea&gt;...&lt;/textarea&gt;  多行文本
+&lt;select&gt;...&lt;/select&gt;  下拉列表</code></pre><p><strong>区别</strong></p>
+<ul>
+<li><p>块级元素</p>
+<p>1.总是从新的一行开始</p>
+<p>2.高度、宽度都是可控的</p>
+<p>3.宽度没有设置时，默认为100%</p>
+<p>4.块级元素中可以包含块级元素和行内元素</p>
+</li>
+<li><p>行内元素</p>
+<p>1.和其他元素都在一行</p>
+<p>2.高度、宽度以及内边距都是不可控的</p>
+<p>3.宽高就是内容的高度，不可以改变</p>
+<p>4.行内元素只能行内元素，不能包含块级元素</p>
+</li>
+</ul>
+<h3 id="一个div-position设置为absolute-再用JS设置div-style-position-””，问这时div的表现？怎么去判断？"><a href="#一个div-position设置为absolute-再用JS设置div-style-position-””，问这时div的表现？怎么去判断？" class="headerlink" title="一个div,position设置为absolute,再用JS设置div.style.position=””，问这时div的表现？怎么去判断？"></a>一个div,position设置为absolute,再用JS设置div.style.position=””，问这时div的表现？怎么去判断？</h3><p>被js覆盖，因为js会把样式写在style的属性，是行内元素，覆盖掉了。</p>
+<h3 id="CSS-水平居中方式"><a href="#CSS-水平居中方式" class="headerlink" title="CSS 水平居中方式"></a>CSS 水平居中方式</h3><p><strong>行内元素</strong><br><code>text-align:center</code></p>
+<p><strong>块级元素</strong></p>
+<p>定宽<br><code>margin:0 auto；</code></p>
+<p>不定宽： </p>
+<pre><code>父级元素设置 text-align:center;
+
+子元素设置为内嵌块元素 display:inline-block;
+
+父级：relative
+
+子级：
+
+position：absolute;
+
+left:50%;
+
+magin-left: -自己宽度的一半；
+
+translate()</code></pre><h3 id="CSS-垂直居中方式"><a href="#CSS-垂直居中方式" class="headerlink" title="CSS 垂直居中方式"></a>CSS 垂直居中方式</h3><pre><code>父级：relative
+
+子级：
+
+position：absolute;
+
+top:50%;
+
+magin-top: -自己宽度的一半；
+
+flex align-items:center
+
+translate()</code></pre><h3 id="说说float"><a href="#说说float" class="headerlink" title="说说float"></a>说说float</h3><p>float虽然已经脱离了文档流，但是他还会占据文档的位置。</p>
+<h3 id="CSS实现一个旋转的动画如何实现，animation和transition有什么区别"><a href="#CSS实现一个旋转的动画如何实现，animation和transition有什么区别" class="headerlink" title="CSS实现一个旋转的动画如何实现，animation和transition有什么区别"></a>CSS实现一个旋转的动画如何实现，animation和transition有什么区别</h3><p>transition主要是过渡作用，比如鼠标移入移出的动画，animation是强化版的动画。</p>
+<p>transition 不能自行触发，通过hover等动作，或者结合js进行触发。animation可以自行运行</p>
+<p>transition可控性相对较弱，只能够指定起始和结束的状态，而animation可以定义多个关键帧</p>
+<h3 id="听说过逐帧动画吗，如果让你实现，你会如何实现"><a href="#听说过逐帧动画吗，如果让你实现，你会如何实现" class="headerlink" title="听说过逐帧动画吗，如果让你实现，你会如何实现"></a>听说过逐帧动画吗，如果让你实现，你会如何实现</h3><p><a href="https://www.cnblogs.com/Fengzp/p/5548493.html" target="_blank" rel="noopener">animation</a> @keyframes</p>
+<h3 id="前端如何实现直播的功能你了解吗，让你设计弹幕效果如何实现"><a href="#前端如何实现直播的功能你了解吗，让你设计弹幕效果如何实现" class="headerlink" title="前端如何实现直播的功能你了解吗，让你设计弹幕效果如何实现"></a>前端如何实现直播的功能你了解吗，让你设计弹幕效果如何实现</h3><p>后台返回一个流式媒体，前端通过video接收 </p>
+<h3 id="知道canvas吗，canvas怎么实现一个旋转的矩形"><a href="#知道canvas吗，canvas怎么实现一个旋转的矩形" class="headerlink" title="知道canvas吗，canvas怎么实现一个旋转的矩形"></a>知道canvas吗，canvas怎么实现一个旋转的矩形</h3><p>rotate()</p>
+<h3 id="inline-block知道吗，应用场景都有哪些呢"><a href="#inline-block知道吗，应用场景都有哪些呢" class="headerlink" title="inline-block知道吗，应用场景都有哪些呢"></a>inline-block知道吗，应用场景都有哪些呢</h3><p>结合inline和block两种属性的特性，保持行内排列的特性，也可以设置宽高。</p>
+<p>可以应用于一切需要行内排列且要设置大小的需求，比如网页的导航栏和把a标签做按钮时。</p>
+<h3 id="浏览器最小的字体？怎么更小？"><a href="#浏览器最小的字体？怎么更小？" class="headerlink" title="浏览器最小的字体？怎么更小？"></a>浏览器最小的字体？怎么更小？</h3><p>12px。使用transform-origin transform-scale</p>
+<h3 id="css3和js动画哪个好"><a href="#css3和js动画哪个好" class="headerlink" title="css3和js动画哪个好"></a>css3和js动画哪个好</h3><p>如果动画只是简单的状态切换，不需要中间过程控制，在这种情况下，css动画是优选方案。然而如果你在设计很复杂的富客户端界面或者在开发一个有着复杂UI状态的 APP。那么你应该使用js动画，这样你的动画可以保持高效，并且你的工作流也更可控。所以，在实现一些小的交互动效的时候，就多考虑考虑CSS动画。对于一些复杂控制的动画，使用javascript比较可靠。</p>
+<h4 id="JS动画"><a href="#JS动画" class="headerlink" title="JS动画"></a>JS动画</h4><p>缺点：(1)JavaScript在浏览器的主线程中运行，而主线程中还有其它需要运行的JavaScript脚本、样式计算、布局、绘制任务等,对其干扰导致线程可能出现阻塞，从而造成丢帧的情况。</p>
+<p>​        (2)代码的复杂度高于CSS动画</p>
+<p>优点：(1)JavaScript动画控制能力很强, 可以在动画播放过程中对动画进行控制：开始、暂停、回放、终止、取消都是可以做到的。</p>
+<p>​        (2)动画效果比css3动画丰富,有些动画效果，比如曲线运动,冲击闪烁,视差滚动效果，只有JavaScript动画才能完成</p>
+<p>​        (3)CSS3有兼容性问题，而JS大多时候没有兼容性问题</p>
+<h4 id="CSS动画"><a href="#CSS动画" class="headerlink" title="CSS动画"></a>CSS动画</h4><p>缺点：</p>
+<p>   (1)运行过程控制较弱,无法附加事件绑定回调函数。CSS动画只能暂停,不能在动画中寻找一个特定的时间点，不能在半路反转动画，不能变换时间尺度，不能在特定的位置添加回调函数或是绑定回放事件,无进度报告</p>
+<p>   (2)代码冗长。想用 CSS 实现稍微复杂一点动画,最后CSS代码都会变得非常笨重。</p>
+<p>优点： (1)浏览器可以对动画进行优化。</p>
+<ul>
+<li>浏览器使用与 requestAnimationFrame 类似的机制，requestAnimationFrame比起setTimeout，setInterval设置动画的优势主要是:1)requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成,并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率,一般来说,这个频率为每秒60帧。2)在隐藏或不可见的元素中requestAnimationFrame不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。</li>
+<li>强制使用硬件加速 （通过 GPU 来提高动画性能）</li>
+</ul>
+<p>总结：</p>
+<p>1、css用于简单的动画，比如过渡；js用于复杂的动画，比如需要对动画进行开始，暂停，回放灯，css不能暂停。</p>
+<p>2、css有兼容性问题，但是他可以gpu加速，提高性能</p>
+<p>同样的动画，js能实现，css也能实现，选择哪个呢</p>
+<p>1、如果有兼容性，选择Js</p>
+<p>2、但是js会损耗浏览器性能，单线程的，处理动画一个接一个，会卡顿</p>
+<h3 id="显示-隐藏"><a href="#显示-隐藏" class="headerlink" title="显示/隐藏"></a>显示/隐藏</h3><p>display:block/none</p>
+<p>visibility:visible/hidden</p>
+<p>区别：</p>
+<p>none 隐藏内容，会脱离文本流，不占据页面空间 引发重绘 回流</p>
+<p>hidden 隐藏内容，不会脱离文本流，会继续占据页面空间 引发重绘</p>
+<h3 id="media"><a href="#media" class="headerlink" title="@media"></a>@media</h3><p>all screen print(用于打印机和打印预览) speech(用于屏幕阅读器等发声设备)</p>
+<h3 id="px-rem-em"><a href="#px-rem-em" class="headerlink" title="px rem em"></a>px rem em</h3><p>1、px 像素，是一个固定大小的单元</p>
+<p>2、rem css3新增，相对长度单位，相对于html元素</p>
+<p>3、em 相对长度单位，不是固定的，它相对于当前对象内文本的字体尺寸，会继承父级元素，如果没设置，相对于浏览器的默认字体尺寸16px</p>
+<h3 id="网页上那个小图标是通过什么设置的"><a href="#网页上那个小图标是通过什么设置的" class="headerlink" title="网页上那个小图标是通过什么设置的"></a>网页上那个小图标是通过什么设置的</h3><pre><code>&lt;link rel=&quot;SHORTCUT ICON&quot; href=&quot;ico图标文件地址&quot;&gt;</code></pre><h3 id="meta里有哪些属性"><a href="#meta里有哪些属性" class="headerlink" title="meta里有哪些属性"></a>meta里有哪些属性</h3><p>两个属性：name http-equiv</p>
+<p><strong>1、name</strong></p>
+<p>name属性主要用于描述网页，比如网页的关键词，叙述等。对应的content，是对name的具体描述，便于搜索引擎抓取</p>
+<pre><code>&lt;meta name=&quot;参数&quot; content=&quot;具体的描述&quot;&gt;</code></pre><p>参数</p>
+<pre><code>&lt;meta name=&quot;keywords&quot; content=&quot;Lxxyx,博客，文科生，前端&quot;&gt;
+&lt;meta name=&quot;description&quot; content=&quot;文科生，热爱前端与编程。目前大二，这是我的前端博客&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt; //移动端的窗口
+&lt;meta name=&quot;robots&quot; content=&quot;none&quot;&gt;
+&lt;meta name=&quot;author&quot; content=&quot;Lxxyx,841380530@qq.com&quot;&gt;
+&lt;meta name=&quot;generator&quot; content=&quot;Sublime Text3&quot;&gt;
+&lt;meta name=&quot;copyright&quot; content=&quot;Lxxyx&quot;&gt; //代表该网站为Lxxyx个人版权所有。
+&lt;meta name=&quot;revisit-after&quot; content=&quot;7 days&quot; &gt; //搜索引擎爬虫重访时间
+&lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt; //默认webkit内核
+&lt;meta name=&quot;renderer&quot; content=&quot;ie-comp&quot;&gt; //默认IE兼容模式
+&lt;meta name=&quot;renderer&quot; content=&quot;ie-stand&quot;&gt; //默认IE标准模式</code></pre><p><strong>2、http-equiv</strong></p>
+<pre><code>&lt;meta http-equiv=&quot;参数&quot; content=&quot;具体的描述&quot;&gt;</code></pre><p>参数</p>
+<pre><code>&lt;meta http-equiv=&quot;content-Type&quot; content=&quot;text/html;charset=utf-8&quot;&gt;  //旧的HTML，不推荐 //设定网页字符集
+&lt;meta charset=&quot;utf-8&quot;&gt; //HTML5设定网页字符集的方式，推荐使用UTF-8
+&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;/&gt; //指定IE和Chrome使用最新版本渲染当前页面
+&lt;meta http-equiv=&quot;cache-control&quot; content=&quot;no-cache&quot;&gt;
+&lt;meta http-equiv=&quot;expires&quot; content=&quot;Sunday 26 October 2016 01:00 GMT&quot; /&gt;
+&lt;meta http-equiv=&quot;refresh&quot; content=&quot;2；URL=http://www.lxxyx.win/&quot;&gt; //意思是2秒后跳转向我的博客
+&lt;meta http-equiv=&quot;Set-Cookie&quot; content=&quot;name, date&quot;&gt; //格式
+
+&lt;meta http-equiv=&quot;Set-Cookie&quot; content=&quot;User=Lxxyx; path=/; expires=Sunday, 10-Jan-16 10:00:00 GMT&quot;&gt; //具体范例</code></pre>
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/03/07/JavaScript/单例模式，观察者模式/" rel="next" title="观察者模式&单例模式">
+                  <i class="fa fa-chevron-left"></i> 观察者模式&单例模式
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/03/07/Vue/vue相关/" rel="prev" title="vue">
+                  vue <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS选择器"><span class="nav-text">CSS选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS优先级算法如何计算？"><span class="nav-text">CSS优先级算法如何计算？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS优化、提高性能的方法有哪些？"><span class="nav-text">CSS优化、提高性能的方法有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS盒子模型了解吗，IE盒子模型会在IE的什么版本出现呢"><span class="nav-text">CSS盒子模型了解吗，IE盒子模型会在IE的什么版本出现呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3-新特性"><span class="nav-text">CSS3 新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS继承属性有哪些"><span class="nav-text">CSS继承属性有哪些</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块级元素、行内元素"><span class="nav-text">块级元素、行内元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个div-position设置为absolute-再用JS设置div-style-position-””，问这时div的表现？怎么去判断？"><span class="nav-text">一个div,position设置为absolute,再用JS设置div.style.position=””，问这时div的表现？怎么去判断？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-水平居中方式"><span class="nav-text">CSS 水平居中方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-垂直居中方式"><span class="nav-text">CSS 垂直居中方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说说float"><span class="nav-text">说说float</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS实现一个旋转的动画如何实现，animation和transition有什么区别"><span class="nav-text">CSS实现一个旋转的动画如何实现，animation和transition有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#听说过逐帧动画吗，如果让你实现，你会如何实现"><span class="nav-text">听说过逐帧动画吗，如果让你实现，你会如何实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端如何实现直播的功能你了解吗，让你设计弹幕效果如何实现"><span class="nav-text">前端如何实现直播的功能你了解吗，让你设计弹幕效果如何实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#知道canvas吗，canvas怎么实现一个旋转的矩形"><span class="nav-text">知道canvas吗，canvas怎么实现一个旋转的矩形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inline-block知道吗，应用场景都有哪些呢"><span class="nav-text">inline-block知道吗，应用场景都有哪些呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器最小的字体？怎么更小？"><span class="nav-text">浏览器最小的字体？怎么更小？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css3和js动画哪个好"><span class="nav-text">css3和js动画哪个好</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JS动画"><span class="nav-text">JS动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS动画"><span class="nav-text">CSS动画</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示-隐藏"><span class="nav-text">显示/隐藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#media"><span class="nav-text">@media</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#px-rem-em"><span class="nav-text">px rem em</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网页上那个小图标是通过什么设置的"><span class="nav-text">网页上那个小图标是通过什么设置的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#meta里有哪些属性"><span class="nav-text">meta里有哪些属性</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

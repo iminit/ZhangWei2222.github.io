@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="前言还记得距离上一次学习Devtool功能时，是在大二上学期，那会还叫profile。许久未见，Devtool强大了不少，今天探究一下全新 Chrome Devtool Performance 的使用。 Performance作用：分析运行时性能表现，可以根据提示去改善我们的代码，提高性能">
+<meta name="keywords" content="Chrome Devtool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome Devtool Performance 使用指南">
+<meta property="og:url" content="http://yoursite.com/2019/12/20/浏览器/Chrome Devtool/perforemance/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="前言还记得距离上一次学习Devtool功能时，是在大二上学期，那会还叫profile。许久未见，Devtool强大了不少，今天探究一下全新 Chrome Devtool Performance 的使用。 Performance作用：分析运行时性能表现，可以根据提示去改善我们的代码，提高性能">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/641a846ade31a09f90fda620edcdadc9.jpeg?w=1920&h=792">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/6fae16d98dd6b0b80d0c7897dfbbd63b.jpeg?w=747&h=107">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/122f6bd18a2fd215d50419155a1a6d2a.jpeg?w=765&h=164">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/8ddacd0f36745f6e94e3b6fede42060b.jpeg?w=1920&h=485">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/ec815e2b769f7e061223bbca914ec425.jpeg?w=312&h=76">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/60a57ceb309bfde6fec817bfc16505e8.jpeg?w=396&h=170">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/8115d427185f024c40eae59fedef8691.jpeg?w=1920&h=512">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/8a22a2db04578155921b6f69a0869a10.jpeg?w=1920&h=216">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/25727075c327c931036f9646e307b81f.jpeg?w=1920&h=211">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/05fa500e3e8c08bd91889b7428578fa2.jpeg?w=594&h=181">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/c33e556a6128440b97a82a3398ae9b70.jpeg?w=940&h=163">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/1b303d45992884cc51aefa0f7531fc81.jpeg?w=651&h=362">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/a0371146c13b8ed11c06c164f6b5b288.jpeg?w=420&h=389">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/88585660ce6cfaadcbc83ff089b8953f.jpeg?w=180&h=318">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/7be88505b5e704824d6a55f9580036e1.jpeg?w=217&h=384">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/1920ad3d3b1f3819dcb43611ecc6431d.jpeg?w=396&h=314">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/0b4a0be1e1cce4e193feefa8d0f47391.jpeg?w=884&h=561">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/fc083adccb8b6652fb53847be5eec044.jpeg?w=297&h=61">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/f80cbeb6ae77422b16b1d35462a982fc.jpeg?w=453&h=254">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/e7bb803360e8e672a94de9573cce0553.jpeg?w=481&h=307">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/2805c6c766b1dd08e5a1f936ac1eafd1.jpeg?w=480&h=204">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/bf114fb9f6f85a9d03b8f46b677a7ce5.jpeg?w=1920&h=308">
+<meta property="og:image" content="https://img.youpin.mi-img.com/jianyu/41bb2c3df1ddc678ec51fdfa1c96bd49.jpeg?w=338&h=233">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.104Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chrome Devtool Performance 使用指南">
+<meta name="twitter:description" content="前言还记得距离上一次学习Devtool功能时，是在大二上学期，那会还叫profile。许久未见，Devtool强大了不少，今天探究一下全新 Chrome Devtool Performance 的使用。 Performance作用：分析运行时性能表现，可以根据提示去改善我们的代码，提高性能">
+<meta name="twitter:image" content="https://img.youpin.mi-img.com/jianyu/641a846ade31a09f90fda620edcdadc9.jpeg?w=1920&h=792">
+  <link rel="canonical" href="http://yoursite.com/2019/12/20/浏览器/Chrome Devtool/perforemance/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Chrome Devtool Performance 使用指南 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/20/浏览器/Chrome Devtool/perforemance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Chrome Devtool Performance 使用指南
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-20 11:28:37" itemprop="dateCreated datePublished" datetime="2019-12-20T11:28:37+08:00">2019-12-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/浏览器/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>还记得距离上一次学习<code>Devtool</code>功能时，是在大二上学期，那会还叫<code>profile</code>。许久未见，<code>Devtool</code>强大了不少，今天探究一下<code>全新 Chrome Devtool Performance 的使用</code>。</p>
+<p><code>Performance</code>作用：分析运行时性能表现，可以根据提示去改善我们的代码，提高性能</p>
+<a id="more"></a>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
+<li><p>匿名模式下，打开<a href="https://link.zhihu.com/?target=https%3A//googlechrome.github.io/devtools-samples/jank/" target="_blank" rel="noopener">DEMO</a></p>
+</li>
+<li><p>打开<code>Devtools</code>，点击<code>Performance</code></p>
+<ol>
+<li>确保 <code>Screenshots checkbox</code> 被选（打开截图功能）</li>
+<li>点开右边的<code>小齿轮</code>，我们可以选择模拟 4倍的 CPU</li>
+</ol>
+</li>
+<li><p>点击录制按钮（黑点），开始记录此段时间内页面运行性能</p>
+</li>
+<li><p>点击<code>stop</code>停止</p>
+</li>
+</ol>
+<h2 id="面板功能分析"><a href="#面板功能分析" class="headerlink" title="面板功能分析"></a>面板功能分析</h2><p><img src="https://img.youpin.mi-img.com/jianyu/641a846ade31a09f90fda620edcdadc9.jpeg?w=1920&h=792" alt="img"></p>
+<h3 id="区域一：控制面板"><a href="#区域一：控制面板" class="headerlink" title="区域一：控制面板"></a>区域一：控制面板</h3><ul>
+<li><p><code>Screenshots</code>截图：默认勾选，每一帧都会截图</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/6fae16d98dd6b0b80d0c7897dfbbd63b.jpeg?w=747&h=107" alt="img"></p>
+</li>
+<li><p><code>Memory</code>内存消耗记录：勾选后可以看到各种内存消耗曲线</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/122f6bd18a2fd215d50419155a1a6d2a.jpeg?w=765&h=164" alt="img"></p>
+</li>
+</ul>
+<p>【以下配置是用来模拟手机、慢网络下使用】</p>
+<ul>
+<li><code>Disable javaScript samples</code>关闭javaScript样本：减少在手机运行时的开销，模拟手机运行时勾选</li>
+<li><code>Network</code>网络模拟：可以模拟在3G（自定义）等网络条件下运行页面</li>
+<li><code>Enable advanced paint instrumentation(slow)</code>记录渲染事件的细节：选中后，选择frames中的一块，可以看到区域四多了<code>Layers</code></li>
+</ul>
+<p><img src="https://img.youpin.mi-img.com/jianyu/8ddacd0f36745f6e94e3b6fede42060b.jpeg?w=1920&h=485" alt="img"></p>
+<ul>
+<li><code>CPU</code>限制：模拟底CPU下的运行性能</li>
+</ul>
+<h3 id="区域二：概览面板"><a href="#区域二：概览面板" class="headerlink" title="区域二：概览面板"></a>区域二：概览面板</h3><p><img src="https://img.youpin.mi-img.com/jianyu/ec815e2b769f7e061223bbca914ec425.jpeg?w=312&h=76" alt="img"></p>
+<h4 id="1-FPS"><a href="#1-FPS" class="headerlink" title="1. FPS"></a>1. FPS</h4><blockquote>
+<p>每帧秒数，对于动画而言标准是保持在60FPS</p>
+<p>FPS（frames per second）：用来分析动画的一个主要性能指标，让页面效果能够达到 &gt;=60fps(帧)/s的刷新频率以避免出现卡顿。能保持在60的FPS的话，那么用户体验就是不错的。</p>
+<p><strong>为什么是60FPS呢？</strong></p>
+<p>因为这和目前大多数显示器的刷新率相吻合（60Hz），如果网页动画能够做到每秒60帧，就会跟显示器同步刷新，达到最佳的视觉效果。这意味着，一秒之内进行60次重新渲染，每次渲染的时间不能超过16.66毫秒</p>
+</blockquote>
+<p><strong>分析</strong>： 绿色越高越好，出现红色说明FPS低——页面卡顿的位置，可以在区域三的<code>Frames</code>中看到具体的FPS值</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/60a57ceb309bfde6fec817bfc16505e8.jpeg?w=396&h=170" alt="img"></p>
+<h4 id="2-CPU"><a href="#2-CPU" class="headerlink" title="2. CPU"></a>2. CPU</h4><blockquote>
+<p>处理各个任务花费的时间，选择一段CPU统计可以在区域四的<code>Summary</code>看到统计表格</p>
+</blockquote>
+<p><img src="https://img.youpin.mi-img.com/jianyu/8115d427185f024c40eae59fedef8691.jpeg?w=1920&h=512" alt="img"></p>
+<ul>
+<li><code>Scirpting</code>脚本</li>
+<li><code>Rendering</code>渲染</li>
+<li><code>Painting</code>绘制</li>
+<li><code>Loading</code>加载</li>
+<li><code>ldle</code>闲置</li>
+</ul>
+<p><strong>分析</strong>：比重占的大的颜色可能有问题，着重注意</p>
+<h4 id="3-NET"><a href="#3-NET" class="headerlink" title="3. NET"></a>3. NET</h4><blockquote>
+<p>各个请求花费的时间，可以在区域三的<code>Network</code>里查看 网络请求详细请求</p>
+</blockquote>
+<p><img src="https://img.youpin.mi-img.com/jianyu/8a22a2db04578155921b6f69a0869a10.jpeg?w=1920&h=216" alt="img"></p>
+<p><strong>分析</strong>：每条彩色横杠表示一种资源。横杠越长，检索资源所需的时间越长。每个横杠的浅色部分表示等待时间（从请求资源到第一个字节下载完成的时间）</p>
+<h3 id="区域三：线程面板"><a href="#区域三：线程面板" class="headerlink" title="区域三：线程面板"></a>区域三：线程面板</h3><p><img src="https://img.youpin.mi-img.com/jianyu/25727075c327c931036f9646e307b81f.jpeg?w=1920&h=211" alt="img"></p>
+<h4 id="1-Frames"><a href="#1-Frames" class="headerlink" title="1. Frames"></a>1. Frames</h4><p>帧线程，鼠标悬浮绿色块可以看到FPS</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/05fa500e3e8c08bd91889b7428578fa2.jpeg?w=594&h=181" alt="img"></p>
+<h4 id="2-Main"><a href="#2-Main" class="headerlink" title="2. Main"></a>2. Main</h4><p>主线程，负责执行javaScript，解析HTML/CSS，完成绘制。可以看到主线程调用栈和耗时情况，每个长条都是一个事件，悬浮可以看到耗时和事件名</p>
+<ul>
+<li>x轴：时间</li>
+<li>y轴：调用栈，上面的event调用下面的子event，越到下面数量越少（瀑布，倒立的火焰图）</li>
+</ul>
+<p><img src="https://img.youpin.mi-img.com/jianyu/c33e556a6128440b97a82a3398ae9b70.jpeg?w=940&h=163" alt="img"></p>
+<p>颜色代表各个事件类型（更多可看<strong>附录一</strong>）</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/1b303d45992884cc51aefa0f7531fc81.jpeg?w=651&h=362" alt="img"></p>
+<p><strong>分析</strong>：</p>
+<ol>
+<li><p>在事件长条的右上角，如果出现了红色小三角，说明这个事件是存在问题的，需要特别注意</p>
+</li>
+<li><p>双击带有红色小三角的事件，在<code>Summary</code>面板可以看到详细信息，注意<code>reveal</code>这个链接，双击它会让高亮触发这个事件的event。如果点击了app.js:94这个链接，会跳转到对应的代码处</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/a0371146c13b8ed11c06c164f6b5b288.jpeg?w=420&h=389" alt="img"></p>
+</li>
+</ol>
+<p><img src="https://img.youpin.mi-img.com/jianyu/88585660ce6cfaadcbc83ff089b8953f.jpeg?w=180&h=318" alt="img"></p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/7be88505b5e704824d6a55f9580036e1.jpeg?w=217&h=384" alt="img"></p>
+<ol>
+<li>在app.update这个事件的长条下方，有很多被触发的紫色长条，如果放大它们，可以看到每个都带有红色小三角。点击其中一个紫色事件长条，Summary面板展示了更多关于这个事件的信息</li>
+<li>在Summary面板里点击app.js:70链接，就会自动跳转到需要优化的代码处</li>
+</ol>
+<p><img src="https://img.youpin.mi-img.com/jianyu/1920ad3d3b1f3819dcb43611ecc6431d.jpeg?w=396&h=314" alt="img"></p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/0b4a0be1e1cce4e193feefa8d0f47391.jpeg?w=884&h=561" alt="img"></p>
+<h4 id="3-Raster"><a href="#3-Raster" class="headerlink" title="3. Raster"></a>3. Raster</h4><p>Raster线程，负责完成某个layer或者某个块的绘制</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/fc083adccb8b6652fb53847be5eec044.jpeg?w=297&h=61" alt="img"></p>
+<h3 id="区域四：统计面板"><a href="#区域四：统计面板" class="headerlink" title="区域四：统计面板"></a>区域四：统计面板</h3><p>统计面板会因点击选择不同的目标，统计的内容不同</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/f80cbeb6ae77422b16b1d35462a982fc.jpeg?w=453&h=254" alt="img"></p>
+<ul>
+<li><p><code>Summary</code>统计图：展示各个事件阶段耗费的时间</p>
+</li>
+<li><p><code>Bottom-Up</code>排序：事件时长排序</p>
+<ul>
+<li><p><code>self-time</code>：除去子事件这个事件本身消耗的时间</p>
+</li>
+<li><p><code>total-time</code>：这个事件从开始到结束消耗的时间（包含子事件）</p>
+</li>
+</ul>
+<p><img src="https://img.youpin.mi-img.com/jianyu/e7bb803360e8e672a94de9573cce0553.jpeg?w=481&h=307" alt="img"></p>
+</li>
+<li><p><code>Call Tree</code>调用栈：事件调用排序，<code>Main</code>中选择一个事件，可以看到整个事件的调用栈（从最顶层到最底层，而不是只有当前事件）</p>
+<p><img src="https://img.youpin.mi-img.com/jianyu/2805c6c766b1dd08e5a1f936ac1eafd1.jpeg?w=480&h=204" alt="img"></p>
+</li>
+<li><p><code>Event Log</code>事件日志：事件发生的先后顺序</p>
+<ul>
+<li>多了一个<code>start time</code>，指事件在多少毫秒开始触发的</li>
+<li>右边有事件描述信息</li>
+</ul>
+<p><img src="https://img.youpin.mi-img.com/jianyu/bf114fb9f6f85a9d03b8f46b677a7ce5.jpeg?w=1920&h=308" alt="img"></p>
+</li>
+</ul>
+<h2 id="开启实时监控"><a href="#开启实时监控" class="headerlink" title="开启实时监控"></a>开启实时监控</h2><ol>
+<li><code>ctrl+shift+p</code>打开命令行</li>
+<li>搜索<code>Show Rendering</code></li>
+<li>勾选<code>FPS Meter</code></li>
+</ol>
+<p><img src="https://img.youpin.mi-img.com/jianyu/41bb2c3df1ddc678ec51fdfa1c96bd49.jpeg?w=338&h=233" alt="img"></p>
+<h2 id="附录一"><a href="#附录一" class="headerlink" title="附录一"></a>附录一</h2><h4 id="1-Loading事件"><a href="#1-Loading事件" class="headerlink" title="1. Loading事件"></a>1. Loading事件</h4><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Parse HTML</td>
+<td>浏览器执行HTML解析</td>
+</tr>
+<tr>
+<td>Finish Loading</td>
+<td>网络请求完毕事件</td>
+</tr>
+<tr>
+<td>Receive Data</td>
+<td>请求的响应数据到达事件，如果响应数据很大（拆包），可能会多次触发该事件</td>
+</tr>
+<tr>
+<td>Receive Response</td>
+<td>响应头报文到达时触发</td>
+</tr>
+<tr>
+<td>Send Request</td>
+<td>发送网络请求时触发</td>
+</tr>
+</tbody></table>
+<h4 id="2-Scripting事件"><a href="#2-Scripting事件" class="headerlink" title="2. Scripting事件"></a>2. Scripting事件</h4><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Animation Frame Fired</td>
+<td>一个定义好的动画帧发生并开始回调处理时触发</td>
+</tr>
+<tr>
+<td>Cancel Animation Frame</td>
+<td>取消一个动画帧时触发</td>
+</tr>
+<tr>
+<td>GC Event</td>
+<td>垃圾回收时触发</td>
+</tr>
+<tr>
+<td>DOMContentLoaded</td>
+<td>当页面中的DOM内容加载并解析完毕时触发</td>
+</tr>
+<tr>
+<td>Evaluate Script</td>
+<td>A script was evaluated.</td>
+</tr>
+<tr>
+<td>Event</td>
+<td>js事件</td>
+</tr>
+<tr>
+<td>Function Call</td>
+<td>只有当浏览器进入到js引擎中时触发</td>
+</tr>
+<tr>
+<td>Install Timer</td>
+<td>创建计时器（调用setTimeout()和setInterval()）时触发</td>
+</tr>
+<tr>
+<td>Request Animation Frame</td>
+<td>A requestAnimationFrame() call scheduled a new frame</td>
+</tr>
+<tr>
+<td>Remove Timer</td>
+<td>当清除一个计时器时触发</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>调用console.time()触发</td>
+</tr>
+<tr>
+<td>Time End</td>
+<td>调用console.timeEnd()触发</td>
+</tr>
+<tr>
+<td>Timer Fired</td>
+<td>定时器激活回调后触发</td>
+</tr>
+<tr>
+<td>XHR Ready State Change</td>
+<td>当一个异步请求为就绪状态后触发</td>
+</tr>
+<tr>
+<td>XHR Load</td>
+<td>当一个异步请求完成加载后触发</td>
+</tr>
+</tbody></table>
+<h4 id="3-Rendering事件"><a href="#3-Rendering事件" class="headerlink" title="3. Rendering事件"></a>3. Rendering事件</h4><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Invalidate layout</td>
+<td>当DOM更改导致页面布局失效时触发</td>
+</tr>
+<tr>
+<td>Layout</td>
+<td>页面布局计算执行时触发</td>
+</tr>
+<tr>
+<td>Recalculate style</td>
+<td>Chrome重新计算元素样式时触发</td>
+</tr>
+<tr>
+<td>Scroll</td>
+<td>内嵌的视窗滚动时触发</td>
+</tr>
+</tbody></table>
+<h4 id="4-Painting事件"><a href="#4-Painting事件" class="headerlink" title="4. Painting事件"></a>4. Painting事件</h4><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Composite Layers</td>
+<td>Chrome的渲染引擎完成图片层合并时触发</td>
+</tr>
+<tr>
+<td>Image Decode</td>
+<td>一个图片资源完成解码后触发</td>
+</tr>
+<tr>
+<td>Image Resize</td>
+<td>一个图片被修改尺寸后触发</td>
+</tr>
+<tr>
+<td>Paint</td>
+<td>合并后的层被绘制到对应显示区域后触发</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Chrome-Devtool/" rel="tag"># Chrome Devtool</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/12/20/设计模式/结构型/6. 适配器模式/" rel="next" title="结构型-适配器模式">
+                  <i class="fa fa-chevron-left"></i> 结构型-适配器模式
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/23/设计模式/行为型/1. 责任链模式/" rel="prev" title="行为型-责任链模式">
+                  行为型-责任链模式 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面板功能分析"><span class="nav-text">面板功能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区域一：控制面板"><span class="nav-text">区域一：控制面板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区域二：概览面板"><span class="nav-text">区域二：概览面板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-FPS"><span class="nav-text">1. FPS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-CPU"><span class="nav-text">2. CPU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-NET"><span class="nav-text">3. NET</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区域三：线程面板"><span class="nav-text">区域三：线程面板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Frames"><span class="nav-text">1. Frames</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Main"><span class="nav-text">2. Main</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Raster"><span class="nav-text">3. Raster</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区域四：统计面板"><span class="nav-text">区域四：统计面板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启实时监控"><span class="nav-text">开启实时监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录一"><span class="nav-text">附录一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Loading事件"><span class="nav-text">1. Loading事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Scripting事件"><span class="nav-text">2. Scripting事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Rendering事件"><span class="nav-text">3. Rendering事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Painting事件"><span class="nav-text">4. Painting事件</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

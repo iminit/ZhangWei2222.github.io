@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="1.jQuery中隐藏元素的hide方法12.hide( options ).hide(&amp;quot;fast / slow&amp;quot;)隐藏有动画效果2.jQuery中显示元素的show方法12.hide( options ).hide(&amp;quot;fast / slow&amp;quot;)">
+<meta name="keywords" content="jQuery">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jquery(四)动画篇">
+<meta property="og:url" content="http://yoursite.com/2017/08/18/JavaScript/jQuery/jquery(四)动画篇/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="1.jQuery中隐藏元素的hide方法12.hide( options ).hide(&amp;quot;fast / slow&amp;quot;)隐藏有动画效果2.jQuery中显示元素的show方法12.hide( options ).hide(&amp;quot;fast / slow&amp;quot;)">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:16.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jquery(四)动画篇">
+<meta name="twitter:description" content="1.jQuery中隐藏元素的hide方法12.hide( options ).hide(&amp;quot;fast / slow&amp;quot;)隐藏有动画效果2.jQuery中显示元素的show方法12.hide( options ).hide(&amp;quot;fast / slow&amp;quot;)">
+  <link rel="canonical" href="http://yoursite.com/2017/08/18/JavaScript/jQuery/jquery(四)动画篇/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>jquery(四)动画篇 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/jQuery/jquery(四)动画篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">jquery(四)动画篇
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-18 15:15:47" itemprop="dateCreated datePublished" datetime="2017-08-18T15:15:47+08:00">2017-08-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5.2k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-jQuery中隐藏元素的hide方法"><a href="#1-jQuery中隐藏元素的hide方法" class="headerlink" title="1.jQuery中隐藏元素的hide方法"></a>1.jQuery中隐藏元素的hide方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.hide( options )</span><br><span class="line">.hide(&quot;fast / slow&quot;)</span><br></pre></td></tr></table></figure><p>隐藏有动画效果</p><h3 id="2-jQuery中显示元素的show方法"><a href="#2-jQuery中显示元素的show方法" class="headerlink" title="2.jQuery中显示元素的show方法"></a>2.jQuery中显示元素的show方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.hide( options )</span><br><span class="line">.hide(&quot;fast / slow&quot;)</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+
+
+<p>注意事项：</p>
+<p>如果使用!important在你的样式中，比如display: none !important，如果你希望.show()方法正常工作，必须使用.css(‘display’, ‘block !important’)重写样式</p>
+<h3 id="3-jQuery中显示与隐藏切换toggle方法"><a href="#3-jQuery中显示与隐藏切换toggle方法" class="headerlink" title="3.jQuery中显示与隐藏切换toggle方法"></a>3.jQuery中显示与隐藏切换toggle方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">toggle();</span><br><span class="line">toggle( [duration ] [, complete ] )</span><br></pre></td></tr></table></figure>
+
+<p>如果元素是最初显示，它会被隐藏<br>如果隐藏的，它会显示出来</p>
+<h3 id="4-jQuery中下拉动画slideDown"><a href="#4-jQuery中下拉动画slideDown" class="headerlink" title="4.jQuery中下拉动画slideDown"></a>4.jQuery中下拉动画slideDown</h3><p>.slideDown()：用滑动动画显示一个匹配元素</p>
+<p>.slideDown( [duration ] [, complete ] )</p>
+<p>持续时间（duration）是以毫秒为单位的，数值越大，动画越慢，不是越快。字符串 ‘fast’ 和 ‘slow’ 分别代表200和600毫秒的延时。如果提供任何其他字符串，或者这个duration参数被省略，那么默认使用400 毫秒的延时。</p>
+<p>具体使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;ele&quot;).slideDown(1000, function() &#123;</span><br><span class="line">    //等待动画执行1秒后,执行别的动作....</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-jQuery中上卷动画slideUp"><a href="#5-jQuery中上卷动画slideUp" class="headerlink" title="5.jQuery中上卷动画slideUp"></a>5.jQuery中上卷动画slideUp</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;elem&quot;).slideUp();</span><br><span class="line"></span><br><span class="line">.slideUp( [duration ] [, easing ] [, complete ] )</span><br></pre></td></tr></table></figure>
+
+<p>因为动画是异步的，所以要在动画之后执行某些操作就必须要写到回调函数里面，这里要特别注意</p>
+<h3 id="6-jQuery中上卷下拉切换slideToggle"><a href="#6-jQuery中上卷下拉切换slideToggle" class="headerlink" title="6.jQuery中上卷下拉切换slideToggle"></a>6.jQuery中上卷下拉切换slideToggle</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slideToggle();</span><br><span class="line">.slideToggle( [duration ] ,[ complete ] )</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-jQuery中淡出动画fadeOut"><a href="#7-jQuery中淡出动画fadeOut" class="headerlink" title="7.jQuery中淡出动画fadeOut"></a>7.jQuery中淡出动画fadeOut</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.fadeOut( [duration ], [ complete ] )</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-jQuery中淡入动画fadeIn"><a href="#8-jQuery中淡入动画fadeIn" class="headerlink" title="8.jQuery中淡入动画fadeIn"></a>8.jQuery中淡入动画fadeIn</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.fadeIn( [duration ], [ complete ] )</span><br></pre></td></tr></table></figure>
+
+<p>淡入的动画原理：操作元素的不透明度从0%逐渐增加到100%</p>
+<h3 id="9-jQuery中淡入淡出切换fadeToggle"><a href="#9-jQuery中淡入淡出切换fadeToggle" class="headerlink" title="9.jQuery中淡入淡出切换fadeToggle"></a>9.jQuery中淡入淡出切换fadeToggle</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.fadeToggle( [duration ] ,[ complete ] )</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-jQuery中淡入效果fadeTo"><a href="#10-jQuery中淡入效果fadeTo" class="headerlink" title="10.jQuery中淡入效果fadeTo"></a>10.jQuery中淡入效果fadeTo</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.fadeTo( duration, opacity ,callback)</span><br></pre></td></tr></table></figure>
+
+<p>相比fadeOut,fadeIn,可以改变透明度</p>
+<h3 id="11-toggle、sildeToggle以及fadeToggle的区别："><a href="#11-toggle、sildeToggle以及fadeToggle的区别：" class="headerlink" title="11.toggle、sildeToggle以及fadeToggle的区别："></a>11.toggle、sildeToggle以及fadeToggle的区别：</h3><ol>
+<li>toggle：切换显示与隐藏效果</li>
+<li>sildeToggle：切换上下拉卷滚效果</li>
+<li>fadeToggle：切换淡入淡出效果</li>
+</ol>
+<h3 id="12-jQuery中动画animate-上"><a href="#12-jQuery中动画animate-上" class="headerlink" title="12.jQuery中动画animate(上)"></a>12.jQuery中动画animate(上)</h3><p>.animate( properties ,[ duration ], [ easing ], [ complete ] )<br>参数分解：</p>
+<ul>
+<li>properties：一个或多个css属性的键值对所构成的Object对象。要特别注意所有用于动画的属性必须是数字的，除非另有说明；这些属性如果不是数字的将不能使用基本的jQuery功能。比如常见的，border、margin、padding、width、height、font、left、top、right、bottom、wordSpacing等等这些都是能产生动画效果的。background-color很明显不可以，因为参数是red或者GBG这样的值，非常用插件，否则正常情况下是不能只用动画效果的。注意，CSS 样式使用 DOM 名称（比如 “fontSize”）来设置，而非 CSS 名称（比如 “font-size”）。</li>
+</ul>
+<p>特别注意单位，属性值的单位像素（px）,除非另有说明。单位em 和 %需要指定使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.animate(&#123;</span><br><span class="line">    left: 50, </span><br><span class="line">    width: &apos;50px&apos;   </span><br><span class="line">    opacity: &apos;show&apos;,  </span><br><span class="line">    fontSize: &quot;10em&quot;,</span><br><span class="line">&#125;, 500);</span><br></pre></td></tr></table></figure>
+
+<p>除了定义数值，每个属性能使用’show’, ‘hide’, 和 ‘toggle’。这些快捷方式允许定制隐藏和显示动画用来控制元素的显示或隐藏</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.animate(&#123;</span><br><span class="line">    width: &quot;toggle&quot;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>如果提供一个以+= 或 -=开始的值，那么目标值就是以这个属性的当前值加上或者减去给定的数字来计算的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.animate(&#123; </span><br><span class="line">    left: &apos;+=50px&apos;</span><br><span class="line">&#125;, &quot;slow&quot;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>duration时间<ul>
+<li>动画执行的时间，持续时间是以毫秒为单位的；值越大表示动画执行的越慢，不是越快。还可以提供’fast’ 和 ‘slow’字符串，分别表示持续时间为200 和 600毫秒。</li>
+</ul>
+</li>
+<li>easing动画运动的算法<ul>
+<li>jQuery库中默认调用 swing。如果需要其他的动画算法，请查找相关的插件</li>
+</ul>
+</li>
+<li>complete回调<ul>
+<li>动画完成时执行的函数，这个可以保证当前动画确定完成后发会触发</li>
+</ul>
+</li>
+</ul>
+<h3 id="13-jQuery中动画animate-下"><a href="#13-jQuery中动画animate-下" class="headerlink" title="13.jQuery中动画animate(下)"></a>13.jQuery中动画animate(下)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.animate( properties, options )</span><br></pre></td></tr></table></figure>
+
+<p>options参数</p>
+<ul>
+<li>duration - 设置动画执行的时间</li>
+<li>easing - 规定要使用的 easing 函数，过渡使用哪种缓动函数</li>
+<li>step：规定每个动画的每一步完成之后要执行的函数</li>
+<li>progress：每一次动画调用的时候会执行这个回调，就是一个进度的概念</li>
+<li>complete：动画完成回调</li>
+</ul>
+<p>其中最关键的一点就是：</p>
+<p>如果多个元素执行动画，回调将在每个匹配的元素上执行一次，不是作为整个动画执行一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;#elem&apos;).animate(&#123;</span><br><span class="line">    width: &apos;toggle&apos;,  </span><br><span class="line">    height: &apos;toggle&apos;</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">    duration: 5000,</span><br><span class="line">    specialEasing: &#123;</span><br><span class="line">      width: &apos;linear&apos;,</span><br><span class="line">      height: &apos;easeOutBounce&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    complete: function() &#123;</span><br><span class="line">      $(this).after(&apos;&lt;div&gt;Animation complete.&lt;/div&gt;&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="14-jQuery中停止动画stop"><a href="#14-jQuery中停止动画stop" class="headerlink" title="14.jQuery中停止动画stop"></a>14.jQuery中停止动画stop</h3><ol>
+<li>stop() 停止当前动画</li>
+<li>stop(true) 停止当前执行动画元素的所有动画行为</li>
+<li>stop(true,true) 停止当前执行动画元素的所有动画行为，并且直接到达动画最后一帧</li>
+</ol>
+<h3 id="15-jQuery中each方法的应用"><a href="#15-jQuery中each方法的应用" class="headerlink" title="15.jQuery中each方法的应用"></a>15.jQuery中each方法的应用</h3><p>用来处理对象和数组的遍历</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">jQuery.each(array, callback )</span><br><span class="line">jQuery.each( object, callback )</span><br><span class="line">$.each([&quot;Aaron&quot;, &quot;慕课网&quot;], function(index, value) &#123;</span><br><span class="line">   //index是索引,也就是数组的索引</span><br><span class="line">   //value就是数组中的值了</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$.each([&quot;Aaron&quot;, &quot;慕课网&quot;], function(index, value) &#123;</span><br><span class="line">    return false; //停止迭代</span><br><span class="line">&#125;);</span><br><span class="line">例子</span><br><span class="line"></span><br><span class="line">$.each([&apos;Aaron&apos;, &apos;慕课网&apos;], function(i, item) &#123;</span><br><span class="line">    $aaron.append(&quot;索引=&quot; + i + &quot;; 元素=&quot; + item);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$.each(&#123;</span><br><span class="line">    name: &quot;张三&quot;,</span><br><span class="line">    age: 18</span><br><span class="line">&#125;, function(property, value) &#123;</span><br><span class="line">    $aaron.append(&quot;属性名=&quot; + property + &quot;; 属性值=&quot; + value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="16-jQuery中查找数组中的索引inArray"><a href="#16-jQuery中查找数组中的索引inArray" class="headerlink" title="16.jQuery中查找数组中的索引inArray"></a>16.jQuery中查找数组中的索引inArray</h3><p>jQuery.inArray()函数用于在数组中搜索指定的值，并返回其索引值。如果数组中不存在该值，则返回 -1。，可以通过fromIndex规定查找的起始值，默认数组是0开始。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jQuery.inArray( value, array ,[ fromIndex ] )</span><br></pre></td></tr></table></figure>
+
+<p>例如：在数组中查找值是5的索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$.inArray(5,[1,2,3,4,5,6,7]) //返回对应的索引：4</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<p>如果要判断数组中是否存在指定值，你需要通过该函数的返回值不等于(或大于)-1来进行判断</p>
+<h3 id="17-jQuery中去空格神器trim方法"><a href="#17-jQuery中去空格神器trim方法" class="headerlink" title="17.jQuery中去空格神器trim方法"></a>17.jQuery中去空格神器trim方法</h3><p>jQuery.trim()函数用于去除字符串两端的空白字符</p>
+<p>这个函数很简单，没有多余的参数用法</p>
+<p>需要注意：</p>
+<ol>
+<li>移除字符串开始和结尾处的所有换行符，空格(包括连续的空格)和制表符（tab）</li>
+<li>如果这些空白字符在字符串中间时，它们将被保留，不会被移除<h3 id="18-jQuery中DOM元素的获取get方法"><a href="#18-jQuery中DOM元素的获取get方法" class="headerlink" title="18.jQuery中DOM元素的获取get方法"></a>18.jQuery中DOM元素的获取get方法</h3></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.get( [index ] )</span><br><span class="line"></span><br><span class="line">&lt;a&gt;1&lt;/a&gt;</span><br><span class="line">&lt;a&gt;2&lt;/a&gt;</span><br><span class="line">&lt;a&gt;3&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意2点</p>
+<ol>
+<li>get方法是获取的dom对象，也就是通过document.getElementById获取的对象</li>
+<li>get方法是从0开始索引<br>所以第二个a元素的查找： $(a).get(1)</li>
+</ol>
+<h4 id="负索引值参数"><a href="#负索引值参数" class="headerlink" title="负索引值参数"></a>负索引值参数</h4><p>get方法还可以从后往前索引，传递一个负索引值，注意的负值的索引起始值是-1</p>
+<p>同样是找到第二元素，可以传递 $(a).get(-2)</p>
+<blockquote>
+<p>get方法是获取dom对象，eq方法是获取jq对象.那么js取得的元素后面就必须跟js的方法或者属性，既$().get().style()。而不是$().get().css()。因为style是js独有的方法，而css()是jq独有的方法，get()方法后取得的js元素，它只能识别style()，而不能识别css()。</p>
+</blockquote>
+<h3 id="19-jQuery中DOM元素的获取index方法"><a href="#19-jQuery中DOM元素的获取index方法" class="headerlink" title="19.jQuery中DOM元素的获取index方法"></a>19.jQuery中DOM元素的获取index方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.index()</span><br><span class="line">.index( selector )</span><br><span class="line">.index( element )</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>如果不传递任何参数给 .index() 方法，则返回值就是jQuery对象中第一个元素相对于它同辈元素的位置</li>
+<li>如果在一组元素上调用 .index() ，并且参数是一个DOM元素或jQuery对象， .index() 返回值就是传入的元素相对于原先集合的位置</li>
+<li>如果参数是一个选择器， .index() 返回值就是原先元素相对于选择器匹配元素的位置。如果找不到匹配的元素，则 .index() 返回 -1<br>例如</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;a&gt;&lt;/a&gt;</span><br><span class="line">    &lt;li id=&quot;test1&quot;&gt;1&lt;/li&gt;</span><br><span class="line">    &lt;li id=&quot;test2&quot;&gt;2&lt;/li&gt;</span><br><span class="line">    &lt;li id=&quot;test3&quot;&gt;3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<p>$(“li”).index() 没有传递参数，反正的结果是1，它的意思是返回同辈的排列循序，第一个li之前有a元素,同辈元素是a开始为0，所以li的开始索引是1</p>
+<p>如果要快速找到第二个li在列表中的索引,可以通过如下2种方式处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;li&quot;).index(document.getElementById(&quot;test2&quot;)) //结果：1</span><br><span class="line">$(&quot;li&quot;).index($(&quot;#test2&quot;))  //结果:1</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/jQuery/" rel="tag"># jQuery</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/08/18/JavaScript/js深入浅出/" rel="next" title="js深入浅出">
+                  <i class="fa fa-chevron-left"></i> js深入浅出
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/08/18/JavaScript/jQuery/jquery(三)事件篇/" rel="prev" title="jquery(三)事件篇">
+                  jquery(三)事件篇 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-jQuery中隐藏元素的hide方法"><span class="nav-text">1.jQuery中隐藏元素的hide方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-jQuery中显示元素的show方法"><span class="nav-text">2.jQuery中显示元素的show方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-jQuery中显示与隐藏切换toggle方法"><span class="nav-text">3.jQuery中显示与隐藏切换toggle方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-jQuery中下拉动画slideDown"><span class="nav-text">4.jQuery中下拉动画slideDown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-jQuery中上卷动画slideUp"><span class="nav-text">5.jQuery中上卷动画slideUp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-jQuery中上卷下拉切换slideToggle"><span class="nav-text">6.jQuery中上卷下拉切换slideToggle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-jQuery中淡出动画fadeOut"><span class="nav-text">7.jQuery中淡出动画fadeOut</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-jQuery中淡入动画fadeIn"><span class="nav-text">8.jQuery中淡入动画fadeIn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-jQuery中淡入淡出切换fadeToggle"><span class="nav-text">9.jQuery中淡入淡出切换fadeToggle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-jQuery中淡入效果fadeTo"><span class="nav-text">10.jQuery中淡入效果fadeTo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-toggle、sildeToggle以及fadeToggle的区别："><span class="nav-text">11.toggle、sildeToggle以及fadeToggle的区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-jQuery中动画animate-上"><span class="nav-text">12.jQuery中动画animate(上)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-jQuery中动画animate-下"><span class="nav-text">13.jQuery中动画animate(下)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-jQuery中停止动画stop"><span class="nav-text">14.jQuery中停止动画stop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-jQuery中each方法的应用"><span class="nav-text">15.jQuery中each方法的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-jQuery中查找数组中的索引inArray"><span class="nav-text">16.jQuery中查找数组中的索引inArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-jQuery中去空格神器trim方法"><span class="nav-text">17.jQuery中去空格神器trim方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-jQuery中DOM元素的获取get方法"><span class="nav-text">18.jQuery中DOM元素的获取get方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#负索引值参数"><span class="nav-text">负索引值参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-jQuery中DOM元素的获取index方法"><span class="nav-text">19.jQuery中DOM元素的获取index方法</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

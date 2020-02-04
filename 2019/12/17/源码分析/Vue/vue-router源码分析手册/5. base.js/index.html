@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="base.jssrc/history/base.js 定义了History类，VueRouter中的history，根据mode，可能是HTML5History、HashHistory或Abstract实例，其中HTML5History、HashHistory等都是继承自History类。">
+<meta name="keywords" content="Vue,Vue-router">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-router源码分析(base.js)">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/源码分析/Vue/vue-router源码分析手册/5. base.js/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="base.jssrc/history/base.js 定义了History类，VueRouter中的history，根据mode，可能是HTML5History、HashHistory或Abstract实例，其中HTML5History、HashHistory等都是继承自History类。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.128Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue-router源码分析(base.js)">
+<meta name="twitter:description" content="base.jssrc/history/base.js 定义了History类，VueRouter中的history，根据mode，可能是HTML5History、HashHistory或Abstract实例，其中HTML5History、HashHistory等都是继承自History类。">
+  <link rel="canonical" href="http://yoursite.com/2019/12/17/源码分析/Vue/vue-router源码分析手册/5. base.js/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>vue-router源码分析(base.js) | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/源码分析/Vue/vue-router源码分析手册/5. base.js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">vue-router源码分析(base.js)
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-17 09:32:47" itemprop="dateCreated datePublished" datetime="2019-12-17T09:32:47+08:00">2019-12-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/源码分析/" itemprop="url" rel="index"><span itemprop="name">源码分析</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>14k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>13 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="base-js"><a href="#base-js" class="headerlink" title="base.js"></a>base.js</h1><p><code>src/history/base.js</code></p>
+<p>定义了<code>History</code>类，VueRouter中的history，根据mode，可能是HTML5History、HashHistory或Abstract实例，其中HTML5History、HashHistory等都是继承自History类。</p>
+<a id="more"></a>
+
+<p><code>History</code>类提供了一些路由操作的基本方法：</p>
+<ol>
+<li><p>Listen——监听callback</p>
+</li>
+<li><p>onReady ——监听路由是否ready，ready时，将所有cb装进readyCbs列表</p>
+</li>
+<li><p>onError</p>
+</li>
+<li><p>transitionTo ——路由的跳转，会判断跳转to的路径是否在路由表中：是，才进行组件替换，调用confirmTransition</p>
+</li>
+</ol>
+<h2 id="1-constructor构造函数"><a href="#1-constructor构造函数" class="headerlink" title="1. constructor构造函数"></a>1. <code>constructor</code>构造函数</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(router: Router, base: ?string) &#123;</span><br><span class="line">  <span class="comment">// 获取当前router</span></span><br><span class="line">  <span class="keyword">this</span>.router = router;</span><br><span class="line">  <span class="comment">// 获取路由base</span></span><br><span class="line">  <span class="keyword">this</span>.base = normalizeBase(base);</span><br><span class="line">  <span class="comment">// 由createRoute生成的基础路由，path:'/'</span></span><br><span class="line">  <span class="keyword">this</span>.current = START;</span><br><span class="line">  <span class="keyword">this</span>.pending = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">this</span>.ready = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">this</span>.readyCbs = [];</span><br><span class="line">  <span class="keyword">this</span>.readyErrorCbs = [];</span><br><span class="line">  <span class="keyword">this</span>.errorCbs = [];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-transitionTo路由跳转函数"><a href="#2-transitionTo路由跳转函数" class="headerlink" title="2. transitionTo路由跳转函数"></a>2. <code>transitionTo</code>路由跳转函数</h2><p>路由的跳转，会判断跳转to的路径是否在路由表中：是，才进行组件替换，调用confirmTransition</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">transitionTo(</span><br><span class="line">  location: RawLocation,</span><br><span class="line">  onComplete?: <span class="built_in">Function</span>,</span><br><span class="line">  onAbort?: <span class="built_in">Function</span></span><br><span class="line">) &#123;</span><br><span class="line">  <span class="comment">// 调用 match 得到匹配的 route 对象</span></span><br><span class="line">  <span class="keyword">const</span> route = <span class="keyword">this</span>.router.match(location, <span class="keyword">this</span>.current);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 确认过渡</span></span><br><span class="line">  <span class="keyword">this</span>.confirmTransition(</span><br><span class="line">    route,</span><br><span class="line">    () =&gt; &#123;</span><br><span class="line">      <span class="comment">// 更新路由信息，对组件的 _route 属性进行赋值，触发组件渲染</span></span><br><span class="line">      <span class="comment">// 调用 afterHooks 中的钩子函数</span></span><br><span class="line">      <span class="keyword">this</span>.updateRoute(route);</span><br><span class="line">      <span class="comment">// 添加 hashchange 监听</span></span><br><span class="line">      onComplete &amp;&amp; onComplete(route);</span><br><span class="line">      <span class="comment">// 子类实现的更新url地址</span></span><br><span class="line">      <span class="comment">// 对于 hash 模式的话 就是更新 hash 的值</span></span><br><span class="line">      <span class="comment">// 对于 history 模式的话 就是利用 pushstate / replacestate 来更新</span></span><br><span class="line">      <span class="comment">// 更新 URL</span></span><br><span class="line">      <span class="keyword">this</span>.ensureURL();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 只执行一次 ready 回调</span></span><br><span class="line">      <span class="keyword">if</span> (!<span class="keyword">this</span>.ready) &#123;</span><br><span class="line">        <span class="keyword">this</span>.ready = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">this</span>.readyCbs.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> &#123;</span><br><span class="line">          cb(route);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    err =&gt; &#123;</span><br><span class="line">      <span class="comment">// 错误处理</span></span><br><span class="line">      <span class="keyword">if</span> (onAbort) &#123;</span><br><span class="line">        onAbort(err);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (err &amp;&amp; !<span class="keyword">this</span>.ready) &#123;</span><br><span class="line">        <span class="keyword">this</span>.ready = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">this</span>.readyErrorCbs.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> &#123;</span><br><span class="line">          cb(err);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="match路由匹配函数"><a href="#match路由匹配函数" class="headerlink" title="match路由匹配函数"></a><code>match</code>路由匹配函数</h3><p> <code>src/create-matcher.js</code> </p>
+<p>先看如何匹配路由获得路由信息：判断两步，命名路由，非命名路由，因为带有<code>params</code>只能用命名路由引入，非命名路由不用判断<code>parmas</code>，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">match</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">raw: RawLocation,</span></span></span><br><span class="line"><span class="function"><span class="params"> currentRoute?: Route,</span></span></span><br><span class="line"><span class="function"><span class="params"> redirectedFrom?: Location</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Route</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 序列化 url</span></span><br><span class="line">  <span class="comment">// 比如对于该 url 来说 /abc?foo=bar&amp;baz=qux#hello</span></span><br><span class="line">  <span class="comment">// 会序列化路径为 /abc</span></span><br><span class="line">  <span class="comment">// 哈希为 #hello</span></span><br><span class="line">  <span class="comment">// 参数为 foo: 'bar', baz: 'qux'</span></span><br><span class="line">  <span class="keyword">const</span> location = normalizeLocation(raw, currentRoute, <span class="literal">false</span>, router);</span><br><span class="line">  <span class="keyword">const</span> &#123; name &#125; = location;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果是命名路由，就判断记录中是否有该命名路由配置</span></span><br><span class="line">  <span class="keyword">if</span> (name) &#123;</span><br><span class="line">    <span class="keyword">const</span> record = nameMap[name];</span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">"production"</span>) &#123;</span><br><span class="line">      warn(record, <span class="string">`Route with name '<span class="subst">$&#123;name&#125;</span>' does not exist`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 没找到表示没有匹配的路由</span></span><br><span class="line">    <span class="keyword">if</span> (!record) <span class="keyword">return</span> _createRoute(<span class="literal">null</span>, location);</span><br><span class="line">    <span class="comment">// 获取所有必须的params。如果optional为true说明params不是必须的</span></span><br><span class="line">    <span class="keyword">const</span> paramNames = record.regex.keys</span><br><span class="line">    .filter(<span class="function"><span class="params">key</span> =&gt;</span> !key.optional)</span><br><span class="line">    .map(<span class="function"><span class="params">key</span> =&gt;</span> key.name);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 参数处理</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> location.params !== <span class="string">"object"</span>) &#123;</span><br><span class="line">      location.params = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (currentRoute &amp;&amp; <span class="keyword">typeof</span> currentRoute.params === <span class="string">"object"</span>) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> currentRoute.params) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!(key <span class="keyword">in</span> location.params) &amp;&amp; paramNames.indexOf(key) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">          location.params[key] = currentRoute.params[key];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location.path = fillParams(</span><br><span class="line">      record.path,</span><br><span class="line">      location.params,</span><br><span class="line">      <span class="string">`named route "<span class="subst">$&#123;name&#125;</span>"`</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> _createRoute(record, location, redirectedFrom);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (location.path) &#123;</span><br><span class="line">    <span class="comment">// 非命名路由处理</span></span><br><span class="line">    location.params = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; pathList.length; i++) &#123;</span><br><span class="line">      <span class="comment">// 查找记录</span></span><br><span class="line">      <span class="keyword">const</span> path = pathList[i];</span><br><span class="line">      <span class="keyword">const</span> record = pathMap[path];</span><br><span class="line">      <span class="comment">// 如果匹配路由，则创建路由</span></span><br><span class="line">      <span class="comment">// pathMap[path] = 路由记录</span></span><br><span class="line">      <span class="keyword">if</span> (matchRoute(record.regex, location.path, location.params)) &#123;</span><br><span class="line">        <span class="keyword">return</span> _createRoute(record, location, redirectedFrom);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 没有匹配的路由</span></span><br><span class="line">  <span class="keyword">return</span> _createRoute(<span class="literal">null</span>, location);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="createRoute"><a href="#createRoute" class="headerlink" title="_createRoute"></a><code>_createRoute</code></h3><p>根据上面match函数条件的不同创建不同的路由</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据条件创建不同的路由</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_createRoute</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">record: ?RouteRecord,</span></span></span><br><span class="line"><span class="function"><span class="params"> location: Location,</span></span></span><br><span class="line"><span class="function"><span class="params"> redirectedFrom?: Location</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Route</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 重定向和别名逻辑</span></span><br><span class="line">  <span class="keyword">if</span> (record &amp;&amp; record.redirect) &#123;</span><br><span class="line">    <span class="keyword">return</span> redirect(record, redirectedFrom || location);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (record &amp;&amp; record.matchAs) &#123;</span><br><span class="line">    <span class="keyword">return</span> alias(record, location, record.matchAs);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 创建路由对象</span></span><br><span class="line">  <span class="keyword">return</span> createRoute(record, location, redirectedFrom, router);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="createRoute创建路由对象"><a href="#createRoute创建路由对象" class="headerlink" title="createRoute创建路由对象"></a><code>createRoute</code>创建路由对象</h3><p><code>src/util/route.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createRoute</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  record: ?RouteRecord,</span></span></span><br><span class="line"><span class="function"><span class="params">  location: Location,</span></span></span><br><span class="line"><span class="function"><span class="params">  redirectedFrom?: ?Location,</span></span></span><br><span class="line"><span class="function"><span class="params">  router?: VueRouter</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Route</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> stringifyQuery = router &amp;&amp; router.options.stringifyQuery;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 克隆参数</span></span><br><span class="line">  <span class="keyword">let</span> query: any = location.query || &#123;&#125;;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    query = clone(query);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建路由对象</span></span><br><span class="line">  <span class="keyword">const</span> route: Route = &#123;</span><br><span class="line">    name: location.name || (record &amp;&amp; record.name),</span><br><span class="line">    meta: (record &amp;&amp; record.meta) || &#123;&#125;,</span><br><span class="line">    path: location.path || <span class="string">"/"</span>,</span><br><span class="line">    hash: location.hash || <span class="string">""</span>,</span><br><span class="line">    query,</span><br><span class="line">    params: location.params || &#123;&#125;,</span><br><span class="line">    fullPath: getFullPath(location, stringifyQuery),</span><br><span class="line">    <span class="comment">// 根据记录层级的得到所有匹配的 路由记录</span></span><br><span class="line">    matched: record ? formatMatch(record) : []</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">if</span> (redirectedFrom) &#123;</span><br><span class="line">    route.redirectedFrom = getFullPath(redirectedFrom, stringifyQuery);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 让路由对象不可修改</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.freeze(route);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获得包含当前路由的所有嵌套路径片段的路由记录</span></span><br><span class="line"><span class="comment">// 包含从根路由到当前路由的匹配记录，从上至下</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">formatMatch</span>(<span class="params">record: ?RouteRecord</span>): <span class="title">Array</span>&lt;<span class="title">RouteRecord</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = [];</span><br><span class="line">  <span class="keyword">while</span> (record) &#123;</span><br><span class="line">    res.unshift(record);</span><br><span class="line">    record = record.parent;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-confirmTransition确认过渡函数"><a href="#3-confirmTransition确认过渡函数" class="headerlink" title="3. confirmTransition确认过渡函数"></a>3. <code>confirmTransition</code>确认过渡函数</h2><p>负责控制所有的路由守卫的执行</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">confirmTransition(route: Route, <span class="attr">onComplete</span>: <span class="built_in">Function</span>, onAbort?: <span class="built_in">Function</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> current = <span class="keyword">this</span>.current;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 中断跳转路由函数</span></span><br><span class="line">    <span class="keyword">const</span> abort = <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// after merging https://github.com/vuejs/vue-router/pull/2771 we</span></span><br><span class="line">      <span class="comment">// When the user navigates through history through back/forward buttons</span></span><br><span class="line">      <span class="comment">// we do not want to throw the error. We only throw it if directly calling</span></span><br><span class="line">      <span class="comment">// push/replace. That's why it's not included in isError</span></span><br><span class="line">      <span class="keyword">if</span> (!isExtendedError(NavigationDuplicated, err) &amp;&amp; isError(err)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.errorCbs.length) &#123;</span><br><span class="line">          <span class="keyword">this</span>.errorCbs.forEach(<span class="function"><span class="params">cb</span> =&gt;</span> &#123;</span><br><span class="line">            cb(err);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          warn(<span class="literal">false</span>, <span class="string">"uncaught error during route navigation:"</span>);</span><br><span class="line">          <span class="built_in">console</span>.error(err);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      onAbort &amp;&amp; onAbort(err);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果是相同 直接返回</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      isSameRoute(route, current) &amp;&amp;</span><br><span class="line">      <span class="comment">// in the case the route map has been dynamically appended to</span></span><br><span class="line">      route.matched.length === current.matched.length</span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">this</span>.ensureURL();</span><br><span class="line">      <span class="keyword">return</span> abort(<span class="keyword">new</span> NavigationDuplicated(route));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下面分析</span></span><br><span class="line">    <span class="keyword">const</span> &#123; updated, deactivated, activated &#125; = resolveQueue(</span><br><span class="line">      <span class="keyword">this</span>.current.matched,</span><br><span class="line">      route.matched</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下面分析</span></span><br><span class="line">    <span class="keyword">const</span> queue: <span class="built_in">Array</span>&lt;?NavigationGuard&gt; = [].concat(...);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下面分析</span></span><br><span class="line">    <span class="keyword">const</span> iterator = <span class="function">(<span class="params">hook: NavigationGuard, next</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下面分析</span></span><br><span class="line">    runQueue(queue, iterator, () =&gt; &#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由守卫的原理"><a href="#路由守卫的原理" class="headerlink" title="路由守卫的原理"></a>路由守卫的原理</h3><p>和组件的生命周期的钩子不同，路由守卫将重点放在路由上，<strong>能够控制路由跳转，一般用在页面级别的路由跳转时控制跳转的逻辑</strong>，比如在路由守卫中检查用户是否有进入当前页面的权限，没有则跳转到授权页面，亦或是在离开页面时警告用户有未确认的信息，确认后才能跳转等等</p>
+<p>在路由守卫中，一般会接收3个参数，to，from，next，前两个分别是跳转后和跳转前页面路由的 $route 对象，第三个参数 next 是一个函数，当执行 next 函数后会进行跳转，如果一个包含 next 参数的路由守卫里没有执行该函数，<strong>页面会无法跳转</strong>。</p>
+<h3 id="resolveQueue函数-获取所有需要激活、更新、销毁的路由"><a href="#resolveQueue函数-获取所有需要激活、更新、销毁的路由" class="headerlink" title="resolveQueue函数 获取所有需要激活、更新、销毁的路由"></a><code>resolveQueue</code>函数 获取所有需要激活、更新、销毁的路由</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; updated, deactivated, activated &#125; = resolveQueue(</span><br><span class="line">  <span class="keyword">this</span>.current.matched,</span><br><span class="line">  route.matched</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>根据跳转前和跳转后的route对象的<code>matched数组</code>(当前 $route 对象以及所有父级的路由记录)，返回这2个数组包含的路由记录的区别</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolveQueue</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  current: Array&lt;RouteRecord&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params">  next: Array&lt;RouteRecord&gt;</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): </span>&#123;</span><br><span class="line">  updated: <span class="built_in">Array</span>&lt;RouteRecord&gt;,</span><br><span class="line">  activated: <span class="built_in">Array</span>&lt;RouteRecord&gt;,</span><br><span class="line">  deactivated: <span class="built_in">Array</span>&lt;RouteRecord&gt;</span><br><span class="line">&#125; &#123;</span><br><span class="line">  <span class="keyword">let</span> i;</span><br><span class="line">  <span class="keyword">const</span> max = <span class="built_in">Math</span>.max(current.length, next.length);</span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; max; i++) &#123;</span><br><span class="line">    <span class="comment">// 当前路由路径和跳转路由路径不同时跳出遍历</span></span><br><span class="line">    <span class="keyword">if</span> (current[i] !== next[i]) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// 可复用的组件对应路由</span></span><br><span class="line">    updated: next.slice(<span class="number">0</span>, i),</span><br><span class="line">    <span class="comment">// 需要渲染的组件对应路由</span></span><br><span class="line">    activated: next.slice(i),</span><br><span class="line">    <span class="comment">// 失活的组件对应路由</span></span><br><span class="line">    deactivated: current.slice(i)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="queue函数-获取所有需要执行的路由守卫"><a href="#queue函数-获取所有需要执行的路由守卫" class="headerlink" title="queue函数 获取所有需要执行的路由守卫"></a><code>queue</code>函数 获取所有需要执行的路由守卫</h3><p>数组中的守卫排列顺序是设计好的，对应vue-router官方文档中提到的路由导航解析流程</p>
+<ol>
+<li>导航被触发</li>
+<li>在失活的组件里调用离开守卫</li>
+<li>调用全局的<code>beforeEach</code>守卫</li>
+<li>在重用的组件里调用<code>beforeRouteUpdate</code>守卫(2.2+)</li>
+<li>在路由配置里调用<code>beforeEnter</code></li>
+<li>解析异步路由组件</li>
+<li>在被激活的组件里调用<code>beforeRouteEnter</code></li>
+<li>调用全局的<code>beforeResolve</code>守卫(2.5)</li>
+<li>导航被确认</li>
+<li>调用全局的<code>afterEach</code>钩子</li>
+<li>触发DOM更新</li>
+<li>用创建好的实例调用<code>beforeRouteEnter</code>守卫中传给<code>next</code>的回调函数</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* NavigationGuard是一个标准的路由守卫的签名，经过 queue 数组内部这些函数的转换最终会返回路由守卫组成的数组</span></span><br><span class="line"><span class="comment">    declare type NavigationGuard = (</span></span><br><span class="line"><span class="comment">      to: Route,</span></span><br><span class="line"><span class="comment">      from: Route,</span></span><br><span class="line"><span class="comment">      next: (to?: RawLocation | false | Function | void) =&gt; void</span></span><br><span class="line"><span class="comment">    ) =&gt; any</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="keyword">const</span> queue: <span class="built_in">Array</span>&lt;?NavigationGuard&gt; = [].concat(</span><br><span class="line">  <span class="comment">// 返回离开组件的 beforeRouteLeave 钩子函数 （数组：子 =&gt; 父）</span></span><br><span class="line">  extractLeaveGuards(deactivated),</span><br><span class="line">  <span class="comment">// 返回路由实例（全局）的 beforeEach 钩子函数 （数组）</span></span><br><span class="line">  <span class="keyword">this</span>.router.beforeHooks,</span><br><span class="line">  <span class="comment">// 返回当前组件的 beforeRouteUpdate 钩子函数 （数组：父 =&gt; 子）</span></span><br><span class="line">  extractUpdateHooks(updated),</span><br><span class="line">  <span class="comment">// 返回当前组件的 beforeEnter 钩子函数 （数组）</span></span><br><span class="line">  activated.map(<span class="function"><span class="params">m</span> =&gt;</span> m.beforeEnter),</span><br><span class="line">  <span class="comment">// 解析异步路由组件（同样会返回一个导航守卫函数的签名，但是用不到 to,from 这两个参数）</span></span><br><span class="line">  resolveAsyncComponents(activated)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4 id="分析：extractLeaveGuards执行函数"><a href="#分析：extractLeaveGuards执行函数" class="headerlink" title="分析：extractLeaveGuards执行函数"></a>分析：<code>extractLeaveGuards</code>执行函数</h4><p>先分析queue数组里的第一个执行函数<code>extractLeaveGuards</code>，经过一层封装，最终会执行通用函数<code>extractGuards</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">** @records 删除的路由记录</span></span><br><span class="line"><span class="comment">** @name beforeRouteLeave，即最终触发的是beforeRouteLeave守卫</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">extractGuards</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">records: Array&lt;RouteRecord&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params"> name: string,</span></span></span><br><span class="line"><span class="function"><span class="params"> bind: Function,</span></span></span><br><span class="line"><span class="function"><span class="params"> reverse?: boolean</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Array</span>&lt;?<span class="title">Function</span>&gt; </span>&#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    ** @def 视图名对应的组件配置项（因为 vue-router 支持命名视图所以可能会有多个视图名，大部分情况为 default，及使用默认视图），当是异步路由时，def为异步返回路由的函数</span></span><br><span class="line"><span class="comment">    ** @instance 组件实例</span></span><br><span class="line"><span class="comment">    ** @match 当前遍历到的路由记录</span></span><br><span class="line"><span class="comment">    ** @key 视图名</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">  <span class="keyword">const</span> guards = flatMapComponents(records, (def, instance, match, key) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 找出组件中对应的钩子函数</span></span><br><span class="line">    <span class="keyword">const</span> guard = extractGuard(def, name);</span><br><span class="line">    <span class="keyword">if</span> (guard) &#123;</span><br><span class="line">      <span class="comment">// 给每个钩子函数添加上下文对象为组件自身</span></span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Array</span>.isArray(guard)</span><br><span class="line">        ? guard.map(<span class="function"><span class="params">guard</span> =&gt;</span> bind(guard, instance, match, key))</span><br><span class="line">      : bind(guard, instance, match, key);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="comment">// 数组降维，并且判断是否需要翻转数组</span></span><br><span class="line"><span class="comment">// 因为某些钩子函数需要从子执行到父</span></span><br><span class="line"><span class="keyword">return</span> flatten(reverse ? guards.reverse() : guards);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>flatMapComponents</code>通用函数：遍历records数组，每次执行第二个回调函数，类似于数组的map方法</p>
+<p>在回调函数内部会执行<code>extractGuard</code>函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">extractGuard</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  def: Object | Function,</span></span></span><br><span class="line"><span class="function"><span class="params">  key: string</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">NavigationGuard</span> | <span class="title">Array</span>&lt;<span class="title">NavigationGuard</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> def !== <span class="string">"function"</span>) &#123;</span><br><span class="line">    <span class="comment">// extend now so that global mixins are applied.</span></span><br><span class="line">    def = _Vue.extend(def);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> def.options[key];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>def为组件配置项，通过Vue核心库的函数extend将配置项转为组件构造器（虽然配置项中就能拿到对应的路由守卫，但是官方注释只有转为构造器后才能拿到一些全局混入的钩子），在生成构造器时，Vue会将配置项赋值给构造器的静态属性options，最后返回配置项中对应的路由守卫函数，即如果我们在跳转后的组件中定义了beforeRouteLeave 的话这里就会返回这个函数</p>
+<p>最后拿到返回值guard后会经过一层处理，例如扁平化，绑定this指向；根据reverse参数决定是否要反转数组（因为matched中路由记录顺序是父=》子，而beforeRouteLeave 需要从最里层子组件触发，所以需要进行反转保证守卫触发顺序）</p>
+<h4 id="分析：resolveAsyncComponents解析异步组件"><a href="#分析：resolveAsyncComponents解析异步组件" class="headerlink" title="分析：resolveAsyncComponents解析异步组件"></a>分析：<code>resolveAsyncComponents</code>解析异步组件</h4><blockquote>
+<p>异步组件：通俗来说，是指使用路由懒加载返回的路由，我们可以使用<code>import()</code>去动态加载 JS 文件，放到 vue-router 中，实现异步加载组件配置项 <code>component: ()=&gt;import(&#39;./components/comp1)</code></p>
+</blockquote>
+<p><code>resolveAsyncComponents</code>函数最终会返回一个函数，并且符合路由守卫的函数签名（可能只是为了保证返回函数的一致性，实质上在这个函数中，并不会用到 to from 这两个参数）</p>
+<p>这个函数只是被定义了，并没有执行</p>
+<p>首先通过<code>flatMapComponents</code>遍历新增的路由记录，每次遍历都执行第二个回调函数</p>
+<p>在回调函数里，会定义一个<code>resolve</code>函数，当异步组件加载完成后，会通过 then 的形式解析 promise，最终会调用 <code>resolve</code>函数并传入异步组件的配置项作为参数，<code>resolve</code>函数接收到组件配置项后会像 Vue 中一样将配置项转为构造器，同时将值赋值给当前路由记录的 components 属性中（key 属性默认为 default）</p>
+<p>另外<code>resolveAsyncComponents</code>函数会通过闭包保存一个 pending 变量：代表接收的异步组件数量，在<code>flatMapComponents</code>遍历的过程中，每次会将 pending 加一，而当异步组件被解析完毕后，再将 pending 减一，当 pending 为0时，代表异步组件全部解析完成，随即执行 <code>next</code> 方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">resolveAsyncComponents</span>(<span class="params">matched: Array&lt;RouteRecord&gt;</span>): <span class="title">Function</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> hasAsync = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">let</span> pending = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> error = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    flatMapComponents(matched, (def, _, match, key) =&gt; &#123;</span><br><span class="line">      <span class="comment">// vue-router 没使用 Vue 核心库解析异步组件的函数，原因是希望能够实现停止路由跳转知道懒加载的组件被解析成功</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// 判断是否是异步组件</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> def === <span class="string">"function"</span> &amp;&amp; def.cid === <span class="literal">undefined</span>) &#123;</span><br><span class="line">        hasAsync = <span class="literal">true</span>;</span><br><span class="line">        pending++;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成功回调</span></span><br><span class="line">        <span class="comment">// once 函数确保异步组件只加载一次</span></span><br><span class="line">        <span class="keyword">const</span> resolve = once(<span class="function"><span class="params">resolvedDef</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (isESModule(resolvedDef)) &#123;</span><br><span class="line">            resolvedDef = resolvedDef.default;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// 判断是否是构造函数</span></span><br><span class="line">          <span class="comment">// 不是的话通过 Vue 来生成组件构造函数</span></span><br><span class="line">          def.resolved =</span><br><span class="line">            <span class="keyword">typeof</span> resolvedDef === <span class="string">"function"</span></span><br><span class="line">            ? resolvedDef</span><br><span class="line">          : _Vue.extend(resolvedDef);</span><br><span class="line">          <span class="comment">// 赋值组件</span></span><br><span class="line">          <span class="comment">// 如果组件全部解析完毕，继续下一步</span></span><br><span class="line">          match.components[key] = resolvedDef;</span><br><span class="line">          pending--;</span><br><span class="line">          <span class="keyword">if</span> (pending &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            next();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 失败回调</span></span><br><span class="line">        <span class="keyword">const</span> reject = once(<span class="function"><span class="params">reason</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">const</span> msg = <span class="string">`Failed to resolve async component <span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;reason&#125;</span>`</span>;</span><br><span class="line">          process.env.NODE_ENV !== <span class="string">"production"</span> &amp;&amp; warn(<span class="literal">false</span>, msg);</span><br><span class="line">          <span class="keyword">if</span> (!error) &#123;</span><br><span class="line">            error = isError(reason) ? reason : <span class="keyword">new</span> <span class="built_in">Error</span>(msg);</span><br><span class="line">            next(error);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> res;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="comment">// 执行异步组件函数</span></span><br><span class="line">          res = def(resolve, reject);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          reject(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (res) &#123;</span><br><span class="line">          <span class="comment">// 下载完成执行回调</span></span><br><span class="line">          <span class="keyword">if</span> (<span class="keyword">typeof</span> res.then === <span class="string">"function"</span>) &#123;</span><br><span class="line">            res.then(resolve, reject);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// new syntax in Vue 2.3</span></span><br><span class="line">            <span class="keyword">const</span> comp = res.component;</span><br><span class="line">            <span class="keyword">if</span> (comp &amp;&amp; <span class="keyword">typeof</span> comp.then === <span class="string">"function"</span>) &#123;</span><br><span class="line">              comp.then(resolve, reject);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 不是异步组件直接下一步</span></span><br><span class="line">    <span class="keyword">if</span> (!hasAsync) next();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Vue/" rel="tag"># Vue</a>
+            
+              <a href="/tags/Vue-router/" rel="tag"># Vue-router</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/12/16/设计模式/创建型/2. 工厂方法模式/" rel="next" title="创建型-工厂方法模式">
+                  <i class="fa fa-chevron-left"></i> 创建型-工厂方法模式
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/17/设计模式/创建型/5. 生成器模式/" rel="prev" title="创建型-生成器模式">
+                  创建型-生成器模式 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#base-js"><span class="nav-text">base.js</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-constructor构造函数"><span class="nav-text">1. constructor构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-transitionTo路由跳转函数"><span class="nav-text">2. transitionTo路由跳转函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#match路由匹配函数"><span class="nav-text">match路由匹配函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createRoute"><span class="nav-text">_createRoute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createRoute创建路由对象"><span class="nav-text">createRoute创建路由对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-confirmTransition确认过渡函数"><span class="nav-text">3. confirmTransition确认过渡函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由守卫的原理"><span class="nav-text">路由守卫的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resolveQueue函数-获取所有需要激活、更新、销毁的路由"><span class="nav-text">resolveQueue函数 获取所有需要激活、更新、销毁的路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#queue函数-获取所有需要执行的路由守卫"><span class="nav-text">queue函数 获取所有需要执行的路由守卫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分析：extractLeaveGuards执行函数"><span class="nav-text">分析：extractLeaveGuards执行函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析：resolveAsyncComponents解析异步组件"><span class="nav-text">分析：resolveAsyncComponents解析异步组件</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

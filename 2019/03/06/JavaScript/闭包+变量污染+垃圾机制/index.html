@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="闭包闭包是JS总一个主要的设计理念，闭包简单来说，是 函数+函数里的变量 称作闭包。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="闭包&amp;变量污染&amp;垃圾机制">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/JavaScript/闭包+变量污染+垃圾机制/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="闭包闭包是JS总一个主要的设计理念，闭包简单来说，是 函数+函数里的变量 称作闭包。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://s3.mogucdn.com/mlcdn/c45406/190614_8a498i8a2ihkh6gkdi3hgh4h05c5h_707x287.png">
+<meta property="og:image" content="http://s3.mogucdn.com/mlcdn/c45406/190614_36fedfhi7ej7e0ab132859091i5dh_640x336.png">
+<meta property="og:image" content="http://s11.mogucdn.com/mlcdn/c45406/190614_12j493aebd76bke685483d16ek241_776x625.png">
+<meta property="og:updated_time" content="2020-02-04T04:55:16.992Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="闭包&amp;变量污染&amp;垃圾机制">
+<meta name="twitter:description" content="闭包闭包是JS总一个主要的设计理念，闭包简单来说，是 函数+函数里的变量 称作闭包。">
+<meta name="twitter:image" content="http://s3.mogucdn.com/mlcdn/c45406/190614_8a498i8a2ihkh6gkdi3hgh4h05c5h_707x287.png">
+  <link rel="canonical" href="http://yoursite.com/2019/03/06/JavaScript/闭包+变量污染+垃圾机制/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>闭包&变量污染&垃圾机制 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/JavaScript/闭包+变量污染+垃圾机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">闭包&变量污染&垃圾机制
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-06 15:32:37" itemprop="dateCreated datePublished" datetime="2019-03-06T15:32:37+08:00">2019-03-06</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>闭包是JS总一个主要的设计理念，闭包简单来说，是 函数+函数里的变量 称作闭包。</p>
+<a id="more"></a>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;     </span><br><span class="line">  <span class="keyword">var</span> i = <span class="number">0</span>;     </span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;         </span><br><span class="line">    <span class="built_in">console</span>.log(++i)     </span><br><span class="line">  &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">var</span> doAdd = test(); </span><br><span class="line">doAdd();</span><br></pre></td></tr></table></figure>
+
+<h4 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h4><ol>
+<li>闭包里的变量，是安全的，并且是对于全局是隐藏的，在不对外暴露操作的方法时候，外界无法直接改变闭包中变量的值</li>
+<li>通过闭包的思维，来管理对象的属性变更的操作，可以增加代码的可读性，也易于管理</li>
+</ol>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>1、闭包会使函数中的变量保存在内存中，内存消耗很大，所以不能滥用闭包，解决办法是，退出函数之前，将不使用的局部变量删除。</p>
+<p>2、闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</p>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p><strong>1、小范围代替全局变量</strong></p>
+<p>全局变量有变量污染和变量安全问题，可以使用闭包（匿名函数），外部无法访问变量</p>
+<p><strong>2、采用函数引用方式的setimeout调用</strong></p>
+<p>原生的setTimeout有一个缺陷，你传递的第一个函数不能带参数</p>
+<p>所以可以调用另一个函数来返回一个内部函数的调用，将这个内部函数对象的引用传递给settimeout函数。内部函数执行时需要的参数，在调用外部函数时传递给它。</p>
+<pre><code>function callLater(paramA, paramB, paramC) {       
+  /*使用函数表达式创建并放回一个匿名内部函数的引用*/       
+  return (function () {           
+    /*          
+    这个内部函数将被setTimeout函数执行；          
+    并且当它被执行时，          
+    它能够访问并操作外部函数传递过来的参数          
+    */           
+    paramA[paramB] = paramC;       
+  });   
+}    
+/*  
+调用这个函数将在它的执行上下文中创建，并最终返回内部函数对象的引用  
+传递过来的参数，内部函数在最终被执行时，将使用外部函数的参数  
+返回的引用被赋予了一个变量  
+*/  
+var funcRef = callLater(elStyle, &quot;display&quot;, &quot;none&quot;);   
+/*调用setTimeout函数，传递内部函数的引用作为第一个参数*/   
+hideMenu = setTimeout(funcRef, 500); </code></pre><p><strong>3、回调（return)</strong></p>
+<p><strong>4、访问私有函数和私有变量的公有函数</strong></p>
+<p>一个函数内部的私有变量，外部想要访问，可以通过其内部的方法，能通过作用链访问到变量</p>
+<p><img src="http://s3.mogucdn.com/mlcdn/c45406/190614_8a498i8a2ihkh6gkdi3hgh4h05c5h_707x287.png" alt="img"></p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>每一个变量、函数都有其作用的范围，超出作用不得使用，这个叫做作用域</p>
+<p>全局变量、局部变量</p>
+<p><img src="http://s3.mogucdn.com/mlcdn/c45406/190614_36fedfhi7ej7e0ab132859091i5dh_640x336.png" alt="img"></p>
+<h3 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h3><p>函数被创建或者被定义的时候，函数对象有一个内部属性[[scope]]，它引用了一条作用域链，也可以理解为对象列表。</p>
+<p>在函数func创建时，它的作用域链中会填入一个全局对象，该全局对象包含了所有全局变量，当执行函数的时候，会创建一个该函数的执行期上下文的内部对象，当这个执行期上下文被创建时，他的作用域链会被初始化为当前执行的函数对象里的[[scope]]属性中所包含的对象，然后解释器创建一个活动对象，这个活动对象包含当前这个执行函数里所有的局部变量（内部var 声明的），命名参数（形参），参数合集（arguments）以及this。然后此对象会被推入执行期上下文里作用域链的前端。</p>
+<p><img src="http://s11.mogucdn.com/mlcdn/c45406/190614_12j493aebd76bke685483d16ek241_776x625.png" alt="img"></p>
+<p>当函数执行完毕，该执行期上下文就会被销毁。</p>
+<p>作用域链的作用是用于解析标识符，函数执行上下文被创建好之后，解释器开始自上至下的解释代码了，这时每遇到一个标示符，都会遍历这个执行上下文里的作用域链：首先在最顶层的活动对象里去找，如果没找到，再找下一层，最终找到全局作用域，如果还没找到一般会报语法错误，但是当对未定义的变量执行赋值运算时，解释器会在全局作用域创建该变量并赋值。这一点很重要，编程时要小心，防止污染全局环境，或者造成内存泄露的问题。</p>
+<h3 id="减少全局变量污染"><a href="#减少全局变量污染" class="headerlink" title="减少全局变量污染"></a>减少全局变量污染</h3><p><em>全局变量的三种定义方式：</em></p>
+<ol>
+<li>在任何函数外部var声明一个变量；</li>
+<li>在window对象中声明一个变量；</li>
+<li>在函数内部不先var声明变量后直接使用变量（隐式全局变量）</li>
+</ol>
+<p><strong>1、使用唯一全局变量</strong></p>
+<p>这个方法是在全局声明一个对象字面量，作为我们的全局变量容器，这样全局就只出现一个全局变量：</p>
+<pre><code>var myApp = {};</code></pre><p>此时，变量myApp就成了我们的变量容器了，所有的全局变量都可以保存在这里：</p>
+<pre><code>myApp.students = {      
+  name:&quot;小明&quot;，      
+  age:18   
+}; </code></pre><p><strong>2、使用闭包</strong></p>
+<p><strong>3、0全局变量</strong></p>
+<p>用let声明</p>
+<h3 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h3><p>为了以防内存泄漏，内存泄漏的含义就是当已经不需要某块内存时这块内存还存在着，垃圾回收机制就是间歇的不定期的寻找到不再使用的变量，并释放掉它们所指向的内存。</p>
+<p><strong>JS垃圾回收方式</strong></p>
+<p>标记清除、引用计数</p>
+<h4 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h4><p><strong>工作原理</strong>：是当变量进入环境时，将这个变量标记为“进入环境”。当变量离开环境时，则将其标记为“离开环境”。标记“离开环境”的就回收内存。</p>
+<p><strong>工作流程：</strong></p>
+<ol>
+<li><p>垃圾回收器，在运行的时候会给存储在内存中的所有变量都加上标记。</p>
+</li>
+<li><p>去掉环境中的变量以及被环境中的变量引用的变量的标记。</p>
+</li>
+<li><p>再被加上标记的会被视为准备删除的变量。</p>
+</li>
+<li><p>垃圾回收器完成内存清除工作，销毁那些带标记的值并回收他们所占用的内存空间。</p>
+</li>
+</ol>
+<h4 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h4><p><strong>工作原理</strong>：跟踪记录每个值被引用的次数。</p>
+<p><strong>工作流程</strong>：</p>
+<ol>
+<li><p>声明了一个变量并将一个引用类型的值赋值给这个变量，这个引用类型值的引用次数就是1。</p>
+</li>
+<li><p>同一个值又被赋值给另一个变量，这个引用类型值的引用次数加1.</p>
+</li>
+<li><p>当包含这个引用类型值的变量又被赋值成另一个值了，那么这个引用类型值的引用次数减1.</p>
+</li>
+<li><p>当引用次数变成0时，说明没办法访问这个值了。</p>
+</li>
+<li><p>当垃圾收集器下一次运行时，它就会释放引用次数是0的值所占的内存。</p>
+</li>
+</ol>
+<p>但是循环引用的时候就会释放不掉内存。循环引用就是对象A中包含另一个指向对象B的指针，B中也包含一个指向A的引用。</p>
+<p>因为IE中的BOM、DOM的实现使用了COM，而COM对象使用的垃圾收集机制是引用计数策略。所以会存在循环引用的问题。</p>
+<p>解决：手工断开js对象和DOM之间的链接。赋值为null。IE9把DOM和BOM转换成真正的JS对象了，所以避免了这个问题。</p>
+<h3 id="什么情况会引起内存泄漏？"><a href="#什么情况会引起内存泄漏？" class="headerlink" title="什么情况会引起内存泄漏？"></a>什么情况会引起内存泄漏？</h3><p>虽然有垃圾回收机制但是我们编写代码操作不当还是会造成内存泄漏。</p>
+<p><strong>1.    意外的全局变量引起的内存泄漏。</strong></p>
+<p>原因：全局变量，不会被回收。</p>
+<p>解决：使用严格模式避免。</p>
+<p><strong>2.    闭包引起的内存泄漏</strong></p>
+<p>原因：闭包可以维持函数内局部变量，使其得不到释放。</p>
+<p>解决：将事件处理函数定义在外部，解除闭包,或者在定义事件处理函数的外部函数中，删除对dom的引用。</p>
+<p><strong>3.    没有清理的DOM元素引用</strong></p>
+<p>原因：虽然别的地方删除了，但是对象中还存在对dom的引用</p>
+<p>解决：手动删除。</p>
+<p><strong>4.    被遗忘的定时器或者回调</strong></p>
+<p>原因：定时器中有dom的引用，即使dom删除了，但是定时器还在，所以内存中还是有这个dom。</p>
+<p>解决：手动删除定时器和dom。</p>
+<p><strong>5.    子元素存在引用引起的内存泄漏</strong></p>
+<p>原因：div中的ul li  得到这个div，会间接引用某个得到的li，那么此时因为div间接引用li，即使li被清空，也还是在内存中，并且只要li不被删除，他的父元素都不会被删除。</p>
+<p>解决：手动删除清空。</p>
+<h3 id="什么放在内存中？什么不放在内存中？"><a href="#什么放在内存中？什么不放在内存中？" class="headerlink" title="什么放在内存中？什么不放在内存中？"></a>什么放在内存中？什么不放在内存中？</h3><p>基本类型是：Undefined/Null/Boolean/Number/String</p>
+<p>基本类型的值存在内存中，被保存在栈内存中。从一个变量向另一个变量复制基本类型的值，会创建这个值的一个副本。</p>
+<p>引用类型：object</p>
+<p>引用类型的值是对象，保存在堆内存中。</p>
+<ol>
+<li><p>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针。从一个变量向另一个变量复制引用类型的值，复制的其实是指针，因此两个变量最终都指向同一个对象。</p>
+</li>
+<li><p>js不允许直接访问内存中的位置，也就是不能直接访问操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。</p>
+</li>
+</ol>
+<h3 id="栈和堆的区别"><a href="#栈和堆的区别" class="headerlink" title="栈和堆的区别"></a>栈和堆的区别</h3><p>　　<strong>一、堆栈空间分配区别：</strong></p>
+<p>　　1、栈（操作系统）：由操作系统自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈；</p>
+<p>　　2、堆（操作系统）： 一般由程序员分配释放，若程序员不释放，程序结束时可能由OS回收，分配方式倒是类似于链表。</p>
+<p>　　<strong>二、堆栈缓存方式区别：</strong></p>
+<p>　　1、栈使用的是一级缓存， 他们通常都是被调用时处于存储空间中，调用完毕立即释放；</p>
+<p>　　2、堆是存放在二级缓存中，生命周期由虚拟机的垃圾回收算法来决定（并不是一旦成为孤儿对象就能被回收）。所以调用这些对象的速度要相对来得低一些。</p>
+<p>　　三、堆栈数据结构区别：</p>
+<p>　　堆（数据结构）：堆可以被看成是一棵树，如：堆排序；</p>
+<p>　　栈（数据结构）：一种先进后出的数据结构。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/03/05/Css3/Css选择器及优先级/" rel="next" title="Css选择器及优先级">
+                  <i class="fa fa-chevron-left"></i> Css选择器及优先级
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/03/06/JavaScript/跨域/" rel="prev" title="跨域">
+                  跨域 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#好处"><span class="nav-text">好处</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用场景"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链"><span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少全局变量污染"><span class="nav-text">减少全局变量污染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收机制"><span class="nav-text">垃圾回收机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标记清除"><span class="nav-text">标记清除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用计数"><span class="nav-text">引用计数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么情况会引起内存泄漏？"><span class="nav-text">什么情况会引起内存泄漏？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么放在内存中？什么不放在内存中？"><span class="nav-text">什么放在内存中？什么不放在内存中？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈和堆的区别"><span class="nav-text">栈和堆的区别</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

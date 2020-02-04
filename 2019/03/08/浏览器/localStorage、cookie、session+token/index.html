@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="Cookie、sessionStorage、localStorage 区别">
+<meta name="keywords" content="存储">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器存储">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/浏览器/localStorage、cookie、session+token/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="Cookie、sessionStorage、localStorage 区别">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.107Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器存储">
+<meta name="twitter:description" content="Cookie、sessionStorage、localStorage 区别">
+  <link rel="canonical" href="http://yoursite.com/2019/03/08/浏览器/localStorage、cookie、session+token/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>浏览器存储 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/浏览器/localStorage、cookie、session+token/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">浏览器存储
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-08 15:32:37" itemprop="dateCreated datePublished" datetime="2019-03-08T15:32:37+08:00">2019-03-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/浏览器/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Cookie、sessionStorage、localStorage-区别"><a href="#Cookie、sessionStorage、localStorage-区别" class="headerlink" title="Cookie、sessionStorage、localStorage 区别"></a>Cookie、sessionStorage、localStorage 区别</h2><a id="more"></a>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Cookie</th>
+<th>SessionStorage</th>
+<th>LocalStorage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存放数据大小</td>
+<td>4KB</td>
+<td>一般为 5 MB</td>
+<td>一般为 5 MB</td>
+</tr>
+<tr>
+<td>数据有效期</td>
+<td>可以设置过期时间</td>
+<td>仅在同源窗口有效，关闭窗口就无效了</td>
+<td>长期有效</td>
+</tr>
+<tr>
+<td>与服务端通信</td>
+<td>每次都会携带在 HTTP 头中，如果保存过多数据会带来性能问题</td>
+<td>仅仅在本地存储，不会和服务端通信</td>
+<td>同 SessionStorage</td>
+</tr>
+<tr>
+<td>用途</td>
+<td>一般由服务器端生成，用于标识用户身份</td>
+<td>用于浏览器端缓存数据</td>
+<td>同 SessionStorage</td>
+</tr>
+<tr>
+<td></td>
+<td>需要程序员手动封装</td>
+<td>有现成的API</td>
+<td>有现成的API</td>
+</tr>
+</tbody></table>
+<h4 id="a-html-与-b-html-通信"><a href="#a-html-与-b-html-通信" class="headerlink" title="a.html 与 b.html 通信"></a>a.html 与 b.html 通信</h4><ul>
+<li><p>cookie</p>
+<ul>
+<li><p>如果在同域下，可以访问</p>
+<ul>
+<li><strong>原理：</strong>默认情况下，只有与创建了cookie的页面在同一个目录或子目录下的网页才可以访问cookie</li>
+<li><strong>如果同域不同目录下的解决：</strong>把cookie设置到一个更高级别的目录下</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">"key=value;path=/"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果不同域</p>
+<ul>
+<li><p><strong>解决：</strong>设置domin</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'key = value;path=/;domain=csdn.cn'</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><a href="http://www.csdn.cn/blog/a.html" target="_blank" rel="noopener">www.csdn.cn/blog/a.html</a> 创建了cookie</p>
+<p><a href="http://www.csdn.cn/blog/b.html" target="_blank" rel="noopener">www.csdn.cn/blog/b.html</a> 就可以访问这个cookie页(同一目录)</p>
+<p><a href="http://www.csdn.cn/blog/xyz/c.html" target="_blank" rel="noopener">www.csdn.cn/blog/xyz/c.html</a> 也可以访问这个cookie页(字目录)</p>
+<p><a href="http://www.csdn.cn/xx/d.html" target="_blank" rel="noopener">www.csdn.cn/xx/d.html</a> 就不可以访问</p>
+</blockquote>
+<ul>
+<li>webStorage<ul>
+<li><strong>不同浏览器无法共享</strong> loacalStorage 和 sessionStorage 的信息</li>
+<li><strong>相同浏览器的不同页面</strong>可以共享 <strong>localStorage</strong>（注意页面需要同域）</li>
+<li><strong>不同页面或标签页面无法共享</strong> <strong>sessionStorage</strong>，如果页面中包含多个 iframe标签且属于同源页面，那么他们之间是可以共享 seesionStorage的</li>
+</ul>
+</li>
+</ul>
+<h2 id="Cookie-与-Session-的区别"><a href="#Cookie-与-Session-的区别" class="headerlink" title="Cookie 与 Session 的区别"></a>Cookie 与 Session 的区别</h2><ol>
+<li>Cookie 与 Session 出现的原因是：<strong>HTTP 是无状态的</strong>，没办法知道请求的是谁</li>
+<li>Cookie 保存在<strong>客户端</strong>，也就是浏览器端。每次往服务器发请求，都会在请求头里带着cookie，缺点显而易见，<strong>浪费流量、降低效率</strong></li>
+<li>Session 将用户信息保存在<strong>服务端</strong>，只需要<strong>往客户端的 Cookie</strong> 中保存一个 <strong>Session id</strong> 值就可以了。这样每次往服务器发请求，Cookie 的 size 很小，在服务端只需要根据 Cookie 传过来的 Session id 进行<strong>匹配session</strong>，从Session 中获取用户信息就可以了</li>
+</ol>
+<h2 id="Token-作用"><a href="#Token-作用" class="headerlink" title="Token 作用"></a>Token 作用</h2><h4 id="防止表单重复提交"><a href="#防止表单重复提交" class="headerlink" title="防止表单重复提交"></a>防止表单重复提交</h4><ol>
+<li>当客户端请求页面时，服务器会生成一个<strong>随机数 Token</strong>，并且将 Token 放置到 <strong>Session</strong> 当中</li>
+<li>然后将 Token <strong>发给客户端</strong>（一般通过构造 hidden 表单）</li>
+<li>下次客户端提交请求时，Token 会<strong>随着表单一起提交</strong>到服务器端</li>
+<li>（如果应用于“anti csrf攻击”，则）服务器端会对<strong>Token值进行验证</strong>，判断是否<strong>和 Session 中的 Token 值相等</strong></li>
+<li>若相等，则可以证明请求有效，不是伪造的</li>
+</ol>
+<h4 id="身份验证"><a href="#身份验证" class="headerlink" title="身份验证"></a>身份验证</h4><ol>
+<li><p>服务器端第一次验证通过后，会将 <strong>Session</strong> 中的 <strong>Token 值更新</strong>下</p>
+</li>
+<li><p>若用户重复提交，<strong>第二次</strong>的验证判断将<strong>失败</strong>，因为用户提交的表单中的 Token 没变，但服务器端 <strong>Session 中 Token 已经改变了</strong></p>
+</li>
+</ol>
+<h2 id="Localstorage太长怎么办"><a href="#Localstorage太长怎么办" class="headerlink" title="Localstorage太长怎么办"></a>Localstorage太长怎么办</h2><ol>
+<li>设置的时候，在 <strong>key 加标识</strong><ul>
+<li>一些表状态的，不要删；一些常用的缓存超出了一定大小，就清除</li>
+</ul>
+</li>
+<li>同样在 <strong>key 加自己业务的标识</strong>，清除其他业务，前提是无交互的缓存</li>
+<li><strong>划分域名</strong>：各域名下的存储空间由各业务组统一规范使用</li>
+<li><strong>跨页面传值</strong>：考虑单页应用，优先采用url传数据</li>
+</ol>
+<h2 id="LocalStorage-webStorage-使用时需要注意的问题"><a href="#LocalStorage-webStorage-使用时需要注意的问题" class="headerlink" title="LocalStorage(webStorage)使用时需要注意的问题"></a>LocalStorage(webStorage)使用时需要注意的问题</h2><ol>
+<li>兼容性<ul>
+<li>ie8.0及以上才有</li>
+</ul>
+</li>
+<li>LocalStorage的值为string类型<ul>
+<li>在使用的时候要进行类型转换</li>
+</ul>
+</li>
+<li>在浏览器隐私模式下不可读取</li>
+<li>不同浏览器无法共享 LocalStorage</li>
+<li>不能被爬虫获取</li>
+<li>存储过多数据会导致页面变卡<ul>
+<li>LocalStorage 的本质是对字符串的读取</li>
+</ul>
+</li>
+</ol>
+<h2 id="Cookie-参数"><a href="#Cookie-参数" class="headerlink" title="Cookie 参数"></a>Cookie 参数</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>必需。规定 cookie 的名称。</td>
+</tr>
+<tr>
+<td>value</td>
+<td>必需。规定 cookie 的值。</td>
+</tr>
+<tr>
+<td>expire</td>
+<td>可选。规定 cookie 的有效期。0为永远有效</td>
+</tr>
+<tr>
+<td>path</td>
+<td>可选。规定 cookie 的服务器路径。</td>
+</tr>
+<tr>
+<td>domain</td>
+<td>可选。规定 cookie 的域名。</td>
+</tr>
+<tr>
+<td>secure</td>
+<td>可选。规定是否通过安全的 HTTPS 连接来传输 cookie。如果值为1，则cookie只能在https连接上有效，默认值为0。</td>
+</tr>
+</tbody></table>
+<h2 id><a href="#" class="headerlink" title></a></h2><h2 id="Cookie-读写"><a href="#Cookie-读写" class="headerlink" title="Cookie 读写"></a>Cookie 读写</h2><h4 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h4><ul>
+<li>以<strong>键值对的形式</strong>保存的，即 key = value 的格式</li>
+<li>各个cookie之间一般是以<strong>“;”分隔</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">"name = "</span>+ username;  </span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置过期时间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setCookie</span>(<span class="params">name,value</span>)  </span>&#123;      </span><br><span class="line">    <span class="keyword">var</span> Days = <span class="number">30</span>;      </span><br><span class="line">    <span class="keyword">var</span> exp = <span class="keyword">new</span> <span class="built_in">Date</span>();      </span><br><span class="line">    exp.setTime(exp.getTime() + Days*<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>*<span class="number">1000</span>);      </span><br><span class="line">    <span class="built_in">document</span>.cookie = name + <span class="string">"="</span>+ <span class="built_in">escape</span> (value) + <span class="string">";</span></span><br><span class="line"><span class="string">    expires="</span> + exp.toGMTString();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h4><ul>
+<li>document.cookie.split</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">假设 Cookie为 name=jack;password=<span class="number">123</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> username = <span class="built_in">document</span>.cookie.split(<span class="string">";"</span>)[<span class="number">0</span>].split(<span class="string">"="</span>)[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><ul>
+<li>设置过期时间小于当前时间，那么就会删除该 Cookie</li>
+<li>还可以在谷歌开发工具 application -&gt; cookies 修改</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">delCookie</span>(<span class="params">name</span>)  </span>&#123;      </span><br><span class="line">    <span class="keyword">var</span> exp = <span class="keyword">new</span> <span class="built_in">Date</span>();      </span><br><span class="line">    exp.setTime(exp.getTime() - <span class="number">1</span>);      </span><br><span class="line">    <span class="keyword">var</span> cval=getCookie(name);      </span><br><span class="line">    <span class="keyword">if</span>(cval!=<span class="literal">null</span>)          </span><br><span class="line">        <span class="built_in">document</span>.cookie= name + <span class="string">"="</span>+cval+<span class="string">";</span></span><br><span class="line"><span class="string">    expires="</span>+exp.toGMTString();  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//使用示例  setCookie("name","hayden");  alert(getCookie("name"));</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/存储/" rel="tag"># 存储</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/03/07/Css3/BFC/" rel="next" title="BFC">
+                  <i class="fa fa-chevron-left"></i> BFC
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/03/11/计算机网络/Http/" rel="prev" title="Http">
+                  Http <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie、sessionStorage、localStorage-区别"><span class="nav-text">Cookie、sessionStorage、localStorage 区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-html-与-b-html-通信"><span class="nav-text">a.html 与 b.html 通信</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-与-Session-的区别"><span class="nav-text">Cookie 与 Session 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Token-作用"><span class="nav-text">Token 作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#防止表单重复提交"><span class="nav-text">防止表单重复提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#身份验证"><span class="nav-text">身份验证</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Localstorage太长怎么办"><span class="nav-text">Localstorage太长怎么办</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LocalStorage-webStorage-使用时需要注意的问题"><span class="nav-text">LocalStorage(webStorage)使用时需要注意的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-参数"><span class="nav-text">Cookie 参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-读写"><span class="nav-text">Cookie 读写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置"><span class="nav-text">设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取"><span class="nav-text">读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除"><span class="nav-text">删除</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

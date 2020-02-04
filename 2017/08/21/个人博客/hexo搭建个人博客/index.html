@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="1. 安装Git Bash我一直不太喜欢在cmd中操作各种命令，所以挑了这个比较好使的Git Bash, 我的是windows环境，所以下载windows版本并安装就可以了。">
+<meta name="keywords" content="Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo搭建个人博客">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/个人博客/hexo搭建个人博客/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="1. 安装Git Bash我一直不太喜欢在cmd中操作各种命令，所以挑了这个比较好使的Git Bash, 我的是windows环境，所以下载windows版本并安装就可以了。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.038Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo搭建个人博客">
+<meta name="twitter:description" content="1. 安装Git Bash我一直不太喜欢在cmd中操作各种命令，所以挑了这个比较好使的Git Bash, 我的是windows环境，所以下载windows版本并安装就可以了。">
+  <link rel="canonical" href="http://yoursite.com/2017/08/21/个人博客/hexo搭建个人博客/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>hexo搭建个人博客 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/个人博客/hexo搭建个人博客/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">hexo搭建个人博客
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-21 15:15:47" itemprop="dateCreated datePublished" datetime="2017-08-21T15:15:47+08:00">2017-08-21</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/个人博客/" itemprop="url" rel="index"><span itemprop="name">个人博客</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-安装Git-Bash"><a href="#1-安装Git-Bash" class="headerlink" title="1. 安装Git Bash"></a>1. 安装Git Bash</h3><p>我一直不太喜欢在cmd中操作各种命令，所以挑了这个比较好使的Git Bash, 我的是windows环境，所以下载windows版本并安装就可以了。</p>
+<a id="more"></a>
+
+<ul>
+<li>下载地址<a href="https://git-for-windows.github.io/" target="_blank" rel="noopener">https://git-for-windows.github.io/</a></li>
+<li>安装步骤：双击下载好的exe文件，一路next就好啦</li>
+<li>安装好后，打开gitbash，查看版本：<ul>
+<li>命令：git version </li>
+</ul>
+</li>
+<li>然后你就可以在这里发挥你的聪明才智了</li>
+</ul>
+<h3 id="2-安装NodeJs"><a href="#2-安装NodeJs" class="headerlink" title="2. 安装NodeJs"></a>2. 安装NodeJs</h3><p>Hexo是基于nodeJS环境的静态博客，里面的npm工具很有用啊，所以还是老老实实把这玩意儿装了吧</p>
+<ul>
+<li>下载地址<a href="https://nodejs.org/en/(说明：LTS为长期支持版，Current为当前最新版)" target="_blank" rel="noopener">https://nodejs.org/en/(说明：LTS为长期支持版，Current为当前最新版)</a></li>
+<li>安装步骤：反正下载好msi文件后，双击打开安装，也是一路next，不过在Custom Setup这一步记得选 Add to PATH ,这样你就不用自己去配置电脑上环境变量了，装完在按 win + r 快捷键调出运行，然后输入cmd确定，在cmd中输入path可以看到你的node是否配置在里面（环境变量），没有的话你就自由发挥吧。</li>
+<li>查看版本：<ul>
+<li>命令：node -v</li>
+</ul>
+</li>
+<li>又到自由发挥的时候了</li>
+</ul>
+<h3 id="3-安装hexo"><a href="#3-安装hexo" class="headerlink" title="3. 安装hexo"></a>3. 安装hexo</h3><p>看到这么多安装，千万不要紧张，小哥哥小姐姐们一定要稳住，别怕，因为后面的东西都是在gitbash中用npm工具安装就好了。</p>
+<ul>
+<li>先创建一个文件夹（用来存放所有blog的东西），然后cd到该文件夹下。</li>
+<li>安装hexo命令：npm i -g hexo</li>
+<li>安装完成后，查看版本：hexo -v</li>
+<li>初始化命令：hexo init ，初始化完成之后打开所在的文件夹可以看到以下文件：</li>
+<li>解释一下：<ul>
+<li>node_modules：是依赖包</li>
+<li>public：存放的是生成的页面</li>
+<li>scaffolds：命令生成文章等的模板</li>
+<li>source：用命令创建的各种文章</li>
+<li>themes：主题</li>
+<li>_config.yml：整个博客的配置</li>
+<li>db.json：source解析所得到的</li>
+<li>package.json：项目所需模块项目的配置信息</li>
+</ul>
+</li>
+<li>做好这些前置工作之后接下来的就是各种配配配置了。</li>
+</ul>
+<h4 id="4-搭桥到github"><a href="#4-搭桥到github" class="headerlink" title="4. 搭桥到github"></a>4. 搭桥到github</h4><ul>
+<li>没账号的创建账号，有账号的看下面。<ul>
+<li>创建一个repo，名称为yourname.github.io, 其中yourname是你的github名称，按照这个规则创建才有用哦，如下：</li>
+</ul>
+</li>
+<li>回到gitbash中，配置github账户信息（YourName和YourEail都替换成你自己的）：<ul>
+<li>git config –global user.name ‘yourname’</li>
+<li>git config –global user.email ‘youremail’</li>
+</ul>
+</li>
+<li>创建SSH<ul>
+<li>在gitbash中输入：ssh-keygen -t rsa -C “<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>，生成ssh。然后按下图的方式找到id_rsa.pub文件的内容。</li>
+</ul>
+</li>
+<li>将上面获取的ssh放到github中：</li>
+<li>添加一个 New SSH key ，title随便取，key就填刚刚那一段。</li>
+<li>在gitbash中验证是否添加成功：ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></li>
+<li>完成下一步你就成功啦！</li>
+</ul>
+<h4 id="5-一步之遥"><a href="#5-一步之遥" class="headerlink" title="5. 一步之遥"></a>5. 一步之遥</h4><ul>
+<li>用编辑器打开你的blog项目，修改_config.yml文件的一些配置(冒号之后都是有一个半角空格的)：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repo: https://github.com/YourgithubName/YourgithubName.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>回到gitbash中，进入你的blog目录，分别执行以下命令：<ul>
+<li>hexo clean</li>
+<li>hexo generate</li>
+<li>hexo server</li>
+</ul>
+</li>
+</ul>
+<p>注：hexo 3.0把服务器独立成个别模块，需要单独安装：npm i hexo-server。</p>
+<ul>
+<li>打开浏览器输入：<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></li>
+<li>接着你就可以遇见天使的微笑了~</li>
+</ul>
+<h4 id="6-上传到github"><a href="#6-上传到github" class="headerlink" title="6. 上传到github"></a>6. 上传到github</h4><ul>
+<li><p>先安装一波：npm install hexo-deployer-git -–save（这样才能将你写好的文章部署到github服务器上并让别人浏览到）</p>
+</li>
+<li><p>执行命令(建议每次都按照如下步骤部署)：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意deploy的过程中要输入你的username及passward。如下：</p>
+</li>
+<li><p>在浏览器中输入<a href="http://yourgithubname.github.io就可以看到你的个人博客啦，是不是很兴奋！" target="_blank" rel="noopener">http://yourgithubname.github.io就可以看到你的个人博客啦，是不是很兴奋！</a></p>
+</li>
+<li><p>感觉gitbash中东西太多的时候输入clear命令清空。</p>
+</li>
+</ul>
+<h4 id="7-绑定个人域名"><a href="#7-绑定个人域名" class="headerlink" title="7. 绑定个人域名"></a>7. 绑定个人域名</h4><ul>
+<li>登录进入万网的域名控制台，点击”域名和网站”中的”云DNS”</li>
+<li>点击对应域名的”解析”</li>
+<li>点击添加解析，记录类型选A或CNAME，A记录的记录值就是ip地址，github(官方文档)提供了两个IP地址，192.30.252.153和192.30.252.154，这两个IP地址为github的服务器地址，两个都要填上，解析记录设置两个www和@，线路就默认就行了，CNAME记录值填你的github博客网址。如我的是whitescholars.github.io。</li>
+<li>这些全部设置完成后，此时你并不能要申请的域名访问你的博客。<ul>
+<li>接着你需要做的是在hexo根目录的source文件夹里创建CNAME文件，不带任何后缀，里面添加你的域名信息，如：penglei.com。</li>
+</ul>
+</li>
+<li>运行hexo指令使配置修改起效：<ul>
+<li>hexo g  //会在public中生成一个GNAME文件</li>
+<li>hexo d  //修改内容提交到github博客上</li>
+</ul>
+</li>
+<li>域名绑定：</li>
+<li>这是比较重要的一步，打开博客在Github中的地址，然后切换到 Settings页，设置Custom domain内容为我们自己的域名值（例如：我的域名是linshuhe.tech），点击Save按钮保存</li>
+</ul>
+<p>实践证明如果此时你填写的是<a href="http://www.penglei.top那么以后你只能用www.penglei.top访问，而如果你填写的是penglei.top。那么用www.penglei.top和penglei.top访问都是可以的。重新清理hexo,并发布即可用新的域名访问。" target="_blank" rel="noopener">www.penglei.top那么以后你只能用www.penglei.top访问，而如果你填写的是penglei.top。那么用www.penglei.top和penglei.top访问都是可以的。重新清理hexo,并发布即可用新的域名访问。</a></p>
+<h5 id="搭建完成访问出现404-可能的原因是："><a href="#搭建完成访问出现404-可能的原因是：" class="headerlink" title="搭建完成访问出现404 可能的原因是："></a>搭建完成访问出现404 可能的原因是：</h5><ul>
+<li>绑定了个人域名，但是域名解析错误。</li>
+<li>域名解析正确但你的域名是通过国内注册商注册的，你的域名因没有实名制而无法访问。</li>
+<li>你认为配置没有问题，那么可能只是你的浏览器在捣鬼，可尝试清除浏览器缓存再访问或者换个浏览器访问。</li>
+<li>也有可能是你的路由器缓存导致的错觉，所以也可以尝试换个局域网访问你的网站。</li>
+<li>最有可能的原因是你下载的hexo有问题，导致所有的东西都上传到了github,而导致index页面在主域名的下一级目录。你可以尝试查看上传的内容，找到index页面，在域名后面添加下一级目录。若能访问index页面（此时样式可能是乱的），则证明是hexo安装有问题，笔者当时遇到的就是这个问题。可卸载重新安装。</li>
+<li>注：1，2默认你的CNAME文件配置没有问题，如果没有绑定个人域名，则不需要CNAME文件。</li>
+</ul>
+<h4 id="8-修改主题"><a href="#8-修改主题" class="headerlink" title="8.修改主题"></a>8.修改主题</h4><ul>
+<li>下载主题到theme</li>
+<li>站点配置文件中(根目录下的_config.yml)，把theme改成对应的名字</li>
+<li>hexo clean</li>
+<li>hexo g &amp;&amp; hexo d</li>
+</ul>
+<h5 id="如何配置标签？"><a href="#如何配置标签？" class="headerlink" title="如何配置标签？"></a>如何配置标签？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: 标签测试文章</span><br><span class="line">tags:</span><br><span class="line">  - Testing</span><br><span class="line">  - Another Tag</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/08/18/JavaScript/jQuery/jquery(三)事件篇/" rel="next" title="jquery(三)事件篇">
+                  <i class="fa fa-chevron-left"></i> jquery(三)事件篇
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/08/22/服务器/部署项目到服务器/" rel="prev" title="部署项目到服务器">
+                  部署项目到服务器 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装Git-Bash"><span class="nav-text">1. 安装Git Bash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-安装NodeJs"><span class="nav-text">2. 安装NodeJs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装hexo"><span class="nav-text">3. 安装hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-搭桥到github"><span class="nav-text">4. 搭桥到github</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-一步之遥"><span class="nav-text">5. 一步之遥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-上传到github"><span class="nav-text">6. 上传到github</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-绑定个人域名"><span class="nav-text">7. 绑定个人域名</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#搭建完成访问出现404-可能的原因是："><span class="nav-text">搭建完成访问出现404 可能的原因是：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-修改主题"><span class="nav-text">8.修改主题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如何配置标签？"><span class="nav-text">如何配置标签？</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

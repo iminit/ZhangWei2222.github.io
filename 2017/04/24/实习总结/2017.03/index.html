@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="2017.03.17现在已经是18号凌晨2点，从晚上8点一直弄个人主页，按照自己心里的想法，一步一步用代码实现想要的效果，挺不错的。">
+<meta name="keywords" content="维生数考核日记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2017.03">
+<meta property="og:url" content="http://yoursite.com/2017/04/24/实习总结/2017.03/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="2017.03.17现在已经是18号凌晨2点，从晚上8点一直弄个人主页，按照自己心里的想法，一步一步用代码实现想要的效果，挺不错的。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2017.03">
+<meta name="twitter:description" content="2017.03.17现在已经是18号凌晨2点，从晚上8点一直弄个人主页，按照自己心里的想法，一步一步用代码实现想要的效果，挺不错的。">
+  <link rel="canonical" href="http://yoursite.com/2017/04/24/实习总结/2017.03/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>2017.03 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/24/实习总结/2017.03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">2017.03
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-24 22:18:39" itemprop="dateCreated datePublished" datetime="2017-04-24T22:18:39+08:00">2017-04-24</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/实习总结/" itemprop="url" rel="index"><span itemprop="name">实习总结</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="2017-03-17"><a href="#2017-03-17" class="headerlink" title="2017.03.17"></a>2017.03.17</h3><p>现在已经是18号凌晨2点，从晚上8点一直弄个人主页，按照自己心里的想法，一步一步用代码实现想要的效果，挺不错的。</p>
+<a id="more"></a>
+
+<p>虽然一直推翻，因为自己心里想的和实际并符合。<br>从背景配色选择到布局到文字，慢慢思索，慢慢推敲，还有时间，相信自己可以弄出喜欢的页面~</p>
+<p>比较伤感的是，忘记打注释了，现在回去打。看来必须保持这种习惯才行！</p>
+<p>ps：tfboys的歌真有力量啊，都是青春的味道~</p>
+<h3 id="2017-03-18"><a href="#2017-03-18" class="headerlink" title="2017.03.18"></a>2017.03.18</h3><p>又打码到深夜，凌晨2点，陪伴的不止是网易云的歌单，还有床下滴滴答答的鼠标声音。<br>今天继续完成个人主页的首页，大概已经完成，接下来就是实现特效的时候了，希望自己能够慢慢，不要太着急，边学习边打码。<br>今天也终于解决了一个特别大的问题，Min-width,每次弄好的框框，一缩小就跑出来，原来是我用的百分比，穿透了，解决方法是为框框的最大父元素加个min-width，这样就好了。这个问题纠结了好久好久，以为是定位问题，又推翻重新写，还是这样，可把我愁死了。<br>明天早上起来学习定位 浮动问题！<br>git这个家伙也好难搞哟，英语能力得提高了（捂脸）<br>ps:终于发现了win10日历的好处！还有小娜！ 可以高效为我增加日程，贼开心。</p>
+<h3 id="2017-03-19"><a href="#2017-03-19" class="headerlink" title="2017.03.19"></a>2017.03.19</h3><p>今天又是宅宅的一天，下雨，感觉人有点郁闷。<br>今天突然想把页面弄成响应式，可是一直遇到问题，哎，这个坎。希望明天可以把它解决了！<br>感觉不能做太久，否则处理bug太久，也容易有讨厌的心理，嗯，也要注意休息休息。<br>自从宿舍三只进入考核期，整个宿舍开始疯啦，哈哈！</p>
+<h3 id="2017-03-20"><a href="#2017-03-20" class="headerlink" title="2017.03.20"></a>2017.03.20</h3><p>今天着重看了浮动和定位，因为之前写定位写到奔溃！<br>白天看了css权威这本书后，有所启发，本想写笔记整理整理，没想到，在慕课网上 张鑫旭老师的见解更加厉害，很透彻，通过他的话，也好像懂了更多。<br>虽然今天没有打码，不过我相信学习了这么多，多多少少下次打码更有启发，然后我想重写了，哭哭</p>
+<h3 id="2017-03-21"><a href="#2017-03-21" class="headerlink" title="2017.03.21"></a>2017.03.21</h3><p>今天解决了js自定义弹出框的问题，在网上找了很多例子，最后用display:none实现。<br>完成了like页面的布局，将最初的版本拆了。<br>解决了table中宽度不一的问题，刚开始调整的时候一直调不出，问题出在全局样式。</p>
+<p>昨天看的定位确实有用，之前写的布局，老是滥用relative absolute，而不管为什么，回去重构后，发现很多定位都没必要。根据张鑫讯老师的说法，absolute真的很好用。</p>
+<p>因为想写响应式布局，所以一直把宽度，高度设置为百分比，希望不会有什么bug</p>
+<h3 id="2017-03-22"><a href="#2017-03-22" class="headerlink" title="2017.03.22"></a>2017.03.22</h3><p>今天学习了css3进度条的设置。根据@keyframe transform translate 实现动画效果，动画是做出来了，但是配色好像不大好看。<br>因为是好闺蜜生日，今天也好好地陪她，所以暂且放下学习啦~</p>
+<h3 id="2017-03-23"><a href="#2017-03-23" class="headerlink" title="2017.03.23"></a>2017.03.23</h3><p>今天hi忙，hi hi 忙。<br>上学，勤工，体育课，买礼物，心情复杂。事情一多，心态也不太好了，有点生气。心情不太好，效率不太高。今天完成了3个页面的设计，真是对色彩搭配无能了，以后要多看看搭配！争取明天把笔记，周记，作业交上去。！</p>
+<h3 id="2017-03-24"><a href="#2017-03-24" class="headerlink" title="2017.03.24"></a>2017.03.24</h3><p>今天终于完成了作业，自己开的坑，跪着也要填完！</p>
+<p>总结：<br>1.本周完成作业，多数用css css3实现效果，在做作业期间，边学习边打码，学到了动画效果，还有定位，浮动。深刻体会到滥用定位的后果，最开始写的布局被推翻，因为absolute和relative乱用。看来老师的视频，对定位和浮动有了一定了解。<br>2.个人主页比较多隐藏的触发事件。<br>3.个人主页设立了4个不同的尺寸，<br>1024 * 768<br>768 * 1280<br>640 * 960<br>320 * 480<br>本来想设置响应式设计，可是知识掌握的不够，就做了个“四不像”，不过在这过程，也锻炼了布局的技巧。<br>4.深刻体会颜色搭配多么重要，总是弄不出自己想要的色彩。以后得好好看看色彩搭配。<br>5.现在上传笔记发现，还是markdom好啊！下个星期起一定要养成好习惯！</p>
+<p>作业顺序：<br>首页是star<br>跳转到me<br>然后有me like futrue三个布局点击</p>
+<h3 id="2017-03-27"><a href="#2017-03-27" class="headerlink" title="2017.03.27"></a>2017.03.27</h3><p>这两天发生了点事，一直郁郁寡欢，各种咸鱼躺。<br>今天终于要打起精神学习，希望自己不要辜负自己。</p>
+<p>终于打起精神，学习了。发现自己知识掌握太少了，有很多知识，比如选择器，命名，不懂，瞎弄，导致打码效率很低。</p>
+<p>发现，自己看视频可以更专心，边看视频边打码，原来还可以让自己打码更规范。</p>
+<h3 id="2017-03-28"><a href="#2017-03-28" class="headerlink" title="2017.03.28"></a>2017.03.28</h3><p>今天完成了作业的两个动画，是用css3的动画属性。加上js的addEventLisener，感觉效果还行。不过代码的规范性，注释的标注，还要多加注意。</p>
+<h3 id="2017-03-29"><a href="#2017-03-29" class="headerlink" title="2017.03.29"></a>2017.03.29</h3><p>今天回家了，因为一些事情。嗯。<br>师姐点评了我的作业：<br>1、文件最好可以是分类用文件夹放好</p>
+<p>2.有些css代码重复</p>
+<p>可以用一个class就好<br>然后再用nth-of-type()设置位置</p>
+<p>3、花心思简化代码</p>
+<p>4、可以深入学习dom操作（dom编程艺术），跟着写demo</p>
+<p>5.<br>这样的注释可以帮助版本更替</p>
+<p>6.很棒，继续加油！</p>
+<h3 id="2017-03-30"><a href="#2017-03-30" class="headerlink" title="2017.03.30"></a>2017.03.30</h3><p>在家感觉挺不错的，今天完成了主页和登录框。纠结了一个小小的东西，密码的形式，想太多了，在网上溜达了半天，最后，原来没那么复杂呀。<br>墙外世界真是好，终于翻墙了。！！！！<br>现在开始要好好学习书本知识了，感觉前面已经把自己学到的用完了，额！充电！</p>
+<p>原来git是这样用的，原来文件夹可以直接推上去的，啊！原来可以直接改的！</p>
+<h3 id="2017-03-31"><a href="#2017-03-31" class="headerlink" title="2017.03.31"></a>2017.03.31</h3><p>今天终于搭建起了自己的个人博客，终于有个小天地，供我自由发挥，现在只能域名审核完毕啦~<br>开始看书啦！300多页的dom编程艺术，希望3天之内能够看完，感觉js dom真是个好东西呀，看来推书中的布局又要推翻啦~</p>
+<p>YES！终于会在markdown上传图片啦</p>
+<p>终于审核完毕！！有自己的博客啦！！！</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/维生数考核日记/" rel="tag"># 维生数考核日记</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/04/20/实习总结/推书总结/" rel="next" title="推书总结">
+                  <i class="fa fa-chevron-left"></i> 推书总结
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/04/24/实习总结/2017.04/" rel="prev" title="2017.04">
+                  2017.04 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-17"><span class="nav-text">2017.03.17</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-18"><span class="nav-text">2017.03.18</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-19"><span class="nav-text">2017.03.19</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-20"><span class="nav-text">2017.03.20</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-21"><span class="nav-text">2017.03.21</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-22"><span class="nav-text">2017.03.22</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-23"><span class="nav-text">2017.03.23</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-24"><span class="nav-text">2017.03.24</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-27"><span class="nav-text">2017.03.27</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-28"><span class="nav-text">2017.03.28</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-29"><span class="nav-text">2017.03.29</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-30"><span class="nav-text">2017.03.30</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2017-03-31"><span class="nav-text">2017.03.31</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

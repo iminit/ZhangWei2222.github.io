@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="前言海南分享了vue的核心原理，从源码出发回答经常遇到的一些问题，比如为啥不能检测到对象/数组属性的变化等。记录几个get到的小点：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【分享】vue原理分析">
+<meta property="og:url" content="http://yoursite.com/2019/12/03/Vue/【分享】vue原理分析/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="前言海南分享了vue的核心原理，从源码出发回答经常遇到的一些问题，比如为啥不能检测到对象/数组属性的变化等。记录几个get到的小点：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="file:////Users/wei/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image001.png">
+<meta property="og:image" content="file:////Users/wei/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image002.jpg">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.020Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【分享】vue原理分析">
+<meta name="twitter:description" content="前言海南分享了vue的核心原理，从源码出发回答经常遇到的一些问题，比如为啥不能检测到对象/数组属性的变化等。记录几个get到的小点：">
+<meta name="twitter:image" content="file:////Users/wei/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image001.png">
+  <link rel="canonical" href="http://yoursite.com/2019/12/03/Vue/【分享】vue原理分析/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>【分享】vue原理分析 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/Vue/【分享】vue原理分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">【分享】vue原理分析
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-03 15:17:47" itemprop="dateCreated datePublished" datetime="2019-12-03T15:17:47+08:00">2019-12-03</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>13k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>12 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>海南分享了vue的核心原理，从源码出发回答经常遇到的一些问题，比如为啥不能检测到对象/数组属性的变化等。记录几个get到的小点：</p>
+<a id="more"></a>
+
+<ol>
+<li>为啥多次赋值操作，页面只显示最后一个值？？？<ul>
+<li>vue有个数据队列，根据dom的deep算法，进行更新</li>
+</ul>
+</li>
+<li>为啥this.data.num可以用this.num表示？？？<ul>
+<li>object.defineProperty又劫持了data，并且把它的属性扩展到vue的实例中，所以可以直接使用this.num；methods也一样</li>
+</ul>
+</li>
+<li>vue的生命周期为啥是那个顺序？？？<ul>
+<li>源码中就规定了这样的顺序，首先整出data，然后created，initwatch，complie(编译挂载dom)，mounted(可以操作dom)</li>
+</ul>
+</li>
+<li>性能优化：如果之后不会用到的属性不要放在data里面，因为在data里面的属性都会被劫持，影响性能。我们可以在data外用const接收，下面一样能够使用到变量。vue3.0将没有这个问题，用了某个属性才会被劫持(<strong>海南补充：性能优化是3.0是用proxy实现，用了WeakMap，存储data与劫持后的对象的映射关系</strong>)</li>
+<li>了解了一下computed的大概原理：比如 <code>c(){return a+b}</code> c这个属性会被识别为<code>computed</code>，然后有一系列的回调处理，主要是收集a 和 b的依赖，达到a、b被set后，c能监听到，然后变化</li>
+<li>vuex为什么能管理vue？？？<ul>
+<li>vuex会new一个vue实例，然后对state进行劫持，靠vue实例的原理达到更新。所以此时有两个vue实例，两个dep(依赖收集)，如果不是大的项目就不太必要使用vuex，两个vue实例性能会有影响</li>
+</ul>
+</li>
+</ol>
+<p>以上小点是当时听分享看ppt得出的结论，或许会有偏差，自己也记录了一些不太懂的地方，之后还是需要阅读vue源码，再到回来看看~</p>
+<p>下面补充分享内容~干货！</p>
+<h2 id="开始-VueJs-原理分析"><a href="#开始-VueJs-原理分析" class="headerlink" title="开始 VueJs 原理分析"></a>开始 VueJs 原理分析</h2><p>Vue会遇到的一些问题</p>
+<ul>
+<li>点击修改不生效的例子</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for=&quot;(item, index) in arr&quot; :key=&quot;index&quot;&gt;</span><br><span class="line">      &#123;&#123;item.a&#125;&#125;</span><br><span class="line">      &lt;button @click=&quot;change(index)&quot;&gt;修改数组元素&lt;/button&gt;</span><br><span class="line">      &lt;button @click=&quot;change2(index)&quot;&gt;修改数组元素内的属性值&lt;/button&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    data () &#123;</span><br><span class="line">      return &#123;</span><br><span class="line">        arr: [</span><br><span class="line">          &#123;a: 111, b: 222&#125;,</span><br><span class="line">          &#123;a: 111, b: 222&#125;,</span><br><span class="line">          &#123;a: 111, b: 222&#125;,</span><br><span class="line">          &#123;a: 111, b: 222&#125;,</span><br><span class="line">        ],</span><br><span class="line">        num: 1</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      change(index)&#123;</span><br><span class="line">        this.arr[index] = &#123;a: 444&#125;</span><br><span class="line">        // this.$set(this.arr,index,&#123;a: 555&#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      change2(index)&#123;</span><br><span class="line">        this.num++</span><br><span class="line">        this.arr[index].a = this.num</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://run.iviewui.com/w9xcWmI3" target="_blank" rel="noopener">弹窗例子</a></p>
+<ul>
+<li>改变数组或者对象中的值，但是视图没有更新，为什么用set可以，<a href="https://github.com/vuejs/vue/blob/dev/src/core/observer/index.js" target="_blank" rel="noopener">看源码</a> <a href="https://github.com/vuejs/vue/blob/dev/src/core/observer/array.js" target="_blank" rel="noopener">数组方法</a></li>
+<li>使用refs调用弹窗中的方法，报错，未找到该方法</li>
+<li>多次赋值，为什么页面只显示最后的值，this.a = ‘111’; this.a = ‘222’<a href="https://github.com/vuejs/vue/blob/dev/src/core/observer/scheduler.js" target="_blank" rel="noopener">看源码</a></li>
+<li>nextTick还是setTimeout<a href="https://github.com/vuejs/vue/blob/dev/src/core/util/next-tick.js" target="_blank" rel="noopener">看源码</a></li>
+<li>v-show,v-if到底用哪个好</li>
+<li>v-html里写插值为什么不生效</li>
+<li>…</li>
+</ul>
+<h2 id="开始原理"><a href="#开始原理" class="headerlink" title="开始原理"></a>开始原理</h2><p>百度“vue原理”这个关键词，90%的几率你会看到类似的一句话：</p>
+<p>“vue使用Object.defineProperty对数据进行getter与setter的转化，但由于ie8及以下的浏览器不支持Object.defineProperty这个属性，所以vue不兼容ie8及以下的浏览器”</p>
+<p>那么，Object.defineProperty到底是个什么东西呢？</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener">mdn的解释</a></p>
+<ul>
+<li>value：属性对应的值,可以使任意类型的值，默认为undefined</li>
+<li>writable：属性的值是否可以被重写</li>
+<li>enumerable：此属性是否可以被枚举</li>
+<li>configurable：是否可以删除目标属性或是否可以再次修改属性的特性</li>
+<li>get：获取对象值的时候触发</li>
+<li>set：设置对象值的时候触发</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = &#123;</span><br><span class="line">  name: <span class="string">'lhl'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys(data).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(data, key, &#123;</span><br><span class="line">    enumerable:<span class="literal">true</span>,</span><br><span class="line">    configurable:<span class="literal">true</span>,</span><br><span class="line">    get()&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'get'</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    set(val)&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'监听到数据发生了变化'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)；</span><br><span class="line">data.name <span class="comment">//控制台会打印出 “get”</span></span><br><span class="line">data.name = <span class="string">'hxx'</span> <span class="comment">//控制台会打印出 "监听到数据发生了变化"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;; <span class="comment">// 定义售楼处</span></span><br><span class="line">salesOffices.clientList = []; <span class="comment">// 缓存列表，存放订阅者的回调函数</span></span><br><span class="line">salesOffices.listen = <span class="function"><span class="keyword">function</span>(<span class="params"> fn </span>)</span>&#123; <span class="comment">// 增加订阅者</span></span><br><span class="line">  <span class="keyword">this</span>.clientList.push( fn ); <span class="comment">// 订阅的消息添加进缓存列表</span></span><br><span class="line">&#125;;</span><br><span class="line">salesOffices.trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">// 发布消息</span></span><br><span class="line">  <span class="keyword">for</span>( <span class="keyword">var</span> i = <span class="number">0</span>, fn; fn = <span class="keyword">this</span>.clientList[ i++ ]; )&#123;</span><br><span class="line">    fn.apply( <span class="keyword">this</span>, <span class="built_in">arguments</span> ); <span class="comment">// (2) // arguments 是发布消息时带上的参数</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">salesOffices.listen( <span class="function"><span class="keyword">function</span>(<span class="params"> price, squareMeter </span>)</span>&#123; <span class="comment">// 小明订阅消息</span></span><br><span class="line">  <span class="built_in">console</span>.log( <span class="string">'价格= '</span> + price );</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="string">'squareMeter= '</span> + squareMeter );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">salesOffices.listen( <span class="function"><span class="keyword">function</span>(<span class="params"> price, squareMeter </span>)</span>&#123; <span class="comment">// 小红订阅消息</span></span><br><span class="line">  <span class="built_in">console</span>.log( <span class="string">'价格= '</span> + price );</span><br><span class="line">  <span class="built_in">console</span>.log( <span class="string">'squareMeter= '</span> + squareMeter );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">salesOffices.trigger( <span class="number">2000000</span>, <span class="number">88</span> ); <span class="comment">// 输出：200 万，88 平方米</span></span><br><span class="line">salesOffices.trigger( <span class="number">3000000</span>, <span class="number">110</span> ); <span class="comment">// 输出：300 万，110 平方米</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="看看核心的图"><a href="#看看核心的图" class="headerlink" title="看看核心的图"></a>看看核心的图</h2><p><img src="file:////Users/wei/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image001.png" alt="img">)<img src="file:////Users/wei/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image002.jpg" alt="img"></p>
+<h2 id="vue的三个核心类"><a href="#vue的三个核心类" class="headerlink" title="vue的三个核心类"></a>vue的三个核心类</h2><ul>
+<li>Observer：用来劫持并监听所有属性，如果有变动的，就通知订阅者</li>
+<li>Dep：Observer与Watcher的中转站，对依赖进行收集并通知变化</li>
+<li>Watcher：可以收到属性的变化通知并执行相应的函数，从而更新视图</li>
+</ul>
+<h3 id="Observer"><a href="#Observer" class="headerlink" title="Observer"></a>Observer</h3><p>Observer的核心是通过Obeject.defineProperty()来监听数据的变动，这个函数内部可以定义setter和getter，每当数据发生变化，就会触发setter。这时候Observer就要通知订阅者，订阅者就是Watcher。</p>
+<h3 id="Watcher"><a href="#Watcher" class="headerlink" title="Watcher"></a>Watcher</h3><p>Watcher订阅者作为Observer和Compile之间通信的桥梁，主要做的事情是：</p>
+<p>在自身实例化时往属性订阅器(dep)里面添加自己 自身必须有一个update()方法 待属性变动dep.notice()通知时，能调用自身的update()方法，并触发Compile中绑定的回调</p>
+<h3 id="Compile"><a href="#Compile" class="headerlink" title="Compile"></a>Compile</h3><p>Compile主要做的事情是解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图。</p>
+<h2 id="手摸手写一个简易版vuejs帮助理解以下几点"><a href="#手摸手写一个简易版vuejs帮助理解以下几点" class="headerlink" title="手摸手写一个简易版vuejs帮助理解以下几点"></a>手摸手写一个简易版vuejs帮助理解以下几点</h2><ul>
+<li>实现数据双向绑定</li>
+<li>实现事件监听</li>
+<li>实现生命周期</li>
+<li>实现watch</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/vue/2.5.16/vue.js&quot;&gt;&lt;/script&gt; --&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">      &lt;p&gt;&#123;&#123;msg&#125;&#125;&lt;/p&gt;</span><br><span class="line">      &lt;p&gt;&#123;&#123;msg&#125;&#125;&lt;/p&gt;</span><br><span class="line">      &lt;p&gt;&#123;&#123;msg&#125;&#125;&lt;/p&gt;</span><br><span class="line">      &lt;p&gt;&#123;&#123;num&#125;&#125;&lt;/p&gt;</span><br><span class="line">      &lt;input type=&quot;text&quot; v-model=&quot;num&quot;&gt;</span><br><span class="line">      &lt;button @click=&quot;change&quot;&gt;change&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">      // Dep的作用是作为Observer与Watcher的中转站，接收Observer发出的变化通知，转告给Watcher并进行变化后相应的处理</span><br><span class="line">      class Dep&#123;</span><br><span class="line">        constructor()&#123;</span><br><span class="line">          // subs是一个依赖池，里面放了所有的Watcher</span><br><span class="line">          this.subs = []</span><br><span class="line">        &#125;</span><br><span class="line">        addSub(watcher)&#123;</span><br><span class="line">          this.subs.push(watcher)</span><br><span class="line">        &#125;</span><br><span class="line">        // notify用来通知变化给Watcher</span><br><span class="line">        notify(val, oldVal)&#123;</span><br><span class="line">          for (const watcher of this.subs) &#123;</span><br><span class="line">            watcher.update(val, oldVal)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      // Watcher的作用是接收变化的通知，并且执行相应的函数</span><br><span class="line">      class Watcher&#123;</span><br><span class="line">        constructor(vm, key, cb)&#123;</span><br><span class="line">          this.vm = vm</span><br><span class="line">          this.key = key</span><br><span class="line">          this.cb = cb</span><br><span class="line">          this.get()</span><br><span class="line">        &#125;</span><br><span class="line">        // 当数据发生变化的时候就会触发这个事件</span><br><span class="line">        update(val, oldVal)&#123;</span><br><span class="line">          this.cb.call(this.vm , val, oldVal)</span><br><span class="line">        &#125;</span><br><span class="line">        // 当我new的时候就触发这个函数，把自己丢进Dep中</span><br><span class="line">        get()&#123;</span><br><span class="line">          Dep.target = this</span><br><span class="line">          let value = this.vm[this.key]</span><br><span class="line">          Dep.target = null</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      // Observer的作用将数据进行getter与setter的转化，使其变为可响应的</span><br><span class="line">      class Observer&#123;</span><br><span class="line">        constructor(data)&#123;</span><br><span class="line">          this.data = data</span><br><span class="line">          this.init(this.data)</span><br><span class="line">        &#125;</span><br><span class="line">        init(data)&#123;</span><br><span class="line">          // init方法使用核心的Object.defineProperty进行实际的转化操作</span><br><span class="line">          if( !data || typeof(data) !== &apos;object&apos;) return</span><br><span class="line">          for (const key in data) &#123;</span><br><span class="line">            this.defiReactive(data, key, data[key])</span><br><span class="line">            // 递归调用数据层级别比较深的数据</span><br><span class="line">            this.init(data[key])</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        defiReactive(data, key, val)&#123;</span><br><span class="line">          let oldVal = val</span><br><span class="line">          let dep = new Dep()</span><br><span class="line">          Object.defineProperty(data, key, &#123;</span><br><span class="line">            enumerable:true,</span><br><span class="line">            configurable:true,</span><br><span class="line">            get()&#123;</span><br><span class="line">              // console.log(&apos;get&apos;);</span><br><span class="line">              // 为保证不会重复添加依赖，使用Dep.target进行判断</span><br><span class="line">              if(Dep.target)&#123;</span><br><span class="line">                dep.addSub(Dep.target)</span><br><span class="line">              &#125;</span><br><span class="line">              return oldVal</span><br><span class="line">            &#125;,</span><br><span class="line">            set(val)&#123;</span><br><span class="line">              // 进行简单的值对比，相同就不触发后续操作</span><br><span class="line">              if(oldVal === val) return</span><br><span class="line">              dep.notify(val, oldVal)</span><br><span class="line">              // console.log(val, &apos;监听到数据发生了变化&apos;);</span><br><span class="line">              oldVal = val</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      // Complie是用于进行模板解析的（这部分和源码完全不同，纯粹是为了简单实现渲染）</span><br><span class="line">      class Compile&#123;</span><br><span class="line">        constructor(vm, el, data)&#123;</span><br><span class="line">          this.vm = vm</span><br><span class="line">          this.el = el</span><br><span class="line">          this.data = data</span><br><span class="line">          // childNodes可以用来获取dom下的所有子节点</span><br><span class="line">          let nodes = document.querySelector(el).childNodes</span><br><span class="line">          this.compileNodes(nodes)</span><br><span class="line">        &#125;</span><br><span class="line">        compileNodes(nodes)&#123;</span><br><span class="line">          for (const node of nodes) &#123;</span><br><span class="line">            // 判断节点的类型，1为标签类型，3为文本类型</span><br><span class="line">            switch (node.nodeType) &#123;</span><br><span class="line">              case 1:</span><br><span class="line">                this.compileNode(node)</span><br><span class="line">                break;</span><br><span class="line"></span><br><span class="line">              case 3:</span><br><span class="line">                this.compileText(node)</span><br><span class="line">                break;</span><br><span class="line"></span><br><span class="line">              default:</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            // 这里判断是否有标签嵌套情况，然后进行递归</span><br><span class="line">            node.childNodes &amp;&amp; node.childNodes.length &amp;&amp; this.compileNodes(node.childNodes)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 对于文本类型，我们需要解析内部的属性，用来填充内部的文本</span><br><span class="line">        compileText(node)&#123;</span><br><span class="line">          let reg = /\&#123;\&#123;(.*)\&#125;\&#125;/</span><br><span class="line">          if(node.textContent !== &apos;&apos; &amp;&amp; reg.test(node.textContent))&#123;</span><br><span class="line">            // 获取文本绑定的data属性的key</span><br><span class="line">            let key = reg.exec(node.textContent)[1]</span><br><span class="line">            node.textContent = this.vm[key]</span><br><span class="line">            // new Watcher用来进行依赖的收集，当我绑定的这个值发生改变的时候再执行相应的函数</span><br><span class="line">            new Watcher(this.vm, key, (val) =&gt; &#123;</span><br><span class="line">              node.textContent = val</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 对于标签类型，我们需要解析attr属性用来获取标签上监听了什么事件</span><br><span class="line">        compileNode(node)&#123;</span><br><span class="line">          let attrs = node.attributes</span><br><span class="line">          for (const attr of attrs) &#123;</span><br><span class="line">            if(attr.name.indexOf(&apos;@&apos;) &gt; -1)&#123;</span><br><span class="line">              let event = attr.name.split(&apos;@&apos;)[1]</span><br><span class="line">              let key = attr.value</span><br><span class="line">              node.addEventListener(event, () =&gt; &#123;</span><br><span class="line">                this.vm[key]()</span><br><span class="line">              &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            if(attr.name.indexOf(&apos;v-model&apos;) &gt; -1)&#123;</span><br><span class="line">              let key = attr.value</span><br><span class="line">              node.value = this.vm[key]</span><br><span class="line">              node.addEventListener(&apos;input&apos;, (event) =&gt; &#123;</span><br><span class="line">                this.vm[key] = event.target.value</span><br><span class="line">              &#125;)</span><br><span class="line">              new Watcher(this.vm, key, (val) =&gt; &#123;</span><br><span class="line">                node.value = this.vm[key]</span><br><span class="line">              &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">      class Vue&#123;</span><br><span class="line">        constructor(&#123;el, data, methods, watch, created, mounted&#125;)&#123;</span><br><span class="line">          this.el = el</span><br><span class="line">          this.data = data()</span><br><span class="line">          this.methods = methods</span><br><span class="line">          this.watch = watch</span><br><span class="line">          // 用来代理vue的各种属性</span><br><span class="line">          this.proxy()</span><br><span class="line">          // 进行数据劫持</span><br><span class="line">          new Observer(this.data)</span><br><span class="line">          created &amp;&amp; created.call(this)</span><br><span class="line">          // 初始化watch</span><br><span class="line">          this.initWatch()</span><br><span class="line">          // 模板解析</span><br><span class="line">          new Compile(this, el, this.data)</span><br><span class="line">          mounted &amp;&amp; mounted.call(this)</span><br><span class="line">        &#125;</span><br><span class="line">        initWatch()&#123;</span><br><span class="line">          for (const key in this.watch) &#123;</span><br><span class="line">            console.log(this.watch[key], &apos;wawawa&apos;)</span><br><span class="line">            new Watcher(this, key, this.watch[key])</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 代理vue，用来实现this.title替代this.data.title的效果</span><br><span class="line">        proxy()&#123;</span><br><span class="line">          for (const key in this.data) &#123;</span><br><span class="line">            Object.defineProperty(this, key, &#123;</span><br><span class="line">              enumerable:false,</span><br><span class="line">              configurable:true,</span><br><span class="line">              get()&#123;</span><br><span class="line">                // console.log(&apos;get&apos;);</span><br><span class="line">                return this.data[key]</span><br><span class="line">              &#125;,</span><br><span class="line">              set(val)&#123;</span><br><span class="line">                // console.log(val, &apos;监听到数据发生了变化&apos;);</span><br><span class="line">                this.data[key] = val</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;</span><br><span class="line">          for (const key in this.methods) &#123;</span><br><span class="line">            Object.defineProperty(this, key, &#123;</span><br><span class="line">              enumerable:false,</span><br><span class="line">              configurable:true,</span><br><span class="line">              get()&#123;</span><br><span class="line">                // console.log(&apos;get&apos;);</span><br><span class="line">                return this.methods[key]</span><br><span class="line">              &#125;,</span><br><span class="line">              set(val)&#123;</span><br><span class="line">                // console.log(val, &apos;监听到数据发生了变化&apos;);</span><br><span class="line">                this.methods[key] = val</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      var vm = new Vue(&#123;</span><br><span class="line">        el: &apos;#app&apos;,</span><br><span class="line">        data()&#123;</span><br><span class="line">          return &#123;</span><br><span class="line">            msg: &apos;hello vue&apos;,</span><br><span class="line">            msg2: &apos;hello vue2&apos;,</span><br><span class="line">            num: 1</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">          change()&#123;</span><br><span class="line">            // console.log(e)</span><br><span class="line">            console.log(&apos;click&apos;)</span><br><span class="line">            this.num++</span><br><span class="line">            this.msg = &apos;hello one&apos;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        watch: &#123;</span><br><span class="line">          num(val, oldVal)&#123;</span><br><span class="line">            console.log(val,&apos;watch&apos;)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        created()&#123;</span><br><span class="line">          console.log(&apos;created&apos;)</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted()&#123;</span><br><span class="line">          console.log(&apos;mounted&apos;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      vm.num = 444</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="源码推荐阅读"><a href="#源码推荐阅读" class="headerlink" title="源码推荐阅读"></a>源码推荐阅读</h2><p><a href="http://hcysun.me/vue-design/" target="_blank" rel="noopener">Vue技术内幕</a></p>
+<h2 id="学习源码能收获什么"><a href="#学习源码能收获什么" class="headerlink" title="学习源码能收获什么"></a>学习源码能收获什么</h2><ol>
+<li><p><code>带着问题去看源码</code>，在真实的开发阶段使代码提高多少简洁度和代码可改善度</p>
+</li>
+<li><p>在看源码的当中，学到了什么，对于一些数据处理，一些代码的小技巧，对于自己开发学可以有哪些<code>借鉴之处</code>。</p>
+</li>
+<li><p><code>整体的代码思路</code>，和<code>逻辑化分</code>，<code>代码的组织</code>能力又有那里值得我们去学习。</p>
+</li>
+<li><p>从中我们可以拓展出那些其它api的关联和了解，深入对其它api的理解和运用。</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/12/03/源码分析/Vue/vuex源码分析手册/vuex源码分析(原理与安装)/" rel="next" title="vuex源码分析(原理与安装)">
+                  <i class="fa fa-chevron-left"></i> vuex源码分析(原理与安装)
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/03/源码分析/Vue/vuex源码分析手册/vuex源码分析(Store构造函数)/" rel="prev" title="vuex源码分析(Store构造函数)">
+                  vuex源码分析(Store构造函数) <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始-VueJs-原理分析"><span class="nav-text">开始 VueJs 原理分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始原理"><span class="nav-text">开始原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布订阅"><span class="nav-text">发布订阅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#看看核心的图"><span class="nav-text">看看核心的图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue的三个核心类"><span class="nav-text">vue的三个核心类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Observer"><span class="nav-text">Observer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Watcher"><span class="nav-text">Watcher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compile"><span class="nav-text">Compile</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手摸手写一个简易版vuejs帮助理解以下几点"><span class="nav-text">手摸手写一个简易版vuejs帮助理解以下几点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码推荐阅读"><span class="nav-text">源码推荐阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习源码能收获什么"><span class="nav-text">学习源码能收获什么</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="Docker是什么一个开源的应用容器引擎，可从Docker Hub里下载需要的镜像，比如：mongoDB，使用一句简单的命令，就可以在Docker跑起来，类似于虚拟机。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/后端知识/Docker/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="Docker是什么一个开源的应用容器引擎，可从Docker Hub里下载需要的镜像，比如：mongoDB，使用一句简单的命令，就可以在Docker跑起来，类似于虚拟机。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2018/01/1515480613-2248-whale-x.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/450977/201905/450977-20190512115951746-136143052.png">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.045Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker">
+<meta name="twitter:description" content="Docker是什么一个开源的应用容器引擎，可从Docker Hub里下载需要的镜像，比如：mongoDB，使用一句简单的命令，就可以在Docker跑起来，类似于虚拟机。">
+<meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2018/01/1515480613-2248-whale-x.png">
+  <link rel="canonical" href="http://yoursite.com/2019/12/17/后端知识/Docker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Docker | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/后端知识/Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Docker
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-17 17:12:37" itemprop="dateCreated datePublished" datetime="2019-12-17T17:12:37+08:00">2019-12-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/后端知识/" itemprop="url" rel="index"><span itemprop="name">后端知识</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.6k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Docker是什么"><a href="#Docker是什么" class="headerlink" title="Docker是什么"></a>Docker是什么</h2><p>一个开源的应用容器引擎，可从<a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>里下载需要的镜像，比如：mongoDB，使用一句简单的命令，就可以在Docker跑起来，类似于虚拟机。</p>
+<a id="more"></a>
+
+<p>可使用KBS管理Docker，比如Docker挂了，属于自动化运维的范畴，因为比较难，先只做了解。</p>
+<h3 id="与虚拟机的区别"><a href="#与虚拟机的区别" class="headerlink" title="与虚拟机的区别"></a>与虚拟机的区别</h3><p>一个很典型的区别：Docker可以实现资源隔离，分多少内存就只用多少，不会吃其他地方的内存；而虚拟机即使你分了固定的内存，一旦内存泄漏，还是会吃其他地方的内存，然后卡死。</p>
+<h2 id="Mac安装"><a href="#Mac安装" class="headerlink" title="Mac安装"></a>Mac安装</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ brew cask install docker</span><br><span class="line"></span><br><span class="line">==&gt; Creating Caskroom at /usr/local/Caskroom</span><br><span class="line">==&gt; We<span class="string">'ll set permissions properly so we won'</span>t need sudo in the future</span><br><span class="line">Password:          <span class="comment"># 输入 macOS 密码</span></span><br><span class="line">==&gt; Satisfying dependencies</span><br><span class="line">==&gt; Downloading https://download.docker.com/mac/stable/<span class="number">21090</span>/Docker.dmg</span><br><span class="line"><span class="comment">######################################################################## 100.0%</span></span><br><span class="line">==&gt; Verifying checksum for Cask docker</span><br><span class="line">==&gt; Installing Cask docker</span><br><span class="line">==&gt; Moving App <span class="string">'Docker.app'</span> to <span class="string">'/Applications/Docker.app'</span>.</span><br><span class="line">&amp;<span class="comment">#x1f37a;  docker was successfully installed!</span></span><br></pre></td></tr></table></figure>
+
+<p>在载入 Docker app 后，点击 Next，可能会询问你的 macOS 登陆密码，你输入即可。之后会弹出一个 Docker 运行的提示窗口，状态栏上也有有个小鲸鱼的图标（<img src="https://www.runoob.com/wp-content/uploads/2018/01/1515480613-2248-whale-x.png" alt="img">）。</p>
+<h2 id="例子：安装MongoDB镜像"><a href="#例子：安装MongoDB镜像" class="headerlink" title="例子：安装MongoDB镜像"></a>例子：安装MongoDB镜像</h2><h3 id="1-拉取镜像"><a href="#1-拉取镜像" class="headerlink" title="1. 拉取镜像"></a>1. 拉取镜像</h3><p>先去<a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>搜索镜像，可以根据<code>Tags</code>选择版本，会有命令提示</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mongo</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-查看本地镜像"><a href="#2-查看本地镜像" class="headerlink" title="2. 查看本地镜像"></a>2. 查看本地镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-运行容器"><a href="#3-运行容器" class="headerlink" title="3. 运行容器"></a>3. 运行容器</h3><p>例如：mongoDB</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -itd --name mongo -p 44:27017 mongo --auth</span><br><span class="line">ee91398c42556c3409fb8e69fc9df52b56678a930e28e65a40ae84b7eca68d53</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假如提示：</span></span><br><span class="line">docker: Error response from daemon: Conflict. The container name <span class="string">"/mongo"</span> is already <span class="keyword">in</span> use by container <span class="string">"c85def91c800e8dd8d3d05a858cffa0228d41db43651ebbbac4ecd853983afd7"</span>. You have to remove (or rename) that container to be able to reuse that name.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用rm删除容器</span></span><br><span class="line">$ docker rm mongo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>-p 27017:27017</strong> ：映射容器服务的 44 端口到宿主机的 27017 端口。外部可以直接通过 宿主机 ip:27017 访问到 mongo 的服务</li>
+<li><strong>–auth</strong>：需要密码才能访问容器服务</li>
+</ul>
+<h3 id="4-安装成功"><a href="#4-安装成功" class="headerlink" title="4. 安装成功"></a>4. 安装成功</h3><p>通过<code>docker ps</code>可以查看容器的运行信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                   NAMES</span><br><span class="line">ee91398c4255        mongo               <span class="string">"docker-entrypoint.s…"</span>   About a minute ago   Up About a minute   0.0.0.0:44-&gt;27017/tcp   mongo</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dockerfile-创建镜像"><a href="#Dockerfile-创建镜像" class="headerlink" title="Dockerfile 创建镜像"></a>Dockerfile 创建镜像</h2><blockquote>
+<p>用来创建镜像的文本内容，文本内容包含一条条构建镜像所需的指令和说明</p>
+</blockquote>
+<h3 id="简单的案例"><a href="#简单的案例" class="headerlink" title="简单的案例"></a>简单的案例</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir Dockerfile</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Dockerfile/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vi Dockerfile/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 以下是内容</span></span><br><span class="line">FROM nginx</span><br><span class="line">RUN echo '&lt;h1&gt;hello, docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker build -t nginx:<span class="built_in">test</span> .</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看新建的镜像</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker images</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3><p><img src="https://img2018.cnblogs.com/blog/450977/201905/450977-20190512115951746-136143052.png" alt="img"></p>
+<ul>
+<li>RUN 在 <code>docker build</code>时运行</li>
+<li>CMD 在<code>docker run</code> 时运行</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 基于centos镜像</span></span><br><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 维护人的信息</span></span><br><span class="line">MAINTAINER The CentOS Project &lt;303323496@qq.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装httpd软件包</span></span><br><span class="line">RUN yum -y update</span><br><span class="line">RUN yum -y install httpd</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启80端口</span></span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制网站首页文件至镜像中web站点下</span></span><br><span class="line">ADD index.html /var/www/html/index.html</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 复制该脚本至镜像中，并修改其权限</span></span><br><span class="line">ADD run.sh /run.sh</span><br><span class="line">RUN chmod 775 /run.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当启动容器时执行的脚本文件</span></span><br><span class="line">CMD ["/run.sh"]</span><br></pre></td></tr></table></figure>
+
+<p>Dockerfile结构大致分为四个部分：</p>
+<ol>
+<li>基础镜像信息</li>
+<li>维护者信息</li>
+<li>镜像操作指令</li>
+<li>容器启动时执行指令</li>
+</ol>
+<p>更详细的介绍，参考这篇文章：<a href="https://www.cnblogs.com/edisonchou/p/dockerfile_inside_introduction.html" target="_blank" rel="noopener">你必须知道的Dockerfile</a></p>
+<h2 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">docker build -t friendlyname .  <span class="comment"># 使用此目录的“Dockerfile”创建镜像</span></span><br><span class="line"></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> -p 4000:80 friendlyname  <span class="comment"># 将4000 端口映射到80端口</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker run -d -p 4000:80 friendlyname         <span class="comment"># 后台运行"friendlyname" 镜像并将4000 端口映射到80端口</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker ps                                 <span class="comment"># 查看我们正在运行的容器</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker stop &lt;<span class="built_in">hash</span>&gt;                     <span class="comment"># 停止指定的容器</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker ps -a           <span class="comment"># 查看所有的容器，包括没有运行的容器</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker <span class="built_in">kill</span> &lt;<span class="built_in">hash</span>&gt;                   <span class="comment"># 强制关闭指定的容器</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker rm &lt;<span class="built_in">hash</span>&gt;              <span class="comment"># 删除指定的容器</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker rm $(docker ps -a -q)           <span class="comment"># 删除所有容器 </span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker images -a                               <span class="comment"># 查看所有镜像</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker rmi &lt;imagename&gt;            <span class="comment"># 删除指定的镜像</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker rmi $(docker images -q)             <span class="comment"># 删除所有的镜像</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker login             <span class="comment"># 使用您的 Docker 凭证登录此 CLI 会话</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker tag &lt;image&gt; username/repository:tag  <span class="comment"># 标记 &lt;image&gt; 以上传到镜像库</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker push username/repository:tag            <span class="comment"># 将已标记的镜像上传到镜像库</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker run username/repository:tag                   <span class="comment"># 运行镜像库中的镜像</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash">docker info                              <span class="comment"># 查看Docker信息</span></span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/12/17/设计模式/结构型/1. 外观模式/" rel="next" title="结构型-外观模式">
+                  <i class="fa fa-chevron-left"></i> 结构型-外观模式
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/19/设计模式/结构型/3. 代理模式/" rel="prev" title="结构型-代理模式">
+                  结构型-代理模式 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker是什么"><span class="nav-text">Docker是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与虚拟机的区别"><span class="nav-text">与虚拟机的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac安装"><span class="nav-text">Mac安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子：安装MongoDB镜像"><span class="nav-text">例子：安装MongoDB镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-拉取镜像"><span class="nav-text">1. 拉取镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查看本地镜像"><span class="nav-text">2. 查看本地镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-运行容器"><span class="nav-text">3. 运行容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-安装成功"><span class="nav-text">4. 安装成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-创建镜像"><span class="nav-text">Dockerfile 创建镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单的案例"><span class="nav-text">简单的案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用指令"><span class="nav-text">常用指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker常用命令"><span class="nav-text">Docker常用命令</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

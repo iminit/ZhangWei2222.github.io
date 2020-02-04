@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="1、let const引入块级作用域的概念；ES6前，Js 没有块级作用域 {} 的概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6-新特性">
+<meta property="og:url" content="http://yoursite.com/2019/03/14/Es6/ES6-新特性/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="1、let const引入块级作用域的概念；ES6前，Js 没有块级作用域 {} 的概念">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:16.934Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6-新特性">
+<meta name="twitter:description" content="1、let const引入块级作用域的概念；ES6前，Js 没有块级作用域 {} 的概念">
+  <link rel="canonical" href="http://yoursite.com/2019/03/14/Es6/ES6-新特性/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>ES6-新特性 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/14/Es6/ES6-新特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">ES6-新特性
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-14 15:32:37" itemprop="dateCreated datePublished" datetime="2019-03-14T15:32:37+08:00">2019-03-14</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Es6/" itemprop="url" rel="index"><span itemprop="name">Es6</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1、let-const"><a href="#1、let-const" class="headerlink" title="1、let const"></a>1、let const</h2><p>引入块级作用域的概念；ES6前，Js 没有块级作用域 {} 的概念</p>
+<a id="more"></a>
+
+<h4 id="let-与-var-与-const-区别"><a href="#let-与-var-与-const-区别" class="headerlink" title="let 与 var 与 const 区别"></a>let 与 var 与 const 区别</h4><ul>
+<li><strong>let、const</strong> <ul>
+<li>都是 ES6 新提出的命令</li>
+<li>都是块级作用域，只在命令所在的代码块内有效</li>
+<li>不会变量提升</li>
+</ul>
+</li>
+<li><strong>var</strong> <ul>
+<li>不是块级作用域</li>
+<li>会变量提升：在函数中央声明变量，实际上整个函数域都会有效，会造成 变量的混淆等情况</li>
+</ul>
+</li>
+<li><strong>const</strong><ul>
+<li>用来定义常量，使用时必须赋值</li>
+<li>基本类型不能修改，引用类型可以修改：赋值的是一个指针，一个地址；改变的时候地址并没有变</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、import、export"><a href="#2、import、export" class="headerlink" title="2、import、export"></a>2、import、export</h2><p>import导入模块、export导出模块</p>
+<h2 id="3、箭头函数-arrow-functions"><a href="#3、箭头函数-arrow-functions" class="headerlink" title="3、箭头函数 arrow functions"></a>3、箭头函数 arrow functions</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> func = （num) =&gt; num;</span><br><span class="line"><span class="keyword">let</span> func = <span class="function"><span class="params">()</span> =&gt;</span> num;</span><br><span class="line"><span class="keyword">let</span> sum = <span class="function">(<span class="params">num1,num2</span>) =&gt;</span> num1 + num2;</span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].map(<span class="function"><span class="params">x</span> =&gt;</span> x * x);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>本身没有this，不能用call()、apply()、bind()这些方法去改变this的指向</p>
+</li>
+<li><p>this是继承 父执行上下文 中的this，在定义函数的时候绑定，而不是在执行函数的时候绑定</p>
+</li>
+<li><p>不能作为构造函数，不能使用 new，不然会报错（箭头函数没有实例）</p>
+</li>
+<li><p>没有 arguments，需要用 rest参数 接收</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> B = <span class="function">(<span class="params">b</span>)=&gt;</span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line">B(<span class="number">2</span>,<span class="number">92</span>,<span class="number">32</span>,<span class="number">32</span>);   <span class="comment">// Uncaught ReferenceError: arguments is not defined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> C = <span class="function">(<span class="params">...c</span>) =&gt;</span> &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(c);</span><br><span class="line">&#125;</span><br><span class="line">C(<span class="number">3</span>,<span class="number">82</span>,<span class="number">32</span>,<span class="number">11323</span>);  <span class="comment">// [3, 82, 32, 11323]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>没有原型属性</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a.prototype);  <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(b.prototype);   <span class="comment">// &#123;constructor: ƒ&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>返回对象时，要加一个小括号</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="params">()</span> =&gt;</span> (&#123; <span class="attr">foo</span>: <span class="number">1</span> &#125;); <span class="comment">//正确</span></span><br><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="attr">foo</span>: <span class="number">1</span> &#125;;   <span class="comment">//错误</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="4、模板字符串-template-string"><a href="#4、模板字符串-template-string" class="headerlink" title="4、模板字符串 template string"></a>4、模板字符串 template string</h2><ul>
+<li>取变量</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//` $&#123;&#125;` 反引号 + $ + 中括号变量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">"liyang"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`I am <span class="subst">$&#123;name&#125;</span>`</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>多行字符串拼接</p>
+<p>  es5 var msg = “Hi \ man!”;<br>  es6 const template = <code>&lt;div&gt; &lt;span&gt;hello world&lt;/span&gt; &lt;/div&gt;</code>;</p>
+</li>
+</ul>
+<h2 id="5、函数默认参数-default"><a href="#5、函数默认参数-default" class="headerlink" title="5、函数默认参数 default"></a>5、函数默认参数 default</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5 给函数定义参数默认值 </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num</span>) </span>&#123; 　　</span><br><span class="line">​	num = num || <span class="number">200</span>; 　　</span><br><span class="line">​	<span class="keyword">return</span> num; </span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6 在 函数参数列表中，赋值，作默认值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num = <span class="number">200</span></span>) </span>&#123; 　　</span><br><span class="line">​	<span class="keyword">return</span> num; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、rest参数"><a href="#6、rest参数" class="headerlink" title="6、rest参数"></a>6、rest参数</h2><p>获取函数的多余参数，放在数组里</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x, y, ...rest</span>) </span>&#123; 　　</span><br><span class="line">  <span class="keyword">return</span> ((x + y) * rest.length); </span><br><span class="line">&#125; </span><br><span class="line">foo(<span class="number">1</span>, <span class="number">2</span>, <span class="string">'hello'</span>, <span class="literal">true</span>, <span class="number">7</span>); <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="7、展开运算符-Spread-Operator"><a href="#7、展开运算符-Spread-Operator" class="headerlink" title="7、展开运算符 Spread Operator"></a>7、展开运算符 Spread Operator</h2><ul>
+<li>组装数组</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> color = [<span class="string">'red'</span>, <span class="string">'yellow'</span>]; </span><br><span class="line"><span class="keyword">let</span> colorful = [...color, <span class="string">'green'</span>, <span class="string">'blue'</span>]; </span><br><span class="line"><span class="built_in">console</span>.log(colorful); <span class="comment">// ["red", "yellow", "green", "blue"]</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获取数组除了某几项的其他项</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]; </span><br><span class="line"><span class="keyword">let</span> [first, second, ...rest] = num; </span><br><span class="line"><span class="built_in">console</span>.log(rest); <span class="comment">// [5, 7, 9]</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<h2 id="8、class、extends、super"><a href="#8、class、extends、super" class="headerlink" title="8、class、extends、super"></a>8、class、extends、super</h2><p>提供 Class（类） 的概念，一个语法糖，作为对象的模块。使得生成实例 更像面向对象的语法</p>
+<p>每个类里面都有一个 construtor方法（构造方法，即使没写，也会默认生成一个），this 指向实例对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123; </span><br><span class="line">    <span class="keyword">constructor</span>() &#123; 　　</span><br><span class="line">        <span class="keyword">this</span>.type = <span class="string">'animal'</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    says(say) &#123; 　　</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.type + <span class="string">' says '</span> + say); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> animal = <span class="keyword">new</span> Animal(); </span><br><span class="line">animal.says(<span class="string">'hello'</span>); <span class="comment">//animal says hello   </span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123; 　　</span><br><span class="line">    <span class="keyword">constructor</span>() &#123; 　　　　</span><br><span class="line">        <span class="keyword">super</span>(); 　　　　</span><br><span class="line">        <span class="keyword">this</span>.type = <span class="string">'cat'</span>; 　　</span><br><span class="line">    &#125; </span><br><span class="line">&#125;   </span><br><span class="line"><span class="keyword">let</span> cat = <span class="keyword">new</span> Cat(); </span><br><span class="line">cat.says(<span class="string">'hello'</span>); <span class="comment">//cat says hello</span></span><br></pre></td></tr></table></figure>
+
+<p>ES6的继承机制，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this</p>
+<h2 id="9、Promise"><a href="#9、Promise" class="headerlink" title="9、Promise"></a>9、Promise</h2><ul>
+<li>表示一个异步操作的最终状态（成功或失败），以及其返回的值</li>
+<li>Promise 是一个构造函数，自己身上有all、reject、resolve等方法，原型上有then、catch等方法</li>
+</ul>
+<p>我们用Promise的时候一般是包在一个函数中，在需要的时候去运行这个函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">runAsync</span>(<span class="params"></span>)</span>&#123;     </span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;         </span><br><span class="line">    <span class="comment">//做一些异步操作         </span></span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;             </span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'执行完成'</span>);             </span><br><span class="line">      resolve(<span class="string">'随便什么数据'</span>);         </span><br><span class="line">    &#125;, <span class="number">2000</span>);     </span><br><span class="line">  &#125;);     </span><br><span class="line">  <span class="keyword">return</span> p;             </span><br><span class="line">&#125; </span><br><span class="line">runAsync()</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析：</strong></p>
+<blockquote>
+<p>构造函数传入两个参数：resolve，reject，分别表示 异步操作执行成功后的回调函数 和 异步操作执行失败后的回调函数</p>
+<p><strong>resolve **将 Promise 的状态置为</strong>fullfiled<strong>，</strong>reject** 将 Promise 的状态置为<strong>rejected</strong>（<strong>pending 初始状态</strong>，既不是成功，也不是失败状态)</p>
+<p>在runAsync() 的返回上直接调用 then 方法，then 接收两个回掉函数作为参数</p>
+<ul>
+<li>promise 对象的状态变为 resolved 时调用</li>
+<li>promise 对象的状态变为 reject  时调用 （可选）</li>
+</ul>
+<p>还可以调用 catch方法，用来指定 reject 的回调</p>
+</blockquote>
+<p><a href="https://blog.csdn.net/weixin_41440282/article/details/81152645" target="_blank" rel="noopener">原生js实现promise</a></p>
+<h4 id="怎么调用一个函数，让它实现promise方法"><a href="#怎么调用一个函数，让它实现promise方法" class="headerlink" title="怎么调用一个函数，让它实现promise方法"></a>怎么调用一个函数，让它实现promise方法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myRequest</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">  <span class="comment">//内容 </span></span><br><span class="line">&#125; </span><br><span class="line">myRequest(&#123;<span class="attr">url</span>:<span class="string">'11'</span>,<span class="attr">data</span>:&#123;<span class="string">'a'</span>:<span class="string">'1'</span>&#125;,<span class="attr">method</span>:<span class="string">'get'</span>&#125;).then().catch()  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myRequest</span>(<span class="params">obj</span>) </span>&#123; </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123; </span><br><span class="line">    $.ajax(&#123; </span><br><span class="line">      url: obj.url, </span><br><span class="line">      type: obj.type, </span><br><span class="line">      data: obj.data || <span class="string">''</span>, </span><br><span class="line">      dataType: <span class="string">'json'</span>, </span><br><span class="line">      success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123; </span><br><span class="line">        resolve(data) </span><br><span class="line">      &#125;, </span><br><span class="line">      error:<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123; </span><br><span class="line">        reject(error) </span><br><span class="line">      &#125; </span><br><span class="line">    &#125;) </span><br><span class="line">  &#125;) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="all方法"><a href="#all方法" class="headerlink" title="all方法"></a>all方法</h4><ul>
+<li>提供了<strong>并行执行异步操作</strong>的能力，并且在<strong>所有异步操作 执行完后 才执行回调</strong></li>
+<li>all 会把<strong>所有异步操作的结果</strong>放进<strong>一个数组</strong>中传给 then</li>
+</ul>
+<h4 id="race方法"><a href="#race方法" class="headerlink" title="race方法"></a>race方法</h4><ul>
+<li>当参数的<strong>某个方法执行完了</strong>，就把<strong>异步操作的结果</strong>传给 then，<strong>不影响</strong>其他异步操作的执行</li>
+</ul>
+<h4 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h4><ul>
+<li><p>es7提出的语法糖，Await和Async其实就是<strong>promise的封装</strong></p>
+</li>
+<li><p><strong>async 的用法</strong></p>
+</li>
+<li><p><strong>作为一个关键字放到函数前面</strong>，用于表示函数是一个异步函数，因此该函数的执行不会阻塞后面代码的执行</p>
+</li>
+<li><p><strong>async 函数内部的实现原理</strong></p>
+<ul>
+<li>如果async 函数中有返回一个值 ,当调用该函数时，<strong>内部会调用 Promise.resolve() 方法把它转化成一个promise 对象作为返回</strong>，可以使用 <strong>then方法</strong>  获取到promise 返回值</li>
+<li>如果函数<strong>内部抛出错误</strong>，就会<strong>调用 Promise.reject() 返回一个 promise 对象</strong>，可以使用 <strong>catch 方法</strong>  获取到promise 返回值</li>
+</ul>
+</li>
+<li><p><strong>await 的用法</strong> </p>
+<ul>
+<li>await 关键字只能放到 async 函数里面；<strong>await 后面是一个 promise 对象</strong>，如果不是的话，也会被转换成一个 立即 resolve 的 Promise</li>
+<li>当代码<strong>执行到 await 的时候，不再往下执行</strong>，执行完 await 才执行下面的，这样写异步代码就像写同步代码一样了。（再也没有回调地狱了。为了实现某些逻辑经常会写出层层嵌套回调函数，如果嵌套过多，会极大影响代码可读性和逻辑，这种情况也被成为回调地狱）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span>  <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line">f().then( <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="built_in">console</span>.log(v)) <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchUser</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        fetch(<span class="string">'https://api.github.com/users/superman66'</span>)</span><br><span class="line">        .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">            resolve(data.json());</span><br><span class="line">        &#125;, (error) =&gt; &#123;</span><br><span class="line">            reject(error);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getUserByAsync</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="keyword">let</span> user = <span class="keyword">await</span> fetchUser();</span><br><span class="line">     <span class="keyword">return</span> user;</span><br><span class="line"> &#125;</span><br><span class="line">getUserByAsync()</span><br><span class="line">.then(<span class="function"><span class="params">v</span> =&gt;</span> <span class="built_in">console</span>.log(v));</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/03/13/浏览器/浏览器渲染/" rel="next" title="浏览器渲染">
+                  <i class="fa fa-chevron-left"></i> 浏览器渲染
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/03/15/代码题/打印&代码题/" rel="prev" title="打印和编程">
+                  打印和编程 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、let-const"><span class="nav-text">1、let const</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#let-与-var-与-const-区别"><span class="nav-text">let 与 var 与 const 区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、import、export"><span class="nav-text">2、import、export</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、箭头函数-arrow-functions"><span class="nav-text">3、箭头函数 arrow functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、模板字符串-template-string"><span class="nav-text">4、模板字符串 template string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、函数默认参数-default"><span class="nav-text">5、函数默认参数 default</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、rest参数"><span class="nav-text">6、rest参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、展开运算符-Spread-Operator"><span class="nav-text">7、展开运算符 Spread Operator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、class、extends、super"><span class="nav-text">8、class、extends、super</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、Promise"><span class="nav-text">9、Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么调用一个函数，让它实现promise方法"><span class="nav-text">怎么调用一个函数，让它实现promise方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#all方法"><span class="nav-text">all方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#race方法"><span class="nav-text">race方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#async-await"><span class="nav-text">async/await</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

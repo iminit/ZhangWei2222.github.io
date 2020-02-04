@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="介绍Pixi是一个超快的2D渲染引擎。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pixi">
+<meta property="og:url" content="http://yoursite.com/2019/01/14/动画/pixi/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="介绍Pixi是一个超快的2D渲染引擎。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:17.043Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pixi">
+<meta name="twitter:description" content="介绍Pixi是一个超快的2D渲染引擎。">
+  <link rel="canonical" href="http://yoursite.com/2019/01/14/动画/pixi/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>pixi | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/14/动画/pixi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">pixi
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-14 20:13:48" itemprop="dateCreated datePublished" datetime="2019-01-14T20:13:48+08:00">2019-01-14</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/动画/" itemprop="url" rel="index"><span itemprop="name">动画</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>15k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>13 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Pixi是一个超快的2D渲染引擎。</p>
+<a id="more"></a>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>需要在你项目的根目录运行一个web服务器</p>
+<h4 id="安装http-server"><a href="#安装http-server" class="headerlink" title="安装http-server"></a>安装http-server</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install http-server -g</span><br></pre></td></tr></table></figure>
+
+<p>使用http-server打开</p>
+<h4 id="安装-Pixi"><a href="#安装-Pixi" class="headerlink" title="安装 Pixi"></a>安装 Pixi</h4><p>Pixi的主要发布页面中获取最新版本。</p>
+<p>创建一个基础的HTML页面，用一个<script>标签去加载你刚刚下载的pixi.min.js文件。</p>
+<h4 id="测试用"><a href="#测试用" class="headerlink" title="测试用"></a>测试用</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"pixi/pixi.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> type = <span class="string">"WebGL"</span></span></span><br><span class="line"><span class="actionscript">    <span class="keyword">if</span>(!PIXI.utils.isWebGLSupported())&#123;</span></span><br><span class="line"><span class="actionscript">      type = <span class="string">"canvas"</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    PIXI.utils.sayHello(type)</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果Pixi连接成功，一些这样的东西会在你的浏览器控制台里显示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PixiJS <span class="number">4.4</span><span class="number">.5</span> - * canvas * http:<span class="comment">//www.pixijs.com/  ♥♥♥</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建Pixi应用和-舞台"><a href="#创建Pixi应用和-舞台" class="headerlink" title="创建Pixi应用和 舞台"></a>创建Pixi应用和 舞台</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Create a Pixi Application</span></span><br><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> PIXI.Application(&#123;<span class="attr">width</span>: <span class="number">256</span>, <span class="attr">height</span>: <span class="number">256</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Add the canvas that Pixi automatically created for you to the HTML document</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(app.view);</span><br></pre></td></tr></table></figure>
+
+<p>第一步就是去创建一个可以显示图片的矩形显示区。Pixi拥有一个Pixi应用对象来帮助你创建它。它会自动创建一个<canvas>HTML标签并且计算出怎么去让你的图片在这个标签中显示。你现在需要创建一个特殊的Pixi容器对象，他被称作舞台。正如你所见，这个舞台对象将会被当作根容器而使用，它将包裹所有你想用Pixi显示的东西。</p>
+<p>PIXI.Application算出了应该使用Canvas还是WebGL去渲染图象，它取决于你正在使用的浏览器支持哪一个。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> PIXI.Application(&#123;</span><br><span class="line">    width: <span class="number">256</span>,         <span class="comment">// default: 800</span></span><br><span class="line">    height: <span class="number">256</span>,        <span class="comment">// default: 600</span></span><br><span class="line">    antialias: <span class="literal">true</span>,    <span class="comment">// default: false 圆滑边界，使得字体的边界和几何图形更加圆滑</span></span><br><span class="line">    transparent: <span class="literal">false</span>, <span class="comment">// default: false 透明度</span></span><br><span class="line">    resolution: <span class="number">1</span>       <span class="comment">// default: 1 分辨率</span></span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>Pixi的画布对象将会默认选择WebGL引擎渲染模式，但是如果你需要强制使用Canvas引擎绘制而抛弃WebGL<br>forceCanvas: true,</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">app.renderer.backgroundColor = <span class="number">0x061639</span>;  <span class="comment">//改变背景颜色</span></span><br><span class="line"></span><br><span class="line">app.renderer.autoResize = <span class="literal">true</span>; <span class="comment">//确认宽高的格式正确</span></span><br><span class="line">app.renderer.resize(<span class="number">512</span>, <span class="number">512</span>); <span class="comment">//改变大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//让canvas占据整个窗口</span></span><br><span class="line">app.renderer.view.style.position = <span class="string">"absolute"</span>;</span><br><span class="line">app.renderer.view.style.display = <span class="string">"block"</span>;</span><br><span class="line">app.renderer.autoResize = <span class="literal">true</span>;</span><br><span class="line">app.renderer.resize(<span class="built_in">window</span>.innerWidth, <span class="built_in">window</span>.innerHeight);</span><br><span class="line">&lt;style&gt;* &#123;<span class="attr">padding</span>: <span class="number">0</span>; margin: <span class="number">0</span>&#125;&lt;<span class="regexp">/style&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Pixi-精灵"><a href="#Pixi-精灵" class="headerlink" title="Pixi 精灵"></a>Pixi 精灵</h3><p>Pixi拥有一个精灵类来创建游戏精灵。有三种主要的方法来创建它：</p>
+<ul>
+<li>用一个单图像文件创建。</li>
+<li>用一个 雪碧图 来创建。雪碧图是一个放入了你游戏所需的所有图像的大图。</li>
+<li>从一个纹理贴图集中创建。（纹理贴图集就是用JSON定义了图像大小和位置的雪碧图）</li>
+</ul>
+<p>将图片加载到纹理缓存中<br>因为Pixi用WebGL和GPU去渲染图像，所以图像需要转化成GPU可以处理的版本。可以被GPU处理的图像被称作 纹理 。在你让精灵显示图片之前，需要将普通的图片转化成WebGL纹理。</p>
+<p>Pixi强大的loader对象可以加载任何你需要种类的图像资源。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PIXI.loader</span><br><span class="line">  .add([</span><br><span class="line">  <span class="string">"images/imageOne.png"</span>,</span><br><span class="line">  <span class="string">"images/imageTwo.png"</span>,</span><br><span class="line">  <span class="string">"images/imageThree.png"</span></span><br><span class="line">])</span><br><span class="line">  .load(setup);</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示精灵"><a href="#显示精灵" class="headerlink" title="显示精灵"></a>显示精灵</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">app.stage.addChild(cat);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Create a Pixi Application</span></span><br><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> PIXI.Application(&#123;</span><br><span class="line">  width: <span class="number">256</span>,</span><br><span class="line">  height: <span class="number">256</span>,                       </span><br><span class="line">  antialias: <span class="literal">true</span>,</span><br><span class="line">  transparent: <span class="literal">false</span>,</span><br><span class="line">  resolution: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line">                              );</span><br><span class="line"></span><br><span class="line"><span class="comment">//Add the canvas that Pixi automatically created for you to the HTML document</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(app.view);</span><br><span class="line"></span><br><span class="line"><span class="comment">//load an image and run the `setup` function when it's done</span></span><br><span class="line">PIXI.loader</span><br><span class="line">  .add(<span class="string">"images/cat.png"</span>)</span><br><span class="line">  .load(setup);</span><br><span class="line"></span><br><span class="line"><span class="comment">//This `setup` function will run when the image has loaded</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Create the cat sprite</span></span><br><span class="line">  <span class="keyword">let</span> cat = <span class="keyword">new</span> PIXI.Sprite(PIXI.loader.resources[<span class="string">"images/cat.png"</span>].texture);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Add the cat to the stage</span></span><br><span class="line">  app.stage.addChild(cat);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你想把一个精灵从舞台上挪走，可以把精灵的visible属性设置成false来让精灵简单的隐藏。<br>anySprite.visible = false;</p>
+<h4 id="使用别名"><a href="#使用别名" class="headerlink" title="使用别名"></a>使用别名</h4><p>来看看怎么将所有的Pixi对象和方法改成别名之后，来重写加载和显示图像的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Aliases</span></span><br><span class="line"><span class="keyword">let</span> Application = PIXI.Application,</span><br><span class="line">    loader = PIXI.loader,</span><br><span class="line">    resources = PIXI.loader.resources,</span><br><span class="line">    Sprite = PIXI.Sprite;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Create a Pixi Application</span></span><br><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Application(&#123;</span><br><span class="line">  width: <span class="number">256</span>,</span><br><span class="line">  height: <span class="number">256</span>,                       </span><br><span class="line">  antialias: <span class="literal">true</span>,</span><br><span class="line">  transparent: <span class="literal">false</span>,</span><br><span class="line">  resolution: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line">                         );</span><br><span class="line"></span><br><span class="line"><span class="comment">//Add the canvas that Pixi automatically created for you to the HTML document</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(app.view);</span><br><span class="line"></span><br><span class="line"><span class="comment">//load an image and run the `setup` function when it's done</span></span><br><span class="line">loader</span><br><span class="line">  .add(<span class="string">"images/cat.png"</span>)</span><br><span class="line">  .load(setup);</span><br><span class="line"></span><br><span class="line"><span class="comment">//This `setup` function will run when the image has loaded</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Create the cat sprite</span></span><br><span class="line">  <span class="keyword">let</span> cat = <span class="keyword">new</span> Sprite(resources[<span class="string">"images/cat.png"</span>].texture);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Add the cat to the stage</span></span><br><span class="line">  app.stage.addChild(cat);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="一些关于加载的其他知识"><a href="#一些关于加载的其他知识" class="headerlink" title="一些关于加载的其他知识"></a>一些关于加载的其他知识</h4><ul>
+<li>使用普通的javaScript </li>
+</ul>
+<p>Img对象或canvas创建一个精灵<br>如果因为某些原因你需要从JavaScript的Image对象之中创建，你可以使用Pixi的BaseTexture和Texture类：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> base = <span class="keyword">new</span> PIXI.BaseTexture(anyImageObject),</span><br><span class="line">    texture = <span class="keyword">new</span> PIXI.Texture(base),</span><br><span class="line">    sprite = <span class="keyword">new</span> PIXI.Sprite(texture);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>你可以使用BaseTexture.fromCanvas从任何已经存在canvas标签中创建纹理：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> base = <span class="keyword">new</span> PIXI.BaseTexture.fromCanvas(anyCanvasElement),</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果你想改变已经显示的精灵的纹理，使用texture属性，可以设置任何Texture对象，像下面这样：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anySprite.texture = PIXI.utils.TextureCache[<span class="string">"anyTexture.png"</span>];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>你可以使用这个技巧在游戏发生一些重大变化时交互式的改变精灵的纹理。</li>
+</ul>
+<p>监视加载进程</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">PIXI.loader.on(<span class="string">"progress"</span>, loadProgressHandler);</span><br><span class="line"></span><br><span class="line">PIXI.loader</span><br><span class="line">  .add([</span><br><span class="line">  <span class="string">"images/one.png"</span>,</span><br><span class="line">  <span class="string">"images/two.png"</span>,</span><br><span class="line">  <span class="string">"images/three.png"</span></span><br><span class="line">])</span><br><span class="line">  .on(<span class="string">"progress"</span>, loadProgressHandler)</span><br><span class="line">  .load(setup);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadProgressHandler</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"loading"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setup"</span>);</span><br><span class="line">&#125;</span><br><span class="line">loading</span><br><span class="line">loading</span><br><span class="line">loading</span><br><span class="line">setup</span><br><span class="line"></span><br><span class="line">PIXI.loader</span><br><span class="line">  .add([</span><br><span class="line">  <span class="string">"images/one.png"</span>,</span><br><span class="line">  <span class="string">"images/two.png"</span>,</span><br><span class="line">  <span class="string">"images/three.png"</span></span><br><span class="line">])</span><br><span class="line">  .on(<span class="string">"progress"</span>, loadProgressHandler)</span><br><span class="line">  .load(setup);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadProgressHandler</span>(<span class="params">loader, resource</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Display the file `url` currently being loaded</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"loading: "</span> + resource.url);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Display the percentage of files currently loaded</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"progress: "</span> + loader.progress + <span class="string">"%"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//If you gave your files names as the first argument</span></span><br><span class="line">  <span class="comment">//of the `add` method, you can access them like this</span></span><br><span class="line">  <span class="comment">//console.log("loading: " + resource.name);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"All files loaded"</span>);</span><br><span class="line">&#125;</span><br><span class="line">loading: images/one.png</span><br><span class="line">progress: <span class="number">33.333333333333336</span>%</span><br><span class="line">  loading: images/two.png</span><br><span class="line">progress: <span class="number">66.66666666666667</span>%</span><br><span class="line">  loading: images/three.png</span><br><span class="line">progress: <span class="number">100</span>%</span><br><span class="line">  All files loaded</span><br><span class="line">  <span class="comment">//resource.error会告诉你有哪些加载时候的错误</span></span><br></pre></td></tr></table></figure>
+
+<p>add 方法有四个基础参数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add(name, url, optionObject, callbackFunction)</span><br></pre></td></tr></table></figure>
+
+<p>这里有文档里面对这些参数的描述：</p>
+<blockquote>
+<p>name (string): 加载源文件的别名,如果没设置，url就会被放在这.</p>
+</blockquote>
+<blockquote>
+<p>url (string): 源文件的地址，是加载器 baseUrl的相对地址.</p>
+</blockquote>
+<blockquote>
+<p>options (object literal): 加载设置.</p>
+</blockquote>
+<blockquote>
+<p>options.crossOrigin (Boolean): 源文件请求跨域不？默认是自动设定的。</p>
+</blockquote>
+<blockquote>
+<p>options.loadType: 源文件是怎么加载进来的？默认是Resource.LOAD_TYPE.XHR。 options.xhrType: 用XHR的时候该怎么处理数据？ 默认是Resource.XHR_RESPONSE_TYPE.DEFAULT。</p>
+</blockquote>
+<blockquote>
+<p>callbackFunction: 当这个特定的函数加载完，这个特定的函数将会被执行。</p>
+</blockquote>
+<p>只有url必填（你总得加载个文件吧。）</p>
+<p>第一个就是文档里所谓的“正常语法”：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.add(<span class="string">'key'</span>, <span class="string">'http://...'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;)</span><br><span class="line">.add(<span class="string">'http://...'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;)</span><br><span class="line">.add(<span class="string">'http://...'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>第二个就是所谓“对象语法”啦：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.add(&#123;</span><br><span class="line">  name: <span class="string">'key2'</span>,</span><br><span class="line">  url: <span class="string">'http://...'</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line">.add(&#123;</span><br><span class="line">  url: <span class="string">'http://...'</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line">.add(&#123;</span><br><span class="line">  name: <span class="string">'key3'</span>,</span><br><span class="line">  url: <span class="string">'http://...'</span></span><br><span class="line">  onComplete: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">.add(&#123;</span><br><span class="line">  url: <span class="string">'https://...'</span>,</span><br><span class="line">  onComplete: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;,</span><br><span class="line">  crossOrigin: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>第三个可以给add方法传一个对象的数组，或者既使用对象数组，又使用链式加载：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.add([</span><br><span class="line">  &#123;<span class="attr">name</span>: <span class="string">'key4'</span>, <span class="attr">url</span>: <span class="string">'http://...'</span>, <span class="attr">onComplete</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125; &#125;,</span><br><span class="line">  &#123;<span class="attr">url</span>: <span class="string">'http://...'</span>, <span class="attr">onComplete</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125; &#125;,</span><br><span class="line">  <span class="string">'http://...'</span></span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+
+<p>（注意：如果你需要重新加载一批文件，调用加载器的reset方法：PIXI.loader.reset();）</p>
+<h3 id="精灵位置"><a href="#精灵位置" class="headerlink" title="精灵位置"></a>精灵位置</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat.x = <span class="number">96</span>;</span><br><span class="line">cat.y = <span class="number">96</span>;</span><br><span class="line"></span><br><span class="line">sprite.position.set(x, y)</span><br></pre></td></tr></table></figure>
+
+<h3 id="大小和比例"><a href="#大小和比例" class="headerlink" title="大小和比例"></a>大小和比例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat.width = <span class="number">80</span>;</span><br><span class="line">cat.height = <span class="number">120</span>;</span><br><span class="line"></span><br><span class="line">cat.scale.x = <span class="number">0.5</span>;</span><br><span class="line">cat.scale.y = <span class="number">0.5</span>;</span><br><span class="line">cat.scale.set(<span class="number">0.5</span>, <span class="number">0.5</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat.rotation = <span class="number">0.5</span>;</span><br><span class="line"><span class="comment">// 旋转是相对于锚点的，有两种方法设置锚点</span></span><br><span class="line">cat.anchor.x = <span class="number">0.5</span>;</span><br><span class="line">cat.anchor.y = <span class="number">0.5</span>;</span><br><span class="line">cat.anchor.set(x, y)</span><br></pre></td></tr></table></figure>
+
+<h3 id="原点"><a href="#原点" class="headerlink" title="原点"></a>原点</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat.pivot.set(<span class="number">32</span>, <span class="number">32</span>)</span><br></pre></td></tr></table></figure>
+
+<p>假设精灵图是64x64像素，它将绕着它的中心点旋转。但是记住：你如果改变了精灵的pivot属性，你也就改变了它的原点位置。</p>
+<p>anchor改变了精灵纹理的图像原点，用0到1的数据来填充。pivot则改变了精灵的原点，用像素的值来填充。</p>
+<p>从精灵图（雪碧图）中创建精灵</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">loader</span><br><span class="line">  .add(<span class="string">"images/tileset.png"</span>)</span><br><span class="line">  .load(setup);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Create the `tileset` sprite from the texture</span></span><br><span class="line">  <span class="keyword">let</span> texture = TextureCache[<span class="string">"images/tileset.png"</span>];</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Create a rectangle object that defines the position and</span></span><br><span class="line">  <span class="comment">//size of the sub-image you want to extract from the texture</span></span><br><span class="line">  <span class="comment">//(`Rectangle` is an alias for `PIXI.Rectangle`)</span></span><br><span class="line">  <span class="keyword">let</span> rectangle = <span class="keyword">new</span> Rectangle(<span class="number">192</span>, <span class="number">128</span>, <span class="number">64</span>, <span class="number">64</span>); <span class="comment">//Pixi内置了一个通用的Rectangle对象 (PIXI.Rectangle)，他是一个用于定义矩形形状的通用对象。他需要一些参数，前两个参数定义了x 和y轴坐标位置，后两个参数定义了矩形的width 和 height</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//Tell the texture to use that rectangular section</span></span><br><span class="line">  texture.frame = rectangle; <span class="comment">//Pixi的纹理中有一个叫做frame的很有用的属性，它可以被设置成任何的Rectangle对象。frame将纹理映射到Rectangle的维度。</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//Create the sprite from the texture</span></span><br><span class="line">  <span class="keyword">let</span> rocket = <span class="keyword">new</span> Sprite(texture);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Position the rocket sprite on the canvas</span></span><br><span class="line">  rocket.x = <span class="number">32</span>;</span><br><span class="line">  rocket.y = <span class="number">32</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Add the rocket to the stage</span></span><br><span class="line">  app.stage.addChild(rocket);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Render the stage   </span></span><br><span class="line">  renderer.render(stage);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用一个纹理贴图集"><a href="#使用一个纹理贴图集" class="headerlink" title="使用一个纹理贴图集"></a>使用一个纹理贴图集</h3><p>一个纹理贴图集就是一个JSON数据文件，它包含了匹配的PNG雪碧图的子图像的大小和位置。如果你使用了纹理贴图集，那么想要显示一个子图像只需要知道它的名字就行了。你可以任意的排序你的排版，JSON文件会保持他们的大小和位置不变。这非常方便，因为这意味着图片的位置和大小不必写在你的代码里。如果你想要改变纹理贴图集的排版，类似增加图片，修改图片大小和删除图片这些操作，只需要修改那个JSON数据文件就行了，你的游戏会自动给程序内的所有数据应用新的纹理贴图集。你没必要在所有用到它代码的地方修改它。</p>
+<p>Pixi兼容著名软件Texture </p>
+<p>Packer输出的标准纹理贴图集格式。</p>
+<p>如果你正在用免费版的Texture Packer，把 Algorithm 选项设为Basic，把 Trim mode 选项设为None，把 Extrude 选项设为0，把 Size constraints 选项设为 Any size ，把 PNG Opt Level 中所有的东西都滑到左边的 0位置。这就可以使得Texture Packer正常的输出你的纹理贴图集。<br>如果你做完了，点击 Publish 按钮。选择输出文件名和存储地址，把生成文件保存起来。你将会获得两个文件：一个叫做treasureHunter.json，另外一个就是treasureHunter.png。为了让目录干净些，我们把他俩都放到一个叫做images的文件夹里面去。（你可以认为那个json文件是图片文件的延伸，所以把他们放进一个文件夹是很有意义的。）那个JSON文件里面写清楚了每一个子图像的名字，大小和位置。下面描述了“泡泡怪”这个怪物的子图像的信息。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"blob.png"</span>:</span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">"frame"</span>: &#123;<span class="string">"x"</span>:<span class="number">55</span>,<span class="string">"y"</span>:<span class="number">2</span>,<span class="string">"w"</span>:<span class="number">32</span>,<span class="string">"h"</span>:<span class="number">24</span>&#125;,</span><br><span class="line">	<span class="string">"rotated"</span>: <span class="literal">false</span>,</span><br><span class="line">	<span class="string">"trimmed"</span>: <span class="literal">false</span>,</span><br><span class="line">	<span class="string">"spriteSourceSize"</span>: &#123;<span class="string">"x"</span>:<span class="number">0</span>,<span class="string">"y"</span>:<span class="number">0</span>,<span class="string">"w"</span>:<span class="number">32</span>,<span class="string">"h"</span>:<span class="number">24</span>&#125;,</span><br><span class="line">	<span class="string">"sourceSize"</span>: &#123;<span class="string">"w"</span>:<span class="number">32</span>,<span class="string">"h"</span>:<span class="number">24</span>&#125;,</span><br><span class="line">	<span class="string">"pivot"</span>: &#123;<span class="string">"x"</span>:<span class="number">0.5</span>,<span class="string">"y"</span>:<span class="number">0.5</span>&#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>这些子图像每一个都被叫做 帧 ,有了这些数据你就不用去记每一个图片的大小和位置了，你唯一要做的就只是确定精灵的 帧ID 即可。帧ID就是那些图片的原始名称，类似"blob.png"或者 "explorer.png"这样。</p>
+<h4 id="加载纹理贴图集"><a href="#加载纹理贴图集" class="headerlink" title="加载纹理贴图集"></a>加载纹理贴图集</h4><p>建议给纹理贴图集的textures对象创建一个叫做id的别名</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> id = PIXI.loader.resources[<span class="string">"images/treasureHunter.json"</span>].textures;</span><br><span class="line"><span class="keyword">let</span> id = PIXI.loader.resources[<span class="string">"images/treasureHunter.json"</span>].textures;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Define variables that might be used in more</span></span><br><span class="line"><span class="comment">//than one function</span></span><br><span class="line"><span class="keyword">let</span> treasure, id;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Create an optional alias called `id` for all the texture atlas</span></span><br><span class="line">  <span class="comment">//frame id textures.</span></span><br><span class="line">  id = PIXI.loader.resources[<span class="string">"images/treasureHunter.json"</span>].textures;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Make the treasure box using the alias</span></span><br><span class="line">  treasure = <span class="keyword">new</span> Sprite(id[<span class="string">"treasure.png"</span>]);</span><br><span class="line">  app.stage.addChild(treasure);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Position the treasure next to the right edge of the canvas</span></span><br><span class="line">  treasure.x = app.stage.width - treasure.width - <span class="number">48</span>;</span><br><span class="line">  treasure.y = app.stage.height / <span class="number">2</span> - treasure.height / <span class="number">2</span>;</span><br><span class="line">  app.stage.addChild(treasure);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> numberOfBlobs = <span class="number">6</span>,</span><br><span class="line">    spacing = <span class="number">48</span>,</span><br><span class="line">    xOffset = <span class="number">150</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Make as many blobs as there are `numberOfBlobs`</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; numberOfBlobs; i++) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Make a blob</span></span><br><span class="line">  <span class="keyword">let</span> blob = <span class="keyword">new</span> Sprite(id[<span class="string">"blob.png"</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Space each blob horizontally according to the `spacing` value.</span></span><br><span class="line">  <span class="comment">//`xOffset` determines the point from the left of the screen</span></span><br><span class="line">  <span class="comment">//at which the first blob should be added.</span></span><br><span class="line">  <span class="keyword">let</span> x = spacing * i + xOffset;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Give the blob a random y position</span></span><br><span class="line">  <span class="comment">//(`randomInt` is a custom function - see below)</span></span><br><span class="line">  <span class="keyword">let</span> y = randomInt(<span class="number">0</span>, app.stage.height - blob.height);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Set the blob's position</span></span><br><span class="line">  blob.x = x;</span><br><span class="line">  blob.y = y;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Add the blob sprite to the stage</span></span><br><span class="line">  app.stage.addChild(blob);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//The `randomInt` helper function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomInt</span>(<span class="params">min, max</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (max - min + <span class="number">1</span>)) + min;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>randomInt是一个很好的用来做游戏的工具函数</p>
+<h3 id="移动精灵"><a href="#移动精灵" class="headerlink" title="移动精灵"></a>移动精灵</h3><p>使用Pixi的ticker。这被称为 游戏循环 。任何在游戏循环里的代码都会1秒更新60次。</p>
+<h3 id="游戏状态"><a href="#游戏状态" class="headerlink" title="游戏状态"></a>游戏状态</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Set the game state</span></span><br><span class="line">state = play;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Start the game loop</span></span><br><span class="line">app.ticker.add(<span class="function"><span class="params">delta</span> =&gt;</span> gameLoop(delta));</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameLoop</span>(<span class="params">delta</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Update the current game state:</span></span><br><span class="line">  state(delta);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">play</span>(<span class="params">delta</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Move the cat 1 pixel to the right each frame</span></span><br><span class="line">  cat.vx = <span class="number">1</span></span><br><span class="line">  cat.x += cat.vx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>delta的值代表帧的部分的延迟。你可以把它添加到cat的位置，让cat的速度和帧率无关。下面是代码:<br>cat.x += 1 + delta;<br>是否加进去这个delta的值其实是一种审美的选择。它往往只在你的动画没法跟上60帧的速率时候出现（比如你的游戏运行在很老旧的机器上）。</p>
+<p> 速度属性 ：vx和 vy去控制精灵的运动速度。</p>
+<h3 id="键盘移动"><a href="#键盘移动" class="headerlink" title="键盘移动"></a>键盘移动</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">keyboard</span>(<span class="params">keyCode</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> key = &#123;&#125;;</span><br><span class="line">  key.code = keyCode;</span><br><span class="line">  key.isDown = <span class="literal">false</span>;</span><br><span class="line">  key.isUp = <span class="literal">true</span>;</span><br><span class="line">  key.press = <span class="literal">undefined</span>;</span><br><span class="line">  key.release = <span class="literal">undefined</span>;</span><br><span class="line">  <span class="comment">//The `downHandler`</span></span><br><span class="line">  key.downHandler = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (event.keyCode === key.code) &#123;</span><br><span class="line">      <span class="keyword">if</span> (key.isUp &amp;&amp; key.press) key.press();</span><br><span class="line">      key.isDown = <span class="literal">true</span>;</span><br><span class="line">      key.isUp = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//The `upHandler`</span></span><br><span class="line">  key.upHandler = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (event.keyCode === key.code) &#123;</span><br><span class="line">      <span class="keyword">if</span> (key.isDown &amp;&amp; key.release) key.release();</span><br><span class="line">      key.isDown = <span class="literal">false</span>;</span><br><span class="line">      key.isUp = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Attach event listeners</span></span><br><span class="line">  <span class="built_in">window</span>.addEventListener(</span><br><span class="line">    <span class="string">"keydown"</span>, key.downHandler.bind(key), <span class="literal">false</span></span><br><span class="line">  );</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(</span><br><span class="line">    <span class="string">"keyup"</span>, key.upHandler.bind(key), <span class="literal">false</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">return</span> key;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用的方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> keyObject = keyboard(asciiKeyCodeNumber);</span><br><span class="line">keyObject.press = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//key object pressed</span></span><br><span class="line">&#125;;</span><br><span class="line">keyObject.release = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//key object released</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Define any variables that are used in more than one function</span></span><br><span class="line"><span class="keyword">let</span> cat, state;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Create the `cat` sprite</span></span><br><span class="line">  cat = <span class="keyword">new</span> Sprite(resources[<span class="string">"images/cat.png"</span>].texture);</span><br><span class="line">  cat.y = <span class="number">96</span>;</span><br><span class="line">  cat.vx = <span class="number">0</span>;</span><br><span class="line">  cat.vy = <span class="number">0</span>;</span><br><span class="line">  app.stage.addChild(cat);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Capture the keyboard arrow keys</span></span><br><span class="line">  <span class="keyword">let</span> left = keyboard(<span class="number">37</span>),</span><br><span class="line">      up = keyboard(<span class="number">38</span>),</span><br><span class="line">      right = keyboard(<span class="number">39</span>),</span><br><span class="line">      down = keyboard(<span class="number">40</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Left arrow key `press` method</span></span><br><span class="line">  left.press = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//Change the cat's velocity when the key is pressed</span></span><br><span class="line">    cat.vx = <span class="number">-5</span>;</span><br><span class="line">    cat.vy = <span class="number">0</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Left arrow key `release` method</span></span><br><span class="line">  left.release = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//If the left arrow has been released, and the right arrow isn't down,</span></span><br><span class="line">    <span class="comment">//and the cat isn't moving vertically:</span></span><br><span class="line">    <span class="comment">//Stop the cat</span></span><br><span class="line">    <span class="keyword">if</span> (!right.isDown &amp;&amp; cat.vy === <span class="number">0</span>) &#123;</span><br><span class="line">      cat.vx = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Up</span></span><br><span class="line">  up.press = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    cat.vy = <span class="number">-5</span>;</span><br><span class="line">    cat.vx = <span class="number">0</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  up.release = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!down.isDown &amp;&amp; cat.vx === <span class="number">0</span>) &#123;</span><br><span class="line">      cat.vy = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Right</span></span><br><span class="line">  right.press = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    cat.vx = <span class="number">5</span>;</span><br><span class="line">    cat.vy = <span class="number">0</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  right.release = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!left.isDown &amp;&amp; cat.vy === <span class="number">0</span>) &#123;</span><br><span class="line">      cat.vx = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Down</span></span><br><span class="line">  down.press = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    cat.vy = <span class="number">5</span>;</span><br><span class="line">    cat.vx = <span class="number">0</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  down.release = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!up.isDown &amp;&amp; cat.vx === <span class="number">0</span>) &#123;</span><br><span class="line">      cat.vy = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Set the game state</span></span><br><span class="line">  state = play;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Start the game loop</span></span><br><span class="line">  app.ticker.add(<span class="function"><span class="params">delta</span> =&gt;</span> gameLoop(delta));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gameLoop</span>(<span class="params">delta</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Update the current game state:</span></span><br><span class="line">  state(delta);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">play</span>(<span class="params">delta</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//Use the cat's velocity to make it move</span></span><br><span class="line">  cat.x += cat.vx;</span><br><span class="line">  cat.y += cat.vy</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</script></p>
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/01/02/实习总结/2019.01/" rel="next" title="2019.01">
+                  <i class="fa fa-chevron-left"></i> 2019.01
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/01/24/个人博客/配置next主题/" rel="prev" title="配置next主题">
+                  配置next主题 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装http-server"><span class="nav-text">安装http-server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-Pixi"><span class="nav-text">安装 Pixi</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

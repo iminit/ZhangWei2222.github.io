@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="一、变量名1.命名1.必须以字母、下划线或美元符号开头，后面可以跟字母、下划线、美元符号和数字。 2.变量名区分大小写，如:A与a是两个不同变量。 3.不允许使用JavaScript关键字和保留字做变量名。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js进阶知识">
+<meta property="og:url" content="http://yoursite.com/2017/08/18/JavaScript/js进阶知识/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="一、变量名1.命名1.必须以字母、下划线或美元符号开头，后面可以跟字母、下划线、美元符号和数字。 2.变量名区分大小写，如:A与a是两个不同变量。 3.不允许使用JavaScript关键字和保留字做变量名。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:16.973Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js进阶知识">
+<meta name="twitter:description" content="一、变量名1.命名1.必须以字母、下划线或美元符号开头，后面可以跟字母、下划线、美元符号和数字。 2.变量名区分大小写，如:A与a是两个不同变量。 3.不允许使用JavaScript关键字和保留字做变量名。">
+  <link rel="canonical" href="http://yoursite.com/2017/08/18/JavaScript/js进阶知识/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>js进阶知识 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/js进阶知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">js进阶知识
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-18 15:15:47" itemprop="dateCreated datePublished" datetime="2017-08-18T15:15:47+08:00">2017-08-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>16k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>14 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、变量名"><a href="#一、变量名" class="headerlink" title="一、变量名"></a>一、变量名</h3><h4 id="1-命名"><a href="#1-命名" class="headerlink" title="1.命名"></a>1.命名</h4><p>1.必须以字母、下划线或美元符号开头，后面可以跟字母、下划线、美元符号和数字。</p>
+<p>2.变量名区分大小写，如:A与a是两个不同变量。</p>
+<p>3.不允许使用JavaScript关键字和保留字做变量名。</p>
+<a id="more"></a>
+
+<h4 id="2-声明"><a href="#2-声明" class="headerlink" title="2.声明"></a>2.声明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var mynum ; //声明一个变量mynum</span><br><span class="line">var num1,mun2 ; //声明一个变量num1</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-变量赋值"><a href="#3-变量赋值" class="headerlink" title="3.变量赋值"></a>3.变量赋值</h4><p>= 是赋值，==是等于号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var num1 = 123;       // 123是数值</span><br><span class="line">var num2 = &quot;一二三&quot;;    //&quot;一二三&quot;是字符串</span><br><span class="line">var num3=true;    //布尔值true（真），false(假)</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、数组"><a href="#二、数组" class="headerlink" title="二、数组"></a>二、数组</h3><h4 id="1-二维数组"><a href="#1-二维数组" class="headerlink" title="1.二维数组"></a>1.二维数组</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var myarr=new Array();  //先声明一维 </span><br><span class="line">for(var i=0;i&lt;2;i++)&#123;   //一维长度为2</span><br><span class="line">   myarr[i]=new Array();  //再声明二维 </span><br><span class="line">   for(var j=0;j&lt;3;j++)&#123;   //二维长度为3</span><br><span class="line">   myarr[i][j]=i+j;   // 赋值，每个数组元素的值为i+j</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line">var Myarr = [[0 , 1 , 2 ],[1 , 2 , 3]]</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、鼠标事件"><a href="#三、鼠标事件" class="headerlink" title="三、鼠标事件"></a>三、鼠标事件</h3><h4 id="1-onfocus（获得焦点事件）"><a href="#1-onfocus（获得焦点事件）" class="headerlink" title="1.onfocus（获得焦点事件）"></a>1.onfocus（获得焦点事件）</h4><p>当一个文本框获得焦点时，它里面的文本就像“好123”网站上的百度搜索输入框那样全部被自动选中，这样的操作可以利用onfocus来实现。</p>
+<p>以下的文本框，当鼠标指针移过去时，里面的文字全部被选中：</p>
+<p>请输入网址</p>
+<p>这是怎么做的呢？看以下代码及解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot;name=&quot;url&quot; value=&quot;http://www.gxblk.com&quot; size=&quot;30&quot;onmousemove=&quot;this.focus();this.select();&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>代码里，input标签内嵌入了onmousemove（鼠标指针经过）事件的JS语句，其等号后面的this.focus()意为其自身获得焦点；获得焦点的标志是该文本框内将出现输入光标，但要让其内的文字全部被选中，我们还得用上this.select()语句，它的意思就是选中全部文本框里的文字。</p>
+<h4 id="2-onblur（失去焦点事件）"><a href="#2-onblur（失去焦点事件）" class="headerlink" title="2.onblur（失去焦点事件）"></a>2.onblur（失去焦点事件）</h4><p>我们经常会检测文本框是否已经被正确输入，检测工作通常在用户点击了提交按钮之后进行，事实上，利用控件失去焦点的时候，我们就可以实时进行这个检测工作，这样的话，onblur事件就派上用场了。</p>
+<p>以下例子有四个文本框，如果还没有任何单击它们当中的任意一个的操作，那么什么事情也不会发生，但是，当你单击了其中的任何一个使其拥有了焦点（输入光标在里面），如果什么都没有输入并且单击了别的地方令其失去焦点，就会弹出一个警告，试试看</p>
+<p>姓名</p>
+<p>性别</p>
+<p>年龄</p>
+<p>住址</p>
+<p>以下是代码和解释：</p>
+<p>表单代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;form name=&quot;blur_test&quot;&gt; </span><br><span class="line">&lt;p&gt;姓名 &lt;input type=&quot;text&quot; name=&quot;name&quot;value=&quot;&quot; size=&quot;30&quot;onblur=&quot;chkvalue(this)&quot;&gt;&lt;br&gt; </span><br><span class="line">性别 &lt;inputtype=&quot;text&quot; name=&quot;sex&quot; value=&quot;&quot;size=&quot;30&quot; onblur=&quot;chkvalue(this)&quot;&gt;&lt;br&gt; </span><br><span class="line">年龄 &lt;inputtype=&quot;text&quot; name=&quot;age&quot; value=&quot;&quot;size=&quot;30&quot; onblur=&quot;chkvalue(this)&quot;&gt;&lt;br&gt; </span><br><span class="line">住址 &lt;inputtype=&quot;text&quot; name=&quot;addr&quot; value=&quot;&quot;size=&quot;30&quot; onblur=&quot;chkvalue(this)&quot;&gt;&lt;/p&gt; </span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line">&lt;scriptlanguage=&quot;javascript&quot;&gt; </span><br><span class="line">function chkvalue(txt) &#123; </span><br><span class="line">if(txt.value==&quot;&quot;) alert(&quot;文本框里必须填写内容!&quot;); </span><br><span class="line">&#125; </span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>表单代码里，每一个方框框的代码都嵌入一个onblur JS语句，它们都调用后面的JS代码中的自定义函数chkvalue(this)，意思是，当文本框失去焦点时就调用chkvalue()函数；这chkvalue()函数检测文本框是否为空，如果是就弹出警告窗口。该函数有一个参数（txt），对应于前面文本框调用该函数的参数（this）即自身。</p>
+</blockquote>
+<h4 id="3-onselect事件"><a href="#3-onselect事件" class="headerlink" title="3.onselect事件"></a>3.onselect事件</h4><p>选中事件，当文本框或者文本域中的文字被选中时，触发onselect事件，同时调用的程序就会被执行。</p>
+<h4 id="4-文本框内容改变事件（onchange）"><a href="#4-文本框内容改变事件（onchange）" class="headerlink" title="4.文本框内容改变事件（onchange）"></a>4.文本框内容改变事件（onchange）</h4><p>通过改变文本框的内容来触发onchange事件，同时执行被调用的程序。</p>
+<h4 id="5-加载事件（onload）"><a href="#5-加载事件（onload）" class="headerlink" title="5.加载事件（onload）"></a>5.加载事件（onload）</h4><p>事件会在页面加载完成后，立即发生，同时执行被调用的程序。</p>
+<p>注意：</p>
+<p>1、加载页面时，触发onload事件，事件写在标签内。</p>
+<p>2、此节的加载页面，可理解为打开一个新页面时。</p>
+<p>如下代码,当加载一个新页面时，弹出对话框“加载中，请稍等…”。</p>
+<blockquote>
+<p>支持的标签：, , , , , 提交提交, , ,，写在内监听页面加载，正如写在监听图像加载。</p>
+</blockquote>
+<h4 id="6-卸载事件（onunload）"><a href="#6-卸载事件（onunload）" class="headerlink" title="6.卸载事件（onunload）"></a>6.卸载事件（onunload）</h4><p>当用户退出页面时（页面关闭、页面刷新等），触发onUnload事件，同时执行被调用的程序。</p>
+<p>*<em>注意：不同浏览器对onunload事件支持不同。<br>*</em></p>
+<p>如下代码,当退出页面时，弹出对话框“您确定离开该网页吗？”。</p>
+<h3 id="四、-JavaScript内置对象"><a href="#四、-JavaScript内置对象" class="headerlink" title="四、 JavaScript内置对象"></a>四、 JavaScript内置对象</h3><h4 id="1-Date-日期对象"><a href="#1-Date-日期对象" class="headerlink" title="1.Date 日期对象"></a>1.Date 日期对象</h4><p>定义一个时间对象 :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var Udate=new Date();</span><br></pre></td></tr></table></figure>
+
+<p>使 Udate 成为日期对象，并且已有初始值：当前时间(当前电脑系统时间)。</p>
+<p>访问方法语法：“&lt;日期对象&gt;.&lt;方法&gt;”</p>
+<h5 id="1-返回星期方法"><a href="#1-返回星期方法" class="headerlink" title="(1).返回星期方法"></a>(1).返回星期方法</h5><p>getDay() 返回星期，返回的是0-6的数字，0 表示星期天。如果要返回相对应“星期”，通过数组完成，代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">  var mydate=new Date();//定义日期对象</span><br><span class="line">  var weekday=[&quot;星期日&quot;,&quot;星期一&quot;,&quot;星期二&quot;,&quot;星期三&quot;,&quot;星期四&quot;,&quot;星期五&quot;,&quot;星期六&quot;];</span><br><span class="line">//定义数组对象,给每个数组项赋值</span><br><span class="line">  var mynum=mydate.getDay();//返回值存储在变量mynum中</span><br><span class="line">  document.write(mydate.getDay());//输出getDay()获取值</span><br><span class="line">  document.write(&quot;今天是：&quot;+ weekday[mynum]);//输出星期几</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-返回-设置时间方法"><a href="#2-返回-设置时间方法" class="headerlink" title="(2).返回/设置时间方法"></a>(2).返回/设置时间方法</h5><p>get/setTime() 返回/设置时间，单位毫秒数，计算从 1970 年 1 月 1 日零时到日期对象所指的日期的毫秒数。</p>
+<h4 id="2-String字符串对象"><a href="#2-String字符串对象" class="headerlink" title="2.String字符串对象"></a>2.String字符串对象</h4><h5 id="1-toUpperCase-，toLowerCase"><a href="#1-toUpperCase-，toLowerCase" class="headerlink" title="(1).toUpperCase()，toLowerCase()"></a>(1).toUpperCase()，toLowerCase()</h5><p>使用 String 对象的 toUpperCase() 方法来将字符串小写字母转换为大写,另一个反之</p>
+<h5 id="2-charAt"><a href="#2-charAt" class="headerlink" title="(2).charAt()"></a>(2).charAt()</h5><p>stringObject.charAt(index)<br>可返回指定位置的字符。返回的字符是长度为 1 的字符串。</p>
+<h5 id="3-字符串分割split"><a href="#3-字符串分割split" class="headerlink" title="(3).字符串分割split()"></a>(3).字符串分割split()</h5><p>split() 方法将字符串分割为字符串数组，并返回此数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stringObject.split(separator,limit)</span><br></pre></td></tr></table></figure>
+
+<p>注意：如果把空字符串 (“”) 用作 separator，那么 stringObject 中的每个字符之间都会被分割。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var mystr = &quot;www.imooc.com&quot;;</span><br><span class="line">document.write(mystr.split(&quot;.&quot;)+&quot;&lt;br&gt;&quot;);</span><br><span class="line">document.write(mystr.split(&quot;.&quot;, 2)+&quot;&lt;br&gt;&quot;);</span><br><span class="line"></span><br><span class="line">www,imooc,com</span><br><span class="line">www,imooc</span><br><span class="line"></span><br><span class="line">document.write(mystr.split(&quot;&quot;)+&quot;&lt;br&gt;&quot;);</span><br><span class="line">document.write(mystr.split(&quot;&quot;, 5));</span><br><span class="line"></span><br><span class="line">w,w,w,.,i,m,o,o,c,.,c,o,m</span><br><span class="line">w,w,w,.,i</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-提取字符串substring"><a href="#4-提取字符串substring" class="headerlink" title="(4).提取字符串substring()"></a>(4).提取字符串substring()</h5><p>substring() 方法用于提取字符串中介于两个指定下标之间的字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stringObject.substring(startPos,stopPos)</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li>返回的内容是从 start开始(包含start位置的字符)到 stop-1 处的所有字符，其长度为 stop 减start。</li>
+<li>如果参数 start 与 stop 相等，那么该方法返回的就是一个空串（即长度为 0 的字符串）。</li>
+<li>如果 start 比 stop 大，那么该方法在提取子串之前会先交换这两个参数。<h5 id="5-提取指定数目的字符substr"><a href="#5-提取指定数目的字符substr" class="headerlink" title="(5).提取指定数目的字符substr()"></a>(5).提取指定数目的字符substr()</h5>substr() 方法从字符串中提取从 startPos位置开始的指定数目的字符串。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stringObject.substr(startPos,length)</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<p>如果参数startPos是负数，从字符串的尾部开始算起的位置。也就是说，-1 指字符串中最后一个字符，-2 指倒数第二个字符，以此类推。<br>如果startPos为负数且绝对值大于字符串长度，startPos为0。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string.substring( 起点 ， 终点 )</span><br><span class="line"></span><br><span class="line">string.substr( 起点 ，长度 )</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Math对象"><a href="#3-Math对象" class="headerlink" title="3.Math对象"></a>3.Math对象</h4><p>Math 对象是一个固有的对象，无需创建它，直接把 Math 作为对象使用就可以调用其所有属性和方法。这是它与Date,String对象的区别。</p>
+<p>Math 对象属性</p>
+<p>Math 对象方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">  var mypi=Math.PI; </span><br><span class="line">  var myabs=Math.abs(-15);</span><br><span class="line">  document.write(mypi);</span><br><span class="line">  document.write(myabs);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">3.141592653589793</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-向上取整ceil"><a href="#1-向上取整ceil" class="headerlink" title="(1).向上取整ceil()"></a>(1).向上取整ceil()</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.ceil(x)</span><br></pre></td></tr></table></figure>
+
+<p>ceil() 方法可对一个数进行向上取整。x必须是一个数值</p>
+<p>注意：它返回的是大于或等于x，并且与x最接近的整数。</p>
+<h5 id="2-向下取整floor"><a href="#2-向下取整floor" class="headerlink" title="(2).向下取整floor()"></a>(2).向下取整floor()</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.floor(x)</span><br></pre></td></tr></table></figure>
+
+<p>floor() 方法可对一个数进行向下取整。</p>
+<p>注意：返回的是小于或等于x，并且与 x 最接近的整数。</p>
+<h5 id="3-四舍五入round"><a href="#3-四舍五入round" class="headerlink" title="(3).四舍五入round()"></a>(3).四舍五入round()</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.round(x)</span><br></pre></td></tr></table></figure>
+
+<p>round() 方法可把一个数字四舍五入为最接近的整数。</p>
+<p>注意：</p>
+<ol>
+<li>返回与 x 最接近的整数。</li>
+<li>对于 0.5，该方法将进行上舍入。(5.5 将舍入为 6)</li>
+<li>如果 x 与两侧整数同等接近，则结果接近 +∞方向的数字值 。(如 -5.5 将舍入为 -5; -5.52 将舍入为 -6)</li>
+</ol>
+<h5 id="4-随机数-random"><a href="#4-随机数-random" class="headerlink" title="(4).随机数 random()"></a>(4).随机数 random()</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.random();</span><br></pre></td></tr></table></figure>
+
+<p>random() 方法可返回介于 0 ~ 1（大于或等于 0 但小于 1 )之间的一个随机数。</p>
+<p>注意：返回一个大于或等于 0 但小于 1 的符号为正的数字值。</p>
+<h4 id="4-Array-数组对象"><a href="#4-Array-数组对象" class="headerlink" title="4.Array 数组对象"></a>4.Array 数组对象</h4><h5 id="1-数组连接concat"><a href="#1-数组连接concat" class="headerlink" title="(1).数组连接concat()"></a>(1).数组连接concat()</h5><p>concat() 方法用于连接两个或多个数组。此方法返回一个新数组，不改变原来的数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">  var mya = new Array(3);</span><br><span class="line">  mya[0] = &quot;1&quot;;</span><br><span class="line">  mya[1] = &quot;2&quot;;</span><br><span class="line">  mya[2] = &quot;3&quot;;</span><br><span class="line">  document.write(mya.concat(4,5)+&quot;&lt;br&gt;&quot;);</span><br><span class="line">  document.write(mya); </span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">1,2,3,4,5</span><br><span class="line">1,2,3</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-指定分隔符连接数组元素join"><a href="#2-指定分隔符连接数组元素join" class="headerlink" title="(2).指定分隔符连接数组元素join()"></a>(2).指定分隔符连接数组元素join()</h5><p>join()方法用于把数组中的所有元素放入一个字符串。元素是通过指定的分隔符进行分隔的。不改变原来数组</p>
+<h5 id="3-颠倒数组元素顺序reverse"><a href="#3-颠倒数组元素顺序reverse" class="headerlink" title="(3).颠倒数组元素顺序reverse()"></a>(3).颠倒数组元素顺序reverse()</h5><p>该方法会改变原来的数组，而不会创建新的数组。</p>
+<h5 id="4-选定元素slice"><a href="#4-选定元素slice" class="headerlink" title="(4).选定元素slice()"></a>(4).选定元素slice()</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arrayObject.slice(start,end)</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li>可使用负值从数组的尾部选取元素。</li>
+<li>如果 end 未被规定，那么 slice() 方法会选取从 start 到数组结尾的所有元素。</li>
+<li>String.slice() 与 Array.slice() 相似。</li>
+<li>返回一个新的数组，包含从 start 到 end （不包括该元素）的 arrayObject 中的元素。</li>
+<li>该方法并不会修改数组，而是返回一个子数组</li>
+</ol>
+<h5 id="5-数组排序sort"><a href="#5-数组排序sort" class="headerlink" title="(5).数组排序sort()"></a>(5).数组排序sort()</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arrayObject.sort(方法函数)</span><br></pre></td></tr></table></figure>
+
+<p>注意</p>
+<p>1.如果不指定&lt;方法函数&gt;，则按unicode码顺序排列。</p>
+<p>2.如果指定&lt;方法函数&gt;，则按&lt;方法函数&gt;所指定的排序方法排序。</p>
+<p>排序函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">  function sortNum(a,b) &#123;</span><br><span class="line">  return a - b;</span><br><span class="line"> //升序，如降序，把“a - b”该成“b - a”</span><br><span class="line">&#125;</span><br><span class="line"> var myarr = new Array(&quot;80&quot;,&quot;16&quot;,&quot;50&quot;,&quot;6&quot;,&quot;100&quot;,&quot;1&quot;);</span><br><span class="line">  document.write(myarr + &quot;&lt;br&gt;&quot;);</span><br><span class="line">  document.write(myarr.sort(sortNum));</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">80,16,50,6,100,1</span><br><span class="line">1,6,16,50,80,100</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、浏览器对象"><a href="#五、浏览器对象" class="headerlink" title="五、浏览器对象"></a>五、浏览器对象</h3><p>window对象是BOM的核心，window对象指当前的浏览器窗口。</p>
+<p>window对象方法:</p>
+<h4 id="1-计时器"><a href="#1-计时器" class="headerlink" title="1.计时器"></a>1.计时器</h4><p>在JavaScript中，我们可以在设定的时间间隔之后来执行代码，而不是在函数被调用后立即执行。<br>计时器类型：</p>
+<p>一次性计时器：仅在指定的延迟时间之后触发一次。</p>
+<p>间隔性触发计时器：每隔一定的时间间隔就触发一次。</p>
+<p>计时器方法：</p>
+<h5 id="1-setInterval"><a href="#1-setInterval" class="headerlink" title="(1).setInterval()"></a>(1).setInterval()</h5><p>在执行时,从载入页面后每隔指定的时间执行代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setInterval(代码,交互时间);</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ol>
+<li>代码：要调用的函数或要执行的代码串。</li>
+<li>交互时间：周期性执行或调用表达式之间的时间间隔，以毫秒计（1s=1000ms）。</li>
+</ol>
+<p>返回值:</p>
+<p>一个可以传递给 clearInterval() 从而取消对”代码”的周期性执行的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">调用函数格式(假设有一个clock()函数):</span><br><span class="line">setInterval(&quot;clock()&quot;,1000)</span><br><span class="line">或</span><br><span class="line">setInterval(clock,1000)</span><br></pre></td></tr></table></figure>
+
+<p>我们设置一个计时器，每隔100毫秒调用clock()函数，并将时间显示出来，代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;计时器&lt;/title&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">  var int=setInterval(clock, 100)</span><br><span class="line">  function clock()&#123;</span><br><span class="line">    var time=new Date();</span><br><span class="line">    document.getElementById(&quot;clock&quot;).value = time;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;form&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; id=&quot;clock&quot; size=&quot;50&quot;  /&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-取消计时器clearInterval"><a href="#2-取消计时器clearInterval" class="headerlink" title="(2).取消计时器clearInterval()"></a>(2).取消计时器clearInterval()</h5><p>clearInterval() 方法可取消由 setInterval() 设置的交互时间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clearInterval(id_of_setInterval)</span><br></pre></td></tr></table></figure>
+
+<p>参数说明:</p>
+<p>id_of_setInterval：由 setInterval() 返回的 ID 值。</p>
+<p>每隔 100 毫秒调用 clock() 函数,并显示时间。当点击按钮时，停止时间,代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;计时器&lt;/title&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">   function clock()&#123;</span><br><span class="line">      var time=new Date();                     </span><br><span class="line">      document.getElementById(&quot;clock&quot;).value = time;</span><br><span class="line">   &#125;</span><br><span class="line">// 每隔100毫秒调用clock函数，并将返回值赋值给i</span><br><span class="line">     var i=setInterval(&quot;clock()&quot;,100);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;form&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; id=&quot;clock&quot; size=&quot;50&quot;  /&gt;</span><br><span class="line">    &lt;input type=&quot;button&quot; value=&quot;Stop&quot; onclick=&quot;clearInterval(i)&quot;  /&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-计时器setTimeout"><a href="#3-计时器setTimeout" class="headerlink" title="(3).计时器setTimeout()"></a>(3).计时器setTimeout()</h5><p>setTimeout()计时器，在载入后延迟指定时间后,去执行一次表达式,仅执行一次。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(代码,延迟时间);</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ol>
+<li>要调用的函数或要执行的代码串。</li>
+<li>延时时间：在执行代码前需等待的时间，以毫秒为单位（1s=1000ms)。</li>
+</ol>
+<p>要创建一个运行于无穷循环中的计数器，我们需要编写一个函数来调用其自身。在下面的代码，当按钮被点击后，输入域便从0开始计数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">var num=0;</span><br><span class="line">function numCount()&#123;</span><br><span class="line"> document.getElementById(&apos;txt&apos;).value=num;</span><br><span class="line"> num=num+1;</span><br><span class="line"> setTimeout(&quot;numCount()&quot;,1000);</span><br><span class="line"> &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; id=&quot;txt&quot; /&gt;</span><br><span class="line">&lt;input type=&quot;button&quot; value=&quot;Start&quot; onClick=&quot;numCount()&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-取消计时器clearTimeout"><a href="#4-取消计时器clearTimeout" class="headerlink" title="(4).取消计时器clearTimeout()"></a>(4).取消计时器clearTimeout()</h5><p>setTimeout()和clearTimeout()一起使用，停止计时器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">clearTimeout(id_of_setTimeout)</span><br><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">  var num=0,i;</span><br><span class="line">  function timedCount()&#123;</span><br><span class="line">    document.getElementById(&apos;txt&apos;).value=num;</span><br><span class="line">    num=num+1;</span><br><span class="line">    i=setTimeout(timedCount,1000);</span><br><span class="line">  &#125;</span><br><span class="line">    setTimeout(timedCount,1000);</span><br><span class="line">  function stopCount()&#123;</span><br><span class="line">    clearTimeout(i);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;form&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; id=&quot;txt&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;button&quot; value=&quot;Stop&quot; onClick=&quot;stopCount()&quot;&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-History对象"><a href="#2-History对象" class="headerlink" title="2.History对象"></a>2.History对象</h4><p>history对象记录了用户曾经浏览过的页面(URL)，并可以实现浏览器前进与后退相似导航的功能。</p>
+<p>注意:</p>
+<p>从窗口被打开的那一刻开始记录，每个浏览器窗口、每个标签页乃至每个框架，都有自己的history对象与特定的window对象关联。</p>
+<p>window.history.[属性|方法]（window可以省略。）</p>
+<p>History 对象属性</p>
+<p>History 对象方法</p>
+<h5 id="1-返回前一个浏览的页面"><a href="#1-返回前一个浏览的页面" class="headerlink" title="(1).返回前一个浏览的页面"></a>(1).返回前一个浏览的页面</h5><p>back()方法，加载 history 列表中的前一个 URL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.history.back();</span><br></pre></td></tr></table></figure>
+
+<p>比如，返回前一个浏览的页面，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.history.back();</span><br></pre></td></tr></table></figure>
+
+<p>注意：等同于点击浏览器的倒退按钮。</p>
+<p>back()相当于go(-1),代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.history.go(-1);</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-返回下一个浏览的页面"><a href="#2-返回下一个浏览的页面" class="headerlink" title="(2).返回下一个浏览的页面"></a>(2).返回下一个浏览的页面</h5><p>forward()方法，加载 history 列表中的下一个 URL。</p>
+<p>如果倒退之后，再想回到倒退之前浏览的页面，则可以使用forward()方法,代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.history.forward();</span><br></pre></td></tr></table></figure>
+
+<p>注意：等价点击前进按钮。</p>
+<p>forward()相当于go(1),代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.history.go(1);</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-返回浏览历史中的其他页面"><a href="#3-返回浏览历史中的其他页面" class="headerlink" title="(3).返回浏览历史中的其他页面"></a>(3).返回浏览历史中的其他页面</h5><p>go()方法，根据当前所处的页面，加载 history 列表中的某个具体的页面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">window.history.go(number);</span><br><span class="line"></span><br><span class="line">go(1)等价forward()</span><br><span class="line">go(0)等价当前页面</span><br><span class="line">go(-1)等价back()</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Location对象"><a href="#3-Location对象" class="headerlink" title="3.Location对象"></a>3.Location对象</h4><p>location用于获取或设置窗体的URL，并且可以用于解析URL。</p>
+<p>location.[属性|方法]<br>location对象属性图示:</p>
+<p>location 对象属性：</p>
+<p>location 对象方法:</p>
+<h4 id="4-Navigator对象"><a href="#4-Navigator对象" class="headerlink" title="4.Navigator对象"></a>4.Navigator对象</h4><p>Navigator 对象包含有关浏览器的信息，通常用于检测浏览器与操作系统的版本。</p>
+<p>对象属性:</p>
+<h4 id="5-screen对象"><a href="#5-screen对象" class="headerlink" title="5.screen对象"></a>5.screen对象</h4><p>screen对象用于获取用户的屏幕信息。</p>
+<p>window.screen.属性<br>对象属性:</p>
+<h5 id="1-屏幕分辨率的高和宽"><a href="#1-屏幕分辨率的高和宽" class="headerlink" title="(1).屏幕分辨率的高和宽"></a>(1).屏幕分辨率的高和宽</h5><p>window.screen 对象包含有关用户屏幕的信息。</p>
+<ol>
+<li>screen.height 返回屏幕分辨率的高</li>
+<li>screen.width 返回屏幕分辨率的宽</li>
+</ol>
+<p>注意:</p>
+<p>1.单位以像素计。</p>
+<p>window.screen 对象在编写时可以不使用 window 这个前缀。</p>
+<p>2.屏幕可用高和宽度</p>
+<ol>
+<li>screen.availWidth 属性返回访问者屏幕的宽度，以像素计，减去界面特性，比如任务栏。</li>
+<li>screen.availHeight 属性返回访问者屏幕的高度，以像素计，减去界面特性，比如任务栏。</li>
+</ol>
+<p>注意:</p>
+<blockquote>
+<p>不同系统的任务栏默认高度不一样，及任务栏的位置可在屏幕上下左右任何位置，所以有可能可用宽度和高度不一样。</p>
+</blockquote>
+<h3 id="六、DOM"><a href="#六、DOM" class="headerlink" title="六、DOM"></a>六、DOM</h3><p>文档对象模型DOM（Document Object Model）定义访问和处理HTML文档的标准方法。DOM 将HTML文档呈现为带有元素、属性和文本的树结构（节点树）。</p>
+<p>HTML文档可以说由节点构成的集合，DOM节点有:</p>
+<p>元素节点：上图中、、<br>等都是元素节点，即标签。</p>
+<p>文本节点:向用户展示的内容，如…中的JavaScript、DOM、CSS等文本。</p>
+<p>属性节点:元素属性，如标签的链接属性href=”<a href="http://www.imooc.com&quot;。" target="_blank" rel="noopener">http://www.imooc.com&quot;。</a></p>
+<p>节点属性:</p>
+<p>遍历节点树:</p>
+<p>DOM操作:</p>
+<p>注意:前两个是document方法。</p>
+<h4 id="1-getElementsByName-方法"><a href="#1-getElementsByName-方法" class="headerlink" title="(1).getElementsByName()方法"></a>(1).getElementsByName()方法</h4><p>注意:</p>
+<ol>
+<li>因为文档中的 name 属性可能不唯一，所有 getElementsByName() 方法返回的是元素的数组，而不是一个元素。</li>
+<li>和数组类似也有length属性，可以和访问数组一样的方法来访问，从0开始。</li>
+</ol>
+<h4 id="2-getElementsByTagName-方法"><a href="#2-getElementsByTagName-方法" class="headerlink" title="(2).getElementsByTagName()方法"></a>(2).getElementsByTagName()方法</h4><p>返回带有指定标签名的节点对象的集合。返回元素的顺序是它们在文档中的顺序。</p>
+<p>说明:</p>
+<ol>
+<li>Tagname是标签的名称，如p、a、img等标签名。</li>
+<li>和数组类似也有length属性，可以和访问数组一样的方法来访问，所以从0开始。</li>
+</ol>
+<h5 id="3-getAttribute-方法"><a href="#3-getAttribute-方法" class="headerlink" title="(3).getAttribute()方法"></a>(3).getAttribute()方法</h5><p>通过元素节点的属性名称获取属性的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elementNode.getAttribute(name)</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-setAttribute"><a href="#4-setAttribute" class="headerlink" title="(4).setAttribute()"></a>(4).setAttribute()</h5><p>setAttribute() 方法增加一个指定名称和值的新属性，或者把一个现有的属性设定为指定的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elementNode.setAttribute(name,value)</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<p>1.name: 要设置的属性名。</p>
+<p>2.value: 要设置的属性值。</p>
+<p>注意：</p>
+<p>1.把指定的属性设置为指定的值。如果不存在具有指定名称的属性，该方法将创建一个新属性。</p>
+<p>2.类似于getAttribute()方法，setAttribute()方法只能通过元素节点对象调用的函数。</p>
+<h4 id="5-节点属性"><a href="#5-节点属性" class="headerlink" title="5.节点属性"></a>5.节点属性</h4><p>在文档对象模型 (DOM) 中，每个节点都是一个对象。DOM 节点有三个重要的属性 ：</p>
+<ol>
+<li>nodeName : 节点的名称</li>
+<li>nodeValue ：节点的值</li>
+<li>nodeType ：节点的类型</li>
+</ol>
+<p>一、nodeName 属性: 节点的名称，是只读的。</p>
+<ul>
+<li><p>元素节点的 nodeName 与标签名相同</p>
+</li>
+<li><p>属性节点的 nodeName 是属性的名称</p>
+</li>
+<li><p>文本节点的 nodeName 永远是 #text</p>
+</li>
+<li><p>文档节点的 nodeName 永远是 #document<br>二、nodeValue 属性：节点的值</p>
+</li>
+<li><p>元素节点的 nodeValue 是 undefined 或 null</p>
+</li>
+<li><p>文本节点的 nodeValue 是文本自身</p>
+</li>
+<li><p>属性节点的 nodeValue 是属性的值<br>三、nodeType 属性: 节点的类型，是只读的。以下常用的几种结点类型:</p>
+</li>
+</ul>
+<p>元素类型 节点类型</p>
+<ul>
+<li>元素 1</li>
+<li>属性 2</li>
+<li>文本 3</li>
+<li>注释 8</li>
+<li>文档 9</li>
+</ul>
+<h4 id="6-访问子节点childNodes"><a href="#6-访问子节点childNodes" class="headerlink" title="6.访问子节点childNodes"></a>6.访问子节点childNodes</h4><p>访问选定元素节点下的所有子节点的列表，返回的值可以看作是一个数组，他具有length属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elementNode.childNodes</span><br></pre></td></tr></table></figure>
+
+<p>注意：<br>如果选定的节点没有子节点，则该属性返回不包含节点的 NodeList。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">运行结果:</span><br><span class="line">IE:</span><br><span class="line">  UL子节点个数:3</span><br><span class="line">  节点类型:1</span><br><span class="line">其它浏览器:</span><br><span class="line">   UL子节点个数:7</span><br><span class="line">   节点类型:3</span><br></pre></td></tr></table></figure>
+
+<p>注意:</p>
+<ol>
+<li>IE全系列、firefox、chrome、opera、safari兼容问题</li>
+<li>节点之间的空白符，在firefox、chrome、opera、safari浏览器是文本节点，所以IE是3，其它浏览器是7，如下图所示:</li>
+</ol>
+<p>如果把代码改成这样:</p>
+<p>javascriptjQueryPHP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">运行结果:（IE和其它浏览器结果是一样的）</span><br><span class="line">  UL子节点个数:3</span><br><span class="line">  节点类型:1</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-访问子节点的第一和最后项"><a href="#7-访问子节点的第一和最后项" class="headerlink" title="7.访问子节点的第一和最后项"></a>7.访问子节点的第一和最后项</h4><p>一、firstChild 属性返回‘childNodes’数组的第一个子节点。如果选定的节点没有子节点，则该属性返回 NULL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node.firstChild</span><br></pre></td></tr></table></figure>
+
+<p>说明：与elementNode.childNodes[0]是同样的效果。</p>
+<p>二、 lastChild 属性返回‘childNodes’数组的最后一个子节点。如果选定的节点没有子节点，则该属性返回 NULL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node.lastChild</span><br></pre></td></tr></table></figure>
+
+<p>说明：与elementNode.childNodes[elementNode.childNodes.length-1]是同样的效果。</p>
+<h4 id="8-访问父节点parentNode"><a href="#8-访问父节点parentNode" class="headerlink" title="8.访问父节点parentNode"></a>8.访问父节点parentNode</h4><p>获取指定节点的父节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elementNode.parentNode</span><br></pre></td></tr></table></figure>
+
+<p>注意:父节点只能有一个。</p>
+<h4 id="9-访问兄弟节点"><a href="#9-访问兄弟节点" class="headerlink" title="9.访问兄弟节点"></a>9.访问兄弟节点</h4><p>nextSibling 属性可返回某个节点之后紧跟的节点（处于同一树层级中）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodeObject.nextSibling</span><br></pre></td></tr></table></figure>
+
+<p>说明：如果无此节点，则该属性返回 null。</p>
+<p>previousSibling 属性可返回某个节点之前紧跟的节点（处于同一树层级中）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodeObject.previousSibling</span><br></pre></td></tr></table></figure>
+
+<p>说明：如果无此节点，则该属性返回 null。</p>
+<p>注意: 两个属性获取的是节点。Internet Explorer 会忽略节点间生成的空白文本节点（例如，换行符号），而其它浏览器不会忽略。</p>
+<h4 id="10-插入节点appendChild"><a href="#10-插入节点appendChild" class="headerlink" title="10.插入节点appendChild()"></a>10.插入节点appendChild()</h4><p>在指定节点的最后一个子节点列表之后添加一个新的子节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendChild(newnode)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">运行结果:</span><br><span class="line">HTML</span><br><span class="line">JavaScript</span><br><span class="line">This is a new p</span><br></pre></td></tr></table></figure>
+
+<h4 id="11-插入节点insertBefore"><a href="#11-插入节点insertBefore" class="headerlink" title="11.插入节点insertBefore()"></a>11.插入节点insertBefore()</h4><p>insertBefore() 方法可在已有的子节点前插入一个新的子节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insertBefore(newnode,node);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">运行结果:</span><br><span class="line">This is a new p</span><br><span class="line">JavaScript</span><br><span class="line">HTML</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-删除节点removeChild"><a href="#12-删除节点removeChild" class="headerlink" title="12.删除节点removeChild()"></a>12.删除节点removeChild()</h4><p>removeChild() 方法从子节点列表中删除某个节点。如删除成功，此方法可返回被删除的节点，如失败，则返回 NULL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nodeObject.removeChild(node)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">运行结果:</span><br><span class="line">HTML</span><br><span class="line">删除节点的内容: javascript</span><br><span class="line">注意: 把删除的子节点赋值给 x，这个子节点不在DOM树中，但是还存在内存中，可通过 x 操作。</span><br><span class="line">如果要完全删除对象，给 x 赋 null 值，代码如下:</span><br></pre></td></tr></table></figure>
+
+<h4 id="13-替换元素节点replaceChild"><a href="#13-替换元素节点replaceChild" class="headerlink" title="13.替换元素节点replaceChild()"></a>13.替换元素节点replaceChild()</h4><p>replaceChild 实现子节点(对象)的替换。返回被替换对象的引用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node.replaceChild (newnode,oldnew )</span><br></pre></td></tr></table></figure>
+
+<p>效果: 将文档中的 Java 改为 JavaScript。<br>注意:</p>
+<ol>
+<li>当 oldnode 被替换时，所有与之相关的属性内容都将被移除。</li>
+<li>newnode 必须先被建立。</li>
+<li>只有父结点才能调用 replaceChild(newnode,oldnode).这个方法，所以，要想替换当前结点的内容或者属性，那么首先得获得父节点，才可以操作，这就是为什么 oldnode.parentNode.replaceChild(newnode,oldnode)</li>
+</ol>
+<h4 id="14-创建元素节点createElement"><a href="#14-创建元素节点createElement" class="headerlink" title="14.创建元素节点createElement"></a>14.创建元素节点createElement</h4><p>createElement()方法可创建元素节点。此方法可返回一个 Element 对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.createElement(tagName)</span><br></pre></td></tr></table></figure>
+
+<p>tagName：字符串值，这个字符串用来指明创建元素的类型。</p>
+<p>注意：要与appendChild() 或 insertBefore()方法联合使用，将元素显示在页面中。</p>
+<h4 id="15-创建文本节点createTextNode"><a href="#15-创建文本节点createTextNode" class="headerlink" title="15.创建文本节点createTextNode"></a>15.创建文本节点createTextNode</h4><p>createTextNode() 方法创建新的文本节点，返回新创建的 Text 节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.createTextNode(data)</span><br></pre></td></tr></table></figure>
+
+<h4 id="16-浏览器窗口可视区域大小"><a href="#16-浏览器窗口可视区域大小" class="headerlink" title="16.浏览器窗口可视区域大小"></a>16.浏览器窗口可视区域大小</h4><p>获得浏览器窗口的尺寸（浏览器的视口，不包括工具栏和滚动条）的方法:</p>
+<p>一、对于IE9+、Chrome、Firefox、Opera 以及 Safari：</p>
+<p>• window.innerHeight - 浏览器窗口的内部高度</p>
+<p>• window.innerWidth - 浏览器窗口的内部宽度</p>
+<p>二、对于 Internet Explorer 8、7、6、5：</p>
+<p>• document.documentElement.clientHeight表示HTML文档所在窗口的当前高度。</p>
+<p>• document.documentElement.clientWidth表示HTML文档所在窗口的当前宽度。</p>
+<p>或者</p>
+<p>Document对象的body属性对应HTML文档的标签</p>
+<p>• document.body.clientHeight</p>
+<p>• document.body.clientWidth</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在不同浏览器都实用的 JavaScript 方案：</span><br><span class="line">var w= document.documentElement.clientWidth</span><br><span class="line">      || document.body.clientWidth;</span><br><span class="line">var h= document.documentElement.clientHeight</span><br><span class="line">      || document.body.clientHeight;</span><br></pre></td></tr></table></figure>
+
+<h4 id="17-网页尺寸scrollHeight"><a href="#17-网页尺寸scrollHeight" class="headerlink" title="17.网页尺寸scrollHeight"></a>17.网页尺寸scrollHeight</h4><p>scrollHeight和scrollWidth，获取网页内容高度和宽度。</p>
+<p>一、针对IE、Opera:<br>scrollHeight 是网页内容实际高度，可以小于 clientHeight。</p>
+<p>二、针对NS、FF:<br>scrollHeight 是网页内容高度，不过最小值是 clientHeight。也就是说网页内容实际高度小于 clientHeight 时，scrollHeight 返回 clientHeight 。</p>
+<p>三、浏览器兼容性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var w=document.documentElement.scrollWidth</span><br><span class="line">   || document.body.scrollWidth;</span><br><span class="line">var h=document.documentElement.scrollHeight</span><br><span class="line">   || document.body.scrollHeight;</span><br></pre></td></tr></table></figure>
+
+<p>注意:区分大小写<br>scrollHeight和scrollWidth还可获取Dom元素中内容实际占用的高度和宽度。</p>
+<h4 id="18-网页尺寸offsetHeight"><a href="#18-网页尺寸offsetHeight" class="headerlink" title="18.网页尺寸offsetHeight"></a>18.网页尺寸offsetHeight</h4><p>offsetHeight和offsetWidth，获取网页内容高度和宽度(包括滚动条等边线，会随窗口的显示大小改变)。</p>
+<p>一、值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">offsetHeight = clientHeight + 滚动条 + 边框。</span><br></pre></td></tr></table></figure>
+
+<p>二、浏览器兼容性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var w= document.documentElement.offsetWidth</span><br><span class="line">    || document.body.offsetWidth;</span><br><span class="line">var h= document.documentElement.offsetHeight</span><br><span class="line">    || document.body.offsetHeight;</span><br></pre></td></tr></table></figure>
+
+<h4 id="19-网页卷去的距离与偏移量"><a href="#19-网页卷去的距离与偏移量" class="headerlink" title="19.网页卷去的距离与偏移量"></a>19.网页卷去的距离与偏移量</h4><p>scrollLeft:设置或获取位于给定对象左边界与窗口中目前可见内容的最左端之间的距离 ，即左边灰色的内容。</p>
+<p>scrollTop:设置或获取位于对象最顶端与窗口中可见内容的最顶端之间的距离 ，即上边灰色的内容。</p>
+<p>offsetLeft:获取指定对象相对于版面或由 offsetParent 属性指定的父坐标的计算左侧位置 。</p>
+<p>offsetTop:获取指定对象相对于版面或由 offsetParent 属性指定的父坐标的计算顶端位置 。</p>
+<p>注意:</p>
+<p>区分大小写<br>offsetParent：布局中设置postion属性(Relative、Absolute、fixed)的父容器，从最近的父节点开始，一层层向上找，直到HTML的body。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/08/18/Vue/vue-router/" rel="next" title="vue-router">
+                  <i class="fa fa-chevron-left"></i> vue-router
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/08/18/Css3/css媒体查询/" rel="prev" title="css媒体查询">
+                  css媒体查询 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、变量名"><span class="nav-text">一、变量名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-命名"><span class="nav-text">1.命名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-声明"><span class="nav-text">2.声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-变量赋值"><span class="nav-text">3.变量赋值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、数组"><span class="nav-text">二、数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-二维数组"><span class="nav-text">1.二维数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、鼠标事件"><span class="nav-text">三、鼠标事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-onfocus（获得焦点事件）"><span class="nav-text">1.onfocus（获得焦点事件）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-onblur（失去焦点事件）"><span class="nav-text">2.onblur（失去焦点事件）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-onselect事件"><span class="nav-text">3.onselect事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-文本框内容改变事件（onchange）"><span class="nav-text">4.文本框内容改变事件（onchange）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-加载事件（onload）"><span class="nav-text">5.加载事件（onload）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-卸载事件（onunload）"><span class="nav-text">6.卸载事件（onunload）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、-JavaScript内置对象"><span class="nav-text">四、 JavaScript内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Date-日期对象"><span class="nav-text">1.Date 日期对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-返回星期方法"><span class="nav-text">(1).返回星期方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-返回-设置时间方法"><span class="nav-text">(2).返回/设置时间方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-String字符串对象"><span class="nav-text">2.String字符串对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-toUpperCase-，toLowerCase"><span class="nav-text">(1).toUpperCase()，toLowerCase()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-charAt"><span class="nav-text">(2).charAt()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-字符串分割split"><span class="nav-text">(3).字符串分割split()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-提取字符串substring"><span class="nav-text">(4).提取字符串substring()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-提取指定数目的字符substr"><span class="nav-text">(5).提取指定数目的字符substr()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Math对象"><span class="nav-text">3.Math对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-向上取整ceil"><span class="nav-text">(1).向上取整ceil()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-向下取整floor"><span class="nav-text">(2).向下取整floor()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-四舍五入round"><span class="nav-text">(3).四舍五入round()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-随机数-random"><span class="nav-text">(4).随机数 random()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Array-数组对象"><span class="nav-text">4.Array 数组对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-数组连接concat"><span class="nav-text">(1).数组连接concat()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-指定分隔符连接数组元素join"><span class="nav-text">(2).指定分隔符连接数组元素join()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-颠倒数组元素顺序reverse"><span class="nav-text">(3).颠倒数组元素顺序reverse()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-选定元素slice"><span class="nav-text">(4).选定元素slice()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-数组排序sort"><span class="nav-text">(5).数组排序sort()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、浏览器对象"><span class="nav-text">五、浏览器对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-计时器"><span class="nav-text">1.计时器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-setInterval"><span class="nav-text">(1).setInterval()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-取消计时器clearInterval"><span class="nav-text">(2).取消计时器clearInterval()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-计时器setTimeout"><span class="nav-text">(3).计时器setTimeout()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-取消计时器clearTimeout"><span class="nav-text">(4).取消计时器clearTimeout()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-History对象"><span class="nav-text">2.History对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-返回前一个浏览的页面"><span class="nav-text">(1).返回前一个浏览的页面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-返回下一个浏览的页面"><span class="nav-text">(2).返回下一个浏览的页面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-返回浏览历史中的其他页面"><span class="nav-text">(3).返回浏览历史中的其他页面</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Location对象"><span class="nav-text">3.Location对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Navigator对象"><span class="nav-text">4.Navigator对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-screen对象"><span class="nav-text">5.screen对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-屏幕分辨率的高和宽"><span class="nav-text">(1).屏幕分辨率的高和宽</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、DOM"><span class="nav-text">六、DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-getElementsByName-方法"><span class="nav-text">(1).getElementsByName()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-getElementsByTagName-方法"><span class="nav-text">(2).getElementsByTagName()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-getAttribute-方法"><span class="nav-text">(3).getAttribute()方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-setAttribute"><span class="nav-text">(4).setAttribute()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-节点属性"><span class="nav-text">5.节点属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-访问子节点childNodes"><span class="nav-text">6.访问子节点childNodes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-访问子节点的第一和最后项"><span class="nav-text">7.访问子节点的第一和最后项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-访问父节点parentNode"><span class="nav-text">8.访问父节点parentNode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-访问兄弟节点"><span class="nav-text">9.访问兄弟节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-插入节点appendChild"><span class="nav-text">10.插入节点appendChild()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-插入节点insertBefore"><span class="nav-text">11.插入节点insertBefore()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-删除节点removeChild"><span class="nav-text">12.删除节点removeChild()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-替换元素节点replaceChild"><span class="nav-text">13.替换元素节点replaceChild()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-创建元素节点createElement"><span class="nav-text">14.创建元素节点createElement</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-创建文本节点createTextNode"><span class="nav-text">15.创建文本节点createTextNode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-浏览器窗口可视区域大小"><span class="nav-text">16.浏览器窗口可视区域大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-网页尺寸scrollHeight"><span class="nav-text">17.网页尺寸scrollHeight</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-网页尺寸offsetHeight"><span class="nav-text">18.网页尺寸offsetHeight</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-网页卷去的距离与偏移量"><span class="nav-text">19.网页卷去的距离与偏移量</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

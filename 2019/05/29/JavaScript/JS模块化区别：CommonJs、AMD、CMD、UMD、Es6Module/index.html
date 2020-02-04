@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="前言之前在探索Es6 中import()和import…form的区别时，就在想Es6之前是咋引用模块的呀？？咱今天就来一探究竟！">
+<meta name="keywords" content="模块化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS模块化区别：CommonJs、AMD、CMD、UMD、Es6Module">
+<meta property="og:url" content="http://yoursite.com/2019/05/29/JavaScript/JS模块化区别：CommonJs、AMD、CMD、UMD、Es6Module/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="前言之前在探索Es6 中import()和import…form的区别时，就在想Es6之前是咋引用模块的呀？？咱今天就来一探究竟！">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-04T04:55:16.958Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS模块化区别：CommonJs、AMD、CMD、UMD、Es6Module">
+<meta name="twitter:description" content="前言之前在探索Es6 中import()和import…form的区别时，就在想Es6之前是咋引用模块的呀？？咱今天就来一探究竟！">
+  <link rel="canonical" href="http://yoursite.com/2019/05/29/JavaScript/JS模块化区别：CommonJs、AMD、CMD、UMD、Es6Module/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>JS模块化区别：CommonJs、AMD、CMD、UMD、Es6Module | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/JavaScript/JS模块化区别：CommonJs、AMD、CMD、UMD、Es6Module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">JS模块化区别：CommonJs、AMD、CMD、UMD、Es6Module
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-29 16:31:37" itemprop="dateCreated datePublished" datetime="2019-05-29T16:31:37+08:00">2019-05-29</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>5.3k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>5 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前在探索Es6 中import()和import…form的区别时，就在想Es6之前是咋引用模块的呀？？咱今天就来一探究竟！</p>
+<a id="more"></a>
+
+<h2 id="JS-模块化进程"><a href="#JS-模块化进程" class="headerlink" title="JS-模块化进程"></a>JS-模块化进程</h2><p>Js在模块化上有经历一个越来越好的过程，目的是更好的封装模块，引用模块</p>
+<p>原始的开发方式 -&gt; CommonJs -&gt; AMD -&gt; CMD -&gt; UMD -&gt; Es6Module</p>
+<h2 id="原始的开发方式"><a href="#原始的开发方式" class="headerlink" title="原始的开发方式"></a>原始的开发方式</h2><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>最开始的时候，Js自身是没有模块机制的。项目中有多个js文件，在html加载的时候，需要一个个文件引用 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"a.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>命名问题：所有的文件都是挂在 <strong>global</strong> 上，咱就不能重名了，否则污染全局环境。</li>
+<li>依赖问题：scrpit是顺序加载，如果各文件之间有依赖，比如某个a文件里面的代码依赖jquery，那jquery就必须放在a文件前面引用。我们需要时刻考虑js文件的书写顺序。</li>
+<li>网络问题：文件太多了，请求次数就会多，加载时间自然而然多！</li>
+</ol>
+<p>突然想起最开始自己写的代码，都是原生js，或者使用jq，当时就经常会遇到重名、顺序，还有万恶的堵塞问题，嘤嘤嘤，模块化快出现！</p>
+<h2 id="CommonJs"><a href="#CommonJs" class="headerlink" title="CommonJs"></a>CommonJs</h2><h3 id="使用场景、加载方式"><a href="#使用场景、加载方式" class="headerlink" title="使用场景、加载方式"></a>使用场景、加载方式</h3><p>主要运行于服务器端（Node.js实现）</p>
+<p>同步加载模块，因为加载的文件资源大多数在本地服务器，所以执行速度和时间都很棒</p>
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><p>该规范指出，一个单独的文件就是一个模块。</p>
+<h4 id="主要两个命令"><a href="#主要两个命令" class="headerlink" title="主要两个命令"></a>主要两个命令</h4><table>
+<thead>
+<tr>
+<th>引用其他模块</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>require</td>
+<td>module.exports/exports 注意：输出的是一个值得拷贝，输出后不能改变，会缓存起来</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// moduleA.js</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">'weiqinl'</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = exports = &#123;</span><br><span class="line">name,</span><br><span class="line">foo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// moduleB.js</span></span><br><span class="line"><span class="keyword">var</span> ma = <span class="built_in">require</span>(<span class="string">'./moduleA'</span>) <span class="comment">// 可以省略后缀.js</span></span><br><span class="line">exports.bar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">ma.name === <span class="string">'weiqinl'</span> <span class="comment">// true</span></span><br><span class="line">ma.foo() <span class="comment">// 执行foo方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// moduleC.js</span></span><br><span class="line"><span class="keyword">var</span> mb = <span class="built_in">require</span>(<span class="string">'./moduleB'</span>)</span><br><span class="line">mb.bar()</span><br></pre></td></tr></table></figure>
+
+<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><h3 id="使用场景、加载方式-1"><a href="#使用场景、加载方式-1" class="headerlink" title="使用场景、加载方式"></a>使用场景、加载方式</h3><p>主要运行于浏览器端（Require.js实现）</p>
+<p>异步加载，不会影响后面语句的执行</p>
+<h3 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h3><p>一个单独的文件就是一个模块，模块与模块的依赖可以异步加载</p>
+<h4 id="主要有4个命令"><a href="#主要有4个命令" class="headerlink" title="主要有4个命令"></a>主要有4个命令</h4><table>
+<thead>
+<tr>
+<th>引用其他模块</th>
+<th>定义</th>
+<th>输出接口</th>
+<th>对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>require</td>
+<td>define:全局函数，define(id?, dependencies?, factory)</td>
+<td>return</td>
+<td>define.amd 属性是一个对象，表明函数遵循AMD规范</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// moduleA.js</span></span><br><span class="line">define([<span class="string">'jQuery'</span>,<span class="string">'lodash'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">$, _</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">'weiqinl'</span>,</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        name,</span><br><span class="line">        foo</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'moduleA'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    a.name === <span class="string">'weiqinl'</span> <span class="comment">// true</span></span><br><span class="line">    a.foo() <span class="comment">// 执行A模块中的foo函数</span></span><br><span class="line">    <span class="comment">// do sth...</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.html</span></span><br><span class="line">&lt;script src=<span class="string">"js/require.js"</span> data-main=<span class="string">"js/index"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><h3 id="使用场景、加载方式-2"><a href="#使用场景、加载方式-2" class="headerlink" title="使用场景、加载方式"></a>使用场景、加载方式</h3><p>主要在浏览器运行，也可以在node.js运行（主要是Sea.js推广中形成的）</p>
+<p>依赖就近，延迟执行。当程序执行到，才会自动加载</p>
+<h3 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a>例子</h3><h4 id="主要有4个命令-1"><a href="#主要有4个命令-1" class="headerlink" title="主要有4个命令"></a>主要有4个命令</h4><table>
+<thead>
+<tr>
+<th>引用其他模块</th>
+<th>定义</th>
+<th>输出接口</th>
+<th>使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>require</td>
+<td>define:全局函数，定义模块</td>
+<td>exports</td>
+<td>seajs.use()</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// moduleA.js</span></span><br><span class="line"><span class="comment">// 定义模块</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'./a'</span>) <span class="comment">// 到此才会加载a模块</span></span><br><span class="line">        a.func()</span><br><span class="line">        <span class="keyword">if</span>(<span class="literal">false</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'./b'</span>) <span class="comment">// 到此才会加载b模块</span></span><br><span class="line">            b.func()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// do sth...</span></span><br><span class="line">    exports.func = func;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="comment">// 加载使用模块</span></span><br><span class="line">seajs.use(<span class="string">'moduleA.js'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">ma</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> ma = math.func()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTML，需要在页面中引入sea.js文件。</span></span><br><span class="line">&lt;script src=<span class="string">"./js/sea.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script src=<span class="string">"./js/index.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h2><h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>通用模块定义 模式，主要用来解决CommonJs和AMD代码不能通用的问题，并同时还支持老式的全局变量规范</p>
+<p>一般用于webpack打包，output.libraryTarget 将模块以哪种规范的文件输出</p>
+<h3 id="例子-4"><a href="#例子-4" class="headerlink" title="例子"></a>例子</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用Node, AMD 或 browser globals 模式创建模块</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd) &#123;</span><br><span class="line">    <span class="comment">// AMD模式. 注册为一个匿名函数</span></span><br><span class="line">    define([<span class="string">'b'</span>], factory);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span> &amp;&amp; <span class="built_in">module</span>.exports) &#123;</span><br><span class="line">    <span class="comment">// Node等类CommonJS的环境</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory(<span class="built_in">require</span>(<span class="string">'b'</span>));</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 浏览器全局变量 (root is window)</span></span><br><span class="line">    root.returnExports = factory(root.b);</span><br><span class="line">&#125;</span><br><span class="line">&#125;(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>,<span class="function"><span class="keyword">function</span> (<span class="params">b</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 以某种方式使用 b</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回一个值来定义模块导出。(即可以返回对象，也可以返回函数)</span></span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<p><strong>解析</strong></p>
+<p>1、判断 define 是否为函数，并是否存在 define.amd =&gt; AMD规范</p>
+<p>2、判断 module 是否为一个对象，并是否存在 module.exports =&gt; CommonJs规范</p>
+<p>3、如果以上两种都没有，设定为原始的代码规范</p>
+<h2 id="Es6Module"><a href="#Es6Module" class="headerlink" title="Es6Module"></a>Es6Module</h2><h3 id="注意的几个点"><a href="#注意的几个点" class="headerlink" title="注意的几个点"></a>注意的几个点</h3><p>1、同时兼容node环境，可以和CommonJs混合使用。</p>
+<p>2、因为可以和CommonJs混合使用，有两点区别</p>
+<table>
+<thead>
+<tr>
+<th>CommonJs</th>
+<th>Es6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>运行时加载确定输出接口</td>
+<td>编译时确定输出接口</td>
+</tr>
+<tr>
+<td>输出的是一个值的拷贝，输出后不能修改，会被缓存</td>
+<td>输出的是一个值的引用，加载的时候会做静态优化（即模块内发生变化，import出的接口也会相应发生变化）</td>
+</tr>
+</tbody></table>
+<p>3、对于加载外部模块</p>
+<ul>
+<li>模块之中，import命令加载其他模块，.js后缀不可省略</li>
+<li>模块之中，顶层的this返回undefined，而不是window</li>
+<li>同一个模块加载多次，讲只执行一次</li>
+</ul>
+<h3 id="主要有两个命令"><a href="#主要有两个命令" class="headerlink" title="主要有两个命令"></a>主要有两个命令</h3><table>
+<thead>
+<tr>
+<th>引用其他模块</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>import</td>
+<td>export/export default</td>
+</tr>
+</tbody></table>
+<h3 id="加载方式"><a href="#加载方式" class="headerlink" title="加载方式"></a>加载方式</h3><h4 id="浏览器加载"><a href="#浏览器加载" class="headerlink" title="浏览器加载"></a>浏览器加载</h4><p>1、外链js文件<br>    <script type="module" src="index.js"></script></p>
+<p>2、内嵌到内页</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"module"</span>&gt;</span><br><span class="line">    <span class="keyword">import</span> utils <span class="keyword">from</span> <span class="string">'./utils.js'</span>;</span><br><span class="line">    <span class="comment">// other code</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="名词区别"><a href="#名词区别" class="headerlink" title="名词区别"></a>名词区别</h2><h3 id="加载方式-区别"><a href="#加载方式-区别" class="headerlink" title="加载方式 区别"></a>加载方式 区别</h3><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>同步加载</th>
+<th>异步加载</th>
+<th>依赖就近，延迟执行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解释</td>
+<td>需要等到依赖模块加载完成才编译执行(CommonJs)</td>
+<td>哪一个模块小，就先执行哪一个(AMD)</td>
+<td>当需要某个模块的时候再去再去异步加载（CMD）</td>
+</tr>
+<tr>
+<td>不足</td>
+<td>阻塞加载，当依赖的模块太大，浏览器会处于假死的状态</td>
+<td>提前加载，依赖前置（要用到的模块，一开始就要写好）</td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AMD 默认推荐的是</span></span><br><span class="line">define([<span class="string">'./a'</span>, <span class="string">'./b'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123; <span class="comment">// 依赖必须一开始就写好</span></span><br><span class="line">    a.doSomething()</span><br><span class="line">    <span class="comment">// 此处略去 100 行</span></span><br><span class="line">    b.doSomething()</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// CMD</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'./a'</span>)</span><br><span class="line">    a.doSomething()</span><br><span class="line">    <span class="comment">// 此处略去 100 行</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'./b'</span>) <span class="comment">// 依赖可以就近书写</span></span><br><span class="line">    b.doSomething()</span><br><span class="line">    <span class="comment">// ... </span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="import、require、import-区别"><a href="#import、require、import-区别" class="headerlink" title="import、require、import()区别"></a>import、require、import()区别</h3><table>
+<thead>
+<tr>
+<th>require</th>
+<th>import</th>
+<th>import()</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CommonJs(moudule.exports/exports)、AMD(return)、CMD(exports)都用这个命令加载</td>
+<td>es6加载(export/export.default)</td>
+<td>同前</td>
+</tr>
+<tr>
+<td>运行时调用，可以随处引入</td>
+<td>编译时调用，必须放到文件开头，需要babel把es6转成es5</td>
+<td>运行时调用，可以随处引入，异步加载</td>
+</tr>
+<tr>
+<td>引入基础数据类型时，属于复制；引用复杂数据类型时，属于浅拷贝（值的拷贝）</td>
+<td>值的引用，会跟随引入的模块一起变化</td>
+<td>同前</td>
+</tr>
+</tbody></table>
+<h3 id="运行时加载、编译时加载区别"><a href="#运行时加载、编译时加载区别" class="headerlink" title="运行时加载、编译时加载区别"></a>运行时加载、编译时加载区别</h3><h4 id="运行时加载"><a href="#运行时加载" class="headerlink" title="运行时加载"></a>运行时加载</h4><p>默认export的是一个对象，输入时必须查找对象属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CommonJS模块</span></span><br><span class="line"><span class="keyword">let</span> &#123; stat, exists, readFile &#125; = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="keyword">let</span> _fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">let</span> stat = _fs.stat;</span><br><span class="line"><span class="keyword">let</span> exists = _fs.exists;</span><br><span class="line"><span class="keyword">let</span> readfile = _fs.readfile;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码的实质是整体加载fs模块（即加载fs的所有方法），生成一个对象（_fs），然后再从这个对象上面读取 3 个方法。这种加载称为“运行时加载”，因为只有运行时才能得到这个对象，导致 <strong>完全没办法在编译时做“静态优化”</strong></p>
+<h4 id="编译时加载"><a href="#编译时加载" class="headerlink" title="编译时加载"></a>编译时加载</h4><p>ES6 模块不是对象，而是通过export命令显式指定输出的代码，再通过import命令输入。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; stat, exists, readFile &#125; <span class="keyword">from</span> <span class="string">'fs'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码的实质是从fs模块加载 3 个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 ES6 可以在编译时就完成模块加载，效率要比 CommonJS 模块的加载方式高</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><table>
+<thead>
+<tr>
+<th>-</th>
+<th>CommonJs</th>
+<th>AMD</th>
+<th>CMD</th>
+<th>ES6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>使用场景</td>
+<td>服务器端:Nodejs</td>
+<td>浏览器端:Require.js</td>
+<td>服务器浏览器皆可:Sea.js</td>
+<td>服务器浏览器皆可,还可以和CommonJs混用</td>
+</tr>
+<tr>
+<td>定义</td>
+<td></td>
+<td>define</td>
+<td>define</td>
+<td></td>
+</tr>
+<tr>
+<td>暴露接口</td>
+<td>moudlue.exports/exports</td>
+<td>return</td>
+<td>exports</td>
+<td>export/exportdefalut</td>
+</tr>
+<tr>
+<td>引用</td>
+<td>require</td>
+<td>require</td>
+<td>require</td>
+<td>import…form/import()</td>
+</tr>
+<tr>
+<td>引用语句加载方式</td>
+<td>运行时加载（那会才知道依赖的关系）</td>
+<td>运行时加载</td>
+<td>运行时加载</td>
+<td>编译时加载(进行值的引用，可以静态优化，会跟随引入的模块一起变化；前面几种进行的是值的拷贝，输出后不能改变，得到的是缓存的结果)，静态加载，只能放在代码的最前面；但是import()为运行时加载，异步加载</td>
+</tr>
+<tr>
+<td>依赖加载方式</td>
+<td>同步加载</td>
+<td>异步加载(提前加载，依赖前置)载</td>
+<td>依赖就近，延迟执行</td>
+<td></td>
+</tr>
+<tr>
+<td>注意</td>
+<td></td>
+<td></td>
+<td></td>
+<td>es6-es5的转译，需要有babel，使用import()还需要额外的babel配置</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/模块化/" rel="tag"># 模块化</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/05/28/Es6/ES6-import…form、import()区别/" rel="next" title="ES6-import…form、import()区别">
+                  <i class="fa fa-chevron-left"></i> ES6-import…form、import()区别
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/05/30/计算机网络/Hosts文件/" rel="prev" title="Hosts文件">
+                  Hosts文件 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-模块化进程"><span class="nav-text">JS-模块化进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原始的开发方式"><span class="nav-text">原始的开发方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CommonJs"><span class="nav-text">CommonJs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景、加载方式"><span class="nav-text">使用场景、加载方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子-1"><span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要两个命令"><span class="nav-text">主要两个命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AMD"><span class="nav-text">AMD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景、加载方式-1"><span class="nav-text">使用场景、加载方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子-2"><span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要有4个命令"><span class="nav-text">主要有4个命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMD"><span class="nav-text">CMD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景、加载方式-2"><span class="nav-text">使用场景、加载方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子-3"><span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要有4个命令-1"><span class="nav-text">主要有4个命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UMD"><span class="nav-text">UMD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子-4"><span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Es6Module"><span class="nav-text">Es6Module</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意的几个点"><span class="nav-text">注意的几个点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要有两个命令"><span class="nav-text">主要有两个命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载方式"><span class="nav-text">加载方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#浏览器加载"><span class="nav-text">浏览器加载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名词区别"><span class="nav-text">名词区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载方式-区别"><span class="nav-text">加载方式 区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#import、require、import-区别"><span class="nav-text">import、require、import()区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时加载、编译时加载区别"><span class="nav-text">运行时加载、编译时加载区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行时加载"><span class="nav-text">运行时加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译时加载"><span class="nav-text">编译时加载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

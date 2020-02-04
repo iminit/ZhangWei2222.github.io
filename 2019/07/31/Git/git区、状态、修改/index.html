@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="四个工作区工作区我们平时存放项目代码的地方，但是是指受Git控制的，被Git跟踪记录的文件 暂存区类似缓存区域，临时保存文件 本地仓库连接本地代码和远程代码的枢纽，不能联网时本地代码可以先提到本地仓库；或叫版本（.git），HEAD指向最新放入仓库的版本 远程仓库托管代码的服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git区、状态、修改">
+<meta property="og:url" content="http://yoursite.com/2019/07/31/Git/git区、状态、修改/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="四个工作区工作区我们平时存放项目代码的地方，但是是指受Git控制的，被Git跟踪记录的文件 暂存区类似缓存区域，临时保存文件 本地仓库连接本地代码和远程代码的枢纽，不能联网时本地代码可以先提到本地仓库；或叫版本（.git），HEAD指向最新放入仓库的版本 远程仓库托管代码的服务器">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s11.mogucdn.com/mlcdn/c45406/190731_4j8i0gi2ijj9bclbja540896lae54_798x388.png">
+<meta property="og:image" content="https://s11.mogucdn.com/mlcdn/c45406/190731_37a9def9c890ceca88kh1d7501fd3_787x412.png">
+<meta property="og:updated_time" content="2020-02-04T04:55:16.947Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git区、状态、修改">
+<meta name="twitter:description" content="四个工作区工作区我们平时存放项目代码的地方，但是是指受Git控制的，被Git跟踪记录的文件 暂存区类似缓存区域，临时保存文件 本地仓库连接本地代码和远程代码的枢纽，不能联网时本地代码可以先提到本地仓库；或叫版本（.git），HEAD指向最新放入仓库的版本 远程仓库托管代码的服务器">
+<meta name="twitter:image" content="https://s11.mogucdn.com/mlcdn/c45406/190731_4j8i0gi2ijj9bclbja540896lae54_798x388.png">
+  <link rel="canonical" href="http://yoursite.com/2019/07/31/Git/git区、状态、修改/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>git区、状态、修改 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/Git/git区、状态、修改/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">git区、状态、修改
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-31 09:17:37" itemprop="dateCreated datePublished" datetime="2019-07-31T09:17:37+08:00">2019-07-31</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="四个工作区"><a href="#四个工作区" class="headerlink" title="四个工作区"></a>四个工作区</h2><h4 id="工作区"><a href="#工作区" class="headerlink" title="工作区"></a>工作区</h4><p>我们平时存放项目代码的地方，但是是指受Git控制的，被Git跟踪记录的文件</p>
+<h4 id="暂存区"><a href="#暂存区" class="headerlink" title="暂存区"></a>暂存区</h4><p>类似缓存区域，临时保存文件</p>
+<h4 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h4><p>连接本地代码和远程代码的枢纽，不能联网时本地代码可以先提到本地仓库；或叫版本（.git），HEAD指向最新放入仓库的版本</p>
+<h4 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h4><p>托管代码的服务器</p>
+<a id="more"></a>
+
+<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><h4 id="未跟踪"><a href="#未跟踪" class="headerlink" title="未跟踪"></a>未跟踪</h4><p>未跟踪的文件改动不受到Git的版本控制</p>
+<p>在工作区新加入一个文件时，是处于未跟踪状态的，需要add 将其加入跟踪，并同时放在暂存区</p>
+<p>初次克隆某个仓库时，工作区中的所有文件都是已跟踪且未修改的状态</p>
+<h4 id="已跟踪"><a href="#已跟踪" class="headerlink" title="已跟踪"></a>已跟踪</h4><p>被纳入版本控制的文件，又分</p>
+<ol>
+<li>未修改（unmodified）</li>
+<li>已修改（modified）</li>
+<li>已暂存（staged）</li>
+<li>已提交(Committed)</li>
+<li>已推送(Pushed)</li>
+</ol>
+<h2 id="代码提交和同步流程"><a href="#代码提交和同步流程" class="headerlink" title="代码提交和同步流程"></a>代码提交和同步流程</h2><p><img src="https://s11.mogucdn.com/mlcdn/c45406/190731_4j8i0gi2ijj9bclbja540896lae54_798x388.png" alt="image"></p>
+<ol>
+<li>文件增删改，变为 已修改状态</li>
+<li>git add，变为 已暂存状态<ol>
+<li>git add . 暂存所有更改的文件</li>
+<li>git add [指定的文件]</li>
+</ol>
+</li>
+<li>git commit，变为 已提交状态<ol>
+<li>git commit -m ‘[描述]’</li>
+<li>git commit -m ` [描述]\n[描述]\n[描述]`</li>
+<li>git commit -am 不需要写add,会直接把已跟踪的文件一起推到暂存区（注意：不适用于未被git跟踪的）</li>
+</ol>
+</li>
+<li>git push，变为已推送状态<ol>
+<li>git push -u origin 本地分支 远程分支 第一次要关联上</li>
+<li>git push 之后直接push</li>
+<li>git branch 查看本地仓库分支</li>
+<li>git branch -a  查看本地仓库和本地远程仓库(远程仓库的本地镜像)的所有分支</li>
+</ol>
+</li>
+</ol>
+<h2 id="五种状态间的撤销更改"><a href="#五种状态间的撤销更改" class="headerlink" title="五种状态间的撤销更改"></a>五种状态间的撤销更改</h2><p><img src="https://s11.mogucdn.com/mlcdn/c45406/190731_37a9def9c890ceca88kh1d7501fd3_787x412.png" alt="image"></p>
+<h4 id="已修改，但未暂存（未git-add）"><a href="#已修改，但未暂存（未git-add）" class="headerlink" title="已修改，但未暂存（未git add）"></a>已修改，但未暂存（未git add）</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git diff 列出所有修改</span><br><span class="line">git diff [指定文件的修改]</span><br><span class="line">git checkout . 撤销工作区的所有修改</span><br><span class="line">git checkout [撤销工作区指定文件的修改]</span><br><span class="line">git clean -f 撤销新增的未跟踪文件</span><br><span class="line">git clean -df 撤销新增的未跟踪文件和文件夹</span><br></pre></td></tr></table></figure>
+
+<h4 id="已暂存，未提交（git-add了，未git-commit）"><a href="#已暂存，未提交（git-add了，未git-commit）" class="headerlink" title="已暂存，未提交（git add了，未git commit）"></a>已暂存，未提交（git add了，未git commit）</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git diff --cached 查看暂存区和本地仓库的差异</span><br><span class="line">git reset (--soft) 回退到已修改状态，内容还在工作区</span><br><span class="line">git reset --hard 回退到未修改状态，清空所有的修改</span><br></pre></td></tr></table></figure>
+
+<h4 id="已提交，未推送（git-commit了，未git-push）"><a href="#已提交，未推送（git-commit了，未git-push）" class="headerlink" title="已提交，未推送（git commit了，未git push）"></a>已提交，未推送（git commit了，未git push）</h4><p>commit后，仓库中会生成版本号(hash值)，标志这次的提交。之后可以按照版本会进行控制</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git diff [分支1] [分支2] 查看两个分支的差异</span><br><span class="line">git diff 本地仓库分支名 origin/远程仓库分支名 查看本地仓库和本地远程仓库的差异</span><br><span class="line">git reset (--soft) 回退到已修改状态，修改还在工作区</span><br><span class="line">git reset --hard HEAD^ 回退到本地仓库上一个版本（可以说是修改全没了）</span><br><span class="line">git reset --hard [hash值] 回退到任意版本</span><br><span class="line">git reset --hard origin/远程仓库分支名 回退到与本地远程仓库一致</span><br></pre></td></tr></table></figure>
+
+<h4 id="已推送到远程"><a href="#已推送到远程" class="headerlink" title="已推送到远程"></a>已推送到远程</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push -f origin 远程仓库分支名（慎用） 强制覆盖远程分支</span><br><span class="line">git push -f 如果关联过，可以忽略分支名（慎用）</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm 物理上的删除，版本库还未删除</span><br><span class="line">git rm 工作区和版本库都删除了</span><br><span class="line">git rm --cached 工作区还在，版本库删除了。适用于不想被版本控制的文件</span><br></pre></td></tr></table></figure>
+
+<h4 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git mv test.txt TEST 把test.txt移到test</span><br><span class="line"></span><br><span class="line">实际上执行</span><br><span class="line">mv test.txt TEST</span><br><span class="line">git rm test.txt </span><br><span class="line">git add TEST</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看版本号"><a href="#查看版本号" class="headerlink" title="查看版本号"></a>查看版本号</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git log 查看提交过的版本信息，会有很多信息：作者，时间等。可以加--pretty=oneline，只会显示版本号和commit的内容</span><br><span class="line"></span><br><span class="line">git reflog 查看所有的提交记录，包括已经删掉的和reset的操作</span><br><span class="line">例如执行 git reset --hard HEAD~1，退回到上一个版本，用git log则是看不出来被删除的commitid，用git reflog则可以看到被删除的commitid，我们就可以买后悔药，恢复到被删除的那个版本</span><br></pre></td></tr></table></figure>
+
+<h4 id="恢复版本"><a href="#恢复版本" class="headerlink" title="恢复版本"></a>恢复版本</h4><p>我们恢复版本一般用reset和revert</p>
+<p>reset作用：改变HEAD的位置，可以改成之前存在的某个版本。适用于，想恢复到某个版本，那之后的版本不要了的场景。</p>
+<p>revert作用：反做。适用于，想撤销某次版本的提交，但不影响后面的版本（revert后会新建一个版本）。比如功能分支合并到主分支，功能分支发现有问题，又不能影响主分支后面的代码，就可以把它revert掉。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert -n 版本号</span><br></pre></td></tr></table></figure>
+
+<h2 id="易混淆"><a href="#易混淆" class="headerlink" title="易混淆"></a>易混淆</h2><ul>
+<li>git reset 可以作用在暂存区（git add了），可以回退到工作区；也可以作用在本地仓库（git commit了），可以回退/前进到任意版本</li>
+<li>git checkout 可以撤销工作区的修改</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/07/30/数据库/数据库-MVCC/" rel="next" title="数据库-MVCC">
+                  <i class="fa fa-chevron-left"></i> 数据库-MVCC
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/08/02/Git/Git-rebase/" rel="prev" title="Git-rebase">
+                  Git-rebase <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#四个工作区"><span class="nav-text">四个工作区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作区"><span class="nav-text">工作区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暂存区"><span class="nav-text">暂存区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地仓库"><span class="nav-text">本地仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#远程仓库"><span class="nav-text">远程仓库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态"><span class="nav-text">状态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#未跟踪"><span class="nav-text">未跟踪</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#已跟踪"><span class="nav-text">已跟踪</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码提交和同步流程"><span class="nav-text">代码提交和同步流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五种状态间的撤销更改"><span class="nav-text">五种状态间的撤销更改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#已修改，但未暂存（未git-add）"><span class="nav-text">已修改，但未暂存（未git add）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#已暂存，未提交（git-add了，未git-commit）"><span class="nav-text">已暂存，未提交（git add了，未git commit）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#已提交，未推送（git-commit了，未git-push）"><span class="nav-text">已提交，未推送（git commit了，未git push）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#已推送到远程"><span class="nav-text">已推送到远程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#删除"><span class="nav-text">删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动"><span class="nav-text">移动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看版本号"><span class="nav-text">查看版本号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#恢复版本"><span class="nav-text">恢复版本</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#易混淆"><span class="nav-text">易混淆</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">297</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">834k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">12:38</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
