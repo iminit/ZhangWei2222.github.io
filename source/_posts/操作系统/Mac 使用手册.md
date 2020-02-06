@@ -2,7 +2,7 @@
 title: Mac 使用手册
 date: 2019-10-29 18:13:47
 categories:
-- 开发
+- 操作系统
 tags:
 - Mac
 comments: false

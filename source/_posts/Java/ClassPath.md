@@ -1,0 +1,17 @@
+---
+title: Java-classpath
+date: 2020-02-06 10:55:37
+categories:
+- Java
+comments: false
+---
+
+疑问：ClassLoader 是在哪个位置上搜索 xxx.class 字节码文件的？
+
+<!-- more -->
+
+如果我们不配置环境变量 classpath ，类加载器会自动从当前路径下加载 class 字节码文件；如果配置了，就会去指定路径下加载。
+
+
+
+我们在环境变量中，可以这样配置，新加一个变量：`classpath`，值可以写成`.`，表明在当前目录下加载，如后续有需求，可以在`.;otherpath`

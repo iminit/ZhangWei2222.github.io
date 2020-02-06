@@ -1,0 +1,29 @@
+---
+title:  Java-public class 和 class的区别
+date: 2020-02-06 11:05:37
+categories:
+- Java
+comments: false
+---
+
+
+
+1. 一个java源文件当中可以定义多个class，一个class会定义生成一个xxx.class字节码文件
+
+2. 一个java源文件当中public的class不是必须的
+
+3. 一个java源文件当中定义公开的类的话，只能有一个，并且该类名称必须和java源文件名称一致。
+
+4. 每一个class当中都可以编写main方法，都可以设定程序的入口，想执行B.class中的main方法：java B，
+   想执行X.class当中的main方法：java X
+
+<!-- more -->      
+
+注意：当在命令窗口中执行java Hello，那么要求Hello.class当中必须有主方法。没有主方法会出现运行阶段的错误：
+
+```java
+D:\course\JavaProjects\02-JavaSE\day02>java Hello
+错误: 在类 B 中找不到主方法, 请将主方法定义为:
+public static void main(String[] args)
+```
+
