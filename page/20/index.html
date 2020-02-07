@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/21/Vue/require.context()/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/后端知识/RPC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/11/21/Vue/require.context()/" class="post-title-link" itemprop="url">Vue-页面需要引入多个组件技巧</a>
+            <a href="/2019/11/27/后端知识/RPC/" class="post-title-link" itemprop="url">RPC</a>
           
         </h1>
 
@@ -266,7 +266,7 @@
                 
               
 
-              <time title="创建时间：2019-11-21 09:38:47" itemprop="dateCreated datePublished" datetime="2019-11-21T09:38:47+08:00">2019-11-21</time>
+              <time title="创建时间：2019-11-27 14:18:37" itemprop="dateCreated datePublished" datetime="2019-11-27T14:18:37+08:00">2019-11-27</time>
             </span>
           
             
@@ -289,7 +289,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/后端知识/" itemprop="url" rel="index"><span itemprop="name">后端知识</span></a></span>
 
                 
                 
@@ -308,7 +308,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>373</span>
+              <span>699</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -331,138 +331,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>场景：页面需要引入多个组件</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> files = <span class="built_in">require</span>.context(<span class="string">'@/components/home'</span>, <span class="literal">false</span>, /\.vue$/)</span><br><span class="line"><span class="keyword">const</span> modules = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFloorConfigName</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> path.match(<span class="regexp">/([\w-]+)\.vue/</span>)[<span class="number">1</span>];</span><br><span class="line">&#125; <span class="comment">//([\w-]+) ： 匹配数字和字母下划线，中划线的多个字符</span></span><br><span class="line"></span><br><span class="line">files.keys().forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  modules[getFloorConfigName(key)] = files(key).default || files(key)</span><br><span class="line">&#125;)</span><br><span class="line">components:modules</span><br></pre></td></tr></table></figure>
-
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/20/TypeScript/Node+TypeScript 项目/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/11/20/TypeScript/Node+TypeScript 项目/" class="post-title-link" itemprop="url">Node+TypeScript 项目</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-20 18:35:47" itemprop="dateCreated datePublished" datetime="2019-11-20T18:35:47+08:00">2019-11-20</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
-              </span>
-            </div>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/TypeScript/" itemprop="url" rel="index"><span itemprop="name">TypeScript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>288</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在 Node+TypeScript 项目中，自己新建了一个分支，尝试把js文件改成ts文件。发现了几个有趣的地方：</p><ol>
-<li>ts文件使用<code>import</code>引入外部资源，js文件使用<code>require</code>：<code>node.js module</code>是<code>commonjs</code> ，<code>ts</code> 一般推荐使用<code>es6</code> 规范</li>
-<li><code>Argument of type &#39;any&#39; is not assignable to parameter of type &#39;never&#39;.</code>一般出现在数组报错，需要给数组定义类型</li>
-</ol>
+          <h3 id="什么是RPC"><a href="#什么是RPC" class="headerlink" title="什么是RPC"></a>什么是RPC</h3><p>RPC(Remote Procedure Call：远程过程调用)：一种进程间通信方式，允许像调用本地服务一样调用远程服务。</p>
+<p>RPC框架负责屏蔽底层的传输方式（TCP或者UDP）、序列化方式（XML/JSON/二进制）和通信细节。主要目标就是让远程服务调用更简单、透明。开发人员在使用的时候只需要了解谁在什么位置提供了什么样的远程服务接口即可，并不需要关心底层通信细节和调用过程。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/11/20/TypeScript/Node+TypeScript 项目/#more" rel="contents">
+              <a class="btn" href="/2019/11/27/后端知识/RPC/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -493,7 +367,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/20/Git/在一台电脑使用两个github账号/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/后端知识/Redis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -507,7 +381,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/11/20/Git/在一台电脑使用两个github账号/" class="post-title-link" itemprop="url">在一台电脑使用两个github账号</a>
+            <a href="/2019/11/25/后端知识/Redis/" class="post-title-link" itemprop="url">Redis</a>
           
         </h1>
 
@@ -523,7 +397,7 @@
                 
               
 
-              <time title="创建时间：2019-11-20 18:13:37" itemprop="dateCreated datePublished" datetime="2019-11-20T18:13:37+08:00">2019-11-20</time>
+              <time title="创建时间：2019-11-25 16:12:37" itemprop="dateCreated datePublished" datetime="2019-11-25T16:12:37+08:00">2019-11-25</time>
             </span>
           
             
@@ -535,7 +409,7 @@
                 </span>
             <div style="display: none">
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
               </span>
             </div>
             
@@ -546,7 +420,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/后端知识/" itemprop="url" rel="index"><span itemprop="name">后端知识</span></a></span>
 
                 
                 
@@ -565,7 +439,267 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>2k</span>
+              <span>3.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Redis是一个key-value存储系统，数据存储在内存中，通常被称为数据结构服务器</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/11/25/后端知识/Redis/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/计算机/内存硬盘寄存器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/25/计算机/内存硬盘寄存器/" class="post-title-link" itemprop="url">内存硬盘寄存器</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-25 14:40:37" itemprop="dateCreated datePublished" datetime="2019-11-25T14:40:37+08:00">2019-11-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机/" itemprop="url" rel="index"><span itemprop="name">计算机</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>466</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="内存与硬盘的区别"><a href="#内存与硬盘的区别" class="headerlink" title="内存与硬盘的区别"></a>内存与硬盘的区别</h3><p>CPU是处理器，是大脑和核心，内存和硬盘都是存储器，受CPU的指挥</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/11/25/计算机/内存硬盘寄存器/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/设计模式/观察者与发布订阅者模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/25/设计模式/观察者与发布订阅者模式/" class="post-title-link" itemprop="url">观察者与发布订阅者模式</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-25 11:10:47" itemprop="dateCreated datePublished" datetime="2019-11-25T11:10:47+08:00">2019-11-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.4k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -588,11 +722,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本来想着在自己本身的<code>github</code>上拉一个项目，发现没有权限，emmmm，确实，这个电脑的<code>git</code>账号用的公司的账号，当然<code>clone</code>不成功。在同一台电脑上使用多个<code>github</code>账号，这个情景以后应该会用的蛮多，所以学习了一下，下面记录：</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>介绍<strong>观察者模式</strong>与<strong>发布订阅者模式</strong>。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/11/20/Git/在一台电脑使用两个github账号/#more" rel="contents">
+              <a class="btn" href="/2019/11/25/设计模式/观察者与发布订阅者模式/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -623,7 +757,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/20/Vue/vue+ts基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/设计模式/生产者消费者模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -637,7 +771,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/11/20/Vue/vue+ts基础/" class="post-title-link" itemprop="url">vue+ts基础</a>
+            <a href="/2019/11/25/设计模式/生产者消费者模式/" class="post-title-link" itemprop="url">生产者消费者模式</a>
           
         </h1>
 
@@ -653,7 +787,7 @@
                 
               
 
-              <time title="创建时间：2019-11-20 10:24:47" itemprop="dateCreated datePublished" datetime="2019-11-20T10:24:47+08:00">2019-11-20</time>
+              <time title="创建时间：2019-11-25 11:03:47" itemprop="dateCreated datePublished" datetime="2019-11-25T11:03:47+08:00">2019-11-25</time>
             </span>
           
             
@@ -676,7 +810,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
 
                 
                 
@@ -695,7 +829,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.4k</span>
+              <span>527</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -718,141 +852,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="1、安装插件"><a href="#1、安装插件" class="headerlink" title="1、安装插件"></a>1、安装插件</h4>
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>属于面向过程编程模式的一种。产生数据-生产者，处理数据-消费者，中间还有一个缓冲区，作为一个中介，生产者把数据放入缓冲区，而消费者从缓冲区取出数据。</p>
+<p><strong>关键就是内存缓冲区为空的时候消费者必须等待，而内存缓冲区满的时候，生产者必须等待，从而达到动态平衡，</strong></p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/11/20/Vue/vue+ts基础/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/Vue/Element/表单样式更改/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/11/19/Vue/Element/表单样式更改/" class="post-title-link" itemprop="url">表单样式更改</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-19 18:22:37" itemprop="dateCreated datePublished" datetime="2019-11-19T18:22:37+08:00">2019-11-19</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
-              </span>
-            </div>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>1.5k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>记录 Element 表单样式更改</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/11/19/Vue/Element/表单样式更改/#more" rel="contents">
+              <a class="btn" href="/2019/11/25/设计模式/生产者消费者模式/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -880,7 +885,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/63/">63</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -929,7 +934,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">313</span>
+          <span class="site-state-item-count">321</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1172,7 +1177,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">839k</span>
+    <span title="站点总字数">845k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1180,7 +1185,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">12:43</span>
+    <span title="站点阅读时长">12:48</span>
   </div>
 
 </div>
