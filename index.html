@@ -687,7 +687,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/07/Java/逻辑运算符-逻辑与和短路与 区别/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/08/Java/零基础/29. while循环/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -701,7 +701,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/07/Java/逻辑运算符-逻辑与和短路与 区别/" class="post-title-link" itemprop="url">Java-逻辑与和短路与 区别</a>
+            <a href="/2020/02/08/Java/零基础/29. while循环/" class="post-title-link" itemprop="url">Java零基础-while循环</a>
           
         </h1>
 
@@ -717,7 +717,7 @@
                 
               
 
-              <time title="创建时间：2020-02-07 20:19:37 / 修改时间：20:28:04" itemprop="dateCreated datePublished" datetime="2020-02-07T20:19:37+08:00">2020-02-07</time>
+              <time title="创建时间：2020-02-08 17:20:37 / 修改时间：17:23:09" itemprop="dateCreated datePublished" datetime="2020-02-08T17:20:37+08:00">2020-02-08</time>
             </span>
           
             
@@ -749,7 +749,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>551</span>
+              <span>208</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -772,39 +772,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&amp;</td>
-<td>逻辑与</td>
-</tr>
-<tr>
-<td>|</td>
-<td>逻辑非</td>
-</tr>
-<tr>
-<td>&amp;&amp;</td>
-<td>短路与</td>
-</tr>
-<tr>
-<td>||</td>
-<td>短路非</td>
-</tr>
-</tbody></table>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/02/07/Java/逻辑运算符-逻辑与和短路与 区别/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
+          <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> j = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">while</span> (<span class="number">10</span> &gt; <span class="number">3</span>) &#123;</span><br><span class="line">    System.out.println(<span class="string">"99"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"990"</span>); <span class="comment">// 如果前面的 while 判断是 10 &gt;3 或者 true，编译器会检测到该语句永远无法执行，报错；加入循环判断改成 i &gt; j，就不会报错，因为编译器只检查语法，不执行</span></span><br></pre></td></tr></table></figure>
+
+
         
       
     </div>
@@ -830,7 +800,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/07/Java/算数运算符-单目运算符/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/08/Java/零基础/28. continue语句/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -844,7 +814,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/07/Java/算数运算符-单目运算符/" class="post-title-link" itemprop="url">Java-单目运算符</a>
+            <a href="/2020/02/08/Java/零基础/28. continue语句/" class="post-title-link" itemprop="url">Java零基础-continue语句</a>
           
         </h1>
 
@@ -860,7 +830,7 @@
                 
               
 
-              <time title="创建时间：2020-02-07 20:02:37 / 修改时间：20:19:47" itemprop="dateCreated datePublished" datetime="2020-02-07T20:02:37+08:00">2020-02-07</time>
+              <time title="创建时间：2020-02-08 16:55:37 / 修改时间：17:22:39" itemprop="dateCreated datePublished" datetime="2020-02-08T16:55:37+08:00">2020-02-08</time>
             </span>
           
             
@@ -892,7 +862,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>639</span>
+              <span>649</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -915,12 +885,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>单目运算符：++、–，下面以 ++ 为例进行分析</p>
-<p>++ 运算符可以出现在变量前，也可以出现在变量后，无论是变量前还是变量后，只要 ++ 运算结束，该变量的值一定会自加 1</p>
+          <ol>
+<li><p>continue表示：继续 / go on / 下一个</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/07/Java/算数运算符-单目运算符/#more" rel="contents">
+              <a class="btn" href="/2020/02/08/Java/零基础/28. continue语句/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -948,7 +918,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/66/">66</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -997,7 +967,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">321</span>
+          <span class="site-state-item-count">329</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1240,7 +1210,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">845k</span>
+    <span title="站点总字数">848k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1248,7 +1218,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">12:48</span>
+    <span title="站点阅读时长">12:51</span>
   </div>
 
 </div>
