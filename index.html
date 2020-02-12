@@ -687,7 +687,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/Java/编程题/2.  乘法递归/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/Java/零基础/44. 参数传递/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -701,7 +701,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/09/Java/编程题/2.  乘法递归/" class="post-title-link" itemprop="url">Java编程题-乘法递归</a>
+            <a href="/2020/02/12/Java/零基础/44. 参数传递/" class="post-title-link" itemprop="url">Java零基础-参数传递</a>
           
         </h1>
 
@@ -717,7 +717,7 @@
                 
               
 
-              <time title="创建时间：2020-02-09 20:50:37 / 修改时间：20:52:28" itemprop="dateCreated datePublished" datetime="2020-02-09T20:50:37+08:00">2020-02-09</time>
+              <time title="创建时间：2020-02-12 20:30:37 / 修改时间：20:32:12" itemprop="dateCreated datePublished" datetime="2020-02-12T20:30:37+08:00">2020-02-12</time>
             </span>
           
             
@@ -749,7 +749,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>312</span>
+              <span>244</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -772,16 +772,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>使用递归，编写一个程序：5*4*3*2*1</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/02/09/Java/编程题/2.  乘法递归/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
+          <p>方法调用的时候，涉及到参数传递的问题，传递的时候，Java 只遵循一种语法机制：<strong>将变量中保存的值传递过去，或字面值，或某个对象的内存地址</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> j = i; <span class="comment">//i传递给j，实际上只是将i变量中保存的10传递给j了，j实际上是一块全新的内存空间。</span></span><br><span class="line"></span><br><span class="line">User u = <span class="number">0x1234</span>;</span><br><span class="line">User u2 = u; <span class="comment">//u传递给u2，实际上是将0x1234这个值赋值给u2了，u和u2实际上是两个不同的局部变量，</span></span><br><span class="line"><span class="comment">//但是它们这两个变量指向堆内存中同一个java对象。</span></span><br></pre></td></tr></table></figure>
+
+
         
       
     </div>
@@ -807,7 +801,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/09/Java/编程题/1. 找素数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/Java/零基础/43. 构造方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -821,7 +815,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/09/Java/编程题/1. 找素数/" class="post-title-link" itemprop="url">Java编程题-找素数</a>
+            <a href="/2020/02/12/Java/零基础/43. 构造方法/" class="post-title-link" itemprop="url">Java零基础-构造方法</a>
           
         </h1>
 
@@ -837,7 +831,7 @@
                 
               
 
-              <time title="创建时间：2020-02-09 20:40:37 / 修改时间：20:52:36" itemprop="dateCreated datePublished" datetime="2020-02-09T20:40:37+08:00">2020-02-09</time>
+              <time title="创建时间：2020-02-12 20:02:37 / 修改时间：20:30:15" itemprop="dateCreated datePublished" datetime="2020-02-12T20:02:37+08:00">2020-02-12</time>
             </span>
           
             
@@ -869,7 +863,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.1k</span>
+              <span>1.2k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -892,12 +886,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li><p>编写 for 循环找出 1~100 中所有的素数【素数：又被称为质数，能够被1和自身整除，不能被其他数字整除的数字】</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>构造器又称为 构造函数 / 构造器 / constructor</p>
+<blockquote>
+<p>[修饰符列表] 构造方法名（形式参数列表） {<br>    构造方法体；<br>}</p>
+</blockquote>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/09/Java/编程题/1. 找素数/#more" rel="contents">
+              <a class="btn" href="/2020/02/12/Java/零基础/43. 构造方法/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -925,7 +921,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -974,7 +970,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">339</span>
+          <span class="site-state-item-count">349</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1053,7 +1049,9 @@
         
           
         
-        <span class="site-state-item-count">32</span>
+          
+        
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -1217,7 +1215,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">853k</span>
+    <span title="站点总字数">872k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1225,7 +1223,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">12:55</span>
+    <span title="站点阅读时长">13:13</span>
   </div>
 
 </div>
