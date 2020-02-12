@@ -37,7 +37,7 @@ comments: false
 - [oh-my-zsh](https://www.jianshu.com/p/9c3439cc3bdb)（iterm2主题，高亮等，更美观）
 - vscode
   - [vscode 插件](https://blog.csdn.net/shenxianhui1995/article/details/81604818)
-  - [eslint + prettier](https://wiki.n.miui.com/pages/viewpage.action?pageId=177314186)
+  - eslint + prettier
     - 定义了变量并且使用了，但是eslint还是报未使用的错，可以在声明变量的当前行加上一条注释 `// eslint-disable-line no-unused-vars`
   - [Ts-node](https://cloud.tencent.com/developer/article/1499075)：实现ts自动编译，又没有产生js文件
 - git

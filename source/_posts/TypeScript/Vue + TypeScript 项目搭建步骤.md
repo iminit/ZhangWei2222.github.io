@@ -231,10 +231,11 @@ module: {
 
 ```json
 {
-  "extends": "tslint-config-standard",
-  "globals": {
-    "require": true
-  }
+    "extends": "tslint-config-standard",
+    "globals": {
+        "require": true
+    },
+    "defaultSeverity": "none" // 关掉 tslint，不然老是报错，好像现在 tslint 已经交给 eslint 来做，tslint 已经不维护了。注意配置后，要重新 run 才会生效
 }
 ```
 
@@ -354,6 +355,342 @@ export default new Vue({
 ### npm run dev
 
 这个时候应该 毛闷题 了！
+
+
+
+### 支持 es6 / es7
+
+在 `tsconfig.json`中，添加对`es6 / es7`的支持，更多的配置请见[tsconfig - 编译选项](https://tslang.cn/docs/handbook/compiler-options.html)
+
+```json
+"lib": [
+    "dom",
+    "es5",
+    "es6",
+    "es7",
+    "es2015.promise"
+]
+```
+
+
+
+### 接入 Vuex
+
+1. 安装 Vuex 
+
+   ```shell
+   npm i vuex vuex-class --save
+   ```
+   
+   - **vuex-class** ：在 vue-class-component 写法中 绑定 vuex
+
+2. 在 src 目录下，新建一个 `store` 目录，在目录下新建一个 `index.ts`，配置和之前写法一样
+
+   ```ts
+   import Vue from "vue";
+   import Vuex from "vuex";
+   
+   Vue.use(Vuex);
+   
+   const store = new Vuex.Store({
+     strict: true,
+     state: {
+       count: 1
+     },
+     getters: {
+       getStateCount(state) {
+         return state.count + 1;
+       }
+     },
+     mutations: {
+       add(state) {
+         state.count = state.count + 1;
+       },
+       reduction(state) {
+         state.count = state.count - 1;
+       }
+     },
+     actions: {
+       addFun(context) {
+         context.commit("add");
+       },
+       reductionFun(context) {
+         context.commit("reduction");
+       }
+     }
+     // modules: { a: moduleA, b: moduleB }
+   });
+   
+   export default store;
+   ```
+
+3. 在 `main.ts` 引入
+
+   ```ts
+   import Vue from "vue";
+   import App from "./App.vue"; 
+   import store from "./store"; // 添加
+   
+   Vue.config.productionTip = false;
+   
+   /* eslint-disable no-new */
+   export default new Vue({
+     el: "#app",
+     router,
+     store, // 添加
+     components: { App },
+     template: "<App/>"
+   });
+   
+   ```
+
+
+
+
+#### 引用例子
+
+```ts
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import {
+    State,
+    Getter,
+    Action,
+    Mutation,
+    namespace
+} from 'vuex-class'
+
+const ModuleGetter = namespace('path/to/module', Getter)
+
+@Component
+export class MyComp extends Vue {
+    @State('foo') stateFoo
+    @State(state => state.bar) stateBar
+    @Getter('foo') getterFoo
+    @Action('foo') actionFoo
+    @Mutation('foo') mutationFoo
+    @ModuleGetter('foo') moduleGetterFoo
+
+    // If the argument is omitted, use the property name
+    // for each state/getter/action/mutation type
+    @State foo
+    @Getter bar
+    @Action baz
+    @Mutation qux
+
+    created () {
+        this.stateFoo // -> store.state.foo
+        this.stateBar // -> store.state.bar
+        this.getterFoo // -> store.getters.foo
+        this.actionFoo({ value: true }) // -> store.dispatch('foo', { value: true })
+        this.mutationFoo({ value: true }) // -> store.commit('foo', { value: true })
+        this.moduleGetterFoo // -> store.getters['path/to/module/foo']
+    }
+}
+```
+
+
+
+### 接入 SCSS
+
+1. 安装
+
+   ```shell
+   npm install node-sass --save-dev
+   npm install sass-loader --save-dev
+   ```
+
+2. 在 `./build/webpack.base.conf.js` 的 `module` 添加如下模块
+   
+
+    ```json
+    {
+      test: /\.scss$/,
+      loaders: ["style", "css", "sass"]
+    }
+    ```
+
+安装后，运行时报错
+
+> Modele build failed: TypeError: this.getResolve is not a function at Object.loader...
+
+这是因为当前sass的版本太高，webpack编译时出现了错误，这个时候只需要换成低版本的就行，很简单，如下，找到 `package.json` 文件，里面的 "sass-loader"的版本更换掉就行了。
+
+可以将 **"sass-loader": "^8.0.0"，更换成 "sass-loader": "^7.3.1"**，最后重新 run 以下就好了
+
+
+
+### 接入 Axios
+
+1. 安装
+
+   ```shell
+   npm install --save axios vue-axios
+   ```
+   
+2. `main.ts`引入
+
+   ```ts
+   import Vue from "vue";
+   import axios from "axios"; // 添加
+   import VueAxios from "vue-axios"; // 添加
+   import App from "./App.vue";
+   import router from "./router/index";
+   import store from "./store";
+   
+   Vue.use(VueAxios, axios); // 添加
+   Vue.config.productionTip = false;
+   
+   /* eslint-disable no-new */
+   export default new Vue({
+     el: "#app",
+     router,
+     store,
+     components: { App },
+     template: "<App/>"
+   });
+   
+   ```
+
+`Axios` 是一个库，并不是 vue 中的第三方插件，使用时不能通过 `Vue.use()` 安装插件
+
+在 `mian.js` 中引用 `axios，vue-axios`，通过全局方法 `Vue.use() `使用插件，就相当于调用 `install` 方法
+
+
+
+### 接入 Element
+
+1. 安装
+
+   ```shell
+   npm i element-ui -S
+   ```
+   
+2. `main.ts`
+
+   ```ts
+   import Vue from "vue";
+   import ElementUI from "element-ui"; // 添加
+   import "element-ui/lib/theme-chalk/index.css"; // 添加
+   import App from "./App.vue";
+   
+   Vue.use(ElementUI); // 添加
+   Vue.config.productionTip = false;
+   
+   /* eslint-disable no-new */
+   export default new Vue({
+     el: "#app",
+     router,
+     store,
+     components: { App },
+     template: "<App/>"
+   });
+   
+   ```
+
+   
+
+### 接入 Express + NodeJs
+
+1. 安装
+
+    ```shell
+    npm install express cors body-parser mysql
+    ```
+
+2. 新建一个 `server.ts`
+
+    ```ts
+    "use strict";
+    /* 引入express框架 */
+    const express = require("express");
+    const app = express();
+    
+    /* 引入cors */
+    const cors = require("cors");
+    app.use(cors());
+    
+    /* 引入body-parser */
+    const bodyParser = require("body-parser");
+    app.use(bodyParser.json());
+    app.use(
+      bodyParser.urlencoded({
+        extended: false
+      })
+    );
+    
+    /* 引入mysql */
+    const mysql = require("mysql");
+    const conn = mysql.createConnection({
+      host: "101.133.132.172",
+      user: "root",
+      password: "123456",
+      database: "hostel",
+      multipleStatements: true
+    });
+    conn.connect();
+    
+    /* 监听端口 */
+    app.listen(4444, () => {
+      console.log("——————————服务已启动——————————");
+    });
+    
+    app.get("/", (req, res) => {
+      res.send('<p style="color:red">服务已启动</p>');
+    });
+    ```
+
+
+
+### 使用 nodemon 热加载 NodeJs文件
+
+```shell
+npm install -g  nodemon
+```
+
+安装后只要`nodemon server.ts`即可
+
+运行时，发现有报错，需要安装一个`@type/node`，以及在 `tsconfig.json` 的`compilerOptions`配置`"types": ["node"]`，跟着提示走就好了。
+
+但是可能还会报：
+> Type error: Cannot compile namespaces when the '--isolatedModules' flag is provided.
+
+那么，在 `tsconfig.json` 的`compilerOptions`配置`"isolatedModules": false`，就没问题
+
+
+
+### 取消 eslint 校验
+
+实在是烦...先取消了
+
+在根目录创建`vue.config.js`
+
+```js
+module.exports = {
+  lintOnSave: false
+}
+```
+
+
+
+### 统一代码格式
+
+为了快速编码，决定启用 保存后自动格式化，需要在 `首选项-设置` 添加
+
+```json
+// #每次保存的时候自动格式化
+"editor.formatOnSave": true,
+```
+
+这里有个坑，之前开启了 eslint 校验，又开了 prettier ，vetur，导致格式化和报错一直打架，因为方便完成自己的毕设，所以关掉了 eslint，但是格式化又在打架，查阅，发现 prettier 在存在 vetur 的前提下，并不生效，所以我决定把 prettier 先关掉！
+
+下面只要注重 Vetur 的配置就好了，同样在 `首选项-设置`  找  `Vetur`，想要改啥配置，百度一下吧~
+
+#### 查阅资料
+
+[vscode中eslint插件的配置（prettier配置无效）](https://www.jb51.net/article/169682.htm)
+
+[使用ESLint+Prettier来统一前端代码风格](https://segmentfault.com/a/1190000015315545)
 
 
 
@@ -500,3 +837,8 @@ export default {
 ## 参考链接
 
 [vue + typescript 项目起手式](https://segmentfault.com/a/1190000011744210)
+
+[vue + typescript 进阶篇](https://segmentfault.com/a/1190000011878086)
+
+
+
