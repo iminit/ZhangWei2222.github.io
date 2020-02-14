@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/vue的v-if与v-show/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/Vue2.0组件之间通信/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/vue的v-if与v-show/" class="post-title-link" itemprop="url">vue的v-if与v-show</a>
+            <a href="/2017/09/09/Vue/Vue2.0组件之间通信/" class="post-title-link" itemprop="url">Vue2.0组件之间通信</a>
           
         </h1>
 
@@ -308,7 +308,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>819</span>
+              <span>2.5k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -318,7 +318,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
           
 
@@ -331,11 +331,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-共同点"><a href="#1-共同点" class="headerlink" title="1.共同点"></a>1.共同点</h3><p>都是动态显示DOM元素</p><h3 id="2-区别"><a href="#2-区别" class="headerlink" title="2.区别"></a>2.区别</h3><p>（1）手段：v-if是动态的向DOM树内添加或者删除DOM元素；v-show是通过设置DOM元素的display样式属性控制显隐；</p><p>（2）编译过程：v-if切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；v-show只是简单的基于css切换；</p>
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;app&apos;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/vue的v-if与v-show/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/Vue2.0组件之间通信/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -366,7 +366,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/split,formatDate,store,util组件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/商家页面seller.vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -380,7 +380,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/饿了么教程/split,formatDate,store,util组件/" class="post-title-link" itemprop="url">split,formatDate,store,util组件</a>
+            <a href="/2017/09/09/Vue/饿了么教程/商家页面seller.vue/" class="post-title-link" itemprop="url">商家页面seller.vue</a>
           
         </h1>
 
@@ -438,7 +438,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>4.6k</span>
+              <span>11k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -448,7 +448,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>4 分钟</span>
+              <span>10 分钟</span>
             </span>
           
 
@@ -461,11 +461,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="split组件-vue-的代码"><a href="#split组件-vue-的代码" class="headerlink" title="split组件(vue)的代码"></a>split组件(vue)的代码</h3><p>split组件因为常使用,所以单独独立出来,并且结构相当简单.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;split&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang=&quot;stylus&quot; rel=&quot;stylesheet/stylus&quot;&gt;</span><br><span class="line">  .split</span><br><span class="line">    width: 100%</span><br><span class="line">    height: 16px</span><br><span class="line">    border-top: 1px solid rgba(7, 17, 27, 0.1)</span><br><span class="line">    border-bottom: 1px solid rgba(7, 17, 27, 0.1)</span><br><span class="line">    background: #f3f5f7</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+          <h3 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h3><p>html代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;seller&quot; ref=&quot;seller&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;seller-content&quot;&gt;</span><br><span class="line">      &lt;!--overview部分--&gt;</span><br><span class="line">      &lt;div class=&quot;overview&quot;&gt;</span><br><span class="line">    </span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;split&gt;&lt;/split&gt;</span><br><span class="line">      &lt;!--bulltin部分--&gt;</span><br><span class="line">      &lt;div class=&quot;bulletin&quot;&gt;</span><br><span class="line">    </span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;split&gt;&lt;/split&gt;</span><br><span class="line">      &lt;!--pics部分--&gt;</span><br><span class="line">      &lt;div class=&quot;pics&quot;&gt;</span><br><span class="line">    </span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;split&gt;&lt;/split&gt;</span><br><span class="line">      &lt;!--info部分--&gt;</span><br><span class="line">      &lt;div class=&quot;info&quot;&gt;</span><br><span class="line">    </span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/饿了么教程/split,formatDate,store,util组件/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/饿了么教程/商家页面seller.vue/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -496,7 +496,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/vue动画效果配置和弹层css sticky footer/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/头部组件header.vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -510,7 +510,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/饿了么教程/vue动画效果配置和弹层css sticky footer/" class="post-title-link" itemprop="url">vue动画效果配置和弹层css sticky footer</a>
+            <a href="/2017/09/09/Vue/饿了么教程/头部组件header.vue/" class="post-title-link" itemprop="url">头部组件header.vue</a>
           
         </h1>
 
@@ -568,7 +568,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>3.6k</span>
+              <span>14k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -578,7 +578,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>3 分钟</span>
+              <span>13 分钟</span>
             </span>
           
 
@@ -591,18 +591,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="vue动画效果配置"><a href="#vue动画效果配置" class="headerlink" title="vue动画效果配置"></a>vue动画效果配置</h3><p>有两种方式:</p><ul>
-<li>一种是css方式<br>需要注意 4 个(CSS)类名在 enter/leave 的过渡中切换:</li>
-</ul><ol>
-<li>v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。</li>
-<li>v-enter-active: 定义进入过渡的结束状态。在元素被插入时生效，在 transition/animation 完成之后移除。</li>
-<li>v-leave: 定义离开过渡的开始状态。在离开过渡被触发时生效，在下一个帧移除。</li>
-<li>v-leave-active: 定义离开过渡的结束状态。在离开过渡被触发时生效，在 transition/animation 完成之后移除。</li>
-</ol>
+          <ul>
+<li>弹层制作 vue动画效果配置和弹层css sticky footer原理<ul>
+<li>使用css sticky footer技术</li>
+<li>vue的v-for遍历</li>
+<li>vue的v-show和事件监听</li>
+<li>vue动画处理</li>
+</ul>
+</li>
+<li>header和公告栏制作<ul>
+<li>text-overflow:ellipsis的使用</li>
+<li>font-size:0和vertical-align的使用</li>
+<li>mixin的运用 stylus相关和1像素边框问题</li>
+<li>背景图片的虚化</li>
+<li>flex布局的使用</li>
+</ul>
+</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/饿了么教程/vue动画效果配置和弹层css sticky footer/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/饿了么教程/头部组件header.vue/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -633,7 +642,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/stylus相关和1像素边框问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/商品区域goods.vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -647,7 +656,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/饿了么教程/stylus相关和1像素边框问题/" class="post-title-link" itemprop="url">stylus相关和1像素边框问题</a>
+            <a href="/2017/09/09/Vue/饿了么教程/商品区域goods.vue/" class="post-title-link" itemprop="url">商品区域goods.vue</a>
           
         </h1>
 
@@ -705,7 +714,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>4.2k</span>
+              <span>13k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -715,7 +724,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>4 分钟</span>
+              <span>11 分钟</span>
             </span>
           
 
@@ -728,11 +737,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1像素边框问题"><a href="#1像素边框问题" class="headerlink" title="1像素边框问题"></a>1像素边框问题</h3><p>1像素边框问题其实就是Dpr的比例问题,例如 Retina屏设置1px边框，实际显示2px,因为Dpr是2,所以会显示为2px</p><p>目前这里用的是伪元素 + transform 实现:</p><p>伪元素:总结伪类与伪元素</p>
+          <p>2017-09-09<br>技术点:</p><ul>
+<li>定义了2个wrapper,分别是menu-wrapper和foods-wrapper,对应当前页面的架构,左右两边的区域</li>
+<li>v-if和v-show的选择使用</li>
+<li>v-for传递索引</li>
+<li>vue传递原生事件$event</li>
+<li>使用stylus的mixin处理一些border和img的问题</li>
+<li>建立menu区域和foods区域的Y坐标对应关系,实现滚动foods区域会显示相应的menu区域,点击某个menu区域就显示某个固定的foods区域</li>
+<li>flex布局的使用,实现foods区域的布局</li>
+<li>技巧类:对一些需要js操作的class(但是又没有实际用途的)可以建立一个类似food-list-hook钩子类</li>
+<li>font-size为0的技术点,处理行内元素的间隙问题</li>
+<li>vue的$nextTick使用</li>
+<li>vue的$refs的使用</li>
+<li>vue的computed属性使用</li>
+<li>vue的class绑定使用</li>
+<li>在一些地方里面,使用table的垂直居中会很简单实现垂直居中</li>
+<li>better-scroll的使用</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/饿了么教程/stylus相关和1像素边框问题/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/饿了么教程/商品区域goods.vue/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -763,7 +788,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/Vue2.0子父组件通信/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/评价列表ratings组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -777,7 +802,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/Vue2.0子父组件通信/" class="post-title-link" itemprop="url">Vue2.0子父组件通信</a>
+            <a href="/2017/09/09/Vue/饿了么教程/评价列表ratings组件/" class="post-title-link" itemprop="url">评价列表ratings组件</a>
           
         </h1>
 
@@ -835,7 +860,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>612</span>
+              <span>10k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -845,7 +870,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>9 分钟</span>
             </span>
           
 
@@ -858,17 +883,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一-父组件向子组件传值"><a href="#一-父组件向子组件传值" class="headerlink" title="一.父组件向子组件传值"></a>一.父组件向子组件传值</h3><ol>
-<li>创建子组件，在src/components/文件夹下新建一个Child.vue</li>
-<li>Child.vue的中创建props，然后创建一个名为message的属性</li>
-<li>在App.vue中注册Child组件，并在template中加入child标签，标签中添加message属性并赋值</li>
-<li>保存修改的文件，查看浏览器</li>
-<li>我们依然可以对message的值进行v-bind动态绑定</li>
-</ol>
+          <p>需要注意的是main.js里面需要取消vue-router的默认路由,src/main.js的router.replace(‘/goods’);需要去掉</p><p>原因是在添加了其他页面(原来路由只有一个页面goods,现在多了页面ratings)之后,在浏览器加载页面的时候:</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/Vue2.0子父组件通信/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/饿了么教程/评价列表ratings组件/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -896,7 +915,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/62/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/62/">62</a><span class="page-number current">63</span><a class="page-number" href="/page/64/">64</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/64/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/62/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/62/">62</a><span class="page-number current">63</span><a class="page-number" href="/page/64/">64</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/64/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -945,7 +964,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">349</span>
+          <span class="site-state-item-count">353</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1190,7 +1209,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">872k</span>
+    <span title="站点总字数">876k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1198,7 +1217,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">13:13</span>
+    <span title="站点阅读时长">13:16</span>
   </div>
 
 </div>
