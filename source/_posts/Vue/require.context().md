@@ -10,6 +10,9 @@ comments: false
 
 ```js
 const files = require.context('@/components/home', false, /\.vue$/)
+// 在 ts 文件中报错：Property 'context' does not exist on type 'NodeRequire'.  
+// 改成：require['context']() 即可
+
 const modules = {}
 
 function getFloorConfigName(path) {
@@ -19,6 +22,10 @@ function getFloorConfigName(path) {
 files.keys().forEach(key => {
   modules[getFloorConfigName(key)] = files(key).default || files(key)
 })
-components:modules
+
+conosle.log(modules)
+
+// 使用
+modules['HomePage']
 ```
 
