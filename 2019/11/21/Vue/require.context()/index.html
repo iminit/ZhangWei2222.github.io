@@ -54,17 +54,17 @@
   };
 </script>
 
-  <meta name="description" content="场景：页面需要引入多个组件 1234567891011const files = require.context(&apos;@/components/home&apos;, false, /\.vue$/)const modules = &amp;#123;&amp;#125;function getFloorConfigName(path) &amp;#123;    return path.match(/([\w-]+)\.vue/)">
+  <meta name="description" content="场景：页面需要引入多个组件 123456789101112131415161718const files = require.context(&apos;@/components/home&apos;, false, /\.vue$/)// 在 ts 文件中报错：Property &apos;context&apos; does not exist on type &apos;NodeRequire&apos;.  // 改成：require[&apos;conte">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue-页面需要引入多个组件技巧">
 <meta property="og:url" content="http://yoursite.com/2019/11/21/Vue/require.context()/index.html">
 <meta property="og:site_name" content="Wei Zhang">
-<meta property="og:description" content="场景：页面需要引入多个组件 1234567891011const files = require.context(&apos;@/components/home&apos;, false, /\.vue$/)const modules = &amp;#123;&amp;#125;function getFloorConfigName(path) &amp;#123;    return path.match(/([\w-]+)\.vue/)">
+<meta property="og:description" content="场景：页面需要引入多个组件 123456789101112131415161718const files = require.context(&apos;@/components/home&apos;, false, /\.vue$/)// 在 ts 文件中报错：Property &apos;context&apos; does not exist on type &apos;NodeRequire&apos;.  // 改成：require[&apos;conte">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-04T04:55:17.008Z">
+<meta property="og:updated_time" content="2020-02-15T06:39:54.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue-页面需要引入多个组件技巧">
-<meta name="twitter:description" content="场景：页面需要引入多个组件 1234567891011const files = require.context(&apos;@/components/home&apos;, false, /\.vue$/)const modules = &amp;#123;&amp;#125;function getFloorConfigName(path) &amp;#123;    return path.match(/([\w-]+)\.vue/)">
+<meta name="twitter:description" content="场景：页面需要引入多个组件 123456789101112131415161718const files = require.context(&apos;@/components/home&apos;, false, /\.vue$/)// 在 ts 文件中报错：Property &apos;context&apos; does not exist on type &apos;NodeRequire&apos;.  // 改成：require[&apos;conte">
   <link rel="canonical" href="http://yoursite.com/2019/11/21/Vue/require.context()/">
 
 
@@ -279,7 +279,7 @@
                 </span>
             <div style="display: none">
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+                <time title="修改时间：2020-02-15 14:39:54" itemprop="dateModified" datetime="2020-02-15T14:39:54+08:00">2020-02-15</time>
               </span>
             </div>
             
@@ -317,7 +317,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>373</span>
+              <span>514</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -341,7 +341,7 @@
 
       
         <p><strong>场景：页面需要引入多个组件</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> files = <span class="built_in">require</span>.context(<span class="string">'@/components/home'</span>, <span class="literal">false</span>, /\.vue$/)</span><br><span class="line"><span class="keyword">const</span> modules = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFloorConfigName</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> path.match(<span class="regexp">/([\w-]+)\.vue/</span>)[<span class="number">1</span>];</span><br><span class="line">&#125; <span class="comment">//([\w-]+) ： 匹配数字和字母下划线，中划线的多个字符</span></span><br><span class="line"></span><br><span class="line">files.keys().forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  modules[getFloorConfigName(key)] = files(key).default || files(key)</span><br><span class="line">&#125;)</span><br><span class="line">components:modules</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> files = <span class="built_in">require</span>.context(<span class="string">'@/components/home'</span>, <span class="literal">false</span>, /\.vue$/)</span><br><span class="line"><span class="comment">// 在 ts 文件中报错：Property 'context' does not exist on type 'NodeRequire'.  </span></span><br><span class="line"><span class="comment">// 改成：require['context']() 即可</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> modules = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFloorConfigName</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> path.match(<span class="regexp">/([\w-]+)\.vue/</span>)[<span class="number">1</span>];</span><br><span class="line">&#125; <span class="comment">//([\w-]+) ： 匹配数字和字母下划线，中划线的多个字符</span></span><br><span class="line"></span><br><span class="line">files.keys().forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  modules[getFloorConfigName(key)] = files(key).default || files(key)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">conosle.log(modules)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line">modules[<span class="string">'HomePage'</span>]</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -437,7 +437,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">353</span>
+          <span class="site-state-item-count">358</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -649,7 +649,9 @@
         
           
         
-        <span class="site-state-item-count">58</span>
+          
+        
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -682,7 +684,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">876k</span>
+    <span title="站点总字数">881k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -690,7 +692,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">13:16</span>
+    <span title="站点阅读时长">13:21</span>
   </div>
 
 </div>
