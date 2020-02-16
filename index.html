@@ -687,7 +687,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/15/Java/零基础/48. 实例语句块  代码块/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/Java/零基础/55. 访问控制权限修饰符/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -701,7 +701,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/15/Java/零基础/48. 实例语句块  代码块/" class="post-title-link" itemprop="url">Java零基础-实例语句块 / 代码块</a>
+            <a href="/2020/02/16/Java/零基础/55. 访问控制权限修饰符/" class="post-title-link" itemprop="url">Java零基础-访问控制权限修饰符</a>
           
         </h1>
 
@@ -717,7 +717,7 @@
                 
               
 
-              <time title="创建时间：2020-02-15 20:00:37 / 修改时间：20:05:07" itemprop="dateCreated datePublished" datetime="2020-02-15T20:00:37+08:00">2020-02-15</time>
+              <time title="创建时间：2020-02-16 21:20:37 / 修改时间：21:24:12" itemprop="dateCreated datePublished" datetime="2020-02-16T21:20:37+08:00">2020-02-16</time>
             </span>
           
             
@@ -749,7 +749,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>562</span>
+              <span>244</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -773,14 +773,21 @@
 
       
           <ol>
-<li>可以编写多个，也是自上而下执行</li>
-<li>在 <strong>构造方法执行 之前执行</strong>，构造方法执行一次，实例代码块对应执行一次</li>
-<li><strong>对象初始化时机 执行</strong></li>
-</ol>
+<li><p>访问控制权限修饰符——控制元素的访问范围</p>
+</li>
+<li><p>包括</p>
+<ul>
+<li>public     表示公开的，在任何位置都可以访问</li>
+<li>protected     同包，子类</li>
+<li>缺省               同包</li>
+<li>private           表示私有的，只能在本类中访问</li>
+</ul>
+</li>
+<li><p>可以修饰类、变量、方法…；其中，类只能采用<code>public</code>和缺省的修饰符进行修饰【内部类除外】</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/15/Java/零基础/48. 实例语句块  代码块/#more" rel="contents">
+              <a class="btn" href="/2020/02/16/Java/零基础/55. 访问控制权限修饰符/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -811,7 +818,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/15/Java/零基础/47. 静态代码块/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/Java/零基础/54. import 包引入/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -825,7 +832,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/15/Java/零基础/47. 静态代码块/" class="post-title-link" itemprop="url">Java零基础-静态代码块</a>
+            <a href="/2020/02/16/Java/零基础/54. import 包引入/" class="post-title-link" itemprop="url">Java零基础-import 引入</a>
           
         </h1>
 
@@ -841,7 +848,7 @@
                 
               
 
-              <time title="创建时间：2020-02-15 19:52:37 / 修改时间：20:12:28" itemprop="dateCreated datePublished" datetime="2020-02-15T19:52:37+08:00">2020-02-15</time>
+              <time title="创建时间：2020-02-16 21:07:37 / 修改时间：21:15:18" itemprop="dateCreated datePublished" datetime="2020-02-16T21:07:37+08:00">2020-02-16</time>
             </span>
           
             
@@ -873,7 +880,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>612</span>
+              <span>364</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -896,15 +903,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static &#123;</span><br><span class="line">	java 语句;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>静态代码块 在类加载时执行，并且只执行一次；</li>
-<li>在一个类中可以编写多个，并且从上到下执行；
+          <ol>
+<li><p><code>import 语句</code> 用来完成导入其他类，同一个包下的类不需要引入，不在同一个包下需要手动导入</p>
+</li>
+<li><p>语法格式:</p>
+<blockquote>
+<p>import 类名；</p>
+<p>import 包名.*;</p>
+</blockquote>
+</li>
+<li><p>语句需要编写到<code>package</code>语句之下，<code>class</code>语句之上</p>
+</li>
+</ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/15/Java/零基础/47. 静态代码块/#more" rel="contents">
+              <a class="btn" href="/2020/02/16/Java/零基础/54. import 包引入/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -932,7 +946,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -981,7 +995,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-count">365</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1228,7 +1242,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">881k</span>
+    <span title="站点总字数">887k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1236,7 +1250,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">13:21</span>
+    <span title="站点阅读时长">13:26</span>
   </div>
 
 </div>
