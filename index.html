@@ -687,7 +687,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/Java/零基础/55. 访问控制权限修饰符/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/Java/进阶/6. Object/6.4 hashCode()/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -701,7 +701,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/16/Java/零基础/55. 访问控制权限修饰符/" class="post-title-link" itemprop="url">Java零基础-访问控制权限修饰符</a>
+            <a href="/2020/02/20/Java/进阶/6. Object/6.4 hashCode()/" class="post-title-link" itemprop="url">Java进阶-hashCode()</a>
           
         </h1>
 
@@ -717,7 +717,7 @@
                 
               
 
-              <time title="创建时间：2020-02-16 21:20:37 / 修改时间：21:24:12" itemprop="dateCreated datePublished" datetime="2020-02-16T21:20:37+08:00">2020-02-16</time>
+              <time title="创建时间：2020-02-20 12:22:37 / 修改时间：12:23:59" itemprop="dateCreated datePublished" datetime="2020-02-20T12:22:37+08:00">2020-02-20</time>
             </span>
           
             
@@ -749,7 +749,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>244</span>
+              <span>222</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -772,27 +772,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li><p>访问控制权限修饰符——控制元素的访问范围</p>
-</li>
-<li><p>包括</p>
-<ul>
-<li>public     表示公开的，在任何位置都可以访问</li>
-<li>protected     同包，子类</li>
-<li>缺省               同包</li>
-<li>private           表示私有的，只能在本类中访问</li>
-</ul>
-</li>
-<li><p>可以修饰类、变量、方法…；其中，类只能采用<code>public</code>和缺省的修饰符进行修饰【内部类除外】</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/02/16/Java/零基础/55. 访问控制权限修饰符/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
+          <p>hashCode() 返回的是 该对象的哈希码值，Java 对象的内存地址经过哈希算法得出的 int 类型的数值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test03</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Test03 t = <span class="keyword">new</span> Test03();</span><br><span class="line">		System.out.println(t.hashCode()); <span class="comment">// 2018699554</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
         
       
     </div>
@@ -818,7 +801,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/Java/零基础/54. import 包引入/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/Java/进阶/6. Object/6.3 finalize()/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -832,7 +815,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/16/Java/零基础/54. import 包引入/" class="post-title-link" itemprop="url">Java零基础-import 引入</a>
+            <a href="/2020/02/20/Java/进阶/6. Object/6.3 finalize()/" class="post-title-link" itemprop="url">Java进阶-finalize()</a>
           
         </h1>
 
@@ -848,7 +831,7 @@
                 
               
 
-              <time title="创建时间：2020-02-16 21:07:37 / 修改时间：21:15:18" itemprop="dateCreated datePublished" datetime="2020-02-16T21:07:37+08:00">2020-02-16</time>
+              <time title="创建时间：2020-02-20 12:14:37 / 修改时间：12:21:49" itemprop="dateCreated datePublished" datetime="2020-02-20T12:14:37+08:00">2020-02-20</time>
             </span>
           
             
@@ -880,7 +863,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>364</span>
+              <span>539</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -904,21 +887,15 @@
 
       
           <ol>
-<li><p><code>import 语句</code> 用来完成导入其他类，同一个包下的类不需要引入，不在同一个包下需要手动导入</p>
-</li>
-<li><p>语法格式:</p>
-<blockquote>
-<p>import 类名；</p>
-<p>import 包名.*;</p>
-</blockquote>
-</li>
-<li><p>语句需要编写到<code>package</code>语句之下，<code>class</code>语句之上</p>
-</li>
+<li><code>finalize</code> 方法每个 Java 对象都有</li>
+<li>不需要程序员去调用，由系统自动调用</li>
+<li>Java 对象如果没有更多的引用指向它，则该对象成为垃圾数据，等待垃圾回收器的回收，垃圾回收器在回收这个对象之前会自动调用该对象的 <code>finalize</code>方法</li>
+<li><code>finalize</code>方法：该对象马上就要被回收了，例如：需要释放资源，则可以在该方法中释放</li>
 </ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/16/Java/零基础/54. import 包引入/#more" rel="contents">
+              <a class="btn" href="/2020/02/20/Java/进阶/6. Object/6.3 finalize()/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -946,7 +923,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/75/">75</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -995,7 +972,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">365</span>
+          <span class="site-state-item-count">375</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1242,7 +1219,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">887k</span>
+    <span title="站点总字数">895k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1250,7 +1227,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">13:26</span>
+    <span title="站点阅读时长">13:34</span>
   </div>
 
 </div>
