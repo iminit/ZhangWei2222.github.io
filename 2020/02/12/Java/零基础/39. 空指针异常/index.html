@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Wei Zhang">
 <meta property="og:description" content="12345678Student stu = new Student();System.out.println(stu.name);stu = null;// 以下程序可以 编译通过，因为符合语法// 运行出现 空指针 异常,java.lang.NullPointerException// 因为引用的地址变成了空，就没有引用了System.out.println(stu.name);">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-15T11:44:49.015Z">
+<meta property="og:updated_time" content="2020-02-25T08:33:58.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java零基础-空指针异常">
 <meta name="twitter:description" content="12345678Student stu = new Student();System.out.println(stu.name);stu = null;// 以下程序可以 编译通过，因为符合语法// 运行出现 空指针 异常,java.lang.NullPointerException// 因为引用的地址变成了空，就没有引用了System.out.println(stu.name);">
@@ -279,7 +279,7 @@
                 </span>
             <div style="display: none">
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-15 19:44:49" itemprop="dateModified" datetime="2020-02-15T19:44:49+08:00">2020-02-15</time>
+                <time title="修改时间：2020-02-25 16:33:58" itemprop="dateModified" datetime="2020-02-25T16:33:58+08:00">2020-02-25</time>
               </span>
             </div>
             
@@ -317,7 +317,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>578</span>
+              <span>1.1k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -347,6 +347,14 @@
 <p>在 eclips 中开发的时候，使用引用的方式访问带有 <code>static</code> 的方法，程序会发生警告。</p>
 <p>所以带有 <code>static</code> 的方法还是建议使用“类名.”的方式访问</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Text</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Test t = <span class="keyword">new</span> Text();</span><br><span class="line">        t.doSome();</span><br><span class="line">        </span><br><span class="line">        t = <span class="keyword">null</span>;</span><br><span class="line">        </span><br><span class="line">        t.doSome(); <span class="comment">// 不会出现引用异常，因为与引用指向的对象无关</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong><code>System.out.pringln()</code>内有乾坤</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object[] objs = <span class="keyword">new</span> Object[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; objs.length;i++) &#123;</span><br><span class="line">    Object o = objs[i];</span><br><span class="line">    <span class="comment">// o.toString(); // 空指针异常，因为引用类型的数组默认值是 null</span></span><br><span class="line">    System.out.pringln(o); <span class="comment">// null null null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为什么上面代码输出不会报空指针异常呢？去<code>println</code>的源码看看吗</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">println</span><span class="params">(Object x)</span> </span>&#123;</span><br><span class="line">    String s = String.valueOf(x);</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">        print(s);</span><br><span class="line">        newLine();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (obj == <span class="keyword">null</span>) ? <span class="string">"null"</span> : obj.toString(); <span class="comment">// 看这里！已经做了兼容处理</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -442,7 +450,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">396</span>
+          <span class="site-state-item-count">407</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -689,7 +697,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">911k</span>
+    <span title="站点总字数">921k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -697,7 +705,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">13:48</span>
+    <span title="站点阅读时长">13:58</span>
   </div>
 
 </div>

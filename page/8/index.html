@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/Java/零基础/54. import 包引入/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/Java/进阶/6. Object/6.4 hashCode()/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/16/Java/零基础/54. import 包引入/" class="post-title-link" itemprop="url">Java零基础-import 引入</a>
+            <a href="/2020/02/20/Java/进阶/6. Object/6.4 hashCode()/" class="post-title-link" itemprop="url">Java进阶-hashCode()</a>
           
         </h1>
 
@@ -266,7 +266,7 @@
                 
               
 
-              <time title="创建时间：2020-02-16 21:07:37 / 修改时间：21:15:18" itemprop="dateCreated datePublished" datetime="2020-02-16T21:07:37+08:00">2020-02-16</time>
+              <time title="创建时间：2020-02-20 12:22:37 / 修改时间：12:23:59" itemprop="dateCreated datePublished" datetime="2020-02-20T12:22:37+08:00">2020-02-20</time>
             </span>
           
             
@@ -298,7 +298,121 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>364</span>
+              <span>222</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>hashCode() 返回的是 该对象的哈希码值，Java 对象的内存地址经过哈希算法得出的 int 类型的数值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test03</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Test03 t = <span class="keyword">new</span> Test03();</span><br><span class="line">		System.out.println(t.hashCode()); <span class="comment">// 2018699554</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/Java/进阶/6. Object/6.3 finalize()/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/02/20/Java/进阶/6. Object/6.3 finalize()/" class="post-title-link" itemprop="url">Java进阶-finalize()</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-20 12:14:37 / 修改时间：12:21:49" itemprop="dateCreated datePublished" datetime="2020-02-20T12:14:37+08:00">2020-02-20</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>539</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -322,21 +436,15 @@
 
       
           <ol>
-<li><p><code>import 语句</code> 用来完成导入其他类，同一个包下的类不需要引入，不在同一个包下需要手动导入</p>
-</li>
-<li><p>语法格式:</p>
-<blockquote>
-<p>import 类名；</p>
-<p>import 包名.*;</p>
-</blockquote>
-</li>
-<li><p>语句需要编写到<code>package</code>语句之下，<code>class</code>语句之上</p>
-</li>
+<li><code>finalize</code> 方法每个 Java 对象都有</li>
+<li>不需要程序员去调用，由系统自动调用</li>
+<li>Java 对象如果没有更多的引用指向它，则该对象成为垃圾数据，等待垃圾回收器的回收，垃圾回收器在回收这个对象之前会自动调用该对象的 <code>finalize</code>方法</li>
+<li><code>finalize</code>方法：该对象马上就要被回收了，例如：需要释放资源，则可以在该方法中释放</li>
 </ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/16/Java/零基础/54. import 包引入/#more" rel="contents">
+              <a class="btn" href="/2020/02/20/Java/进阶/6. Object/6.3 finalize()/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -367,7 +475,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/Java/零基础/53. package 包机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/Java/进阶/6. Object/6.2 equals()/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -381,7 +489,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/16/Java/零基础/53. package 包机制/" class="post-title-link" itemprop="url">Java零基础-package 包机制</a>
+            <a href="/2020/02/20/Java/进阶/6. Object/6.2 equals()/" class="post-title-link" itemprop="url">Java进阶-equals()</a>
           
         </h1>
 
@@ -397,135 +505,7 @@
                 
               
 
-              <time title="创建时间：2020-02-16 20:52:37 / 修改时间：21:06:02" itemprop="dateCreated datePublished" datetime="2020-02-16T20:52:37+08:00">2020-02-16</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>763</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li><p>Java 引用 <code>package</code> 这种语法机制主要是为了方便程序的管理。不同功能的类被分门别类放到不同的软件包当中，查找比较方便，管理比较方便，易维护；</p>
-</li>
-<li><p>怎么定义包呢？</p>
-<ul>
-<li>在 java 源程序 的第一行上编写 package 语句</li>
-<li>package 只能编写一个语句</li>
-<li><code>package 包名;</code></li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/02/16/Java/零基础/53. package 包机制/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/Java/零基础/52. final 关键字/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/02/16/Java/零基础/52. final 关键字/" class="post-title-link" itemprop="url">Java零基础-final 关键字</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-16 20:26:37" itemprop="dateCreated datePublished" datetime="2020-02-16T20:26:37+08:00">2020-02-16</time>
+              <time title="创建时间：2020-02-20 11:56:37" itemprop="dateCreated datePublished" datetime="2020-02-20T11:56:37+08:00">2020-02-20</time>
             </span>
           
             
@@ -537,7 +517,7 @@
                 </span>
             <div style="display: none">
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-20 11:01:01" itemprop="dateModified" datetime="2020-02-20T11:01:01+08:00">2020-02-20</time>
+                <time title="修改时间：2020-02-25 16:52:16" itemprop="dateModified" datetime="2020-02-25T16:52:16+08:00">2020-02-25</time>
               </span>
             </div>
             
@@ -567,7 +547,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.1k</span>
+              <span>1.5k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -590,16 +570,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li><p><code>final</code> 是一个关键字，表示 最终的，不可变的</p>
-</li>
-<li><p>修饰的类无法被继承</p>
-</li>
-<li><p>修饰的方法无法被覆盖</p>
+          <p>Object 中的 equals 方法，设计目的：判断两个对象是否一样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span> <span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是比较的是内存地址，在现实的业务逻辑中，不应该比较内存地址，应该比较内容，<strong>所以 equals 方法也要重写</strong></p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/16/Java/零基础/52. final 关键字/#more" rel="contents">
+              <a class="btn" href="/2020/02/20/Java/进阶/6. Object/6.2 equals()/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -630,7 +608,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/Java/零基础/51. 多态/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/Java/进阶/6. Object/6.1 toString()/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -644,7 +622,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/16/Java/零基础/51. 多态/" class="post-title-link" itemprop="url">Java零基础-多态</a>
+            <a href="/2020/02/20/Java/进阶/6. Object/6.1 toString()/" class="post-title-link" itemprop="url">Java进阶-toString()</a>
           
         </h1>
 
@@ -660,7 +638,7 @@
                 
               
 
-              <time title="创建时间：2020-02-16 19:41:37 / 修改时间：20:26:16" itemprop="dateCreated datePublished" datetime="2020-02-16T19:41:37+08:00">2020-02-16</time>
+              <time title="创建时间：2020-02-20 11:46:37 / 修改时间：11:56:10" itemprop="dateCreated datePublished" datetime="2020-02-20T11:46:37+08:00">2020-02-20</time>
             </span>
           
             
@@ -692,7 +670,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>2.3k</span>
+              <span>915</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -702,7 +680,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
           
 
@@ -715,24 +693,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>多态涉及的几个概念</p>
-<ul>
-<li>向上转型(upcasting)<ul>
-<li>子类型 –&gt; 父类型 </li>
-<li>又称为：自动类型转换</li>
-</ul>
-</li>
-<li>向下转型(downcasting)<ul>
-<li>父类型 –&gt; 子类型</li>
-<li>又称为：强制类型转换【需要加 强制类型转换符】</li>
-</ul>
-</li>
-<li>无论是向上转型还是向下转型，两种类型之间<strong>必须要有继承关系</strong>，没有继承关系，程序是无法编译通过的。</li>
-</ul>
+          <p>关于 Object 中的 toString 方法：</p>
+<p>SUN 在 Object 类中设计<code>toString方法</code>的目的：返回 Java 对象的字符串表示形式</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/16/Java/零基础/51. 多态/#more" rel="contents">
+              <a class="btn" href="/2020/02/20/Java/进阶/6. Object/6.1 toString()/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -763,7 +729,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/16/Java/零基础/50. 方法覆盖/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/Java/进阶/5. 接口/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -777,7 +743,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/16/Java/零基础/50. 方法覆盖/" class="post-title-link" itemprop="url">Java零基础-方法覆盖</a>
+            <a href="/2020/02/20/Java/进阶/5. 接口/" class="post-title-link" itemprop="url">Java进阶-接口</a>
           
         </h1>
 
@@ -793,21 +759,11 @@
                 
               
 
-              <time title="创建时间：2020-02-16 19:34:37" itemprop="dateCreated datePublished" datetime="2020-02-16T19:34:37+08:00">2020-02-16</time>
+              <time title="创建时间：2020-02-20 11:19:37 / 修改时间：11:40:41" itemprop="dateCreated datePublished" datetime="2020-02-20T11:19:37+08:00">2020-02-20</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-22 21:15:30" itemprop="dateModified" datetime="2020-02-22T21:15:30+08:00">2020-02-22</time>
-              </span>
-            </div>
             
           
             <span class="post-meta-item">
@@ -835,7 +791,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>445</span>
+              <span>1.3k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -858,11 +814,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>当父类中的方法已经无法满足当前子类的业务需求，子类有必要将父类中继承过来的方法进行重新编写，这个重新编写的过程称为<strong>方法重写 / 方法覆盖</strong></p>
+          <p>接口也是一种引用类型，可以等同看作 类</p>
+<ol>
+<li>语法：<code>[修饰符] interface 接口名{}</code></li>
+<li>只能出现：常量、抽象方法</li>
+<li>其实是一个特殊的抽象类，特殊在接口是完全抽象的
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/16/Java/零基础/50. 方法覆盖/#more" rel="contents">
+              <a class="btn" href="/2020/02/20/Java/进阶/5. 接口/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -890,7 +850,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/80/">80</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/82/">82</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -939,7 +899,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">396</span>
+          <span class="site-state-item-count">407</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1186,7 +1146,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">911k</span>
+    <span title="站点总字数">921k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1194,7 +1154,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">13:48</span>
+    <span title="站点阅读时长">13:58</span>
   </div>
 
 </div>
