@@ -1,5 +1,5 @@
 ---
-title: 连接服务器数据库.md
+title: 连接MySQL服务器数据库
 date: 2020-02-11 15:59:47
 categories:
 - 服务器
