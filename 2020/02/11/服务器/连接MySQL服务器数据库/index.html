@@ -56,8 +56,8 @@
 
   <meta name="description" content="前言使用 HeidiSQL  连接服务器数据库，非常简单，选择 MySQL 网络类型，输入用户名、密码即可。但是可能会报这样的错：Can&amp;#39;t connect to MySQL server on &amp;#39;ip地址&amp;#39;(10061)，为什么呢？？ 理由也很简单：服务器没有配置 MySQL ，以下是 CentOS 的教程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="连接服务器数据库.md">
-<meta property="og:url" content="http://yoursite.com/2020/02/11/服务器/连接服务器数据库/index.html">
+<meta property="og:title" content="连接MySQL服务器数据库">
+<meta property="og:url" content="http://yoursite.com/2020/02/11/服务器/连接MySQL服务器数据库/index.html">
 <meta property="og:site_name" content="Wei Zhang">
 <meta property="og:description" content="前言使用 HeidiSQL  连接服务器数据库，非常简单，选择 MySQL 网络类型，输入用户名、密码即可。但是可能会报这样的错：Can&amp;#39;t connect to MySQL server on &amp;#39;ip地址&amp;#39;(10061)，为什么呢？？ 理由也很简单：服务器没有配置 MySQL ，以下是 CentOS 的教程">
 <meta property="og:locale" content="zh-CN">
@@ -66,12 +66,12 @@
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/1094658/201705/1094658-20170516173609525-785065228.png">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/1094658/201705/1094658-20170516173801260-149584502.png">
 <meta property="og:image" content="data:image/png;base64,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">
-<meta property="og:updated_time" content="2020-02-11T08:31:34.022Z">
+<meta property="og:updated_time" content="2020-04-24T03:10:54.064Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="连接服务器数据库.md">
+<meta name="twitter:title" content="连接MySQL服务器数据库">
 <meta name="twitter:description" content="前言使用 HeidiSQL  连接服务器数据库，非常简单，选择 MySQL 网络类型，输入用户名、密码即可。但是可能会报这样的错：Can&amp;#39;t connect to MySQL server on &amp;#39;ip地址&amp;#39;(10061)，为什么呢？？ 理由也很简单：服务器没有配置 MySQL ，以下是 CentOS 的教程">
 <meta name="twitter:image" content="https://images2015.cnblogs.com/blog/1094658/201705/1094658-20170516172602228-601638917.png">
-  <link rel="canonical" href="http://yoursite.com/2020/02/11/服务器/连接服务器数据库/">
+  <link rel="canonical" href="http://yoursite.com/2020/02/11/服务器/连接MySQL服务器数据库/">
 
 
 <script id="page-configurations">
@@ -85,7 +85,7 @@
   };
 </script>
 
-  <title>连接服务器数据库.md | Wei Zhang</title>
+  <title>连接MySQL服务器数据库 | Wei Zhang</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/服务器/连接服务器数据库/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/服务器/连接MySQL服务器数据库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -256,7 +256,7 @@
       <meta itemprop="name" content="Wei Zhang">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">连接服务器数据库.md
+        <h1 class="post-title" itemprop="name headline">连接MySQL服务器数据库
 
           
         </h1>
@@ -273,11 +273,21 @@
                 
               
 
-              <time title="创建时间：2020-02-11 15:59:47 / 修改时间：16:31:34" itemprop="dateCreated datePublished" datetime="2020-02-11T15:59:47+08:00">2020-02-11</time>
+              <time title="创建时间：2020-02-11 15:59:47" itemprop="dateCreated datePublished" datetime="2020-02-11T15:59:47+08:00">2020-02-11</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-24 11:10:54" itemprop="dateModified" datetime="2020-04-24T11:10:54+08:00">2020-04-24</time>
+              </span>
+            </div>
             
           
             <span class="post-meta-item">
@@ -514,7 +524,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">426</span>
+          <span class="site-state-item-count">431</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -761,7 +771,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">935k</span>
+    <span title="站点总字数">941k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -769,7 +779,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">14:10</span>
+    <span title="站点阅读时长">14:16</span>
   </div>
 
 </div>

@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="本文介绍 MySQL 数据库简单备份、定时备份与还原">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL数据库备份与还原">
+<meta property="og:url" content="http://yoursite.com/2020/04/24/服务器/MySQL数据库备份与还原/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="本文介绍 MySQL 数据库简单备份、定时备份与还原">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/04/24/服务器/MySQL数据库备份与还原/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F.assets/image-20200424111535291.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/24/服务器/MySQL数据库备份与还原/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F.assets/image-20200424113856176.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/24/服务器/MySQL数据库备份与还原/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F.assets/image-20200424111645621.png">
+<meta property="og:updated_time" content="2020-04-24T03:39:31.697Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL数据库备份与还原">
+<meta name="twitter:description" content="本文介绍 MySQL 数据库简单备份、定时备份与还原">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/24/服务器/MySQL数据库备份与还原/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F.assets/image-20200424111535291.png">
+  <link rel="canonical" href="http://yoursite.com/2020/04/24/服务器/MySQL数据库备份与还原/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>MySQL数据库备份与还原 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/24/服务器/MySQL数据库备份与还原/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">MySQL数据库备份与还原
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-24 11:11:47 / 修改时间：11:39:31" itemprop="dateCreated datePublished" datetime="2020-04-24T11:11:47+08:00">2020-04-24</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/服务器/" itemprop="url" rel="index"><span itemprop="name">服务器</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>3.3k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文介绍 MySQL 数据库简单备份、定时备份与还原</p>
+<a id="more"></a>
+
+
+
+<h2 id="简单备份"><a href="#简单备份" class="headerlink" title="简单备份"></a>简单备份</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u root -p 数据库名称 &gt; 具体备份路径</span><br><span class="line"><span class="comment"># 例如：</span></span><br><span class="line">mysqldump -u root -p youth_hostel &gt; /mysqlbak/hostel.sql</span><br></pre></td></tr></table></figure>
+
+<p><img src="MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F.assets/image-20200424111535291.png" alt="image-20200424111535291"></p>
+<h2 id="定时备份"><a href="#定时备份" class="headerlink" title="定时备份"></a>定时备份</h2><ol>
+<li><p>创建备份目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># root 用户,创建备份目录</span></span><br><span class="line">mkdir -p /mysqlbak</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写运行脚本 <code>vi /usr/sbin/bakmysql.sh</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">me:bakmysql.sh</span><br><span class="line"><span class="comment"># This is a ShellScript For Auto DB Backup and Delete old Backup</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Database info</span></span><br><span class="line">DB_USER=<span class="string">"root"</span>                          <span class="comment"># mysql login name</span></span><br><span class="line">DB_PASS=<span class="string">"123456"</span>                        <span class="comment"># password</span></span><br><span class="line">DB_HOST=<span class="string">"localhost"</span>                     <span class="comment"># db_address</span></span><br><span class="line">DB_NAME=<span class="string">"youth_hostel"</span>                  <span class="comment"># db_name</span></span><br><span class="line">DB_ZFBM=<span class="string">"--default-character-set=utf8"</span>  <span class="comment"># character</span></span><br><span class="line"><span class="comment">#DB_TABLE="exam_quest_bank"             # table name</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Others vars</span></span><br><span class="line">BIN_DIR=<span class="string">"/usr/bin"</span>                      <span class="comment"># the mysql bin path</span></span><br><span class="line">BCK_DIR=<span class="string">"/mysqlbak"</span>                     <span class="comment"># the backup file directory</span></span><br><span class="line">DATE=`date +%F`</span><br><span class="line"></span><br><span class="line"><span class="comment">#--skip-lock-tables      zg backup</span></span><br><span class="line"><span class="comment">#$BIN_DIR/mysqldump -u $DB_USER -p$DB_PASS  $DB_ZFBM  $DB_NAME  $DB_TABLE | gzip &gt; $BCK_DIR/db_$DATE.sql.gz</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#data beifen</span></span><br><span class="line"><span class="variable">$BIN_DIR</span>/mysqldump --opt -u<span class="variable">$DB_USER</span> -p<span class="variable">$DB_PASS</span> -h<span class="variable">$DB_HOST</span>  <span class="variable">$DB_ZFBM</span>  <span class="variable">$DB_NAME</span> | gzip &gt; <span class="variable">$BCK_DIR</span>/db_<span class="variable">$DATE</span>.sql.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#sql back</span></span><br><span class="line"><span class="comment">#$BIN_DIR/mysqldump --opt -u$DB_USER -p$DB_PASS -h$DB_HOST $DB_ZFBM  $DB_NAME  $DB_TABLE &gt; $BCK_DIR/db_$DATE.sql</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#find $BCK_DIR -name "db_*.sql" -type f -mtime +3 -exec rm &#123;&#125; \; &gt; /dev/null 2&gt;&amp;1</span></span><br><span class="line">find <span class="variable">$BCK_DIR</span> -name <span class="string">"db_*.gz"</span> -<span class="built_in">type</span> f -mtime +3 -<span class="built_in">exec</span> rm &#123;&#125; \; &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>脚本说明：</p>
+<ul>
+<li><p>$BIN_DIR  mysql备份地址</p>
+<ul>
+<li>$DB_USER  数据库用户名</li>
+</ul>
+</li>
+<li><p>$DB_PASS   数据库密码</p>
+</li>
+<li><p>$DB_HOST   数据库地址（IP或者是localhost之类的）</p>
+</li>
+<li><p>$DB_ZFBM   字符集编码设置（这个很关键，解决导出文件中中文乱码）</p>
+</li>
+<li><p>$DB_NAME  数据库名称</p>
+</li>
+<li><p>$DB_TABLE  要备份的表名（如果只对单一表进行备份，可以加此字段，全库备份的可以省略掉）</p>
+</li>
+<li><p>$BCK_DIR/db_$DATE.sql   备份的地址和备份文件名称 </p>
+</li>
+</ul>
+<ol start="3">
+<li><p>给脚本文件加权限</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /usr/sbin/bakmysql.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行脚本，验证脚本是否正确，正确的话，备份目录会出现对应日期的文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bakmysql.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑定时任务列表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"><span class="comment"># 输入：</span></span><br><span class="line"><span class="comment"># 每天早上 5:00am 执行</span></span><br><span class="line">00 05 *   * * /bin/sh /usr/sbin/bakmysql.sh</span><br></pre></td></tr></table></figure>
+
+<p>定时的一些说明：</p>
+<p>crontab 配置文件格式如下：<br>分　时　日　月　周　 命令</p>
+</li>
+<li><p>查看设置的定时任务是否成功</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l</span><br></pre></td></tr></table></figure>
+
+<p> <img src="MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F.assets/image-20200424113856176.png" alt="image-20200424113856176"></p>
+</li>
+<li><p>重启crontab（分别有给出了别的操作命令）</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启</span></span><br><span class="line">/bin/systemctl restart crond.service</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 开启</span></span><br><span class="line">/bin/systemctl start crond.service</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 停止</span></span><br><span class="line">/bin/systemctl stop crond.service</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 重载</span></span><br><span class="line">/bin/systemctl reload crond.service</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 状态</span></span><br><span class="line">/bin/systemctl status crond.service</span><br></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ol>
+<h3 id="解释脚本"><a href="#解释脚本" class="headerlink" title="解释脚本"></a>解释脚本</h3><ul>
+<li><p>导出的脚本</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#--skip-lock-tables      zg backup</span></span><br><span class="line"><span class="variable">$BIN_DIR</span>/mysqldump -u <span class="variable">$DB_USER</span> -p<span class="variable">$DB_PASS</span>  <span class="variable">$DB_ZFBM</span>  <span class="variable">$DB_NAME</span>  <span class="variable">$DB_TABLE</span> | gzip &gt; <span class="variable">$BCK_DIR</span>/db_<span class="variable">$DATE</span>.sql.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#data beifen</span></span><br><span class="line"><span class="variable">$BIN_DIR</span>/mysqldump --opt -u<span class="variable">$DB_USER</span> -p<span class="variable">$DB_PASS</span> -h<span class="variable">$DB_HOST</span>  <span class="variable">$DB_ZFBM</span>  <span class="variable">$DB_NAME</span> | gzip &gt; <span class="variable">$BCK_DIR</span>/db_<span class="variable">$DATE</span>.sql.gz</span><br><span class="line"></span><br><span class="line"><span class="comment">#sql back</span></span><br><span class="line"><span class="variable">$BIN_DIR</span>/mysqldump --opt -u<span class="variable">$DB_USER</span> -p<span class="variable">$DB_PASS</span> -h<span class="variable">$DB_HOST</span> <span class="variable">$DB_ZFBM</span>  <span class="variable">$DB_NAME</span>  <span class="variable">$DB_TABLE</span> &gt; <span class="variable">$BCK_DIR</span>/db_<span class="variable">$DATE</span>.sql</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<pre><code>第三条导出的是整个数据库文件，较大，建议使用压缩文件的形式，即第一、二条，导出整个数据库表使用第二条，导出某个数据库表使用第一条（带 $DB_TABLE）</code></pre><ul>
+<li><p>定时删除备份数据库脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find <span class="variable">$BCK_DIR</span> -name <span class="string">"db_*.gz"</span> -<span class="built_in">type</span> f -mtime +3 -<span class="built_in">exec</span> rm &#123;&#125; \; &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-type f</code>                    表示查找普通类型的文件，f表示普通文件。</li>
+<li><code>-mtime +3</code>                按照文件的更改时间来查找文件，+3表示文件更改时间距现在3天以前；如果是 -mmin +5 表示文件更改时间距现在5分钟以前。</li>
+<li><code>-exec rm {} \;</code>       表示执行一段shell命令，exec选项后面跟随着所要执行的命令或脚本，然后是一对儿{}，一个空格和一个，最后是一个分号。</li>
+<li><code>/dev/null 2&gt;&amp;1</code>       把标准出错重定向到标准输出，然后扔到/DEV/NULL下面去。通俗的说，就是把所有标准输出和标准出错都扔到垃圾桶里面；其中的&amp; 表示让该命令在后台执行。</li>
+</ul>
+</li>
+</ul>
+<h2 id="还原数据库"><a href="#还原数据库" class="headerlink" title="还原数据库"></a>还原数据库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="comment"># 根据提示输入密码后进入mysql控制台</span></span><br><span class="line">show databases;</span><br><span class="line"><span class="comment"># 创建数据库</span></span><br><span class="line">create database mysite;</span><br><span class="line"><span class="comment"># 进入数据库</span></span><br><span class="line">use mysite;</span><br><span class="line"><span class="comment"># 从文件导入所有数据</span></span><br><span class="line"><span class="built_in">source</span> /mysqlbak/hostel.sql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意：如果备份的数据库是 gz文件，需要实现解压：gzip -d file.sql.gz</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%98%E5%8E%9F.assets/image-20200424111645621.png" alt="image-20200424111645621"></p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://www.cnblogs.com/ityouknow/p/5923489.html" target="_blank" rel="noopener">linux定时备份mysql并同步到其它服务器</a></p>
+<p><a href="https://blog.csdn.net/u014135369/article/details/81302526" target="_blank" rel="noopener">Linux下Mysql的数据库备份（基于 CentOS 7.4 64位）</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/04/24/服务器/记一次MySQL数据库崩溃历程/" rel="next" title="记一次MySQL数据库崩溃历程">
+                  <i class="fa fa-chevron-left"></i> 记一次MySQL数据库崩溃历程
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单备份"><span class="nav-text">简单备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时备份"><span class="nav-text">定时备份</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解释脚本"><span class="nav-text">解释脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#还原数据库"><span class="nav-text">还原数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-text">参考文章</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">431</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">941k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">14:16</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
