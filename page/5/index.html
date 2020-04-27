@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/17/移动端/Vue项目中的时间在ios显示NaN的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/数据库/MySQL/记录字段值赋值给变量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/04/17/移动端/Vue项目中的时间在ios显示NaN的问题/" class="post-title-link" itemprop="url">Vue项目中的时间在ios显示NaN的问题</a>
+            <a href="/2020/04/26/数据库/MySQL/记录字段值赋值给变量/" class="post-title-link" itemprop="url">MySQL-记录字段值赋值给变量</a>
           
         </h1>
 
@@ -266,7 +266,7 @@
                 
               
 
-              <time title="创建时间：2020-04-17 16:52:47 / 修改时间：17:15:15" itemprop="dateCreated datePublished" datetime="2020-04-17T16:52:47+08:00">2020-04-17</time>
+              <time title="创建时间：2020-04-26 12:25:47 / 修改时间：17:12:35" itemprop="dateCreated datePublished" datetime="2020-04-26T12:25:47+08:00">2020-04-26</time>
             </span>
           
             
@@ -279,7 +279,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/移动端/" itemprop="url" rel="index"><span itemprop="name">移动端</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
 
                 
                 
@@ -298,7 +298,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>252</span>
+              <span>85</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -321,11 +321,252 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在毕设项目中，发现<code>2020-03-22 10:00:00</code>这种类型的时间，在ios显示为<code>NaN-NaN-NaN NaN:NaN:NaN</code>，但是在PC端调试没有任何问题，数据是正常到达页面的，为啥到了真机就NaN呢？查阅资料后发现，ios 不支持时间的<code>-</code>连接符，解决方法可以把<code>-</code>替换成<code>/</code></p>
+          <p>可以使用 <code>select into</code> 把记录字段值赋值给变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT id ,NAME INTO @ss,@yy from users;</span><br><span class="line">SELECT @ss,@yy;</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E8%AE%B0%E5%BD%95%E5%AD%97%E6%AE%B5%E8%B5%8B%E5%80%BC%E7%BB%99%E5%8F%98%E9%87%8F.assets/image-20200426122648533.png" alt="image-20200426122648533"></p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/数据库/MySQL/给当前日期加时间/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/04/26/数据库/MySQL/给当前日期加时间/" class="post-title-link" itemprop="url">MySQL-给当前日期加时间</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-26 12:16:47 / 修改时间：12:25:32" itemprop="dateCreated datePublished" datetime="2020-04-26T12:16:47+08:00">2020-04-26</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>95</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>可以使用 <code>INTERVAL</code>给当前日期或者指定日期加时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT NOW() + INTERVAL 1 DAY;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>year 年份</li>
+<li>month 月份</li>
+<li>day 天</li>
+<li>minute 分钟</li>
+<li>second 秒</li>
+</ul>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/数据库/MySQL/字符串拼接/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/04/26/数据库/MySQL/字符串拼接/" class="post-title-link" itemprop="url">MySQL-字符串拼接</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-26 12:05:47 / 修改时间：12:17:39" itemprop="dateCreated datePublished" datetime="2020-04-26T12:05:47+08:00">2020-04-26</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>724</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>字符串拼接在查询语句中，很常用，接下来整理三种字符串拼接方式</p>
+<ol>
+<li><code>CONCAT()</code></li>
+<li><code>CONCAT_WS()</code></li>
+<li><code>GROUP_CONCAT()</code></li>
+</ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/04/17/移动端/Vue项目中的时间在ios显示NaN的问题/#more" rel="contents">
+              <a class="btn" href="/2020/04/26/数据库/MySQL/字符串拼接/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -356,7 +597,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/Java/编程题/9. 生成5个不重复的随机数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/数据库/MySQL/三元运算/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -370,7 +611,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/29/Java/编程题/9. 生成5个不重复的随机数/" class="post-title-link" itemprop="url">Java编程题-生成5个不重复的随机数</a>
+            <a href="/2020/04/26/数据库/MySQL/三元运算/" class="post-title-link" itemprop="url">MySQL-三元运算</a>
           
         </h1>
 
@@ -386,7 +627,7 @@
                 
               
 
-              <time title="创建时间：2020-02-29 17:25:37 / 修改时间：17:30:01" itemprop="dateCreated datePublished" datetime="2020-02-29T17:25:37+08:00">2020-02-29</time>
+              <time title="创建时间：2020-04-26 11:59:47 / 修改时间：12:28:30" itemprop="dateCreated datePublished" datetime="2020-04-26T11:59:47+08:00">2020-04-26</time>
             </span>
           
             
@@ -399,7 +640,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
 
                 
                 
@@ -418,7 +659,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>697</span>
+              <span>195</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -441,11 +682,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>生成5个不重复的随机数[1-5]</p>
+          <p>数据库的三元运算有两种方式</p>
+<ul>
+<li><p><code>if(expr1, expr2, expr3)</code></p>
+</li>
+<li><p><code>case when 条件 then (条件为true) else (条件为false) end</code></p>
+</li>
+</ul>
+<p>第一种方式需要消耗大量时间，如果较复杂的操作，尽量使用第二种方式</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/02/29/Java/编程题/9. 生成5个不重复的随机数/#more" rel="contents">
+              <a class="btn" href="/2020/04/26/数据库/MySQL/三元运算/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -476,7 +724,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/Java/进阶/12. String 类/12.18 枚举类型 enum/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/JavaScript/switch分支合并/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -490,7 +738,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/02/29/Java/进阶/12. String 类/12.18 枚举类型 enum/" class="post-title-link" itemprop="url">Java进阶-枚举类型 enum</a>
+            <a href="/2020/04/26/JavaScript/switch分支合并/" class="post-title-link" itemprop="url">switch分支合并</a>
           
         </h1>
 
@@ -506,7 +754,7 @@
                 
               
 
-              <time title="创建时间：2020-02-29 17:14:37 / 修改时间：17:22:10" itemprop="dateCreated datePublished" datetime="2020-02-29T17:14:37+08:00">2020-02-29</time>
+              <time title="创建时间：2020-04-26 11:53:47 / 修改时间：11:55:04" itemprop="dateCreated datePublished" datetime="2020-04-26T11:53:47+08:00">2020-04-26</time>
             </span>
           
             
@@ -519,7 +767,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
 
                 
                 
@@ -538,7 +786,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>709</span>
+              <span>63</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -561,258 +809,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>需求：定义一个方法，该方法的作用是计算两个 int 类型数据的商。如果计算成功返回1，执行失败返回0</p>
-<p>程序执行成功，但是该程序可能存在风险，比如写错返回的值，导致判断失误</p>
-<p><strong>程序中的问题能在编译阶段解决的，绝对不会放在运行期解决，所以引入“枚举类型”</strong></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/02/29/Java/进阶/12. String 类/12.18 枚举类型 enum/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
+          <p> switch 分支合并，会 case 穿透：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="number">1</span>: <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    key = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
 
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/Java/进阶/12. String 类/12.17 随机数 Random/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/02/29/Java/进阶/12. String 类/12.17 随机数 Random/" class="post-title-link" itemprop="url">Java进阶-随机数 Random</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-29 17:06:37 / 修改时间：17:13:55" itemprop="dateCreated datePublished" datetime="2020-02-29T17:06:37+08:00">2020-02-29</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>282</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>用来生成随机数</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/02/29/Java/进阶/12. String 类/12.17 随机数 Random/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/Java/进阶/12. String 类/12.16 BigDecimal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/02/29/Java/进阶/12. String 类/12.16 BigDecimal/" class="post-title-link" itemprop="url">Java进阶-BigDecimal</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-29 17:02:37 / 修改时间：17:06:05" itemprop="dateCreated datePublished" datetime="2020-02-29T17:02:37+08:00">2020-02-29</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>408</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>java.math.BigDecimal;</code><br>该类型的数据精确度极高，适合做财务软件；<br>财务软件中 double 类型精确度太低</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/02/29/Java/进阶/12. String 类/12.16 BigDecimal/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
         
       
     </div>
@@ -835,7 +835,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/89/">89</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/91/">91</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -884,7 +884,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">444</span>
+          <span class="site-state-item-count">454</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1133,7 +1133,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">951k</span>
+    <span title="站点总字数">956k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1141,7 +1141,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">14:25</span>
+    <span title="站点阅读时长">14:29</span>
   </div>
 
 </div>
