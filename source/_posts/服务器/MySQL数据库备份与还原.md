@@ -106,11 +106,6 @@ mysqldump -u root -p youth_hostel > /mysqlbak/hostel.sql
    00 05 *   * * /bin/sh /usr/sbin/bakmysql.sh
    ```
 
-   定时的一些说明：
-
-   crontab 配置文件格式如下：
-   分　时　日　月　周　 命令
-
 6. 查看设置的定时任务是否成功
 
     ```bash
@@ -141,7 +136,7 @@ mysqldump -u root -p youth_hostel > /mysqlbak/hostel.sql
     
 
 
-### 解释脚本
+### 解释
 
 - 导出的脚本
 
@@ -169,7 +164,44 @@ mysqldump -u root -p youth_hostel > /mysqlbak/hostel.sql
   - `-exec rm {} \;`       表示执行一段shell命令，exec选项后面跟随着所要执行的命令或脚本，然后是一对儿{}，一个空格和一个，最后是一个分号。
   - `/dev/null 2>&1`       把标准出错重定向到标准输出，然后扔到/DEV/NULL下面去。通俗的说，就是把所有标准输出和标准出错都扔到垃圾桶里面；其中的& 表示让该命令在后台执行。
 
+-    定时的一些说明：
 
+  - crontab 配置文件格式如下：
+
+       > 分　时　日　月　周　 命令
+       >
+       > {minute} {hour} {day-of-month} {month} {day-of-week} {full-path-to-shell-script} 
+       > - minute:              区间为 0 – 59 
+       > - hour:                  区间为 0 – 23 
+       > - day-of-month:  区间为 0 – 31 
+       > - month:               区间为 1 – 12. 1 是1月. 12是12月. 
+       > - Day-of-week:    区间为 0 – 7. 周日可以是0或7.
+
+  - crontab 示例
+
+    > 1. 在 12:01 a.m 运行，即每天凌晨过一分钟。这是一个恰当的进行备份的时间，因为此时系统负载不大。
+    >
+    >    1 0 * * * /root/bin/backup.sh
+    >
+    > 2. 每个工作日(Mon – Fri) 11:59 p.m 都进行备份作业。
+    >
+    >    59 11 * * 1,2,3,4,5 /root/bin/backup.sh
+    >
+    >    59 11 * * 1-5 /root/bin/backup.sh
+    >
+    > 3. 每5分钟运行一次命令
+    >
+    >    */5 * * * * /root/bin/check-status.sh
+    >
+    > 4. 每个月的第一天 1:10 p.m 运行
+    >
+    >    10 13 1 * * /root/bin/full-backup.sh
+    >
+    > 5. 每个工作日 11 p.m 运行。
+    >
+    >    0 23 * * 1-5 /root/bin/incremental-backup.sh
+
+    
 
 ## 还原数据库
 
@@ -196,3 +228,5 @@ source /mysqlbak/hostel.sql
 [linux定时备份mysql并同步到其它服务器](https://www.cnblogs.com/ityouknow/p/5923489.html)
 
 [Linux下Mysql的数据库备份（基于 CentOS 7.4 64位）](https://blog.csdn.net/u014135369/article/details/81302526)
+
+[crontab 定时任务时间格式设置](https://blog.csdn.net/resilient/article/details/80963526)
