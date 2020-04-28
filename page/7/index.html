@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/数据库/MySQL/给当前日期加时间/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/Vue/无刷新修改 url 参数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/04/26/数据库/MySQL/给当前日期加时间/" class="post-title-link" itemprop="url">MySQL-给当前日期加时间</a>
+            <a href="/2020/04/27/Vue/无刷新修改 url 参数/" class="post-title-link" itemprop="url">vue-无刷新修改 url 参数</a>
           
         </h1>
 
@@ -266,7 +266,7 @@
                 
               
 
-              <time title="创建时间：2020-04-26 12:16:47 / 修改时间：12:25:32" itemprop="dateCreated datePublished" datetime="2020-04-26T12:16:47+08:00">2020-04-26</time>
+              <time title="创建时间：2020-04-27 10:16:47 / 修改时间：10:17:53" itemprop="dateCreated datePublished" datetime="2020-04-27T10:16:47+08:00">2020-04-27</time>
             </span>
           
             
@@ -279,7 +279,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
 
                 
                 
@@ -298,7 +298,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>95</span>
+              <span>388</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -321,16 +321,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>可以使用 <code>INTERVAL</code>给当前日期或者指定日期加时间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT NOW() + INTERVAL 1 DAY;</span><br></pre></td></tr></table></figure>
+          <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> merge <span class="keyword">from</span> <span class="string">'webpack-merge'</span>；</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改原有参数        </span></span><br><span class="line"><span class="keyword">this</span>.$router.push(&#123;</span><br><span class="line">    query:merge( <span class="keyword">this</span>.$route.query, &#123; <span class="string">'maxPrice'</span>: <span class="string">'630'</span> &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新增一个参数：</span></span><br><span class="line"><span class="keyword">this</span>.$router.push(&#123;</span><br><span class="line">    query:merge( <span class="keyword">this</span>.$route.query, &#123; <span class="string">'addParams'</span>: <span class="string">'新增参数'</span> &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 替换所有参数：</span></span><br><span class="line"><span class="keyword">this</span>.$router.push(&#123;</span><br><span class="line">    query:merge( &#123;&#125;, &#123; <span class="string">'maxPrice'</span>: <span class="string">'630'</span> &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>year 年份</li>
-<li>month 月份</li>
-<li>day 天</li>
-<li>minute 分钟</li>
-<li>second 秒</li>
-</ul>
 
         
       
@@ -357,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/数据库/MySQL/字符串拼接/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/Vue/生产环境和开发环境的判断/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -371,7 +363,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/04/26/数据库/MySQL/字符串拼接/" class="post-title-link" itemprop="url">MySQL-字符串拼接</a>
+            <a href="/2020/04/27/Vue/生产环境和开发环境的判断/" class="post-title-link" itemprop="url">vue-生产环境和开发环境的判断</a>
           
         </h1>
 
@@ -387,7 +379,7 @@
                 
               
 
-              <time title="创建时间：2020-04-26 12:05:47 / 修改时间：12:17:39" itemprop="dateCreated datePublished" datetime="2020-04-26T12:05:47+08:00">2020-04-26</time>
+              <time title="创建时间：2020-04-27 10:13:47 / 修改时间：10:14:39" itemprop="dateCreated datePublished" datetime="2020-04-27T10:13:47+08:00">2020-04-27</time>
             </span>
           
             
@@ -400,7 +392,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
 
                 
                 
@@ -419,7 +411,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>724</span>
+              <span>170</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -442,16 +434,128 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>字符串拼接在查询语句中，很常用，接下来整理三种字符串拼接方式</p>
-<ol>
-<li><code>CONCAT()</code></li>
-<li><code>CONCAT_WS()</code></li>
-<li><code>GROUP_CONCAT()</code></li>
-</ol>
+          <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> urlDev = <span class="string">'http://dev.test.com'</span> <span class="comment">// 开发环境</span></span><br><span class="line"><span class="keyword">const</span> urlQa = <span class="string">'http://test.com'</span>     <span class="comment">// 生产环境</span></span><br><span class="line"><span class="keyword">var</span> url = <span class="string">''</span></span><br><span class="line">process.env.NODE_ENV === <span class="string">'development'</span> ? url = urlDev : url = urlQa</span><br></pre></td></tr></table></figure>
+
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/Vue/this.$router.push、replace、go 区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/04/27/Vue/this.$router.push、replace、go 区别/" class="post-title-link" itemprop="url">this.$router.push、replace、go 区别</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-27 10:04:47 / 修改时间：10:10:23" itemprop="dateCreated datePublished" datetime="2020-04-27T10:04:47+08:00">2020-04-27</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>479</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li><p><code>this.$router.push()</code></p>
+<blockquote>
+<p>跳转到不同的 url，但这个方法会向 history 栈添加一个记录，点击后退会返回到上一个页面。</p>
+</blockquote>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/04/26/数据库/MySQL/字符串拼接/#more" rel="contents">
+              <a class="btn" href="/2020/04/27/Vue/this.$router.push、replace、go 区别/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -482,7 +586,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/数据库/MySQL/三元运算/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/开发/使用 concurrently 并行地运行多个命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -496,7 +600,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/04/26/数据库/MySQL/三元运算/" class="post-title-link" itemprop="url">MySQL-三元运算</a>
+            <a href="/2020/04/26/开发/使用 concurrently 并行地运行多个命令/" class="post-title-link" itemprop="url">使用 concurrently 并行地运行多个命令</a>
           
         </h1>
 
@@ -512,7 +616,7 @@
                 
               
 
-              <time title="创建时间：2020-04-26 11:59:47 / 修改时间：12:28:30" itemprop="dateCreated datePublished" datetime="2020-04-26T11:59:47+08:00">2020-04-26</time>
+              <time title="创建时间：2020-04-26 17:56:48 / 修改时间：18:03:13" itemprop="dateCreated datePublished" datetime="2020-04-26T17:56:48+08:00">2020-04-26</time>
             </span>
           
             
@@ -525,7 +629,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发/" itemprop="url" rel="index"><span itemprop="name">开发</span></a></span>
 
                 
                 
@@ -544,7 +648,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>195</span>
+              <span>556</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -567,18 +671,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>数据库的三元运算有两种方式</p>
-<ul>
-<li><p><code>if(expr1, expr2, expr3)</code></p>
-</li>
-<li><p><code>case when 条件 then (条件为true) else (条件为false) end</code></p>
-</li>
-</ul>
-<p>第一种方式需要消耗大量时间，如果较复杂的操作，尽量使用第二种方式</p>
+          <p>项目目录结构如下，想要实现一个命令同时跑前端和后端，可以使用 <strong>concurrently</strong></p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/04/26/数据库/MySQL/三元运算/#more" rel="contents">
+              <a class="btn" href="/2020/04/26/开发/使用 concurrently 并行地运行多个命令/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -609,7 +706,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/JavaScript/switch分支合并/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/开发/Vscode/自动生成文件头部注释和函数注释/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -623,7 +720,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/04/26/JavaScript/switch分支合并/" class="post-title-link" itemprop="url">switch分支合并</a>
+            <a href="/2020/04/26/开发/Vscode/自动生成文件头部注释和函数注释/" class="post-title-link" itemprop="url">vscode-自动生成文件头部注释和函数注释</a>
           
         </h1>
 
@@ -639,7 +736,7 @@
                 
               
 
-              <time title="创建时间：2020-04-26 11:53:47 / 修改时间：11:55:04" itemprop="dateCreated datePublished" datetime="2020-04-26T11:53:47+08:00">2020-04-26</time>
+              <time title="创建时间：2020-04-26 17:44:48 / 修改时间：17:56:03" itemprop="dateCreated datePublished" datetime="2020-04-26T17:44:48+08:00">2020-04-26</time>
             </span>
           
             
@@ -652,7 +749,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发/" itemprop="url" rel="index"><span itemprop="name">开发</span></a></span>
 
                 
                 
@@ -671,7 +768,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>63</span>
+              <span>687</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -694,125 +791,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p> switch 分支合并，会 case 穿透：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="number">1</span>: <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    key = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
-
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/26/数据库/MySQL/为什么123456的MD5有两个/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/04/26/数据库/MySQL/为什么123456的MD5有两个/" class="post-title-link" itemprop="url">为什么123456的MD5有两个</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-26 11:50:37 / 修改时间：11:52:19" itemprop="dateCreated datePublished" datetime="2020-04-26T11:50:37+08:00">2020-04-26</time>
-            </span>
-          
-            
-
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>247</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>毕业项目中，测试密码时，发现输入密码不对，便去数据库查看，发现输入‘123456’后，数据库存入的值不一样：‘e10adc3949ba59abbe56e057f20f883e’和‘14e1b600b1fd579f47433b88e8d85291’，原因是代码处理不当，密码进行了二次加密：</p>
+          <p>本文记录使用 <code>KoroFileHeader</code> 插件完成自动生成文件头部注释和函数注释的功能</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/04/26/数据库/MySQL/为什么123456的MD5有两个/#more" rel="contents">
+              <a class="btn" href="/2020/04/26/开发/Vscode/自动生成文件头部注释和函数注释/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -840,7 +823,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/93/">93</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/95/">95</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -889,7 +872,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">463</span>
+          <span class="site-state-item-count">474</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1140,7 +1123,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">962k</span>
+    <span title="站点总字数">967k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1148,7 +1131,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">14:34</span>
+    <span title="站点阅读时长">14:39</span>
   </div>
 
 </div>

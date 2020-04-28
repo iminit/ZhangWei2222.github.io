@@ -54,18 +54,18 @@
   };
 </script>
 
-  <meta name="description" content="使用 pm2 管理工具，可以维持服务器的后端 node 运行文件，并且能够自动重启，以及查看日志。接下来，介绍其部署的步骤。">
+  <meta name="description" content="如果安装时没有做什么修改，则默认路径为 /etc/my.cnf  查找 mysqld 的路径 12which mysqld# /usr/sbin/mysqld  敲命令，即可找到  1/usr/sbin/mysqld --verbose --help |grep -A 1 &apos;Default options&apos;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="服务器部署 pm2">
-<meta property="og:url" content="http://yoursite.com/2020/04/28/服务器/服务器部署 pm2/index.html">
+<meta property="og:title" content="MySQL-查找配置文件 my.cnf 路径">
+<meta property="og:url" content="http://yoursite.com/2020/04/28/数据库/MySQL/查找配置文件 my.cnf 路径/index.html">
 <meta property="og:site_name" content="Wei Zhang">
-<meta property="og:description" content="使用 pm2 管理工具，可以维持服务器的后端 node 运行文件，并且能够自动重启，以及查看日志。接下来，介绍其部署的步骤。">
+<meta property="og:description" content="如果安装时没有做什么修改，则默认路径为 /etc/my.cnf  查找 mysqld 的路径 12which mysqld# /usr/sbin/mysqld  敲命令，即可找到  1/usr/sbin/mysqld --verbose --help |grep -A 1 &apos;Default options&apos;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-28T04:02:14.914Z">
+<meta property="og:updated_time" content="2020-04-28T12:55:14.817Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="服务器部署 pm2">
-<meta name="twitter:description" content="使用 pm2 管理工具，可以维持服务器的后端 node 运行文件，并且能够自动重启，以及查看日志。接下来，介绍其部署的步骤。">
-  <link rel="canonical" href="http://yoursite.com/2020/04/28/服务器/服务器部署 pm2/">
+<meta name="twitter:title" content="MySQL-查找配置文件 my.cnf 路径">
+<meta name="twitter:description" content="如果安装时没有做什么修改，则默认路径为 /etc/my.cnf  查找 mysqld 的路径 12which mysqld# /usr/sbin/mysqld  敲命令，即可找到  1/usr/sbin/mysqld --verbose --help |grep -A 1 &apos;Default options&apos;">
+  <link rel="canonical" href="http://yoursite.com/2020/04/28/数据库/MySQL/查找配置文件 my.cnf 路径/">
 
 
 <script id="page-configurations">
@@ -79,7 +79,7 @@
   };
 </script>
 
-  <title>服务器部署 pm2 | Wei Zhang</title>
+  <title>MySQL-查找配置文件 my.cnf 路径 | Wei Zhang</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -238,7 +238,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/28/服务器/服务器部署 pm2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/28/数据库/MySQL/查找配置文件 my.cnf 路径/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <meta itemprop="name" content="Wei Zhang">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">服务器部署 pm2
+        <h1 class="post-title" itemprop="name headline">MySQL-查找配置文件 my.cnf 路径
 
           
         </h1>
@@ -267,7 +267,7 @@
                 
               
 
-              <time title="创建时间：2020-04-28 11:51:47 / 修改时间：12:02:14" itemprop="dateCreated datePublished" datetime="2020-04-28T11:51:47+08:00">2020-04-28</time>
+              <time title="创建时间：2020-04-28 20:52:47 / 修改时间：20:55:14" itemprop="dateCreated datePublished" datetime="2020-04-28T20:52:47+08:00">2020-04-28</time>
             </span>
           
             
@@ -280,7 +280,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/服务器/" itemprop="url" rel="index"><span itemprop="name">服务器</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
 
                 
                 
@@ -307,7 +307,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>839</span>
+              <span>148</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -330,39 +330,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>使用 pm2 管理工具，可以维持服务器的后端 node 运行文件，并且能够自动重启，以及查看日志。接下来，介绍其部署的步骤。</p>
-<a id="more"></a>
-
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g pm2</span><br></pre></td></tr></table></figure>
-
-<h3 id="部署环境变量"><a href="#部署环境变量" class="headerlink" title="部署环境变量"></a>部署环境变量</h3><p>如果以下命令显示 command not found，是因为没有将 pm2 加到环境变量中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 -v</span><br></pre></td></tr></table></figure>
-
+        <p>如果安装时没有做什么修改，则默认路径为 <code>/etc/my.cnf</code></p>
 <ol>
-<li><p>查看 node 目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whereis node</span><br><span class="line">node: /usr/<span class="built_in">local</span>/bin/node</span><br></pre></td></tr></table></figure>
+<li><p>查找 mysqld 的路径</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> mysqld</span><br><span class="line"><span class="comment"># /usr/sbin/mysqld</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>进入本地环境变量的路径</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/bin</span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line">lrwxrwxrwx 1 root root      43 Jul  6 09:49 node -&gt; /usr/nodejs/node-v8.11.3-linux-x64/bin/node</span><br><span class="line">lrwxrwxrwx 1 root root      42 Jul  6 09:49 npm -&gt; /usr/nodejs/node-v8.11.3-linux-x64/bin/npm</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进入 node 目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/nodejs/node-v8.11.3-linux-x64/bin</span><br><span class="line"></span><br><span class="line">node  npm   pm2</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>发现 pm2 ，将其加至本地的环境变量</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/nodejs/node-v8.11.3-linux-x64/bin/pm2 /usr/<span class="built_in">local</span>/bin</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检查是否成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 -v</span><br></pre></td></tr></table></figure>
+<li><p>敲命令，即可找到 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/sbin/mysqld --verbose --<span class="built_in">help</span> |grep -A 1 <span class="string">'Default options'</span></span><br></pre></td></tr></table></figure>
 
 
 
 </li>
 </ol>
-<h3 id="运行-TypeScript-文件"><a href="#运行-TypeScript-文件" class="headerlink" title="运行 TypeScript 文件"></a>运行 TypeScript 文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 install typescript</span><br><span class="line">pm2 start app.ts</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># --watch参数是监测 node 文件，如果被更改了会自动重启</span></span><br><span class="line">pm2 start server.js --watch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看部署的 node 进程</span></span><br><span class="line">pm2 list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 pm2</span></span><br><span class="line">pm2 restart &#123;list里的id号&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看日志</span></span><br><span class="line">pm2 <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://blog.csdn.net/d597180714/article/details/82619735" target="_blank" rel="noopener">Linux下使用pm2部署node以及安装后command not found解决</a></p>
 
     </div>
 
@@ -379,8 +358,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/04/28/Vue/路由报错： Navigating to current location (XXX) is not allowed/" rel="next" title="路由报错： Navigating to current location (XXX) is not allowed">
-                  <i class="fa fa-chevron-left"></i> 路由报错： Navigating to current location (XXX) is not allowed
+                <a href="/2020/04/28/数据库/MySQL/查看数据库安装路径/" rel="next" title="MySQL-查看数据库安装路径">
+                  <i class="fa fa-chevron-left"></i> MySQL-查看数据库安装路径
                 </a>
               
             </div>
@@ -388,6 +367,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/04/28/服务器/Linux 下卸载 MySQL 数据库/" rel="prev" title="Linux 下卸载 MySQL 数据库">
+                  Linux 下卸载 MySQL 数据库 <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -436,8 +419,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署环境变量"><span class="nav-text">部署环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行-TypeScript-文件"><span class="nav-text">运行 TypeScript 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-text">参考文章</span></a></li></ol></div>
-        
       </div>
       <!--/noindex-->
 
@@ -455,7 +436,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">463</span>
+          <span class="site-state-item-count">474</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -706,7 +687,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">962k</span>
+    <span title="站点总字数">967k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -714,7 +695,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">14:34</span>
+    <span title="站点阅读时长">14:39</span>
   </div>
 
 </div>
