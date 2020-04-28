@@ -2,9 +2,7 @@
 title: 关于Node的几个小点
 date: 2019-11-22 18:07:37
 categories:
-- 后端知识
-tags:
-- Node
+- Node.js
 comments: false
 ---
 
