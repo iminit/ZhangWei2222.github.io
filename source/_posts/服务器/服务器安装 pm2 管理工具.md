@@ -1,5 +1,5 @@
 ---
-title: 服务器部署 pm2
+title: 服务器安装 pm2 管理工具
 date: 2020-04-28 11:51:47
 categories:
 - 服务器
@@ -83,10 +83,13 @@ pm2 start server.js --watch
 pm2 list
 
 # 重启 pm2
-pm2 restart {list里的id号}
+pm2 restart {list里的id号/文件}
 
 # 查看日志
 pm2 log
+
+# 结束 pm2
+pm2 stop {list里的id号/文件}
 ```
 
 
