@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="以毕业项目：青年旅社移动端 的登录注册为例，记录 Vue+Koa2+MySQL 全栈开发过程 Github地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue+Koa2+MySQL 全栈开发记录">
+<meta property="og:url" content="http://yoursite.com/2020/04/29/全栈/Vue+Koa2+MySQL 全栈开发记录/index.html">
+<meta property="og:site_name" content="Wei Zhang">
+<meta property="og:description" content="以毕业项目：青年旅社移动端 的登录注册为例，记录 Vue+Koa2+MySQL 全栈开发过程 Github地址">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-29T10:07:37.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue+Koa2+MySQL 全栈开发记录">
+<meta name="twitter:description" content="以毕业项目：青年旅社移动端 的登录注册为例，记录 Vue+Koa2+MySQL 全栈开发过程 Github地址">
+  <link rel="canonical" href="http://yoursite.com/2020/04/29/全栈/Vue+Koa2+MySQL 全栈开发记录/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Vue+Koa2+MySQL 全栈开发记录 | Wei Zhang</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6b84e82d64204f777295ad7493af8ba2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wei Zhang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-wrapper">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/29/全栈/Vue+Koa2+MySQL 全栈开发记录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Vue+Koa2+MySQL 全栈开发记录
+
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-29 17:04:47 / 修改时间：18:07:37" itemprop="dateCreated datePublished" datetime="2020-04-29T17:04:47+08:00">2020-04-29</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/全栈/" itemprop="url" rel="index"><span itemprop="name">全栈</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>15k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>14 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>以毕业项目：青年旅社移动端 的登录注册为例，记录 Vue+Koa2+MySQL 全栈开发过程</p>
+<p><a href="https://github.com/ZhangWei2222/Youth-Hostel" target="_blank" rel="noopener">Github地址</a></p>
+<a id="more"></a>
+
+
+
+<h3 id="相关目录介绍"><a href="#相关目录介绍" class="headerlink" title="相关目录介绍"></a>相关目录介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Youth-Hostel</span><br><span class="line">├── client        // 前端 Vue 工程</span><br><span class="line">│   ├── src</span><br><span class="line">│   │   ├── router      // 路由</span><br><span class="line">│   │   │   └── index.ts</span><br><span class="line">│   │   ├── services    // 定义API</span><br><span class="line">│   │   │   ├── lib</span><br><span class="line">│   │   │   │   └── http.ts   // 对 axios 设置 request 拦截器和 response 拦截器</span><br><span class="line">│   │   │   └── loginAPI.ts</span><br><span class="line">├── db                  // 后端 Node 工程</span><br><span class="line">│   ├── config</span><br><span class="line">│   │   └── default.ts  // 数据库配置文件</span><br><span class="line">│   ├── index.ts        // 入口文件</span><br><span class="line">│   ├── lib             // 封装各 sql 语句， 连接 MySQL</span><br><span class="line">│   │   ├── dbtools.ts       // sql组装模块</span><br><span class="line">│   │   └── mysql.ts         // 房客相关（包括登录、注册）</span><br><span class="line">│   ├── routers         // 路由，调用并执行在 lib 中对应的方法</span><br><span class="line">│   │   ├── signIn.ts        // 登录相关</span><br><span class="line">│   │   └── signUp.ts        // 注册相关</span><br><span class="line">│   └── token</span><br><span class="line">│       ├── checkToken.ts    // 检查token</span><br><span class="line">│       └── createToken.ts   // 创建token</span><br><span class="line">├── logs                // 分类别、按时间存放后端日志</span><br><span class="line">│   ├── debug</span><br><span class="line">│   ├── error</span><br><span class="line">│   ├── info</span><br><span class="line">│   │   ├── info_file.2020-03-02.log</span><br><span class="line">│   │   ├── ...</span><br><span class="line">│   │   └── info_file.2020-04-23.log</span><br><span class="line">│   ├── log_config.json      // log4js 配置文件</span><br><span class="line">│   └── trace</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">└── README.md</span><br></pre></td></tr></table></figure>
+
+<h3 id="log4js-配置"><a href="#log4js-配置" class="headerlink" title="log4js 配置"></a><a href="http://super-wei.top/2020/04/26/%E6%9C%8D%E5%8A%A1%E5%99%A8/log4js%20%E9%85%8D%E7%BD%AE/" target="_blank" rel="noopener">log4js 配置</a></h3><p>首先要注入日志管理工具，这里选择了 log4js ，可以分类别、按日期地记录各日志，方便调试、debugger</p>
+<h3 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h3><p><code>db/config/default.ts</code> 中进行数据库配置</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;  <span class="comment">// mysql 配置</span></span><br><span class="line">    database: &#123;</span><br><span class="line">        host: <span class="string">'101.133.xxx.xxx'</span>, <span class="comment">// 服务器ip地址</span></span><br><span class="line">        user: <span class="string">'root'</span>, <span class="comment">// 用户账号</span></span><br><span class="line">        password: <span class="string">'xxxxxx'</span>, <span class="comment">// 密码</span></span><br><span class="line">        database: <span class="string">'youth_hostel'</span>, <span class="comment">// 数据库名</span></span><br><span class="line">        multipleStatements: <span class="literal">true</span> <span class="comment">// 允许每个mysql语句有多条查询.使用它时要非常注意，因为它很容易引起sql注入攻击(默认:false)</span></span><br><span class="line">    &#125;,</span><br><span class="line">    port: <span class="number">4442</span> <span class="comment">// 监听端口</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Koa2-配置"><a href="#Koa2-配置" class="headerlink" title="Koa2 配置"></a>Koa2 配置</h3><p><code>db/index.ts</code> 中编写入口文件，完成服务器连接和日志服务</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> globalAny: <span class="built_in">any</span> = global;</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa2'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>);</span><br><span class="line"><span class="keyword">var</span> cors = <span class="built_in">require</span>(<span class="string">'koa2-cors'</span>);</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">'koa-bodyparser'</span>);</span><br><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">'./config/default.ts'</span>);</span><br><span class="line"><span class="keyword">const</span> server = <span class="built_in">require</span>(<span class="string">'koa-static'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./lib/mysql.ts'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// // 设置静态文件</span></span><br><span class="line"><span class="comment">// app.use(server(</span></span><br><span class="line"><span class="comment">//   path.join(__dirname, '../dist')</span></span><br><span class="line"><span class="comment">// ))</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置跨域</span></span><br><span class="line">app.use(cors(&#123;</span><br><span class="line">    origin: <span class="function"><span class="keyword">function</span> (<span class="params">ctx</span>) </span>&#123; <span class="comment">// 设置允许来自指定域名请求</span></span><br><span class="line">        <span class="keyword">if</span> (ctx.request.header.referer === <span class="string">"http://localhost:8080/"</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'http://localhost:8080'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'http://101.133.xxx.xxx'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    maxAge: <span class="number">5</span>, <span class="comment">//指定本次预检请求的有效期，单位为秒。</span></span><br><span class="line">    credentials: <span class="literal">true</span>, <span class="comment">//是否允许发送Cookie</span></span><br><span class="line">    allowMethods: [<span class="string">'GET'</span>, <span class="string">'POST'</span>, <span class="string">'PUT'</span>, <span class="string">'DELETE'</span>, <span class="string">'OPTIONS'</span>], <span class="comment">//设置所允许的HTTP请求方法</span></span><br><span class="line">    allowHeaders: [<span class="string">'Content-Type'</span>, <span class="string">'Authorization'</span>, <span class="string">'Accept'</span>], <span class="comment">//设置服务器支持的所有头信息字段</span></span><br><span class="line">    exposeHeaders: [<span class="string">'WWW-Authenticate'</span>, <span class="string">'Server-Authorization'</span>] <span class="comment">//设置获取其他自定义字段</span></span><br><span class="line">&#125;)</span><br><span class="line">       );</span><br><span class="line"></span><br><span class="line"><span class="comment">// ctx body 中间件</span></span><br><span class="line">app.use(bodyParser(&#123;</span><br><span class="line">    formLimit: <span class="string">'1mb'</span></span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 各路由</span></span><br><span class="line">app.use(<span class="built_in">require</span>(<span class="string">'./routers/signUp.ts'</span>).routes()) <span class="comment">// 注册</span></span><br><span class="line">app.use(<span class="built_in">require</span>(<span class="string">'./routers/signIn.ts'</span>).routes()) <span class="comment">// 登录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听端口</span></span><br><span class="line">app.listen(config.port, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"——————————服务已启动——————————"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开启日志服务</span></span><br><span class="line"><span class="keyword">const</span> log4js = <span class="built_in">require</span>(<span class="string">"log4js"</span>);</span><br><span class="line"><span class="keyword">const</span> log4js_config = <span class="built_in">require</span>(<span class="string">"../logs/log_config.json"</span>);</span><br><span class="line">log4js.configure(log4js_config);</span><br><span class="line">globalAny.log = log4js.getLogger(<span class="string">"wei"</span>);</span><br><span class="line"></span><br><span class="line">globalAny.log.info(<span class="string">'---开始listen in localhost:'</span> + config.port);</span><br><span class="line"><span class="keyword">export</span> &#123; &#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="编写-SQL-拼接模板"><a href="#编写-SQL-拼接模板" class="headerlink" title="编写 SQL 拼接模板"></a>编写 SQL 拼接模板</h3><p><code>db/lib/dbtools.ts</code>编写 <a href="http://super-wei.top/2020/04/26/%E6%95%B0%E6%8D%AE%E5%BA%93/%E7%AE%80%E5%8D%95SQL%E8%AF%AD%E5%8F%A5%E6%8B%BC%E6%8E%A5%E6%A8%A1%E6%9D%BF-Node.js%E7%89%88/" target="_blank" rel="noopener">SQL 拼接模板</a>，之后在每个子文件中调用模板进行拼接，可以大大提高 sql 语句的编写效率，如<code>db/lib/mysql.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> globalAny: <span class="built_in">any</span> = global;</span><br><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">'mysql'</span>);</span><br><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">'../config/default.ts'</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; getSQLObject, _structureAnalysis &#125; = <span class="built_in">require</span>(<span class="string">'../lib/dbtools.ts'</span>);</span><br><span class="line"><span class="keyword">var</span> pool = mysql.createPool(config.database);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> query = <span class="function"><span class="keyword">function</span> (<span class="params">sql, val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        pool.getConnection(<span class="function"><span class="keyword">function</span> (<span class="params">err, connection</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                reject(err)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                connection.query(sql, val, <span class="function">(<span class="params">err, res</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                        reject(err)</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        resolve(res)</span><br><span class="line">                    &#125;</span><br><span class="line">                    connection.release();</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> findUser = <span class="function">(<span class="params">val</span>) =&gt;</span> &#123; <span class="comment">// 查找所有User</span></span><br><span class="line">    <span class="keyword">let</span> stru = getSQLObject();</span><br><span class="line">    stru[<span class="string">"query"</span>] = <span class="string">"select"</span>;</span><br><span class="line">    stru[<span class="string">"tables"</span>] = <span class="string">"users"</span>;</span><br><span class="line">    stru[<span class="string">"data"</span>] = &#123;</span><br><span class="line">        <span class="string">"*"</span>: <span class="string">'*'</span></span><br><span class="line">    &#125;;</span><br><span class="line">    stru[<span class="string">"where"</span>][<span class="string">"condition"</span>] = [</span><br><span class="line">        <span class="string">"name = '"</span> + val + <span class="string">"'"</span>,</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">let</span> result = _structureAnalysis(stru);</span><br><span class="line">    globalAny.log.trace(<span class="string">"[findUser] sql语句: "</span> + result.sql + <span class="string">" value参数: "</span> + result.value);</span><br><span class="line">    <span class="keyword">return</span> query(result.sql, result.value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">//暴露方法</span></span><br><span class="line">    findUser</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; &#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析登录-注册逻辑"><a href="#分析登录-注册逻辑" class="headerlink" title="分析登录 注册逻辑"></a>分析登录 注册逻辑</h3><ol>
+<li>注册 -&gt; 判断是否用户名存在-&gt;（否）sql 注册</li>
+<li>登录 -&gt; 判断账号是否存在 -&gt; （是）校验密码 -&gt; 成功 -&gt; 返回Toke</li>
+</ol>
+<h3 id="后端编写"><a href="#后端编写" class="headerlink" title="后端编写"></a>后端编写</h3><h4 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h4><h5 id="编写路由"><a href="#编写路由" class="headerlink" title="编写路由"></a>编写路由</h5><p><code>db/router/signUp.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> globalAny: <span class="built_in">any</span> = global;</span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>)();</span><br><span class="line"><span class="keyword">const</span> userModel = <span class="built_in">require</span>(<span class="string">'../lib/mysql.ts'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册</span></span><br><span class="line">router.post(<span class="string">'/api/signUp'</span>, <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="comment">// post请求 从body中获取注册参数</span></span><br><span class="line">    <span class="keyword">let</span> user = &#123;</span><br><span class="line">        name: ctx.request.body.name,</span><br><span class="line">        password: ctx.request.body.password,</span><br><span class="line">        sex: ctx.request.body.sex</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> userModel.findUser(user.name).then(<span class="keyword">async</span> (res) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.length) &#123; <span class="comment">// length &gt; 1 说明 表中有数据</span></span><br><span class="line">            globalAny.log.error(<span class="string">"[insetUser] 注册失败: 用户已存在！"</span>);</span><br><span class="line">            ctx.body = &#123;</span><br><span class="line">                code: <span class="number">102</span>,</span><br><span class="line">                msg: <span class="string">'用户已存在!'</span>,</span><br><span class="line">                data: []</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  <span class="comment">// 否者没有注册</span></span><br><span class="line">            <span class="keyword">await</span> userModel.insetUser(user).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                globalAny.log.trace(<span class="string">"[insetUser] 注册成功"</span>);</span><br><span class="line">                ctx.body = &#123;</span><br><span class="line">                    code: <span class="number">0</span>,</span><br><span class="line">                    msg: <span class="string">'注册成功!'</span>,</span><br><span class="line">                    data: res</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                globalAny.log.error(<span class="string">"[insetUser] 注册失败: "</span> + err);</span><br><span class="line">                ctx.body = &#123;</span><br><span class="line">                    code: <span class="number">-1</span>,</span><br><span class="line">                    msg: err</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">module</span>.exports = router</span><br><span class="line"><span class="keyword">export</span> &#123; &#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="编写-SQL-语句"><a href="#编写-SQL-语句" class="headerlink" title="编写 SQL 语句"></a>编写 SQL 语句</h5><p><code>db/lib/mysql.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> insetUser = <span class="function">(<span class="params">val</span>) =&gt;</span> &#123; <span class="comment">// 注册</span></span><br><span class="line">    <span class="keyword">let</span> stru = getSQLObject();</span><br><span class="line">    stru[<span class="string">"query"</span>] = <span class="string">"insert"</span>;</span><br><span class="line">    stru[<span class="string">"tables"</span>] = <span class="string">"users"</span>;</span><br><span class="line">    stru[<span class="string">"data"</span>] = &#123;</span><br><span class="line">        <span class="string">"name"</span>: val.name,</span><br><span class="line">        <span class="string">"password"</span>: val.password,</span><br><span class="line">        <span class="string">"sex"</span>: val.sex</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> result = _structureAnalysis(stru);</span><br><span class="line">    globalAny.log.trace(<span class="string">"[insetUser] sql语句: "</span> + result.sql + <span class="string">" value参数: "</span> + result.value);</span><br><span class="line">    <span class="keyword">return</span> query(result.sql, result.value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="解析-token"><a href="#解析-token" class="headerlink" title="解析 token"></a>解析 token</h5><p><code>db/token/checkToken.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">'jsonwebtoken'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接口访问必须要有Token (需要用户登录)</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> authorization = ctx.get(<span class="string">'Authorization'</span>); <span class="comment">// request 带过来的 token  存在浏览器的cookie中</span></span><br><span class="line">    <span class="keyword">if</span> (authorization == <span class="string">''</span>) &#123;</span><br><span class="line">        ctx.body = &#123;</span><br><span class="line">            code: <span class="number">104</span>,</span><br><span class="line">            msg: <span class="string">'未登录'</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> token = authorization;</span><br><span class="line">    <span class="keyword">let</span> tokenContent;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 根据 "wei" 钥解析 token 判断是否失效</span></span><br><span class="line">        tokenContent = <span class="keyword">await</span> jwt.verify(token, <span class="string">'wei'</span>);     <span class="comment">//如果token过期或验证失败，将抛出错误</span></span><br><span class="line">        <span class="comment">// 存入ctx 中 next() 可以获取到设置的 userInfo 数据</span></span><br><span class="line">        ctx.userInfo = tokenContent</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        ctx.body = &#123;</span><br><span class="line">            code: <span class="number">0</span>,</span><br><span class="line">            msg: <span class="string">'登录验证失效'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h4><h5 id="编写路由-1"><a href="#编写路由-1" class="headerlink" title="编写路由"></a>编写路由</h5><p><code>db/router/signIn.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> globalAny: <span class="built_in">any</span> = global;</span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>)();</span><br><span class="line"><span class="keyword">const</span> userModel = <span class="built_in">require</span>(<span class="string">'../lib/mysql.ts'</span>);</span><br><span class="line"><span class="keyword">const</span> createToken = <span class="built_in">require</span>(<span class="string">'../token/createToken.ts'</span>);</span><br><span class="line"></span><br><span class="line">router.post(<span class="string">'/api/signIn'</span>, <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> user = &#123;</span><br><span class="line">    username: ctx.request.body.username,</span><br><span class="line">    password: ctx.request.body.password</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> userModel.findUser(user.username).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!res.length) &#123;</span><br><span class="line">      ctx.body = &#123;</span><br><span class="line">        code: <span class="number">101</span>,</span><br><span class="line">        msg: <span class="string">'用户未注册!'</span>,</span><br><span class="line">        data: []</span><br><span class="line">      &#125;</span><br><span class="line">      globalAny.log.error(<span class="string">"[findUser] 房客未注册!"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (res[<span class="number">0</span>].password === user.password) &#123;</span><br><span class="line">        <span class="keyword">let</span> token = createToken(res[<span class="number">0</span>]) <span class="comment">// 创建token 存储用户id等重要信息</span></span><br><span class="line"></span><br><span class="line">        ctx.body = &#123;</span><br><span class="line">          code: <span class="number">0</span>,</span><br><span class="line">          msg: <span class="string">'用户登录成功!'</span>,</span><br><span class="line">          data: [],</span><br><span class="line">          token</span><br><span class="line">        &#125;</span><br><span class="line">        globalAny.log.trace(<span class="string">"[findUser] 登录成功!"</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ctx.body = &#123;</span><br><span class="line">          code: <span class="number">103</span>,</span><br><span class="line">          msg: <span class="string">'用户名或者密码错误!'</span>,</span><br><span class="line">          data: []</span><br><span class="line">        &#125;</span><br><span class="line">        globalAny.log.error(<span class="string">"[findUser] 用户名或者密码错误!"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    ctx.body = &#123;</span><br><span class="line">      code: <span class="number">-1</span>,</span><br><span class="line">      msg: err,</span><br><span class="line">      data: []</span><br><span class="line">    &#125;</span><br><span class="line">    globalAny.log.error(<span class="string">"[findUser] 登录失败:"</span> + err);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="编写-SQL-语句-1"><a href="#编写-SQL-语句-1" class="headerlink" title="编写 SQL 语句"></a>编写 SQL 语句</h5><p><code>db/lib/mysql.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> findUser = <span class="function">(<span class="params">val</span>) =&gt;</span> &#123; <span class="comment">// 查找所有User</span></span><br><span class="line">  <span class="keyword">let</span> stru = getSQLObject();</span><br><span class="line">  stru[<span class="string">"query"</span>] = <span class="string">"select"</span>;</span><br><span class="line">  stru[<span class="string">"tables"</span>] = <span class="string">"users"</span>;</span><br><span class="line">  stru[<span class="string">"data"</span>] = &#123;</span><br><span class="line">    <span class="string">"*"</span>: <span class="string">'*'</span></span><br><span class="line">  &#125;;</span><br><span class="line">  stru[<span class="string">"where"</span>][<span class="string">"condition"</span>] = [</span><br><span class="line">    <span class="string">"name = '"</span> + val + <span class="string">"'"</span>,</span><br><span class="line">  ];</span><br><span class="line">  <span class="keyword">let</span> result = _structureAnalysis(stru);</span><br><span class="line">  globalAny.log.trace(<span class="string">"[findUser] sql语句: "</span> + result.sql + <span class="string">" value参数: "</span> + result.value);</span><br><span class="line">  <span class="keyword">return</span> query(result.sql, result.value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="生成-token"><a href="#生成-token" class="headerlink" title="生成 token"></a>生成 token</h5><p><code>db/token/createToken.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">'jsonwebtoken'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//登录时：核对用户名和密码成功后，应用将用户的id 作为JWT Payload的一个属性</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">user</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// jwt.sign 参数详情</span></span><br><span class="line">    <span class="comment">//第一个是Payload，也就是用户信息（要注意payload不要传整个文档，Payload需要的是唯一且不变的数据，否则当Payload改变的时候需要重新下发token）。这里我们用文档的id，目的是唯一标识用户</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第二个参数是密钥，也就是你生成Signature时所用到的加密密钥。要注意这里必须和创建jwt的时候传入的secret一致，因为服务端需要用创建时的secret来解密。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第三个参数则是设置一个token的过期时间，这里我们设置的是1天。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> token = jwt.sign(&#123;</span><br><span class="line">        userId: user.id</span><br><span class="line">    &#125;, <span class="string">'wei'</span>, &#123;    <span class="comment">// "wei"  是校验码    解析时需要一致 才能取到 user 信息</span></span><br><span class="line">        expiresIn: <span class="string">'24h'</span> <span class="comment">//过期时间设置为24h 格式有(s, m, h , day)。那么decode这个token的时候得到的过期时间为 : 创建token的时间 +　设置的值</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> token; <span class="comment">// 返回token  前端存在浏览器cookie 中</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="前端编写"><a href="#前端编写" class="headerlink" title="前端编写"></a>前端编写</h3><h4 id="编写拦截器"><a href="#编写拦截器" class="headerlink" title="编写拦截器"></a>编写拦截器</h4><p><code>client/src/services/lib/http.ts</code>，对 axios 设置 request 拦截器和 response 拦截器</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"><span class="keyword">import</span> NProgress <span class="keyword">from</span> <span class="string">'nprogress'</span></span><br><span class="line"><span class="keyword">import</span> cookie <span class="keyword">from</span> <span class="string">'js-cookie'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'nprogress/nprogress.css'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> instance = axios.create();</span><br><span class="line">NProgress.configure(&#123; showSpinner: <span class="literal">false</span> &#125;);</span><br><span class="line"></span><br><span class="line">instance.defaults.headers.post[<span class="string">'Content-Type'</span>] = <span class="string">'application/x-www-form-urlencoded'</span>;</span><br><span class="line"><span class="comment">// 设置接口转发地址</span></span><br><span class="line"><span class="keyword">const</span> urlDev = <span class="string">'http://localhost:4442'</span></span><br><span class="line"><span class="keyword">const</span> urlQa = <span class="string">'http://101.133.xxx.xxx:4442'</span></span><br><span class="line">process.env.NODE_ENV === <span class="string">'development'</span> ?</span><br><span class="line">    instance.defaults.baseURL = urlDev :</span><br><span class="line">instance.defaults.baseURL = urlQa</span><br><span class="line"></span><br><span class="line"><span class="comment">// http request 拦截器</span></span><br><span class="line">instance.interceptors.request.use(</span><br><span class="line">    config =&gt; &#123;</span><br><span class="line">        config.withCredentials = <span class="literal">true</span></span><br><span class="line">        NProgress.start()</span><br><span class="line">        config.headers[<span class="string">'Authorization'</span>] = cookie.get(<span class="string">'assent_token'</span>) || <span class="string">''</span>; <span class="comment">// 设置assent_token</span></span><br><span class="line">        <span class="keyword">return</span> config;</span><br><span class="line">    &#125;,</span><br><span class="line">    err =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(err);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http response 拦截器</span></span><br><span class="line">instance.interceptors.response.use(</span><br><span class="line">    response =&gt; &#123;</span><br><span class="line">        NProgress.done()</span><br><span class="line">        <span class="keyword">if</span> (response.data.msg === <span class="string">"登录验证失效"</span>) &#123;</span><br><span class="line">            cookie.remove(<span class="string">'assent_token'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> response;</span><br><span class="line">    &#125;,</span><br><span class="line">    error =&gt; &#123;</span><br><span class="line">        NProgress.done()</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> instance</span><br></pre></td></tr></table></figure>
+
+<h4 id="编写-API-接口"><a href="#编写-API-接口" class="headerlink" title="编写 API 接口"></a>编写 API 接口</h4><p><code>client/src/services/loginAPI.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> http <span class="keyword">from</span> <span class="string">'./lib/http'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> signUpAPI = <span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> http.post(<span class="string">'/api/signUp'</span>, params);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> signInAPI = <span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> http.post(<span class="string">'/api/signIn'</span>, params);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改前端路由"><a href="#修改前端路由" class="headerlink" title="修改前端路由"></a>修改前端路由</h4><p>可以通过配置前端路由进行<strong>登录权限的约束</strong>：每次路由跳转前判断是否需要登录权限，如果需要登录权限，再判断浏览器是否存在 token，如果没有则跳转到登录页面，如<code>client/src/router/index.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">"vue"</span>;</span><br><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">"vue-router"</span>;</span><br><span class="line"><span class="keyword">const</span> routerPush = Router.prototype.push</span><br><span class="line">Router.prototype.push = <span class="function"><span class="keyword">function</span> <span class="title">push</span>(<span class="params">location</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> routerPush.call(<span class="keyword">this</span>, location).catch(<span class="function"><span class="params">error</span> =&gt;</span> error)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">import</span> cookie <span class="keyword">from</span> <span class="string">'js-cookie'</span></span><br><span class="line"><span class="keyword">const</span> views: <span class="built_in">any</span> = <span class="built_in">require</span>[<span class="string">'context'</span>](<span class="string">'../views'</span>, <span class="literal">true</span>, <span class="regexp">/\.vue$/im</span>);</span><br><span class="line"><span class="keyword">const</span> modules: <span class="built_in">any</span> = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFloorConfigName</span>(<span class="params">path</span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> path.match(<span class="regexp">/([\w-]+)\.vue/</span>)[<span class="number">1</span>];</span><br><span class="line">&#125; <span class="comment">//([\w-]+) ： 匹配数字和字母下划线，中划线的多个字符</span></span><br><span class="line">views.keys().forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  modules[getFloorConfigName(key)] = views(key).default || views(key)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Vue.use(Router);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> Router(&#123;</span><br><span class="line">  mode: <span class="string">'hash'</span>,</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">"/"</span>,</span><br><span class="line">      redirect: <span class="string">'/home'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/signIn'</span>,</span><br><span class="line">      name: <span class="string">'SignIn'</span>,</span><br><span class="line">      component: modules[<span class="string">'SignIn'</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/signup'</span>,</span><br><span class="line">      name: <span class="string">'SignUp'</span>,</span><br><span class="line">      component: modules[<span class="string">'SignUp'</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  scrollBehavior(to, <span class="keyword">from</span>, savedPosition) &#123;</span><br><span class="line">    <span class="keyword">if</span> (savedPosition) &#123;</span><br><span class="line">      <span class="keyword">return</span> savedPosition</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123; x: <span class="number">0</span>, y: <span class="number">0</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> token = cookie.get(<span class="string">'assent_token'</span>);</span><br><span class="line">  <span class="keyword">if</span> (to.meta.requireAuth) &#123;</span><br><span class="line">    <span class="keyword">if</span> (token) &#123;</span><br><span class="line">      next();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      next(&#123;</span><br><span class="line">        path: <span class="string">'/signIn'</span>,</span><br><span class="line">        query: &#123; redirect: to.fullPath &#125;  <span class="comment">// 将跳转的路由path作为参数，登录成功后跳转到该路由</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    next();<span class="comment">//如果无需token,那么随它去吧</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+
+<h4 id="注册-1"><a href="#注册-1" class="headerlink" title="注册"></a>注册</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> signUp(): <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">let</span> userForm = <span class="keyword">this</span>.$refs[<span class="string">"UserForm"</span>].userForm;</span><br><span class="line">    <span class="keyword">let</span> params = &#123;</span><br><span class="line">        name: userForm.name,</span><br><span class="line">        password: userForm.password &amp;&amp; md5(userForm.password),</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> signUpAPI(params);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"注册信息"</span> + <span class="built_in">JSON</span>.stringify(res.data));</span><br><span class="line">        <span class="keyword">if</span> (res.data.code === <span class="number">0</span>) &#123;</span><br><span class="line">            Toast.success(res.data.msg);</span><br><span class="line">            self.$router.replace(<span class="string">"/signIn"</span>); <span class="comment">// 跳转到登录页面</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Toast.fail(<span class="string">"注册失败"</span> + res.data.msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        Toast.fail(<span class="string">"注册失败"</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"注册失败"</span> + error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="登录-1"><a href="#登录-1" class="headerlink" title="登录"></a>登录</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> signIn(): <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (self.username &amp;&amp; self.password) &#123;</span><br><span class="line">        <span class="keyword">let</span> res;</span><br><span class="line">        res = <span class="keyword">await</span> signInAPI(&#123;</span><br><span class="line">            username: self.username,</span><br><span class="line">            password: md5(self.password)</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"用户登录信息"</span> + <span class="built_in">JSON</span>.stringify(res.data));</span><br><span class="line">            <span class="keyword">if</span> (res.data.code === <span class="number">0</span>) &#123;</span><br><span class="line">                Toast.success(res.data.msg);</span><br><span class="line">                cookie.set(<span class="string">"assent_token"</span>, res.data.token, &#123;  <span class="comment">// 设置 token</span></span><br><span class="line">                    expires: <span class="number">1</span>,</span><br><span class="line">                    path: <span class="string">""</span></span><br><span class="line">                &#125;);</span><br><span class="line">                <span class="keyword">if</span> (self.$route.query.redirect) &#123;  <span class="comment">// 跳转判断</span></span><br><span class="line">                    self.$router.replace(<span class="string">""</span> + self.$route.query.redirect);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    self.$router.replace(<span class="string">"/"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                Toast.fail(res.data.msg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            Toast.fail(<span class="string">"用户登录失败"</span>);</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"用户登录失败"</span> + error);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://segmentfault.com/a/1190000015962701" target="_blank" rel="noopener">全栈前端入门必看 koa2+mysql+vue+vant 构建简单版移动端博客</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/04/29/开发/markdown 编写文件目录结构/" rel="next" title="markdown 编写文件目录结构">
+                  <i class="fa fa-chevron-left"></i> markdown 编写文件目录结构
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/04/29/数据库/MySQL/datetime 和 timestamp 的区别与选择/" rel="prev" title="MySQL-datetime 和 timestamp 的区别与选择">
+                  MySQL-datetime 和 timestamp 的区别与选择 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关目录介绍"><span class="nav-text">相关目录介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#log4js-配置"><span class="nav-text">log4js 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库配置"><span class="nav-text">数据库配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Koa2-配置"><span class="nav-text">Koa2 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写-SQL-拼接模板"><span class="nav-text">编写 SQL 拼接模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析登录-注册逻辑"><span class="nav-text">分析登录 注册逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后端编写"><span class="nav-text">后端编写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注册"><span class="nav-text">注册</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#编写路由"><span class="nav-text">编写路由</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编写-SQL-语句"><span class="nav-text">编写 SQL 语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解析-token"><span class="nav-text">解析 token</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登录"><span class="nav-text">登录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#编写路由-1"><span class="nav-text">编写路由</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编写-SQL-语句-1"><span class="nav-text">编写 SQL 语句</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#生成-token"><span class="nav-text">生成 token</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端编写"><span class="nav-text">前端编写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写拦截器"><span class="nav-text">编写拦截器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写-API-接口"><span class="nav-text">编写 API 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改前端路由"><span class="nav-text">修改前端路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册-1"><span class="nav-text">注册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登录-1"><span class="nav-text">登录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-text">参考文章</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="Wei Zhang">
+  <p class="site-author-name" itemprop="name">Wei Zhang</p>
+  <div class="site-description motion-element" itemprop="description">Dream High.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">481</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wei Zhang</span>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+      <span> 站点总字数:</span>
+    </span>
+    <span title="站点总字数">986k</span>
+  </div>
+  <div style="display: none">
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+      <span> 站点阅读时长 ≈ </span>
+    </span>
+    <span title="站点阅读时长">14:57</span>
+  </div>
+
+</div>
+
+<div id="sitetime"></div>
+<script language=javascript>
+	function siteTime(){
+		window.setTimeout("siteTime()", 1000);
+		var seconds = 1000;
+		var minutes = seconds * 60;
+		var hours = minutes * 60;
+		var days = hours * 24;
+		var years = days * 365;
+		var today = new Date();
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth()+1;
+		var todayDate = today.getDate();
+		var todayHour = today.getHours();
+		var todayMinute = today.getMinutes();
+		var todaySecond = today.getSeconds();
+		/* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+		year - 作为date对象的年份，为4位年份值
+		month - 0-11之间的整数，做为date对象的月份
+		day - 1-31之间的整数，做为date对象的天数
+		hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+		minutes - 0-59之间的整数，做为date对象的分钟数
+		seconds - 0-59之间的整数，做为date对象的秒数
+		microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+		var t1 = Date.UTC(2017,08,12,15,15,47); //建站时间
+		var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+		var diff = t2-t1;
+		var diffYears = Math.floor(diff/years);
+		var diffDays = Math.floor((diff/days)-diffYears*365);
+		var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+		var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+		var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+		document.getElementById("sitetime").innerHTML=" 已运行"+diffYears+" 年 "+diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分钟 "+diffSeconds+" 秒";
+	}
+	siteTime();
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      本站访客数&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人</span>
+    </span>
+  
+    <span class="post-meta-divider" style="display: inline-block">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      本站总访问量&nbsp;<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+    
+    
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script defer src="/lib/three/three.min.js"></script>
+  <script defer src="/lib/three/three-waves.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'evzwVhGeeu0e8oJIovHWHhrg-gzGzoHsz',
+    appKey: 'e8acWBp5aWlRHeY2YOarxIaK',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
