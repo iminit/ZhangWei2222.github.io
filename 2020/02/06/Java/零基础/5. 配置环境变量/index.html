@@ -62,7 +62,7 @@
 <meta property="og:description" content="前言Java 如何配置环境变量">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="file:///C:%5CUsers%5CAdministrator%5CAppData%5CLocal%5CTemp%5Cksohtml1156%5Cwps6.jpg">
-<meta property="og:updated_time" content="2020-02-08T09:33:20.485Z">
+<meta property="og:updated_time" content="2020-05-15T08:24:41.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java零基础-配置环境变量">
 <meta name="twitter:description" content="前言Java 如何配置环境变量">
@@ -281,7 +281,7 @@
                 </span>
             <div style="display: none">
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-08 17:33:20" itemprop="dateModified" datetime="2020-02-08T17:33:20+08:00">2020-02-08</time>
+                <time title="修改时间：2020-05-15 16:24:41" itemprop="dateModified" datetime="2020-05-15T16:24:41+08:00">2020-05-15</time>
               </span>
             </div>
             
@@ -319,7 +319,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>662</span>
+              <span>670</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -344,6 +344,8 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Java 如何配置环境变量</p>
 <a id="more"></a>
+
+
 
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>windows操作系统在查找某个命令的时候是怎么查找的？</p>
 <ol>
@@ -376,20 +378,22 @@
 </ul>
 <p>![img](5. 配置环境变量.assets/wps3.jpg) </p>
 <ol start="4">
-<li>编辑<code>path</code>变量  参考下图一和图二</li>
+<li><p>编辑<code>path</code>变量  参考下图一和图二</p>
+<p> 系统变量中找到 path变量  双击  弹出编辑窗口，添加两条变量，分别为</p>
+<p> <code>%JAVA_HOME%\bin</code></p>
+<p> <code>%JAVA_HOME%\jre\bin</code></p>
+</li>
 </ol>
-<p>系统变量中找到 path变量  双击  弹出编辑窗口，添加两条变量，分别为</p>
-<p><code>%JAVA_HOME%\bin</code></p>
-<p><code>%JAVA_HOME%\jre\bin</code></p>
 <p>![img](5. 配置环境变量.assets/wps4.jpg) </p>
-<p>![img](5. 配置环境变量.assets/wps5.jpg) </p>
+<p>![img](5. 配置环境变量.assets/wps5.jpg)  </p>
 <ol start="5">
-<li>完成检测</li>
+<li><p>完成检测</p>
+<p> 打开 CMD，分别输入 </p>
+<p> <code>Java  回车  测试</code></p>
+<p> <code>Javac  回车  测试</code></p>
+<p> 如失败则显示‘不是内部命令也不是外部命令’。如成功，结果如下</p>
+</li>
 </ol>
-<p>打开 CMD，分别输入 </p>
-<p><code>Java  回车  测试</code></p>
-<p><code>Javac  回车  测试</code></p>
-<p>如失败则显示‘不是内部命令也不是外部命令’。如成功，结果如下</p>
 <p><img src="file:///C:%5CUsers%5CAdministrator%5CAppData%5CLocal%5CTemp%5Cksohtml1156%5Cwps6.jpg" alt="img">![img](5. 配置环境变量.assets/wps7.jpg) </p>
 
     </div>
@@ -487,7 +491,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">489</span>
+          <span class="site-state-item-count">491</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -740,7 +744,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">990k</span>
+    <span title="站点总字数">991k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>

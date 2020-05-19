@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Wei Zhang">
 <meta property="og:description" content="通过一个类，可以实例化 N 个对象：new 类名(); new 运算符的作用：创建对象，在 JVM 堆内存 当中开辟新的内存空间">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-12T09:53:57.659Z">
+<meta property="og:updated_time" content="2020-05-19T02:46:45.219Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java零基础-方法执行内存分析">
 <meta name="twitter:description" content="通过一个类，可以实例化 N 个对象：new 类名(); new 运算符的作用：创建对象，在 JVM 堆内存 当中开辟新的内存空间">
@@ -267,11 +267,21 @@
                 
               
 
-              <time title="创建时间：2020-02-12 17:39:37 / 修改时间：17:53:57" itemprop="dateCreated datePublished" datetime="2020-02-12T17:39:37+08:00">2020-02-12</time>
+              <time title="创建时间：2020-02-12 17:39:37" itemprop="dateCreated datePublished" datetime="2020-02-12T17:39:37+08:00">2020-02-12</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-19 10:46:45" itemprop="dateModified" datetime="2020-05-19T10:46:45+08:00">2020-05-19</time>
+              </span>
+            </div>
             
           
             <span class="post-meta-item">
@@ -307,7 +317,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>660</span>
+              <span>659</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -358,7 +368,7 @@
 <li>读取数据：引用.变量名</li>
 <li>修改数据：引用.变量名 = 值</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">System.out.println(stu.name);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译报错：name 这个实例变量不能直接采用“类名”的方式访问</span></span><br><span class="line"><span class="comment">// 因为它是对象级别的变量，变量存储在 Java 对象的内部，必须先有对象</span></span><br><span class="line"><span class="comment">// 通过对象才能访问实例变量</span></span><br><span class="line">System.out.println(Student.name);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">System.out.println(类名.name);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编译报错：name 这个实例变量不能直接采用“类名”的方式访问</span></span><br><span class="line"><span class="comment">// 因为它是对象级别的变量，变量存储在 Java 对象的内部，必须先有对象</span></span><br><span class="line"><span class="comment">// 通过对象才能访问实例变量</span></span><br><span class="line">System.out.println(Student.name);</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -456,7 +466,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">489</span>
+          <span class="site-state-item-count">491</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -709,7 +719,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">990k</span>
+    <span title="站点总字数">991k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
