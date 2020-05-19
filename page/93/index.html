@@ -366,7 +366,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/滚动事件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/jQuery/jquery(三)事件篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -380,7 +380,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/08/18/JavaScript/滚动事件/" class="post-title-link" itemprop="url">滚动事件</a>
+            <a href="/2017/08/18/JavaScript/jQuery/jquery(三)事件篇/" class="post-title-link" itemprop="url">jquery(三)事件篇</a>
           
         </h1>
 
@@ -438,7 +438,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>459</span>
+              <span>5.9k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -448,7 +448,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>5 分钟</span>
             </span>
           
 
@@ -461,13 +461,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>实现滚动超过一定高度，出现图标，点击回到顶部</p><ol>
-<li>window.onscroll函数，获取document.body.scrollTop即滚动条高度，当滚动条高度超过特定高度，小图标显示，否则隐藏（一定要设置else)</li>
-</ol>
+          <h4 id="jQuery鼠标事件之click与dblclick事件"><a href="#jQuery鼠标事件之click与dblclick事件" class="headerlink" title="jQuery鼠标事件之click与dblclick事件"></a>jQuery鼠标事件之click与dblclick事件</h4><p>前者单击，后者双击</p><h4 id="jQuery鼠标事件之mousedown与mouseup事件"><a href="#jQuery鼠标事件之mousedown与mouseup事件" class="headerlink" title="jQuery鼠标事件之mousedown与mouseup事件"></a>jQuery鼠标事件之mousedown与mouseup事件</h4><h4 id="jQuery鼠标事件之mousemove事件"><a href="#jQuery鼠标事件之mousemove事件" class="headerlink" title="jQuery鼠标事件之mousemove事件"></a>jQuery鼠标事件之mousemove事件</h4><p>移动事件</p><h4 id="jQuery鼠标事件之mouseover与mouseout事件"><a href="#jQuery鼠标事件之mouseover与mouseout事件" class="headerlink" title="jQuery鼠标事件之mouseover与mouseout事件"></a>jQuery鼠标事件之mouseover与mouseout事件</h4>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/08/18/JavaScript/滚动事件/#more" rel="contents">
+              <a class="btn" href="/2017/08/18/JavaScript/jQuery/jquery(三)事件篇/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -498,7 +496,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/懒加载/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/jQuery/jquery(一)样式篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -512,7 +510,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/08/18/JavaScript/懒加载/" class="post-title-link" itemprop="url">懒加载</a>
+            <a href="/2017/08/18/JavaScript/jQuery/jquery(一)样式篇/" class="post-title-link" itemprop="url">jquery(一)样式篇</a>
           
         </h1>
 
@@ -552,266 +550,6 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>4.2k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>4 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-后台分页（异步）"><a href="#1-后台分页（异步）" class="headerlink" title="1.后台分页（异步）"></a>1.后台分页（异步）</h3><p>jq Ajax</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$(document).ready(function () &#123;</span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">    url: url, //必需。规定把请求发送到哪个 URL</span><br><span class="line">    type: &apos;GET&apos;,  //提交类型：GET POST</span><br><span class="line">    dataType: &apos;dataType&apos;,  //可选。规定预期的服务器响应的数据类型。默认执行智能判断（xml、json、script 或 html）。</span><br><span class="line">    data:data,  //可选。规定连同请求发送到服务器的数据。</span><br><span class="line">    success: function (data) &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    error: function (error) &#123;</span><br><span class="line">          alert(error);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2017/08/18/JavaScript/懒加载/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/常用网页进度条/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2017/08/18/JavaScript/常用网页进度条/" class="post-title-link" itemprop="url">常用网页进度条</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2017-08-18 15:15:47" itemprop="dateCreated datePublished" datetime="2017-08-18T15:15:47+08:00">2017-08-18</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
-              </span>
-            </div>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>1.6k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class = &quot;loading&quot;&gt; //覆盖层</span><br><span class="line">    &lt;div class = &quot;pic&quot;&gt; //loading图片/动画</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2017/08/18/JavaScript/常用网页进度条/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/Vue/初级（2017）/vue-cli/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2017/08/18/Vue/初级（2017）/vue-cli/" class="post-title-link" itemprop="url">vue-cli</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2017-08-18 15:15:47" itemprop="dateCreated datePublished" datetime="2017-08-18T15:15:47+08:00">2017-08-18</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
-              </span>
-            </div>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
 
                 
                 
@@ -853,11 +591,271 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="一、Vue-cli，开始吧骚年"><a href="#一、Vue-cli，开始吧骚年" class="headerlink" title="一、Vue-cli，开始吧骚年"></a>一、Vue-cli，开始吧骚年</h3><h4 id="一、安装vue-cli"><a href="#一、安装vue-cli" class="headerlink" title="一、安装vue-cli"></a>一、安装vue-cli</h4><p>安装vue-cli的前提是你已经安装了npm，安装npm你可以直接下载node的安装包进行安装。你可以在命令行工具里输入npm -v 检测你是否安装了npm和版本情况。出现版本号说明你已经安装了npm和node，我这里的npm版本为3.10.10。如果该命令不可以使用，需要安装node软件包，根据你的系统版本选择下载安装就可以了。</p>
+          <h3 id="1-document-ready"><a href="#1-document-ready" class="headerlink" title="1.$(document).ready"></a>1.$(document).ready</h3><p>作用是等页面的文档（document）中的节点都加载完毕后，再执行后续的代码，因为我们在执行代码的时候，可能会依赖页面的某一个元素，我们要确保这个元素真正的的被加载完毕后才能正确的使用。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/08/18/Vue/初级（2017）/vue-cli/#more" rel="contents">
+              <a class="btn" href="/2017/08/18/JavaScript/jQuery/jquery(一)样式篇/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/javascript运行机制详解：event loop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2017/08/18/JavaScript/javascript运行机制详解：event loop/" class="post-title-link" itemprop="url">javascript运行机制详解：event loop</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-18 15:15:47" itemprop="dateCreated datePublished" datetime="2017-08-18T15:15:47+08:00">2017-08-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、为什么JavaScript是单线程？"><a href="#一、为什么JavaScript是单线程？" class="headerlink" title="一、为什么JavaScript是单线程？"></a>一、为什么JavaScript是单线程？</h3><p>JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/08/18/JavaScript/javascript运行机制详解：event loop/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/JavaScript/dom事件探秘/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2017/08/18/JavaScript/dom事件探秘/" class="post-title-link" itemprop="url">dom事件探秘</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-18 15:15:47" itemprop="dateCreated datePublished" datetime="2017-08-18T15:15:47+08:00">2017-08-18</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.4k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、事件流"><a href="#一、事件流" class="headerlink" title="一、事件流"></a>一、事件流</h3><p>描述的是从页面中接受事件的顺序</p><h4 id="1-事件冒泡"><a href="#1-事件冒泡" class="headerlink" title="1.事件冒泡"></a>1.事件冒泡</h4><p>事件最开始由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播至最不具体的那个节点（文档）。</p><h4 id="2-事件捕获"><a href="#2-事件捕获" class="headerlink" title="2.事件捕获"></a>2.事件捕获</h4><p>不太具体的节点应该更早接收到事件，而最具体的节点最后接收到事件</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/08/18/JavaScript/dom事件探秘/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

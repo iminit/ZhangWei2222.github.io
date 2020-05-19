@@ -769,7 +769,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/商品详情页food.vue/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/初级（2017）/vue的v-if与v-show/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -783,7 +783,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/饿了么教程/商品详情页food.vue/" class="post-title-link" itemprop="url">商品详情页food.vue</a>
+            <a href="/2017/09/09/Vue/初级（2017）/vue的v-if与v-show/" class="post-title-link" itemprop="url">vue的v-if与v-show</a>
           
         </h1>
 
@@ -841,7 +841,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>11k</span>
+              <span>819</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -851,7 +851,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>10 分钟</span>
+              <span>1 分钟</span>
             </span>
           
 
@@ -864,11 +864,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h3><p>html代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;transition name=&quot;move&quot;&gt;</span><br><span class="line">  &lt;!--要实现这个商品详情页的内容滚动,所以需要有一个显示标志和一个dom绑定--&gt;</span><br><span class="line">  &lt;div v-show=&quot;showFlag&quot; class=&quot;food&quot; ref=&quot;food&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;/transition&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+          <h3 id="1-共同点"><a href="#1-共同点" class="headerlink" title="1.共同点"></a>1.共同点</h3><p>都是动态显示DOM元素</p><h3 id="2-区别"><a href="#2-区别" class="headerlink" title="2.区别"></a>2.区别</h3><p>（1）手段：v-if是动态的向DOM树内添加或者删除DOM元素；v-show是通过设置DOM元素的display样式属性控制显隐；</p><p>（2）编译过程：v-if切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；v-show只是简单的基于css切换；</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/饿了么教程/商品详情页food.vue/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/初级（2017）/vue的v-if与v-show/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
