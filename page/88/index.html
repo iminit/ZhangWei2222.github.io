@@ -639,7 +639,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/评价列表ratings组件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/初级（2017）/Vue2.0子父组件通信/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -653,7 +653,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/饿了么教程/评价列表ratings组件/" class="post-title-link" itemprop="url">评价列表ratings组件</a>
+            <a href="/2017/09/09/Vue/初级（2017）/Vue2.0子父组件通信/" class="post-title-link" itemprop="url">Vue2.0子父组件通信</a>
           
         </h1>
 
@@ -711,7 +711,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>10k</span>
+              <span>612</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -721,7 +721,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>9 分钟</span>
+              <span>1 分钟</span>
             </span>
           
 
@@ -734,11 +734,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>需要注意的是main.js里面需要取消vue-router的默认路由,src/main.js的router.replace(‘/goods’);需要去掉</p><p>原因是在添加了其他页面(原来路由只有一个页面goods,现在多了页面ratings)之后,在浏览器加载页面的时候:</p>
+          <h3 id="一-父组件向子组件传值"><a href="#一-父组件向子组件传值" class="headerlink" title="一.父组件向子组件传值"></a>一.父组件向子组件传值</h3><ol>
+<li>创建子组件，在src/components/文件夹下新建一个Child.vue</li>
+<li>Child.vue的中创建props，然后创建一个名为message的属性</li>
+<li>在App.vue中注册Child组件，并在template中加入child标签，标签中添加message属性并赋值</li>
+<li>保存修改的文件，查看浏览器</li>
+<li>我们依然可以对message的值进行v-bind动态绑定</li>
+</ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/饿了么教程/评价列表ratings组件/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/初级（2017）/Vue2.0子父组件通信/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -769,7 +775,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/初级（2017）/vue的v-if与v-show/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/stylus相关和1像素边框问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -783,7 +789,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/初级（2017）/vue的v-if与v-show/" class="post-title-link" itemprop="url">vue的v-if与v-show</a>
+            <a href="/2017/09/09/Vue/饿了么教程/stylus相关和1像素边框问题/" class="post-title-link" itemprop="url">stylus相关和1像素边框问题</a>
           
         </h1>
 
@@ -841,7 +847,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>819</span>
+              <span>4.2k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -851,7 +857,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
           
 
@@ -864,11 +870,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-共同点"><a href="#1-共同点" class="headerlink" title="1.共同点"></a>1.共同点</h3><p>都是动态显示DOM元素</p><h3 id="2-区别"><a href="#2-区别" class="headerlink" title="2.区别"></a>2.区别</h3><p>（1）手段：v-if是动态的向DOM树内添加或者删除DOM元素；v-show是通过设置DOM元素的display样式属性控制显隐；</p><p>（2）编译过程：v-if切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；v-show只是简单的基于css切换；</p>
+          <h3 id="1像素边框问题"><a href="#1像素边框问题" class="headerlink" title="1像素边框问题"></a>1像素边框问题</h3><p>1像素边框问题其实就是Dpr的比例问题,例如 Retina屏设置1px边框，实际显示2px,因为Dpr是2,所以会显示为2px</p><p>目前这里用的是伪元素 + transform 实现:</p><p>伪元素:总结伪类与伪元素</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/初级（2017）/vue的v-if与v-show/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/饿了么教程/stylus相关和1像素边框问题/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1198,7 +1204,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">991k</span>
+    <span title="站点总字数">992k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>

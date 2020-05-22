@@ -61,7 +61,7 @@
 <meta property="og:site_name" content="Wei Zhang">
 <meta property="og:description" content="is-a：泛化 is-like-a：实现 has-a：关联">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-22T10:30:20.386Z">
+<meta property="og:updated_time" content="2020-05-19T10:33:47.334Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java进阶-is-a、is-like-a、has-a">
 <meta name="twitter:description" content="is-a：泛化 is-like-a：实现 has-a：关联">
@@ -267,11 +267,21 @@
                 
               
 
-              <time title="创建时间：2020-02-22 18:27:37 / 修改时间：18:30:20" itemprop="dateCreated datePublished" datetime="2020-02-22T18:27:37+08:00">2020-02-22</time>
+              <time title="创建时间：2020-02-22 18:27:37" itemprop="dateCreated datePublished" datetime="2020-02-22T18:27:37+08:00">2020-02-22</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-19 18:33:47" itemprop="dateModified" datetime="2020-05-19T18:33:47+08:00">2020-05-19</time>
+              </span>
+            </div>
             
           
             <span class="post-meta-item">
@@ -307,7 +317,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>440</span>
+              <span>446</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -335,11 +345,11 @@
 <p>has-a：关联</p>
 <a id="more"></a>
 
-<h2 id="is-a"><a href="#is-a" class="headerlink" title="is-a"></a>is-a</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> classAnimal&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> classDog extendsAnimal &#123; </span><br><span class="line">    <span class="comment">// Dog is a Animal</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="is-a"><a href="#is-a" class="headerlink" title="is-a"></a>is-a</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> classDog extends Animal &#123; </span><br><span class="line">    <span class="comment">// Dog is a Animal</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="is-like-a"><a href="#is-like-a" class="headerlink" title="is-like-a"></a>is-like-a</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">I</span></span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">public</span> classA implements I&#123; <span class="comment">// A islike a I; </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="comment">// 实现 </span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="is-like-a"><a href="#is-like-a" class="headerlink" title="is-like-a"></a>is-like-a</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">I</span></span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">public</span> classA implements I&#123; <span class="comment">// A is like a I; </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="comment">// 实现 </span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="has-a"><a href="#has-a" class="headerlink" title="has-a"></a>has-a</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> classA &#123; <span class="comment">// A has a B; </span></span><br><span class="line">    <span class="keyword">private</span> Bb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> classB&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="has-a"><a href="#has-a" class="headerlink" title="has-a"></a>has-a</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123; <span class="comment">// A has a B; </span></span><br><span class="line">    <span class="keyword">private</span> B b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">B</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -690,7 +700,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">991k</span>
+    <span title="站点总字数">992k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
