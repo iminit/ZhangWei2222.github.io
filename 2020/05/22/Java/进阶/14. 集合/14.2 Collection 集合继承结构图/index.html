@@ -54,18 +54,18 @@
   };
 </script>
 
-  <meta name="description" content="可以等同看作 成员变量 成员内部类中 不能有静态声明 可以访问外部类所有的数据 创建成员内部类方法：OutClass oc1 = new OutClass();InnerClass inner = oc1.new InnerClass();">
+  <meta name="description" content="![image-20200522201055566](14.2 集合继承结构图.assets/image-20200522201055566.png) 12Iterator it = &quot;Collection 对象&quot;.iterator();it 是迭代器对象">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java进阶-成员内部类">
-<meta property="og:url" content="http://yoursite.com/2020/02/22/Java/进阶/7.内部类/7.2 成员内部类/index.html">
+<meta property="og:title" content="Java进阶-Collection 集合继承结构图">
+<meta property="og:url" content="http://yoursite.com/2020/05/22/Java/进阶/14. 集合/14.2 Collection 集合继承结构图/index.html">
 <meta property="og:site_name" content="Wei Zhang">
-<meta property="og:description" content="可以等同看作 成员变量 成员内部类中 不能有静态声明 可以访问外部类所有的数据 创建成员内部类方法：OutClass oc1 = new OutClass();InnerClass inner = oc1.new InnerClass();">
+<meta property="og:description" content="![image-20200522201055566](14.2 集合继承结构图.assets/image-20200522201055566.png) 12Iterator it = &quot;Collection 对象&quot;.iterator();it 是迭代器对象">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-22T09:37:34.633Z">
+<meta property="og:updated_time" content="2020-05-22T12:26:05.182Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java进阶-成员内部类">
-<meta name="twitter:description" content="可以等同看作 成员变量 成员内部类中 不能有静态声明 可以访问外部类所有的数据 创建成员内部类方法：OutClass oc1 = new OutClass();InnerClass inner = oc1.new InnerClass();">
-  <link rel="canonical" href="http://yoursite.com/2020/02/22/Java/进阶/7.内部类/7.2 成员内部类/">
+<meta name="twitter:title" content="Java进阶-Collection 集合继承结构图">
+<meta name="twitter:description" content="![image-20200522201055566](14.2 集合继承结构图.assets/image-20200522201055566.png) 12Iterator it = &quot;Collection 对象&quot;.iterator();it 是迭代器对象">
+  <link rel="canonical" href="http://yoursite.com/2020/05/22/Java/进阶/14. 集合/14.2 Collection 集合继承结构图/">
 
 
 <script id="page-configurations">
@@ -79,7 +79,7 @@
   };
 </script>
 
-  <title>Java进阶-成员内部类 | Wei Zhang</title>
+  <title>Java进阶-Collection 集合继承结构图 | Wei Zhang</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -238,7 +238,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/22/Java/进阶/7.内部类/7.2 成员内部类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/22/Java/进阶/14. 集合/14.2 Collection 集合继承结构图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <meta itemprop="name" content="Wei Zhang">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Java进阶-成员内部类
+        <h1 class="post-title" itemprop="name headline">Java进阶-Collection 集合继承结构图
 
           
         </h1>
@@ -267,7 +267,7 @@
                 
               
 
-              <time title="创建时间：2020-02-22 17:31:37 / 修改时间：17:37:34" itemprop="dateCreated datePublished" datetime="2020-02-22T17:31:37+08:00">2020-02-22</time>
+              <time title="创建时间：2020-05-22 18:23:37 / 修改时间：20:26:05" itemprop="dateCreated datePublished" datetime="2020-05-22T18:23:37+08:00">2020-05-22</time>
             </span>
           
             
@@ -307,7 +307,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>861</span>
+              <span>127</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -330,15 +330,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ol>
-<li>可以等同看作 成员变量</li>
-<li>成员内部类中 <strong>不能有静态声明</strong></li>
-<li><strong>可以访问外部类所有的数据</strong></li>
-<li>创建成员内部类方法：<code>OutClass oc1 = new OutClass();InnerClass inner = oc1.new InnerClass();</code></li>
-</ol>
-<a id="more"></a>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OutClass</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 静态变量</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> String s1 = <span class="string">"A"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 成员变量</span></span><br><span class="line">	<span class="keyword">private</span> String s2 = <span class="string">"B"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 静态方法</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">m1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"m1"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 成员方法</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">m2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"m2"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 成员内部类</span></span><br><span class="line">	<span class="comment">// 可以用访问控制权限的修饰符修饰</span></span><br><span class="line">	<span class="comment">// publice, protected, private, 缺省</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">InnerClass</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 不能有静态声明</span></span><br><span class="line">		<span class="comment">// public static void m3() &#123;&#125;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 成员方法</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m4</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			System.out.println(s1);</span><br><span class="line">			m1();</span><br><span class="line">			System.out.println(s2);</span><br><span class="line">			m2();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 创建外部类对象</span></span><br><span class="line">		OutClass oc1 = <span class="keyword">new</span> OutClass();</span><br><span class="line">		InnerClass inner = oc1.new InnerClass();</span><br><span class="line">		inner.m4(); <span class="comment">// 输出：A m1 B m2</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>![image-20200522201055566](14.2 集合继承结构图.assets/image-20200522201055566.png)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Iterator it = <span class="string">"Collection 对象"</span>.iterator();</span><br><span class="line">it 是迭代器对象</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -356,8 +349,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/02/22/Java/进阶/7.内部类/7.1 静态内部类/" rel="next" title="Java进阶-静态内部类">
-                  <i class="fa fa-chevron-left"></i> Java进阶-静态内部类
+                <a href="/2020/05/22/Java/进阶/14. 集合/14.1 集合概述/" rel="next" title="Java进阶-集合概述">
+                  <i class="fa fa-chevron-left"></i> Java进阶-集合概述
                 </a>
               
             </div>
@@ -366,8 +359,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2020/02/22/Java/进阶/7.内部类/7.3 局部内部类/" rel="prev" title="Java进阶-局部内部类">
-                  Java进阶-局部内部类 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/05/22/Java/进阶/14. 集合/14.3 Map 集合继承结构图/" rel="prev" title="Java进阶-Map 集合继承结构图">
+                  Java进阶-Map 集合继承结构图 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -434,7 +427,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">491</span>
+          <span class="site-state-item-count">497</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -687,7 +680,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">992k</span>
+    <span title="站点总字数">997k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -695,7 +688,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">15:01</span>
+    <span title="站点阅读时长">15:07</span>
   </div>
 
 </div>

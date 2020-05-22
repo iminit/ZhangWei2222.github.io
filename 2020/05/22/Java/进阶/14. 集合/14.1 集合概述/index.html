@@ -54,18 +54,18 @@
   };
 </script>
 
-  <meta name="description" content="匿名内部类，指 类没有名字 优点：少定义一个类 缺点：无法复用">
+  <meta name="description" content="什么是集合？有什么用？  数组其实就是一个集合，集合实际上就是一个容器，可以来容纳其他类型的数据。  集合为什么说在开发中使用较多？  集合是一个容器，是一个载体，可以一次容纳多个对象。 在实际开发中，假设连接数据库，数据库当中有10条记录，那么假设把这10条记录查询出来，在 Java 程序中会将10条数据封装成10个 Java 对象，然后将10个 Java 对象放到某一个集合当中，将集合传到前">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java进阶-匿名内部类">
-<meta property="og:url" content="http://yoursite.com/2020/02/22/Java/进阶/7.内部类/7.4 匿名内部类/index.html">
+<meta property="og:title" content="Java进阶-集合概述">
+<meta property="og:url" content="http://yoursite.com/2020/05/22/Java/进阶/14. 集合/14.1 集合概述/index.html">
 <meta property="og:site_name" content="Wei Zhang">
-<meta property="og:description" content="匿名内部类，指 类没有名字 优点：少定义一个类 缺点：无法复用">
+<meta property="og:description" content="什么是集合？有什么用？  数组其实就是一个集合，集合实际上就是一个容器，可以来容纳其他类型的数据。  集合为什么说在开发中使用较多？  集合是一个容器，是一个载体，可以一次容纳多个对象。 在实际开发中，假设连接数据库，数据库当中有10条记录，那么假设把这10条记录查询出来，在 Java 程序中会将10条数据封装成10个 Java 对象，然后将10个 Java 对象放到某一个集合当中，将集合传到前">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-22T09:59:12.558Z">
+<meta property="og:updated_time" content="2020-05-22T10:23:12.056Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java进阶-匿名内部类">
-<meta name="twitter:description" content="匿名内部类，指 类没有名字 优点：少定义一个类 缺点：无法复用">
-  <link rel="canonical" href="http://yoursite.com/2020/02/22/Java/进阶/7.内部类/7.4 匿名内部类/">
+<meta name="twitter:title" content="Java进阶-集合概述">
+<meta name="twitter:description" content="什么是集合？有什么用？  数组其实就是一个集合，集合实际上就是一个容器，可以来容纳其他类型的数据。  集合为什么说在开发中使用较多？  集合是一个容器，是一个载体，可以一次容纳多个对象。 在实际开发中，假设连接数据库，数据库当中有10条记录，那么假设把这10条记录查询出来，在 Java 程序中会将10条数据封装成10个 Java 对象，然后将10个 Java 对象放到某一个集合当中，将集合传到前">
+  <link rel="canonical" href="http://yoursite.com/2020/05/22/Java/进阶/14. 集合/14.1 集合概述/">
 
 
 <script id="page-configurations">
@@ -79,7 +79,7 @@
   };
 </script>
 
-  <title>Java进阶-匿名内部类 | Wei Zhang</title>
+  <title>Java进阶-集合概述 | Wei Zhang</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -238,7 +238,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/22/Java/进阶/7.内部类/7.4 匿名内部类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/22/Java/进阶/14. 集合/14.1 集合概述/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <meta itemprop="name" content="Wei Zhang">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Java进阶-匿名内部类
+        <h1 class="post-title" itemprop="name headline">Java进阶-集合概述
 
           
         </h1>
@@ -267,7 +267,7 @@
                 
               
 
-              <time title="创建时间：2020-02-22 17:50:37 / 修改时间：17:59:12" itemprop="dateCreated datePublished" datetime="2020-02-22T17:50:37+08:00">2020-02-22</time>
+              <time title="创建时间：2020-05-22 18:11:37 / 修改时间：18:23:12" itemprop="dateCreated datePublished" datetime="2020-05-22T18:11:37+08:00">2020-05-22</time>
             </span>
           
             
@@ -307,7 +307,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>724</span>
+              <span>743</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -331,14 +331,56 @@
 
       
         <ol>
-<li>匿名内部类，指 类没有名字</li>
-<li>优点：少定义一个类</li>
-<li>缺点：无法复用</li>
-</ol>
+<li><p>什么是集合？有什么用？</p>
+<ul>
+<li><p>数组其实就是一个集合，集合实际上就是一个容器，可以来容纳其他类型的数据。</p>
+</li>
+<li><p>集合为什么说在开发中使用较多？</p>
+<ul>
+<li>集合是一个容器，是一个载体，可以一次容纳多个对象。</li>
+<li>在实际开发中，假设连接数据库，数据库当中有10条记录，那么假设把这10条记录查询出来，在 Java 程序中会将10条数据封装成10个 Java 对象，然后将10个 Java 对象放到某一个集合当中，将集合传到前端，然后遍历集合，将一个数据一个数据展现出来。</li>
+</ul>
 <a id="more"></a>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 静态方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">t</span><span class="params">(CustomerService cs)</span> </span>&#123;</span><br><span class="line">		cs.logout();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 使用匿名内部类的方法执行 t 方法</span></span><br><span class="line">		<span class="comment">// 整个 new CustomerServie()&#123;&#125; 就是一个匿名内部类</span></span><br><span class="line">		t(<span class="keyword">new</span> CustomerService() &#123;</span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logout</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				System.out.println(<span class="string">"Exit!"</span>); <span class="comment">//输出：Exit!</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 不用匿名内部类的实现</span></span><br><span class="line">		t(<span class="keyword">new</span> CustomerServiceImpl());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接口</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">CustomerService</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 退出系统</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">logout</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编写一个类实现 CustomerServie 接口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomerServiceImpl</span> <span class="keyword">implements</span> <span class="title">CustomerService</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logout</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Exit!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+</li>
+</ul>
+</li>
+<li><p>集合不能直接存储基本数据类型，另外集合也不能直接存储 Java 对象，集合当中存储的都是 Java 对象的内存地址。（或者说<strong>集合中存储的是引用。</strong>）</p>
+<ul>
+<li>注意：<ul>
+<li>集合在 Java 中本身是一个容器，是一个对象。</li>
+<li>集合中任何时候存储的都是“引用”。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>![img](14.1 集合概述.assets/wps1-1590142517492.jpg)</p>
+<ol start="3">
+<li><p>在 Java 中每一个不同的集合，底层会对应不同的数据结构。往不同的集合中存储元素，等于将数据放到了不同的数据结构当中。数据结构就是数据存储的结构。不同的数据结构，数据存储方式不同。例如：数组、二叉树、链表、哈希表…<strong>使用不同的集合等同于使用了不同的数据结构。</strong></p>
+<ul>
+<li><code>new ArrayList();</code> 创建一个集合对象，底层是数组。</li>
+<li><code>new LinkedList();</code> 创建一个集合对象，底层是链表。</li>
+<li><code>new TreeSet();</code> 创建一个集合对象，底层是二叉树。</li>
+</ul>
+</li>
+<li><p>集合在 Java JDK 中哪个包下》</p>
+<ul>
+<li><code>java.util.*</code> 所有的集合类和集合接口都在 <code>java.util</code> 包下。</li>
+</ul>
+</li>
+<li><p>在 Java 中集合分为两大类：</p>
+<ul>
+<li>单个方式存储元素<ul>
+<li>超级父接口：<code>java.util.Collection;</code></li>
+</ul>
+</li>
+<li>以键值对方式存储元素<ul>
+<li>超级父接口：<code>java.util.Map;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 
     </div>
 
@@ -355,8 +397,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/02/22/Java/进阶/7.内部类/7.3 局部内部类/" rel="next" title="Java进阶-局部内部类">
-                  <i class="fa fa-chevron-left"></i> Java进阶-局部内部类
+                <a href="/2020/05/22/Java/进阶/13. 类和接口的关系/" rel="next" title="Java进阶-类和接口的关系">
+                  <i class="fa fa-chevron-left"></i> Java进阶-类和接口的关系
                 </a>
               
             </div>
@@ -365,8 +407,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2020/02/22/Java/进阶/8. UML/8.1 泛化关系/" rel="prev" title="Java进阶-UML泛化关系">
-                  Java进阶-UML泛化关系 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/05/22/Java/进阶/14. 集合/14.2 Collection 集合继承结构图/" rel="prev" title="Java进阶-Collection 集合继承结构图">
+                  Java进阶-Collection 集合继承结构图 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -433,7 +475,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">491</span>
+          <span class="site-state-item-count">497</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -686,7 +728,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">992k</span>
+    <span title="站点总字数">997k</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -694,7 +736,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">15:01</span>
+    <span title="站点阅读时长">15:07</span>
   </div>
 
 </div>
