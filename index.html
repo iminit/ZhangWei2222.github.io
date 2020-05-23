@@ -687,7 +687,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/22/Java/进阶/14. 集合/14.4 集合继承结构图总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/Java/进阶/14. 集合/14.9 remove 方法源码解析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -701,7 +701,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/05/22/Java/进阶/14. 集合/14.4 集合继承结构图总结/" class="post-title-link" itemprop="url">Java进阶-集合继承结构图总结</a>
+            <a href="/2020/05/23/Java/进阶/14. 集合/14.9 remove 方法源码解析/" class="post-title-link" itemprop="url">Java进阶-remove 方法源码解析</a>
           
         </h1>
 
@@ -717,7 +717,7 @@
                 
               
 
-              <time title="创建时间：2020-05-22 20:25:37 / 修改时间：20:35:18" itemprop="dateCreated datePublished" datetime="2020-05-22T20:25:37+08:00">2020-05-22</time>
+              <time title="创建时间：2020-05-23 16:09:37 / 修改时间：16:15:52" itemprop="dateCreated datePublished" datetime="2020-05-23T16:09:37+08:00">2020-05-23</time>
             </span>
           
             
@@ -749,7 +749,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>599</span>
+              <span>488</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -772,16 +772,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>所有的实现类：</strong></p>
-<ul>
-<li>ArrayList：底层是数组。</li>
-<li>LinkedList：底层是双向链表。</li>
-<li>Vetor：底层是数组，线程安全的，效率较低，使用较少。</li>
-</ul>
+          <p>remove 也是用 equals 方法进行比较，会删掉 equals 方法返回 true 的元素</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/05/22/Java/进阶/14. 集合/14.4 集合继承结构图总结/#more" rel="contents">
+              <a class="btn" href="/2020/05/23/Java/进阶/14. 集合/14.9 remove 方法源码解析/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -812,7 +807,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/22/Java/进阶/14. 集合/14.3 Map 集合继承结构图/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/Java/进阶/14. 集合/14.8 contains 源码分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -826,7 +821,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/05/22/Java/进阶/14. 集合/14.3 Map 集合继承结构图/" class="post-title-link" itemprop="url">Java进阶-Map 集合继承结构图</a>
+            <a href="/2020/05/23/Java/进阶/14. 集合/14.8 contains 源码分析/" class="post-title-link" itemprop="url">Java进阶-contains 源码分析</a>
           
         </h1>
 
@@ -842,7 +837,7 @@
                 
               
 
-              <time title="创建时间：2020-05-22 20:24:37 / 修改时间：20:26:00" itemprop="dateCreated datePublished" datetime="2020-05-22T20:24:37+08:00">2020-05-22</time>
+              <time title="创建时间：2020-05-23 15:53:37 / 修改时间：16:07:38" itemprop="dateCreated datePublished" datetime="2020-05-23T15:53:37+08:00">2020-05-23</time>
             </span>
           
             
@@ -874,7 +869,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>79</span>
+              <span>1.1k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -897,8 +892,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>![image-20200522202414104](14.3 Map 集合继承结构图.assets/image-20200522202414104.png)</p>
-
+          <p><strong>存放在一个集合中的类型，一定要重写 equals 方法</strong></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/05/23/Java/进阶/14. 集合/14.8 contains 源码分析/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -921,7 +924,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/100/">100</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/101/">101</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -970,7 +973,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">497</span>
+          <span class="site-state-item-count">502</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1247,7 +1250,7 @@
       <i class="fa fa-area-chart"></i>
       <span> 站点总字数:</span>
     </span>
-    <span title="站点总字数">997k</span>
+    <span title="站点总字数">1m</span>
   </div>
   <div style="display: none">
     <span class="post-meta-divider">|</span>
@@ -1255,7 +1258,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">15:07</span>
+    <span title="站点阅读时长">15:11</span>
   </div>
 
 </div>
