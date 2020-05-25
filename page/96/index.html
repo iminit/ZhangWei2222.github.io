@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/初级（2017）/Vue2.0组件之间通信/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/商品详情页food.vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/初级（2017）/Vue2.0组件之间通信/" class="post-title-link" itemprop="url">Vue2.0组件之间通信</a>
+            <a href="/2017/09/09/Vue/饿了么教程/商品详情页food.vue/" class="post-title-link" itemprop="url">商品详情页food.vue</a>
           
         </h1>
 
@@ -308,7 +308,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>2.5k</span>
+              <span>11k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -318,7 +318,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>2 分钟</span>
+              <span>10 分钟</span>
             </span>
           
 
@@ -331,11 +331,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;app&apos;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+          <h3 id="主体结构"><a href="#主体结构" class="headerlink" title="主体结构"></a>主体结构</h3><p>html代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;transition name=&quot;move&quot;&gt;</span><br><span class="line">  &lt;!--要实现这个商品详情页的内容滚动,所以需要有一个显示标志和一个dom绑定--&gt;</span><br><span class="line">  &lt;div v-show=&quot;showFlag&quot; class=&quot;food&quot; ref=&quot;food&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;/transition&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/初级（2017）/Vue2.0组件之间通信/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/饿了么教程/商品详情页food.vue/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -366,7 +366,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/ratingselect组件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/Vue/饿了么教程/饿了么教程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -380,7 +380,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2017/09/09/Vue/饿了么教程/ratingselect组件/" class="post-title-link" itemprop="url">ratingselect组件</a>
+            <a href="/2017/09/09/Vue/饿了么教程/饿了么教程/" class="post-title-link" itemprop="url">饿了么教程</a>
           
         </h1>
 
@@ -438,7 +438,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>5k</span>
+              <span>18k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -448,7 +448,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>5 分钟</span>
+              <span>16 分钟</span>
             </span>
           
 
@@ -461,13 +461,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>html代码</p><blockquote>
-<p>备注:父组件food.vue传入的数据</p>
-</blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;ratingselect @select=&quot;selectRating&quot; @toggle=&quot;toggleContent&quot; :selectType=&quot;selectType&quot;</span><br><span class="line">:onlyContent=&quot;onlyContent&quot; :desc=&quot;desc&quot;</span><br><span class="line">:ratings=&quot;food.ratings&quot;&gt;&lt;/ratingselect&gt;</span><br></pre></td></tr></table></figure>
+          <h3 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h3><h4 id="1-需求分析"><a href="#1-需求分析" class="headerlink" title="1.需求分析"></a>1.需求分析</h4><h4 id="2-项目资源准备"><a href="#2-项目资源准备" class="headerlink" title="2.项目资源准备"></a>2.项目资源准备</h4><p>resource文件</p><h4 id="3-图标字体制作"><a href="#3-图标字体制作" class="headerlink" title="3.图标字体制作"></a>3.图标字体制作</h4><p>在iconmoon<a href="https://icomoon.io/将resource中的svg文件转为font" target="_blank" rel="noopener">https://icomoon.io/将resource中的svg文件转为font</a></p><h4 id="4-项目目录设计"><a href="#4-项目目录设计" class="headerlink" title="4.项目目录设计"></a>4.项目目录设计</h4><ol>
+<li>vue init webpack 项目名字</li>
+<li>cd 文件</li>
+<li>npm install</li>
+<li>npm run dev</li>
+</ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/09/Vue/饿了么教程/ratingselect组件/#more" rel="contents">
+              <a class="btn" href="/2017/09/09/Vue/饿了么教程/饿了么教程/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

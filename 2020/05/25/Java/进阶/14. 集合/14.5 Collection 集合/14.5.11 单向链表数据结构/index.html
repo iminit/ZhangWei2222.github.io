@@ -54,18 +54,18 @@
   };
 </script>
 
-  <meta name="description" content="当集合的结构发生改变时，迭代器必须重新获取，如果还是用以前老的迭代器，会出现异常：java.util.ConcurrentModificationException 在迭代集合元素的过程中，不能调用集合对象的 remove 方法，删除元素：c.remove(o); 迭代过程中不能这样，会出现： java.util.ConcurrentModificationException 在迭代元素的过程当中">
+  <meta name="description" content="节点是单向链表中基本的单元，每个节点 Node 都有两个属性：  存储的数据 下一个节点的内存地址">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java进阶-关于集合中元素的 remove">
-<meta property="og:url" content="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.10 关于集合中元素的 remove/index.html">
+<meta property="og:title" content="Java进阶-单向链表数据结构">
+<meta property="og:url" content="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.11 单向链表数据结构/index.html">
 <meta property="og:site_name" content="Wei Zhang">
-<meta property="og:description" content="当集合的结构发生改变时，迭代器必须重新获取，如果还是用以前老的迭代器，会出现异常：java.util.ConcurrentModificationException 在迭代集合元素的过程中，不能调用集合对象的 remove 方法，删除元素：c.remove(o); 迭代过程中不能这样，会出现： java.util.ConcurrentModificationException 在迭代元素的过程当中">
+<meta property="og:description" content="节点是单向链表中基本的单元，每个节点 Node 都有两个属性：  存储的数据 下一个节点的内存地址">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-25T02:46:37.769Z">
+<meta property="og:updated_time" content="2020-05-25T09:11:04.849Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java进阶-关于集合中元素的 remove">
-<meta name="twitter:description" content="当集合的结构发生改变时，迭代器必须重新获取，如果还是用以前老的迭代器，会出现异常：java.util.ConcurrentModificationException 在迭代集合元素的过程中，不能调用集合对象的 remove 方法，删除元素：c.remove(o); 迭代过程中不能这样，会出现： java.util.ConcurrentModificationException 在迭代元素的过程当中">
-  <link rel="canonical" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.10 关于集合中元素的 remove/">
+<meta name="twitter:title" content="Java进阶-单向链表数据结构">
+<meta name="twitter:description" content="节点是单向链表中基本的单元，每个节点 Node 都有两个属性：  存储的数据 下一个节点的内存地址">
+  <link rel="canonical" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.11 单向链表数据结构/">
 
 
 <script id="page-configurations">
@@ -79,7 +79,7 @@
   };
 </script>
 
-  <title>Java进阶-关于集合中元素的 remove | Wei Zhang</title>
+  <title>Java进阶-单向链表数据结构 | Wei Zhang</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -238,7 +238,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.10 关于集合中元素的 remove/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.11 单向链表数据结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <meta itemprop="name" content="Wei Zhang">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Java进阶-关于集合中元素的 remove
+        <h1 class="post-title" itemprop="name headline">Java进阶-单向链表数据结构
 
           
         </h1>
@@ -267,7 +267,7 @@
                 
               
 
-              <time title="创建时间：2020-05-25 10:26:37 / 修改时间：10:46:37" itemprop="dateCreated datePublished" datetime="2020-05-25T10:26:37+08:00">2020-05-25</time>
+              <time title="创建时间：2020-05-25 11:35:37 / 修改时间：17:11:04" itemprop="dateCreated datePublished" datetime="2020-05-25T11:35:37+08:00">2020-05-25</time>
             </span>
           
             
@@ -307,7 +307,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.4k</span>
+              <span>1.7k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -317,7 +317,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
           
 
@@ -330,14 +330,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>当集合的结构发生改变时，迭代器必须重新获取，如果还是用以前老的迭代器，会出现异常：<code>java.util.ConcurrentModificationException</code></p>
-<p>在迭代集合元素的过程中，不能调用集合对象的 remove 方法，删除元素：c.remove(o); 迭代过程中不能这样，会出现： <code>java.util.ConcurrentModificationException</code></p>
-<p>在迭代元素的过程当中，一<strong>定要使用迭代器 Iterator 的 remove 方法，删除元素</strong>，不要使用集合自带的 remove 方法删除元素</p>
+        <p>节点是单向链表中基本的单元，每个节点 Node 都有两个属性：</p>
+<ul>
+<li>存储的数据</li>
+<li>下一个节点的内存地址</li>
+</ul>
 <a id="more"></a>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">]<span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CollectionTest06</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 创建集合</span></span><br><span class="line">		Collection c = <span class="keyword">new</span> ArrayList();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 注意：此时获取的迭代器，指向的是集合没有元素状态下的迭代器</span></span><br><span class="line">		<span class="comment">// 一定注意：集合结构只要发生改变，迭代器必须重新获取</span></span><br><span class="line">		<span class="comment">// 当集合结构发生了改变，迭代器没有重新获取时，调用 next()</span></span><br><span class="line">		<span class="comment">// 方法会报异常：java.util.ConcurrentModificationException</span></span><br><span class="line">		<span class="comment">// Iterator it = c.iterator();</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 添加元素</span></span><br><span class="line">		c.add(<span class="number">1</span>);</span><br><span class="line">		c.add(<span class="number">2</span>);</span><br><span class="line">		c.add(<span class="number">3</span>);</span><br><span class="line">		<span class="comment">// 获取迭代器</span></span><br><span class="line">		Iterator it = c.iterator();</span><br><span class="line">		<span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">			<span class="comment">// 编写代码时 next() 方法返回值类型必须是 Object</span></span><br><span class="line">			<span class="comment">// Integer i = it.next();</span></span><br><span class="line">			Object obj = it.next();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 删除元素</span></span><br><span class="line">			<span class="comment">// 删除元素之后，集合的结构发生了变化，应该重新去获取迭代器</span></span><br><span class="line">			<span class="comment">// 但是，循环下一次的时候并没有重新获取迭代器，所以会出现异常：java.util.ConcurrentModificationException</span></span><br><span class="line">			<span class="comment">// 出异常根本原因是：集合中元素删除了，但是没有更新迭代器（迭代器不知道集合变化了）</span></span><br><span class="line">			<span class="comment">// c.remove(obj); // 直接通过集合去删除元素，没有通知迭代器（导致迭代器的快照和集合状态不同）</span></span><br><span class="line"></span><br><span class="line">			<span class="comment">// 所以需要使用迭代器的 remove() 删除</span></span><br><span class="line">			<span class="comment">// 使用迭代器去删除时，会自动更新迭代器，并且更新集合（删除集合中的元素）</span></span><br><span class="line">			it.remove(); <span class="comment">// 删除的一定是迭代器指向的当前元素</span></span><br><span class="line"></span><br><span class="line">			System.out.println(obj);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		System.out.println(c.size()); <span class="comment">// 0</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>![img](14.5.11 单向链表数据结构.assets/wps4.jpg)</p>
+<p><strong>Node 类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 存储的数据</span></span><br><span class="line">	Object element;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 下一个节点的内存地址</span></span><br><span class="line">	Node next;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(Object element, Node next)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.element = element;</span><br><span class="line">		<span class="keyword">this</span>.next = next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>![img](14.10 关于集合中元素的删除.assets/wps3.jpg)</p>
+<p><strong>Link类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Link</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 头节点</span></span><br><span class="line">	Node header = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> size;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 向链表中添加元素的方法（向末尾添加）</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Object data)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 创建一个新的节点对象</span></span><br><span class="line">		<span class="comment">// 让之前单链表的末尾节点 next 指向新节点对象</span></span><br><span class="line">		<span class="comment">// 有可能这个元素是第一个，也可能是第二个，也可能是第三个</span></span><br><span class="line">		<span class="keyword">if</span> (header == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="comment">// 说明还没有节点</span></span><br><span class="line">			<span class="comment">// new 一个新的节点对象，作为头节点对象</span></span><br><span class="line">			<span class="comment">// 这个时候的头节点既是一个头节点，又是一个末尾节点</span></span><br><span class="line">			header = <span class="keyword">new</span> Node(data, <span class="keyword">null</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// 说明头不是空！</span></span><br><span class="line">			<span class="comment">// 头节点已经存在了！</span></span><br><span class="line">			<span class="comment">// 找出当前末尾节点，让当前末尾节点的next是新节点</span></span><br><span class="line">			Node currentLatNode = findLast(header);</span><br><span class="line">			currentLatNode.next = <span class="keyword">new</span> Node(data, <span class="keyword">null</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		size++;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@Description</span>: 专门查找末尾节点的方法</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> Node <span class="title">findLast</span><span class="params">(Node node)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (node.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="comment">// 如果一个节点的 next 是 null</span></span><br><span class="line">			<span class="comment">// 说明这个节点是末尾节点</span></span><br><span class="line">			<span class="keyword">return</span> node;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 程序能到这里说明：node 不是末尾节点</span></span><br><span class="line">		<span class="keyword">return</span> findLast(node.next);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 删除链表中某个数据的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 修改链表中某个数据的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">modify</span><span class="params">(Object newObj)</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 查找链表中某个元素的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Test类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Link link = <span class="keyword">new</span> Link();</span><br><span class="line">		link.add(<span class="number">100</span>);</span><br><span class="line">		link.add(<span class="number">200</span>);</span><br><span class="line">		link.add(<span class="number">300</span>);</span><br><span class="line">		System.out.println(link.size()); <span class="comment">// 3</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -354,8 +363,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/05/23/Java/进阶/14. 集合/14.9 remove 方法源码解析/" rel="next" title="Java进阶-remove 方法源码解析">
-                  <i class="fa fa-chevron-left"></i> Java进阶-remove 方法源码解析
+                <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.10 ArrayList 集合另一个构造方法/" rel="next" title="Java进阶-ArrayList 集合另一个构造方法">
+                  <i class="fa fa-chevron-left"></i> Java进阶-ArrayList 集合另一个构造方法
                 </a>
               
             </div>
@@ -364,8 +373,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2020/05/25/Java/进阶/14. 集合/14.11 List 接口特有方法/" rel="prev" title="Java进阶-List 接口特有方法">
-                  Java进阶-List 接口特有方法 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.12 链表优点和缺点/" rel="prev" title="Java进阶-链表优点和缺点">
+                  Java进阶-链表优点和缺点 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>

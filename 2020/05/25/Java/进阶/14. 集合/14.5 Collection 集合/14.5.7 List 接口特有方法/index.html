@@ -54,18 +54,18 @@
   };
 </script>
 
-  <meta name="description" content="关于 java.util.Collection 接口中常用的方法：  Collection 中能存放什么元素？  没有使用“泛型”之前，Collection 中可以存储 Object 的所有子类型  使用“泛型”之后，Collection 中只能存储某个具体的类型  注意：集合中不能直接存储基本数据类型，也不能存储 java 对象，只是存储 java 对象的内存地址">
+  <meta name="description" content="List 集合存储元素特点：有序可重复。以下列出 List 接口特有的常用的方法：  void add(int index, Object element) Object get(int index) int indexOf(Object o) int lastIndexOf(Object o) Object remove(int index) Object set(int index, Obje">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java进阶-Collection 接口常用方法">
-<meta property="og:url" content="http://yoursite.com/2020/05/23/Java/进阶/14. 集合/14.5 Collection 接口常用方法/index.html">
+<meta property="og:title" content="Java进阶-List 接口特有方法">
+<meta property="og:url" content="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.7 List 接口特有方法/index.html">
 <meta property="og:site_name" content="Wei Zhang">
-<meta property="og:description" content="关于 java.util.Collection 接口中常用的方法：  Collection 中能存放什么元素？  没有使用“泛型”之前，Collection 中可以存储 Object 的所有子类型  使用“泛型”之后，Collection 中只能存储某个具体的类型  注意：集合中不能直接存储基本数据类型，也不能存储 java 对象，只是存储 java 对象的内存地址">
+<meta property="og:description" content="List 集合存储元素特点：有序可重复。以下列出 List 接口特有的常用的方法：  void add(int index, Object element) Object get(int index) int indexOf(Object o) int lastIndexOf(Object o) Object remove(int index) Object set(int index, Obje">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-23T04:23:03.305Z">
+<meta property="og:updated_time" content="2020-05-25T03:01:36.155Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java进阶-Collection 接口常用方法">
-<meta name="twitter:description" content="关于 java.util.Collection 接口中常用的方法：  Collection 中能存放什么元素？  没有使用“泛型”之前，Collection 中可以存储 Object 的所有子类型  使用“泛型”之后，Collection 中只能存储某个具体的类型  注意：集合中不能直接存储基本数据类型，也不能存储 java 对象，只是存储 java 对象的内存地址">
-  <link rel="canonical" href="http://yoursite.com/2020/05/23/Java/进阶/14. 集合/14.5 Collection 接口常用方法/">
+<meta name="twitter:title" content="Java进阶-List 接口特有方法">
+<meta name="twitter:description" content="List 集合存储元素特点：有序可重复。以下列出 List 接口特有的常用的方法：  void add(int index, Object element) Object get(int index) int indexOf(Object o) int lastIndexOf(Object o) Object remove(int index) Object set(int index, Obje">
+  <link rel="canonical" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.7 List 接口特有方法/">
 
 
 <script id="page-configurations">
@@ -79,7 +79,7 @@
   };
 </script>
 
-  <title>Java进阶-Collection 接口常用方法 | Wei Zhang</title>
+  <title>Java进阶-List 接口特有方法 | Wei Zhang</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -238,7 +238,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/Java/进阶/14. 集合/14.5 Collection 接口常用方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.7 List 接口特有方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <meta itemprop="name" content="Wei Zhang">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Java进阶-Collection 接口常用方法
+        <h1 class="post-title" itemprop="name headline">Java进阶-List 接口特有方法
 
           
         </h1>
@@ -267,7 +267,7 @@
                 
               
 
-              <time title="创建时间：2020-05-23 11:51:37 / 修改时间：12:23:03" itemprop="dateCreated datePublished" datetime="2020-05-23T11:51:37+08:00">2020-05-23</time>
+              <time title="创建时间：2020-05-25 10:47:37 / 修改时间：11:01:36" itemprop="dateCreated datePublished" datetime="2020-05-25T10:47:37+08:00">2020-05-25</time>
             </span>
           
             
@@ -307,7 +307,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>2k</span>
+              <span>1.6k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -317,7 +317,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
           
 
@@ -330,33 +330,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>关于 java.util.Collection 接口中常用的方法：</p>
-<ol>
-<li><p>Collection 中能存放什么元素？</p>
+        <p>List 集合存储元素特点：有序可重复。以下列出 List 接口特有的常用的方法：</p>
 <ul>
-<li><p>没有使用“泛型”之前，Collection 中可以存储 Object 的所有子类型</p>
-</li>
-<li><p>使用“泛型”之后，Collection 中只能存储某个具体的类型</p>
-</li>
-<li><p>注意：集合中不能直接存储基本数据类型，也不能存储 java 对象，只是存储 java 对象的内存地址</p>
+<li><code>void add(int index, Object element)</code></li>
+<li><code>Object get(int index)</code></li>
+<li><code>int indexOf(Object o)</code></li>
+<li><code>int lastIndexOf(Object o)</code></li>
+<li><code>Object remove(int index)</code></li>
+<li><code>Object set(int index, Object element)</code></li>
+</ul>
 <a id="more"></a>
-</li>
-</ul>
-</li>
-<li><p>Collection 中的常用方法</p>
-<ul>
-<li><code>boolean add(Object e)</code> 向集合中添加元素</li>
-<li><code>int size()</code> 获取集合中元素的个数</li>
-<li><code>void clear()</code> 清空集合</li>
-<li><code>boolean contains(Object o)</code> 判断当前集合中是否包含元素 o，包含返回 true，不包含返回 false</li>
-<li><code>boolean remove(Object o)</code> 删除集合中的某个元素</li>
-<li><code>boolean isEmpty()</code> 判断该集合中元素的个数是否为 0</li>
-<li><code>Object[] toArray()</code> 调用这个方法可以把集合转换成数组</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CollectionTest01</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个集合对象</span></span><br><span class="line">        <span class="comment">// Collection c = new Collection(); // 接口是抽象的，无法实例化</span></span><br><span class="line">        <span class="comment">// 多态</span></span><br><span class="line">        Collection c = <span class="keyword">new</span> ArrayList();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 测试 Collection 接口中的常用方法</span></span><br><span class="line">        c.add(<span class="number">1200</span>); <span class="comment">// 自动装箱(java5的新特性)，实际上是放进去了一个对象的内存地址。Integer x = new Integer();</span></span><br><span class="line">        c.add(<span class="number">3.14</span>);</span><br><span class="line">        c.add(<span class="keyword">new</span> Object());</span><br><span class="line">        c.add(<span class="keyword">new</span> Student());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取集合中元素的个数</span></span><br><span class="line">        System.out.println(<span class="string">"集合中元素的个数："</span> + c.size()); <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 清空集合</span></span><br><span class="line">        c.clear();</span><br><span class="line">        System.out.println(<span class="string">"集合中元素的个数："</span> + c.size()); <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断集合中是否包含 "绿巨人"</span></span><br><span class="line">        c.add(<span class="string">"绿巨人"</span>);</span><br><span class="line">        <span class="keyword">boolean</span> flag = c.contains(<span class="string">"绿巨人"</span>);</span><br><span class="line">        System.out.println(flag); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除集合中某个元素</span></span><br><span class="line">        c.remove(<span class="string">"绿巨人"</span>);</span><br><span class="line">        System.out.println(<span class="string">"集合中元素的个数："</span> + c.size()); <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断集合是否为空</span></span><br><span class="line">        System.out.println(c.isEmpty()); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 转换成数组</span></span><br><span class="line">        c.add(<span class="string">"abc"</span>);</span><br><span class="line">        c.add(<span class="string">"def"</span>);</span><br><span class="line">        c.add(<span class="number">100</span>);</span><br><span class="line">        c.add(<span class="string">"helloworld!"</span>);</span><br><span class="line">        c.add(<span class="keyword">new</span> Student());</span><br><span class="line"></span><br><span class="line">        Object[] objs = c.toArray();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; objs.length; i++) &#123;</span><br><span class="line">            <span class="comment">// 遍历数组</span></span><br><span class="line">            Object o = objs[i];</span><br><span class="line">            System.out.println(o);</span><br><span class="line">            <span class="comment">// abc</span></span><br><span class="line">            <span class="comment">// def</span></span><br><span class="line">            <span class="comment">// 100</span></span><br><span class="line">            <span class="comment">// helloworld!</span></span><br><span class="line">            <span class="comment">// test0523.Student@7852e922</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListTest01</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 创建 List 类型的集合</span></span><br><span class="line">		List myList = <span class="keyword">new</span> ArrayList();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 添加元素</span></span><br><span class="line">		myList.add(<span class="string">"A"</span>); <span class="comment">// 默认都是向集合末尾添加元素</span></span><br><span class="line">		myList.add(<span class="string">"B"</span>);</span><br><span class="line">		myList.add(<span class="string">"C"</span>);</span><br><span class="line">		myList.add(<span class="string">"D"</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 在列表的指定位置插入指定元素（第一个参数是下标）</span></span><br><span class="line">		<span class="comment">// 使用不多，因为对 ArrayList 集合来说效率比较低</span></span><br><span class="line">		myList.add(<span class="number">1</span>, <span class="string">"WEI"</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 迭代</span></span><br><span class="line">		Iterator it = myList.iterator();</span><br><span class="line">		<span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">			Object elt = it.next();</span><br><span class="line">			System.out.println(elt);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 根据下标获取元素</span></span><br><span class="line">		Object firstObj = myList.get(<span class="number">0</span>);</span><br><span class="line">		System.out.println(firstObj);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 因为有下标，所以 List 集合有自己比较特殊的遍历方法</span></span><br><span class="line">		<span class="comment">// 通过下标遍历（List 集合特有的方式，Set 没有）</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; myList.size(); i++) &#123;</span><br><span class="line">			Object obj = myList.get(i);</span><br><span class="line">			System.out.println(obj);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 获取指定对象第一次出现的索引</span></span><br><span class="line">		System.out.println(myList.indexOf(<span class="string">"A"</span>));</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 获取指定对象最后一次出现的索引</span></span><br><span class="line">		System.out.println(myList.lastIndexOf(<span class="string">"A"</span>));</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 删除指定下标位置的元素</span></span><br><span class="line">		myList.remove(<span class="number">0</span>);</span><br><span class="line">		System.out.println(myList.size()); <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 修改指定位置的元素</span></span><br><span class="line">		myList.set(<span class="number">2</span>, <span class="string">"Zhang"</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 遍历集合</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; myList.size(); i++) &#123;</span><br><span class="line">			Object obj = myList.get(i);</span><br><span class="line">			System.out.println(obj);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>计算机英语，增删查改的常见单词：</p>
+<ul>
+<li>增：add、save、new</li>
+<li>删：delete、drop、remove</li>
+<li>改：update、set、modify</li>
+<li>查：find、get、query、select</li>
+</ul>
 
     </div>
 
@@ -373,8 +366,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/05/22/Java/进阶/14. 集合/14.4 集合继承结构图总结/" rel="next" title="Java进阶-集合继承结构图总结">
-                  <i class="fa fa-chevron-left"></i> Java进阶-集合继承结构图总结
+                <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.6 关于集合中元素的 remove/" rel="next" title="Java进阶-关于集合中元素的 remove">
+                  <i class="fa fa-chevron-left"></i> Java进阶-关于集合中元素的 remove
                 </a>
               
             </div>
@@ -383,8 +376,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2020/05/23/Java/进阶/14. 集合/14.6 Collection 集合迭代/" rel="prev" title="Java进阶-Collection 集合迭代">
-                  Java进阶-Collection 集合迭代 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.8 ArrayList 集合初始化容量及扩容/" rel="prev" title="Java进阶-ArrayList 集合初始化容量及扩容">
+                  Java进阶-ArrayList 集合初始化容量及扩容 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>

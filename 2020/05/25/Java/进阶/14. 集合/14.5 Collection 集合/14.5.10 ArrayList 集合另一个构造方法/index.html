@@ -54,18 +54,18 @@
   };
 </script>
 
-  <meta name="description" content="LinkedList 集合底层采用了双向链表数据结构：  LinkedList 集合是双向链表 对于链表数据结构来说，随机增删效率较高，检索效率较低 链表中的元素在空间存储上，内存地址不连续">
+  <meta name="description" content="123456789101112131415161718192021import java.util.ArrayList;import java.util.Collection;import java.util.HashSet;import java.util.List;public class ArrayListTest02 &amp;#123;	public static void main(Strin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java进阶-LinkedList 源码分析">
-<meta property="og:url" content="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.17 LinkedList 源码分析/index.html">
+<meta property="og:title" content="Java进阶-ArrayList 集合另一个构造方法">
+<meta property="og:url" content="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.10 ArrayList 集合另一个构造方法/index.html">
 <meta property="og:site_name" content="Wei Zhang">
-<meta property="og:description" content="LinkedList 集合底层采用了双向链表数据结构：  LinkedList 集合是双向链表 对于链表数据结构来说，随机增删效率较高，检索效率较低 链表中的元素在空间存储上，内存地址不连续">
+<meta property="og:description" content="123456789101112131415161718192021import java.util.ArrayList;import java.util.Collection;import java.util.HashSet;import java.util.List;public class ArrayListTest02 &amp;#123;	public static void main(Strin">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-25T04:44:06.508Z">
+<meta property="og:updated_time" content="2020-05-25T03:32:37.802Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java进阶-LinkedList 源码分析">
-<meta name="twitter:description" content="LinkedList 集合底层采用了双向链表数据结构：  LinkedList 集合是双向链表 对于链表数据结构来说，随机增删效率较高，检索效率较低 链表中的元素在空间存储上，内存地址不连续">
-  <link rel="canonical" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.17 LinkedList 源码分析/">
+<meta name="twitter:title" content="Java进阶-ArrayList 集合另一个构造方法">
+<meta name="twitter:description" content="123456789101112131415161718192021import java.util.ArrayList;import java.util.Collection;import java.util.HashSet;import java.util.List;public class ArrayListTest02 &amp;#123;	public static void main(Strin">
+  <link rel="canonical" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.10 ArrayList 集合另一个构造方法/">
 
 
 <script id="page-configurations">
@@ -79,7 +79,7 @@
   };
 </script>
 
-  <title>Java进阶-LinkedList 源码分析 | Wei Zhang</title>
+  <title>Java进阶-ArrayList 集合另一个构造方法 | Wei Zhang</title>
   <meta name="generator" content="Hexo 3.9.0">
   
 
@@ -238,7 +238,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.17 LinkedList 源码分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.10 ArrayList 集合另一个构造方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <meta itemprop="name" content="Wei Zhang">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">Java进阶-LinkedList 源码分析
+        <h1 class="post-title" itemprop="name headline">Java进阶-ArrayList 集合另一个构造方法
 
           
         </h1>
@@ -267,7 +267,7 @@
                 
               
 
-              <time title="创建时间：2020-05-25 12:17:37 / 修改时间：12:44:06" itemprop="dateCreated datePublished" datetime="2020-05-25T12:17:37+08:00">2020-05-25</time>
+              <time title="创建时间：2020-05-25 11:27:37 / 修改时间：11:32:37" itemprop="dateCreated datePublished" datetime="2020-05-25T11:27:37+08:00">2020-05-25</time>
             </span>
           
             
@@ -307,7 +307,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.3k</span>
+              <span>489</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -330,20 +330,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>LinkedList 集合底层采用了双向链表数据结构：</p>
-<ol>
-<li>LinkedList 集合是双向链表</li>
-<li>对于链表数据结构来说，随机增删效率较高，检索效率较低</li>
-<li>链表中的元素在空间存储上，内存地址不连续</li>
-</ol>
-<a id="more"></a>
-
-<p>![img](14.17 LinkedList 源码分析.assets/wps6.jpg)</p>
-<p>LinkedList 集合的 add() 方法源码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">	linkLast(e);</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">linkLast</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> Node&lt;E&gt; l = last;</span><br><span class="line">	<span class="keyword">final</span> Node&lt;E&gt; newNode = <span class="keyword">new</span> Node&lt;&gt;(l, e, <span class="keyword">null</span>);</span><br><span class="line">	last = newNode;</span><br><span class="line">	<span class="keyword">if</span>(l == <span class="keyword">null</span>)</span><br><span class="line">		first  = newNode;</span><br><span class="line">	<span class="keyword">else</span> </span><br><span class="line">		l.next = newNode;</span><br><span class="line">	size++;</span><br><span class="line">	modCount++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>![img](14.17 LinkedList 源码分析.assets/wps5.jpg)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedListTest02</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List list = <span class="keyword">new</span> LinkedList();</span><br><span class="line">		list.add(<span class="string">"a"</span>);</span><br><span class="line">		list.add(<span class="string">"b"</span>);</span><br><span class="line">		list.add(<span class="string">"c"</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">			Object obj = list.get(i);</span><br><span class="line">			System.out.println(obj);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// LinkedList 集合没有初始化容量</span></span><br><span class="line">		<span class="comment">// 最初这个链表中没有任何元素，first 和 last 引用都是 null</span></span><br><span class="line">		<span class="comment">// 不管是 LinkedList 还是 ArrayList ，以后写代码时不需要关心具体是哪个集合</span></span><br><span class="line">		<span class="comment">// 因为我们要面向接口编程，调用的方法都是接口中的方法</span></span><br><span class="line">		<span class="comment">// List list2 = new ArrayList(); // 这样写表示底层用了数组</span></span><br><span class="line">		List list2 = <span class="keyword">new</span> LinkedList(); <span class="comment">// 这样写表示底层用了双向链表</span></span><br><span class="line">		list2.add(<span class="number">1</span>);</span><br><span class="line">		list2.add(<span class="number">2</span>);</span><br><span class="line">		list2.add(<span class="number">3</span>);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list2.size(); i++) &#123;</span><br><span class="line">			System.out.println(list2.get(i));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayListTest02</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 创建一个 HashSet 集合</span></span><br><span class="line">		Collection c = <span class="keyword">new</span> HashSet();</span><br><span class="line">		c.add(<span class="number">100</span>);</span><br><span class="line">		c.add(<span class="number">200</span>);</span><br><span class="line">		c.add(<span class="number">300</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 通过这个构造方法可以将 HashSet 集合转换成 List 集合</span></span><br><span class="line">		List myList3 = <span class="keyword">new</span> ArrayList(c);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; myList3.size(); i++) &#123;</span><br><span class="line">			System.out.println(myList3.get(i));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -361,8 +348,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2020/05/25/Java/进阶/14. 集合/14.16 链表优点和缺点/" rel="next" title="Java进阶-链表优点和缺点">
-                  <i class="fa fa-chevron-left"></i> Java进阶-链表优点和缺点
+                <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.9 二进制位运算/" rel="next" title="Java进阶-二进制位运算">
+                  <i class="fa fa-chevron-left"></i> Java进阶-二进制位运算
                 </a>
               
             </div>
@@ -370,6 +357,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.11 单向链表数据结构/" rel="prev" title="Java进阶-单向链表数据结构">
+                  Java进阶-单向链表数据结构 <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
