@@ -687,7 +687,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.2 遍历 Map 集合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.5 Java8 对 HashMap 集合的改进/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -701,7 +701,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.2 遍历 Map 集合/" class="post-title-link" itemprop="url">Java进阶-遍历 Map 集合</a>
+            <a href="/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.5 Java8 对 HashMap 集合的改进/" class="post-title-link" itemprop="url">Java进阶-Java8 对 HashMap 集合的改进</a>
           
         </h1>
 
@@ -717,7 +717,7 @@
                 
               
 
-              <time title="创建时间：2020-05-26 11:53:37 / 修改时间：12:21:40" itemprop="dateCreated datePublished" datetime="2020-05-26T11:53:37+08:00">2020-05-26</time>
+              <time title="创建时间：2020-05-26 17:11:37 / 修改时间：17:13:40" itemprop="dateCreated datePublished" datetime="2020-05-26T17:11:37+08:00">2020-05-26</time>
             </span>
           
             
@@ -749,7 +749,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.7k</span>
+              <span>121</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -759,7 +759,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
           
 
@@ -772,28 +772,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Map 集合的遍历</p>
-<ol>
-<li>获取所有的 key，通过遍历 key，来遍历 value<ul>
-<li>迭代器</li>
-<li>foreach</li>
-</ul>
-</li>
-<li><code>Set&lt;Map.Entry&lt;K, V&gt;&gt; entrySet()</code> 将 Map 集合直接全部转换成 Set 集合，Set 集合中元素的类型是：Map.Entry<ul>
-<li>迭代器</li>
-<li>foreach，这种方式效率比较高，因为获取 key 和 value 都是直接从 node 对象中获取的属性值，比较适合于大数据量</li>
-</ul>
-</li>
-</ol>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.2 遍历 Map 集合/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
+          <p>在 JDK8 之后，如果哈希表单向链表中元素超过 8 个，单向链表这种数据结构会变成红黑树数据结构，当红黑树上的节点数量小于 6 时，会重新把红黑树变成单向链表数据结构。</p>
+<p>这种方式也是为了提高检索效率，二叉树的检索会再次缩小扫描范围，提高效率。</p>
+
         
       
     </div>
@@ -819,7 +800,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.1 Map 接口常用方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.4 同时重写 hashCode 和 equals/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -833,7 +814,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.1 Map 接口常用方法/" class="post-title-link" itemprop="url">Java进阶-Map 接口常用方法</a>
+            <a href="/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.4 同时重写 hashCode 和 equals/" class="post-title-link" itemprop="url">Java进阶-同时重写 hashCode 和 equals</a>
           
         </h1>
 
@@ -849,7 +830,7 @@
                 
               
 
-              <time title="创建时间：2020-05-26 11:24:37 / 修改时间：12:23:08" itemprop="dateCreated datePublished" datetime="2020-05-26T11:24:37+08:00">2020-05-26</time>
+              <time title="创建时间：2020-05-26 16:35:37 / 修改时间：17:10:55" itemprop="dateCreated datePublished" datetime="2020-05-26T16:35:37+08:00">2020-05-26</time>
             </span>
           
             
@@ -881,7 +862,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>2.3k</span>
+              <span>2.9k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -891,7 +872,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
           
 
@@ -904,21 +885,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>java.util.Map 接口中常用的方法：</p>
-<ol>
-<li><p>Map 和 Collection 没有继承关系</p>
-</li>
-<li><p>Map 集合以 key 和 value 的方式存储数据：键值对</p>
-<ul>
-<li><p>key 和 value 都是引用数据类型</p>
-</li>
-<li><p>key 和 value 都是存储对象的内存地址</p>
-</li>
-<li><p>key 起到主导的地位，value 是 key 的一个附属品</p>
+          <p>重点：放在 HashMap 集合 key 部分的元素，以及放在 HashSet 集合的元素，需要同时重写 hashCode 和 equals 方法</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.1 Map 接口常用方法/#more" rel="contents">
+              <a class="btn" href="/2020/05/26/Java/进阶/14. 集合/14.6 Map 集合/14.6.4 同时重写 hashCode 和 equals/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -946,7 +917,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/104/">104</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/105/">105</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -995,7 +966,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">519</span>
+          <span class="site-state-item-count">522</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1280,7 +1251,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">15:30</span>
+    <span title="站点阅读时长">15:35</span>
   </div>
 
 </div>
