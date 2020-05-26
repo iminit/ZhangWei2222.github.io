@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.6 关于集合中元素的 remove/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/Java/进阶/14. 集合/14.5 Collection 集合/14.5.15 泛型机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.6 关于集合中元素的 remove/" class="post-title-link" itemprop="url">Java进阶-关于集合中元素的 remove</a>
+            <a href="/2020/05/26/Java/进阶/14. 集合/14.5 Collection 集合/14.5.15 泛型机制/" class="post-title-link" itemprop="url">Java进阶-泛型机制</a>
           
         </h1>
 
@@ -266,7 +266,267 @@
                 
               
 
-              <time title="创建时间：2020-05-25 10:26:37 / 修改时间：17:09:56" itemprop="dateCreated datePublished" datetime="2020-05-25T10:26:37+08:00">2020-05-25</time>
+              <time title="创建时间：2020-05-26 10:25:37 / 修改时间：10:43:25" itemprop="dateCreated datePublished" datetime="2020-05-26T10:25:37+08:00">2020-05-26</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li>JDK5.0 之后推出的新特性：泛型</li>
+<li>泛型这种语法机制，只在程序编译阶段起作用，只是给编译器参考的（运行阶段泛型没用）</li>
+<li>使用了泛型的好处？<ul>
+<li>集合中存储的元素类型统一了</li>
+<li>从集合中取出的元素类型是泛型指定的类型，不需要进行大量的“向下转型”</li>
+</ul>
+</li>
+<li>泛型缺点？<ul>
+<li>导致集合中存储的元素缺乏多样性</li>
+<li>大多数业务中，集合中元素的类型还是统一的，所以这种泛型特性被大家认可</li>
+</ul>
+</li>
+</ol>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/05/26/Java/进阶/14. 集合/14.5 Collection 集合/14.5.15 泛型机制/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/Java/进阶/14. 集合/14.5 Collection 集合/14.5.14 Vector 集合源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/05/26/Java/进阶/14. 集合/14.5 Collection 集合/14.5.14 Vector 集合源码分析/" class="post-title-link" itemprop="url">Java进阶-Vector 集合源码分析</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-26 10:05:37 / 修改时间：10:24:48" itemprop="dateCreated datePublished" datetime="2020-05-26T10:05:37+08:00">2020-05-26</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li><p>底层也是一个数组</p>
+</li>
+<li><p>初始化容量：10</p>
+</li>
+<li><p>怎么扩容？</p>
+<ul>
+<li><p>扩容之后是原容量的 2 倍</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/05/26/Java/进阶/14. 集合/14.5 Collection 集合/14.5.14 Vector 集合源码分析/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.13 LinkedList 源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.13 LinkedList 源码分析/" class="post-title-link" itemprop="url">Java进阶-LinkedList 源码分析</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-25 12:17:37 / 修改时间：17:11:45" itemprop="dateCreated datePublished" datetime="2020-05-25T12:17:37+08:00">2020-05-25</time>
             </span>
           
             
@@ -321,13 +581,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>当集合的结构发生改变时，迭代器必须重新获取，如果还是用以前老的迭代器，会出现异常：<code>java.util.ConcurrentModificationException</code></p>
-<p>在迭代集合元素的过程中，不能调用集合对象的 remove 方法，删除元素：c.remove(o); 迭代过程中不能这样，会出现： <code>java.util.ConcurrentModificationException</code></p>
-<p>在迭代元素的过程当中，一<strong>定要使用迭代器 Iterator 的 remove 方法，删除元素</strong>，不要使用集合自带的 remove 方法删除元素</p>
+          <p>LinkedList 集合底层采用了双向链表数据结构：</p>
+<ol>
+<li>LinkedList 集合是双向链表</li>
+<li>对于链表数据结构来说，随机增删效率较高，检索效率较低</li>
+<li>链表中的元素在空间存储上，内存地址不连续</li>
+</ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.6 关于集合中元素的 remove/#more" rel="contents">
+              <a class="btn" href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.13 LinkedList 源码分析/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -358,7 +621,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.5 remove 方法源码解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.12 链表优点和缺点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -372,7 +635,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.5 remove 方法源码解析/" class="post-title-link" itemprop="url">Java进阶-remove 方法源码解析</a>
+            <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.12 链表优点和缺点/" class="post-title-link" itemprop="url">Java进阶-链表优点和缺点</a>
           
         </h1>
 
@@ -388,7 +651,7 @@
                 
               
 
-              <time title="创建时间：2020-05-23 16:09:37 / 修改时间：16:15:52" itemprop="dateCreated datePublished" datetime="2020-05-23T16:09:37+08:00">2020-05-23</time>
+              <time title="创建时间：2020-05-25 12:08:37 / 修改时间：12:16:18" itemprop="dateCreated datePublished" datetime="2020-05-25T12:08:37+08:00">2020-05-25</time>
             </span>
           
             
@@ -420,7 +683,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>488</span>
+              <span>778</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -443,275 +706,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>remove 也是用 equals 方法进行比较，会删掉 equals 方法返回 true 的元素</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.5 remove 方法源码解析/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.4 contains 源码分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.4 contains 源码分析/" class="post-title-link" itemprop="url">Java进阶-contains 源码分析</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-05-23 15:53:37" itemprop="dateCreated datePublished" datetime="2020-05-23T15:53:37+08:00">2020-05-23</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-25 17:09:19" itemprop="dateModified" datetime="2020-05-25T17:09:19+08:00">2020-05-25</time>
-              </span>
-            </div>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>1.2k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>存放在一个集合中的类型，一定要重写 equals 方法</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.4 contains 源码分析/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.3 contains 方法解析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.3 contains 方法解析/" class="post-title-link" itemprop="url">Java进阶-contains 方法解析</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2020-05-23 15:42:37" itemprop="dateCreated datePublished" datetime="2020-05-23T15:42:37+08:00">2020-05-23</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-25 17:09:12" itemprop="dateModified" datetime="2020-05-25T17:09:12+08:00">2020-05-25</time>
-              </span>
-            </div>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>719</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>深入 Collection 集合的 contains 方法：<code>boolean contains(Object o)</code></p>
+          <p><strong>链表优点：</strong></p>
 <ul>
-<li>判断集合中是否包含某个对象 o</li>
-<li>如果包含返回 true，如果不包含返回 false</li>
+<li>由于链表上的元素在空间存储上内存地址不连续，所以随机增删元素的时候不会有大量元素位移，因此随机增删效率较高。在以后的开发中，如果遇到随机增删集合中元素的业务比较多的，建议使用 LinkedList</li>
+</ul>
+<p><strong>链表缺点：</strong></p>
+<ul>
+<li>不能通过数学表达式计算被查找元素的内存地址，每一次查找都是从头节点开始遍历，直到找到为止，所以 LinkedList 集合检索/查找的效率较低</li>
 </ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.3 contains 方法解析/#more" rel="contents">
+              <a class="btn" href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.12 链表优点和缺点/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -742,7 +748,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.2 Collection 集合迭代/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.11 单向链表数据结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -756,7 +762,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.2 Collection 集合迭代/" class="post-title-link" itemprop="url">Java进阶-Collection 集合迭代</a>
+            <a href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.11 单向链表数据结构/" class="post-title-link" itemprop="url">Java进阶-单向链表数据结构</a>
           
         </h1>
 
@@ -772,21 +778,11 @@
                 
               
 
-              <time title="创建时间：2020-05-23 12:22:37" itemprop="dateCreated datePublished" datetime="2020-05-23T12:22:37+08:00">2020-05-23</time>
+              <time title="创建时间：2020-05-25 11:35:37 / 修改时间：17:11:04" itemprop="dateCreated datePublished" datetime="2020-05-25T11:35:37+08:00">2020-05-25</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-25 17:08:28" itemprop="dateModified" datetime="2020-05-25T17:08:28+08:00">2020-05-25</time>
-              </span>
-            </div>
             
           
             <span class="post-meta-item">
@@ -814,7 +810,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>928</span>
+              <span>1.7k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -824,7 +820,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
           
 
@@ -837,15 +833,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>注意：</p>
+          <p>节点是单向链表中基本的单元，每个节点 Node 都有两个属性：</p>
 <ul>
-<li>以下讲解的遍历方式/迭代方式，是所有 Collection 通用的一种方式。</li>
-<li>在 Map 集合中不能用，在所有的 Collection 以及子类中使用。</li>
+<li>存储的数据</li>
+<li>下一个节点的内存地址</li>
 </ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/05/23/Java/进阶/14. 集合/14.5 Collection 集合/14.5.2 Collection 集合迭代/#more" rel="contents">
+              <a class="btn" href="/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.11 单向链表数据结构/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -873,7 +869,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/104/">104</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -922,7 +918,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">510</span>
+          <span class="site-state-item-count">519</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1207,7 +1203,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">15:20</span>
+    <span title="站点阅读时长">15:30</span>
   </div>
 
 </div>

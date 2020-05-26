@@ -54,17 +54,17 @@
   };
 </script>
 
-  <meta name="description" content="123456789101112131415161718192021import java.util.ArrayList;import java.util.Collection;import java.util.HashSet;import java.util.List;public class ArrayListTest02 &amp;#123;	public static void main(Strin">
+  <meta name="description" content="123456789101112131415161718192021import java.util.ArrayList;import java.util.Collection;import java.util.HashSet;import java.util.List;public class ArrayListTest02 &amp;#123;  public static void main(Stri">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java进阶-ArrayList 集合另一个构造方法">
 <meta property="og:url" content="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.10 ArrayList 集合另一个构造方法/index.html">
 <meta property="og:site_name" content="Wei Zhang">
-<meta property="og:description" content="123456789101112131415161718192021import java.util.ArrayList;import java.util.Collection;import java.util.HashSet;import java.util.List;public class ArrayListTest02 &amp;#123;	public static void main(Strin">
+<meta property="og:description" content="123456789101112131415161718192021import java.util.ArrayList;import java.util.Collection;import java.util.HashSet;import java.util.List;public class ArrayListTest02 &amp;#123;  public static void main(Stri">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-25T03:32:37.802Z">
+<meta property="og:updated_time" content="2020-05-25T09:16:54.456Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java进阶-ArrayList 集合另一个构造方法">
-<meta name="twitter:description" content="123456789101112131415161718192021import java.util.ArrayList;import java.util.Collection;import java.util.HashSet;import java.util.List;public class ArrayListTest02 &amp;#123;	public static void main(Strin">
+<meta name="twitter:description" content="123456789101112131415161718192021import java.util.ArrayList;import java.util.Collection;import java.util.HashSet;import java.util.List;public class ArrayListTest02 &amp;#123;  public static void main(Stri">
   <link rel="canonical" href="http://yoursite.com/2020/05/25/Java/进阶/14. 集合/14.5 Collection 集合/14.5.10 ArrayList 集合另一个构造方法/">
 
 
@@ -267,7 +267,7 @@
                 
               
 
-              <time title="创建时间：2020-05-25 11:27:37 / 修改时间：11:32:37" itemprop="dateCreated datePublished" datetime="2020-05-25T11:27:37+08:00">2020-05-25</time>
+              <time title="创建时间：2020-05-25 11:27:37 / 修改时间：17:16:54" itemprop="dateCreated datePublished" datetime="2020-05-25T11:27:37+08:00">2020-05-25</time>
             </span>
           
             
@@ -307,7 +307,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>489</span>
+              <span>512</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -330,7 +330,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayListTest02</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 创建一个 HashSet 集合</span></span><br><span class="line">		Collection c = <span class="keyword">new</span> HashSet();</span><br><span class="line">		c.add(<span class="number">100</span>);</span><br><span class="line">		c.add(<span class="number">200</span>);</span><br><span class="line">		c.add(<span class="number">300</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 通过这个构造方法可以将 HashSet 集合转换成 List 集合</span></span><br><span class="line">		List myList3 = <span class="keyword">new</span> ArrayList(c);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; myList3.size(); i++) &#123;</span><br><span class="line">			System.out.println(myList3.get(i));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayListTest02</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个 HashSet 集合</span></span><br><span class="line">    Collection c = <span class="keyword">new</span> HashSet();</span><br><span class="line">    c.add(<span class="number">100</span>);</span><br><span class="line">    c.add(<span class="number">200</span>);</span><br><span class="line">    c.add(<span class="number">300</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通过这个构造方法可以将 HashSet 集合转换成 List 集合</span></span><br><span class="line">    List myList3 = <span class="keyword">new</span> ArrayList(c);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; myList3.size(); i++) &#123;</span><br><span class="line">      System.out.println(myList3.get(i));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -426,7 +426,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">510</span>
+          <span class="site-state-item-count">519</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -711,7 +711,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">15:20</span>
+    <span title="站点阅读时长">15:30</span>
   </div>
 
 </div>

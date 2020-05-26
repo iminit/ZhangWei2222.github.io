@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/28/源码分析/Slice.js/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/04/源码分析/Vue/vuex源码分析手册/vuex源码分析(Store实例方法)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/11/28/源码分析/Slice.js/" class="post-title-link" itemprop="url">Slice.js</a>
+            <a href="/2019/12/04/源码分析/Vue/vuex源码分析手册/vuex源码分析(Store实例方法)/" class="post-title-link" itemprop="url">vuex源码分析(Store实例方法)</a>
           
         </h1>
 
@@ -266,7 +266,7 @@
                 
               
 
-              <time title="创建时间：2019-11-28 10:47:47" itemprop="dateCreated datePublished" datetime="2019-11-28T10:47:47+08:00">2019-11-28</time>
+              <time title="创建时间：2019-12-04 14:47:47" itemprop="dateCreated datePublished" datetime="2019-12-04T14:47:47+08:00">2019-12-04</time>
             </span>
           
             
@@ -308,7 +308,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.4k</span>
+              <span>9k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -318,7 +318,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>8 分钟</span>
             </span>
           
 
@@ -331,11 +331,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>按照输入的参数截取数组或者字符串，参数可以是数字，或者字符 ‘开始:结尾:step’</p>
+          <h1 id="Vuex-Store-实例方法"><a href="#Vuex-Store-实例方法" class="headerlink" title="Vuex.Store 实例方法"></a>Vuex.Store 实例方法</h1>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/11/28/源码分析/Slice.js/#more" rel="contents">
+              <a class="btn" href="/2019/12/04/源码分析/Vue/vuex源码分析手册/vuex源码分析(Store实例方法)/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -366,7 +366,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/后端知识/洋葱圈模型/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/源码分析/Vue/vuex源码分析手册/vuex源码分析(Store构造函数)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -380,7 +380,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/11/27/后端知识/洋葱圈模型/" class="post-title-link" itemprop="url">洋葱圈模型</a>
+            <a href="/2019/12/03/源码分析/Vue/vuex源码分析手册/vuex源码分析(Store构造函数)/" class="post-title-link" itemprop="url">vuex源码分析(Store构造函数)</a>
           
         </h1>
 
@@ -396,7 +396,7 @@
                 
               
 
-              <time title="创建时间：2019-11-27 16:27:37" itemprop="dateCreated datePublished" datetime="2019-11-27T16:27:37+08:00">2019-11-27</time>
+              <time title="创建时间：2019-12-03 16:51:47" itemprop="dateCreated datePublished" datetime="2019-12-03T16:51:47+08:00">2019-12-03</time>
             </span>
           
             
@@ -419,7 +419,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/后端知识/" itemprop="url" rel="index"><span itemprop="name">后端知识</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/源码分析/" itemprop="url" rel="index"><span itemprop="name">源码分析</span></a></span>
 
                 
                 
@@ -438,7 +438,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>973</span>
+              <span>11k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -448,7 +448,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>10 分钟</span>
             </span>
           
 
@@ -461,11 +461,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>学习Egg的时候，对洋葱圈模型很疑惑，不知道它有啥好处，听了组长的讲解，确实大有好处，记录记录</p>
+          <h1 id="Vuex-Store-构造函数"><a href="#Vuex-Store-构造函数" class="headerlink" title="Vuex.Store 构造函数"></a>Vuex.Store 构造函数</h1><ol>
+<li><p>判断是否自动安装vue</p>
+</li>
+<li><p>初始化内部变量，将dispatch与commit调用的this绑定为store对象本身，否则在组件内部this.dispatch时的this会指向组件的vm</p>
+</li>
+<li><p>是否严格模式</p>
+</li>
+<li><p>执行installModule（初始化module）</p>
+</li>
+<li><p>执行resetStoreVM（通过VM使store“响应式”）</p>
+</li>
+<li><p>调用插件、devtool</p>
+</li>
+</ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/11/27/后端知识/洋葱圈模型/#more" rel="contents">
+              <a class="btn" href="/2019/12/03/源码分析/Vue/vuex源码分析手册/vuex源码分析(Store构造函数)/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -496,7 +509,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/后端知识/Node.js/NodeJs中的Eventloop/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/Vue/【分享】vue原理分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -510,7 +523,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/11/27/后端知识/Node.js/NodeJs中的Eventloop/" class="post-title-link" itemprop="url">NodeJs中的Eventloop</a>
+            <a href="/2019/12/03/Vue/【分享】vue原理分析/" class="post-title-link" itemprop="url">【分享】vue原理分析</a>
           
         </h1>
 
@@ -526,137 +539,7 @@
                 
               
 
-              <time title="创建时间：2019-11-27 16:00:37" itemprop="dateCreated datePublished" datetime="2019-11-27T16:00:37+08:00">2019-11-27</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-28 11:28:42" itemprop="dateModified" datetime="2020-04-28T11:28:42+08:00">2020-04-28</time>
-              </span>
-            </div>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Node-js/" itemprop="url" rel="index"><span itemprop="name">Node.js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>3.1k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>3 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="NodeJs中的EventLoop图"><a href="#NodeJs中的EventLoop图" class="headerlink" title="NodeJs中的EventLoop图"></a>NodeJs中的EventLoop图</h2>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/11/27/后端知识/Node.js/NodeJs中的Eventloop/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/后端知识/消息队列/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/11/27/后端知识/消息队列/" class="post-title-link" itemprop="url">消息队列</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-27 15:04:37" itemprop="dateCreated datePublished" datetime="2019-11-27T15:04:37+08:00">2019-11-27</time>
+              <time title="创建时间：2019-12-03 15:17:47" itemprop="dateCreated datePublished" datetime="2019-12-03T15:17:47+08:00">2019-12-03</time>
             </span>
           
             
@@ -679,7 +562,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/后端知识/" itemprop="url" rel="index"><span itemprop="name">后端知识</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
 
                 
                 
@@ -698,7 +581,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1.6k</span>
+              <span>13k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -708,7 +591,7 @@
               
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               
-              <span>1 分钟</span>
+              <span>12 分钟</span>
             </span>
           
 
@@ -721,11 +604,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="什么是消息队列？"><a href="#什么是消息队列？" class="headerlink" title="什么是消息队列？"></a>什么是消息队列？</h3><p>消息队列——MQ(Message Queue)。可以看成是一个存放消息的容器，当我们需要使用消息时候可以取出消息供自己使用。</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>海南分享了vue的核心原理，从源码出发回答经常遇到的一些问题，比如为啥不能检测到对象/数组属性的变化等。记录几个get到的小点：</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/11/27/后端知识/消息队列/#more" rel="contents">
+              <a class="btn" href="/2019/12/03/Vue/【分享】vue原理分析/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -756,7 +639,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/后端知识/RPC/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/源码分析/Vue/vuex源码分析手册/vuex源码分析(原理与安装)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -770,7 +653,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/11/27/后端知识/RPC/" class="post-title-link" itemprop="url">RPC</a>
+            <a href="/2019/12/03/源码分析/Vue/vuex源码分析手册/vuex源码分析(原理与安装)/" class="post-title-link" itemprop="url">vuex源码分析(原理与安装)</a>
           
         </h1>
 
@@ -786,7 +669,7 @@
                 
               
 
-              <time title="创建时间：2019-11-27 14:18:37" itemprop="dateCreated datePublished" datetime="2019-11-27T14:18:37+08:00">2019-11-27</time>
+              <time title="创建时间：2019-12-03 10:21:47" itemprop="dateCreated datePublished" datetime="2019-12-03T10:21:47+08:00">2019-12-03</time>
             </span>
           
             
@@ -809,7 +692,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/后端知识/" itemprop="url" rel="index"><span itemprop="name">后端知识</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/源码分析/" itemprop="url" rel="index"><span itemprop="name">源码分析</span></a></span>
 
                 
                 
@@ -828,7 +711,138 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>699</span>
+              <span>2.5k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>2 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>每个组件（也就是<code>Vue实例</code>）在<code>beforeCreate</code>的生命周期中都混入（Vue.mixin）同一个<code>Store实例</code> 作为属性 <code>$store</code>，所以我们能够使用<code>this.$store</code>；</p>
+<p>里面有一个<code>resetStoreVM()方法</code>，通过vm重设store，新建Vue对象使用Vue内部的响应式实现注册state以及computed，我们在获取state的时候，拿的是<code>vm.$_store._vm._data.$$state</code>，这个变量是响应式的</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/12/03/源码分析/Vue/vuex源码分析手册/vuex源码分析(原理与安装)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/02/Vue/跳转/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/12/02/Vue/跳转/" class="post-title-link" itemprop="url">Vue-跳转</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-02 18:27:47" itemprop="dateCreated datePublished" datetime="2019-12-02T18:27:47+08:00">2019-12-02</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>108</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -851,17 +865,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="什么是RPC"><a href="#什么是RPC" class="headerlink" title="什么是RPC"></a>什么是RPC</h3><p>RPC(Remote Procedure Call：远程过程调用)：一种进程间通信方式，允许像调用本地服务一样调用远程服务。</p>
-<p>RPC框架负责屏蔽底层的传输方式（TCP或者UDP）、序列化方式（XML/JSON/二进制）和通信细节。主要目标就是让远程服务调用更简单、透明。开发人员在使用的时候只需要了解谁在什么位置提供了什么样的远程服务接口即可，并不需要关心底层通信细节和调用过程。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/11/27/后端知识/RPC/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
+          <p>如果直接使用a标签，href=’变量’，打开的链接会是router跳转，地址不对，可以@click，window.open(url)；另window.location.href = url会在当前页面打开链接，不适用</p>
+
         
       
     </div>
@@ -884,7 +889,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/56/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><span class="page-number current">57</span><a class="page-number" href="/page/58/">58</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/58/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/56/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/56/">56</a><span class="page-number current">57</span><a class="page-number" href="/page/58/">58</a><span class="space">&hellip;</span><a class="page-number" href="/page/104/">104</a><a class="extend next" rel="next" href="/page/58/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -933,7 +938,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">510</span>
+          <span class="site-state-item-count">519</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1218,7 +1223,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">15:20</span>
+    <span title="站点阅读时长">15:30</span>
   </div>
 
 </div>
