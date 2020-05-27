@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/29/计算机网络/TCP三次握手与四次挥手/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/04/操作系统/进程间通信方式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -250,7 +250,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/08/29/计算机网络/TCP三次握手与四次挥手/" class="post-title-link" itemprop="url">TCP三次握手与四次挥手</a>
+            <a href="/2019/09/04/操作系统/进程间通信方式/" class="post-title-link" itemprop="url">进程间通信方式</a>
           
         </h1>
 
@@ -266,7 +266,7 @@
                 
               
 
-              <time title="创建时间：2019-08-29 20:02:37" itemprop="dateCreated datePublished" datetime="2019-08-29T20:02:37+08:00">2019-08-29</time>
+              <time title="创建时间：2019-09-04 16:22:48" itemprop="dateCreated datePublished" datetime="2019-09-04T16:22:48+08:00">2019-09-04</time>
             </span>
           
             
@@ -289,7 +289,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/操作系统/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a></span>
 
                 
                 
@@ -308,7 +308,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>989</span>
+              <span>1.4k</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -331,11 +331,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>TCP连接与断开都不是普通的一次牵手、分手，为什么呢？又是怎么牵手、分手的呢？<br>下面探个究竟~</p>
+          <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ol>
+<li>每个进程各自有不同的用户地址空间，进程之间的变量是彼此看不到的</li>
+<li>进程之间交换数据必须通过内核，<strong>在内核中开辟一块缓冲区</strong></li>
+<li>一个进程把自己的数据从用户空间拷贝到内核缓冲区，另一个进程再从内核缓冲区把数据读走</li>
+</ol>
+<p>简单的说，就是进程间传播或交换信息</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/08/29/计算机网络/TCP三次握手与四次挥手/#more" rel="contents">
+              <a class="btn" href="/2019/09/04/操作系统/进程间通信方式/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -366,7 +371,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/29/计算机网络/TCP协议与UDP协议/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/04/数据库/SQL-删除/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -380,7 +385,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/08/29/计算机网络/TCP协议与UDP协议/" class="post-title-link" itemprop="url">TCP协议 与 UDP协议</a>
+            <a href="/2019/09/04/数据库/SQL-删除/" class="post-title-link" itemprop="url">SQL-删除</a>
           
         </h1>
 
@@ -396,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-08-29 17:12:37" itemprop="dateCreated datePublished" datetime="2019-08-29T17:12:37+08:00">2019-08-29</time>
+              <time title="创建时间：2019-09-04 15:49:37" itemprop="dateCreated datePublished" datetime="2019-09-04T15:49:37+08:00">2019-09-04</time>
             </span>
           
             
@@ -419,7 +424,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据库/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a></span>
 
                 
                 
@@ -438,7 +443,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>704</span>
+              <span>506</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -461,11 +466,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>TCP、UDP</strong>是OSI模型中<strong>运输层</strong>中的协议。我们经常使用 <strong>ping</strong> 命令来测试两台主机之间 TCP/IP 通信是否正常，其实 <strong>ping</strong> 命令的原理就是 向对方主机发送UDP数据包，然后对方主机确认收到数据包，如果数据包是否到达的消息及时反馈回来，那么网络就是通的</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>SQL语法中，DROP、DELETE、TRUNCATE都表示删除，下面对其进行区别</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/08/29/计算机网络/TCP协议与UDP协议/#more" rel="contents">
+              <a class="btn" href="/2019/09/04/数据库/SQL-删除/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -496,7 +501,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/29/计算机网络/OSI模型与TCPIP模型/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/04/数据结构/二叉树结点个数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -510,7 +515,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/08/29/计算机网络/OSI模型与TCPIP模型/" class="post-title-link" itemprop="url">OSI模型 与 TCP/IP模型</a>
+            <a href="/2019/09/04/数据结构/二叉树结点个数/" class="post-title-link" itemprop="url">二叉树结点个数</a>
           
         </h1>
 
@@ -526,7 +531,7 @@
                 
               
 
-              <time title="创建时间：2019-08-29 15:36:37" itemprop="dateCreated datePublished" datetime="2019-08-29T15:36:37+08:00">2019-08-29</time>
+              <time title="创建时间：2019-09-04 11:45:48" itemprop="dateCreated datePublished" datetime="2019-09-04T11:45:48+08:00">2019-09-04</time>
             </span>
           
             
@@ -549,7 +554,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
 
                 
                 
@@ -568,7 +573,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>873</span>
+              <span>34</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -591,11 +596,134 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>介绍两大模型与它们的区别</p>
+          <h2 id="满二叉树结点个数"><a href="#满二叉树结点个数" class="headerlink" title="满二叉树结点个数"></a>满二叉树结点个数</h2><p>2^n - 1</p>
+<h2 id="满二叉树叶子结点个数"><a href="#满二叉树叶子结点个数" class="headerlink" title="满二叉树叶子结点个数"></a>满二叉树叶子结点个数</h2><p>2^（n - 1）</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/04/数据库/关系型数据库与非关系型数据库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wei Zhang">
+      <meta itemprop="description" content="Dream High.">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wei Zhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/09/04/数据库/关系型数据库与非关系型数据库/" class="post-title-link" itemprop="url">关系型数据库与非关系型数据库</a>
+          
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-04 10:14:37" itemprop="dateCreated datePublished" datetime="2019-09-04T10:14:37+08:00">2019-09-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+            <div style="display: none">
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-04 12:55:17" itemprop="dateModified" datetime="2020-02-04T12:55:17+08:00">2020-02-04</time>
+              </span>
+            </div>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据库/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>870</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>1 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>经常会涉及到 关系型数据库与非关系型数据库 的笔试题，下面用一张表进行梳理</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/08/29/计算机网络/OSI模型与TCPIP模型/#more" rel="contents">
+              <a class="btn" href="/2019/09/04/数据库/关系型数据库与非关系型数据库/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -626,7 +754,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/28/计算机网络/连接与轮询/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/02/浏览器/URL编码/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wei Zhang">
@@ -640,7 +768,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2019/08/28/计算机网络/连接与轮询/" class="post-title-link" itemprop="url">连接 与 轮询</a>
+            <a href="/2019/09/02/浏览器/URL编码/" class="post-title-link" itemprop="url">URL编码</a>
           
         </h1>
 
@@ -656,7 +784,7 @@
                 
               
 
-              <time title="创建时间：2019-08-28 18:58:37" itemprop="dateCreated datePublished" datetime="2019-08-28T18:58:37+08:00">2019-08-28</time>
+              <time title="创建时间：2019-09-02 18:11:37" itemprop="dateCreated datePublished" datetime="2019-09-02T18:11:37+08:00">2019-09-02</time>
             </span>
           
             
@@ -679,7 +807,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/浏览器/" itemprop="url" rel="index"><span itemprop="name">浏览器</span></a></span>
 
                 
                 
@@ -698,7 +826,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>425</span>
+              <span>262</span>
             </span>
           
             <span class="post-meta-item" title="阅读时长">
@@ -721,153 +849,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="长连接-与-短连接"><a href="#长连接-与-短连接" class="headerlink" title="长连接 与 短连接"></a>长连接 与 短连接</h2><ul>
-<li><p>长连接</p>
-<ul>
-<li>只需要建立一次 Tcp 连接，以后 Http 请求重复使用同一个 Tcp 连接</li>
-</ul>
-</li>
-<li><p>短连接</p>
-<ul>
-<li>每次 Http 请求都会建立一个 Tcp 连接</li>
-</ul>
-</li>
-</ul>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>HTTP协议中，参数的传输按照键值对的形式：’key = value‘</p>
+<p>/ ? % # &amp; =是 URL 的保留字符，/是地址分隔符，？后面接参数串，#表示书签，&amp;参数间分隔符，=指定参数值</p>
+<p>当参数内有/ ? % # &amp; = ，是需要进行转义的，为了不与保留字符产生冲突。下表为特殊字符的转义表</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/08/28/计算机网络/连接与轮询/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/27/JavaScript/JS-类数组/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wei Zhang">
-      <meta itemprop="description" content="Dream High.">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wei Zhang">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/08/27/JavaScript/JS-类数组/" class="post-title-link" itemprop="url">JS-类数组</a>
-          
-        </h1>
-
-        <div class="post-meta">
-        
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-27 10:47:47" itemprop="dateCreated datePublished" datetime="2019-08-27T10:47:47+08:00">2019-08-27</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-            <div style="display: none">
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 12:55:16" itemprop="dateModified" datetime="2020-02-04T12:55:16+08:00">2020-02-04</time>
-              </span>
-            </div>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">本文字数：</span>
-              
-              <span>1k</span>
-            </span>
-          
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              
-              <span>1 分钟</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>当我们使用document.querySelectorAll(‘p’) （选择指定的css选择器），返回的就是一个类数组</p>
-<p>它是一个含使用从0开始，且自然递增的整数做键名，并且定义了length表示元素个数的对象</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/08/27/JavaScript/JS-类数组/#more" rel="contents">
+              <a class="btn" href="/2019/09/02/浏览器/URL编码/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -895,7 +883,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/74/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><span class="page-number current">75</span><a class="page-number" href="/page/76/">76</a><span class="space">&hellip;</span><a class="page-number" href="/page/105/">105</a><a class="extend next" rel="next" href="/page/76/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/74/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><span class="page-number current">75</span><a class="page-number" href="/page/76/">76</a><span class="space">&hellip;</span><a class="page-number" href="/page/108/">108</a><a class="extend next" rel="next" href="/page/76/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -944,7 +932,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">522</span>
+          <span class="site-state-item-count">536</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1229,7 +1217,7 @@
       <i class="fa fa-coffee"></i>
       <span> 站点阅读时长 ≈ </span>
     </span>
-    <span title="站点阅读时长">15:35</span>
+    <span title="站点阅读时长">15:49</span>
   </div>
 
 </div>
